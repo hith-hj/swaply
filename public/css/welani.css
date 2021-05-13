@@ -1,0 +1,182 @@
+@font-face {
+    font-family: "Cairo";
+    src: url("../font/cairo.woff2") format("woff2");
+}
+
+body {
+    font-family: 'Cairo' !important;
+}
+
+#welcome-canvas {
+    /* background-color: #575857; */
+    background-color: #303030;
+    background-size: 30% 60%;
+    z-index: -100;
+    top: 0;
+    left: 0;
+    min-height: 100vh;
+    min-width: 100%;
+    position: fixed;
+    /* filter: blur(5px); */
+    /* -webkit-filter: blur(5px); */
+}
+
+.fullpage {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#center {
+    background-color: transparent;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 100%;
+}
+
+#slogan {
+    font-size: 20px;
+    color: #81CB80;
+    text-align: center;
+}
+
+
+/* #logo {
+animation: logo-anim 3s ease forwards 1.5s;
+}
+*/
+
+#logo path:nth-child(1) {
+    stroke-dasharray: 183.01213;
+    stroke-dashoffset: 183.01213;
+    animation: logo-anim 2s ease forwards;
+}
+
+#logo path:nth-child(2) {
+    stroke-dasharray: 183.01213;
+    stroke-dashoffset: 183.01213;
+    animation: logo-anim 2s ease forwards;
+}
+
+#logo path:nth-child(3) {
+    stroke-dasharray: 105.40281;
+    stroke-dashoffset: 105.40281;
+    animation: logo-anim 2.5s ease forwards;
+}
+
+
+/* #text-logo {
+     animation: fill 1s ease forwards 2.5s; 
+} */
+
+#text-logo path:nth-child(1) {
+    stroke-dasharray: 1849.05847;
+    stroke-dashoffset: 1849.05847;
+    animation: logo-anim 8s ease forwards 1s;
+}
+
+.mt20 {
+    margin-top: 20px;
+}
+
+.row {
+    margin-top: 10px;
+    animation: opfill 12s ease-in-out;
+}
+
+.link {
+    color: #81CB80;
+    text-decoration: none;
+    font-size: 1.5rem;
+    border: 2px solid #81CB80;
+    padding: .5rem 1.5rem;
+    transition: .3s ease;
+}
+
+.link:hover,
+.link:focus {
+    background-color: #81cb80;
+    color: black;
+}
+
+@keyframes logo-anim {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes fill {
+    from {
+        fill: transparent;
+    }
+    to {
+        fill: #81CB80;
+    }
+}
+
+@keyframes opfill {
+    0% {
+        opacity: 0;
+    }
+    25% {
+        opacity: 2.5;
+    }
+    50% {
+        opacity: 5;
+    }
+    75% {
+        opacity: 7.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.link-text {
+    padding: 0;
+    line-height: 1.5;
+    background: 0 0;
+    color: #81CB80;
+    position: relative;
+    text-decoration: none;
+    font-size: 2rem;
+    padding: 0 .8rem;
+}
+
+.link-text::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 100%;
+    border-bottom: 1px solid #81CB80;
+    transition: left .3s ease-out
+}
+
+.link-text:focus,
+.link-text:hover {
+    color: #81CB80
+}
+
+.link-text:focus::before,
+.link-text:hover::before {
+    left: 0
+}
+
+.link-text:disabled {
+    color: #999
+}
+
+.link-text:disabled::before {
+    display: none
+}
+
+.top {
+    font-size: .75rem;
+}
