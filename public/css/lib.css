@@ -3,10 +3,11 @@
     src: url(../font/cairo.woff2) format("woff2");
 }
 
-@font-face {
+
+/* @font-face {
     font-family: Masri;
     src: url(../font/masri.woff2) format("woff2");
-}
+} */
 
 :root {
     --bs-blue: #57c56f;
