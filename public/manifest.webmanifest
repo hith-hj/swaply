@@ -3,7 +3,7 @@
     "short_name": "swaply",
     "description": "app for swapping items between people",
     "lang": "ar-EG",
-    "start_url": "/home",
+    "start_url": "/",
     "scope": "./",
     "display": "standalone",
     "theme_color": "#9decae",

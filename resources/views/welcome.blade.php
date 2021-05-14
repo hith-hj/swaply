@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f00" />
+    <meta name="theme-color" content="#9decae" />
     <link rel="shortcut icon" href="imgs/new-logo.png" type="image/x-icon" />
     <link rel="apple-touch-icon-precomposed" href="imgs/new-logo.png" />
     <title>swaply | welcome here</title>
