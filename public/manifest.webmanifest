@@ -2,7 +2,7 @@
     "name": "Swaply",
     "short_name": "swaply",
     "description": "app for swapping items between people",
-    "lang": "ar-EG",
+    "lang": "ar",
     "start_url": "/",
     "scope": "./",
     "display": "standalone",
@@ -26,7 +26,7 @@
         }
     ],
     "icons": [{
-            "src": "/imgs/icons/android/icon-512.png",
+            "src": "/imgs/new-logo.png",
             "sizes": "512x512"
         },
         {
