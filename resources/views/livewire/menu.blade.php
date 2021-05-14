@@ -21,43 +21,15 @@
                             </div>
                             <hr>                            
                             <div class="mb-0 text-muted"> <i class="bi bi-envelope"></i> {{$user->email}}</div>
-                            @if($user->location == 'not-set' && $user->phone == 'not-set')
-                                <div class="location border rounded border-info p-2">
-                                    <label for=""><span>ادخل الموقع</span></label>
-                                    <input type="text" class="form-control" placeholder=" المحافظة-المنطقة/المركز-الحي/القرية" readonly>
-                                    <div class="input-group">
-                                        <input type="text" aria-label="governent" list="covernent-list" class="form-control" wire:model.defer="user_location.covernent">
-                                        <input type="text" aria-label="area"  class="form-control" wire:model.defer="user_location.area">
-                                        <input type="text" aria-label="nighborhood"  class="form-control" wire:model.defer="user_location.naighbor">
-                                    </div>
-                                    <datalist id="covernent-list">
-                                        <option value="القاهرة">
-                                        <option value="الاسكندرية">
-                                        <option value="اسيوط">
-                                        <option value="اسماعيلية">
-                                        <option value="طنطا">
-                                        <option value="سوهاج">
-                                        <option value="اسوان">
-                                        <option value="جينه">
-                                    </datalist>
-                                    <div class="mt-5px" >                                        
-                                        <label for=""><span>ادخل رقم الهاتف</span></label>
-                                        <input type="text" class="form-control" placeholder="0201-01234567" readonly>
-                                        <input class="form-control" type="text" inputmode="numeric" pattern="(02)(01)[0145]\d{7}" wire:model.defer="user_phone" required />
-                                    </div> 
-                                    <span class="bi bi-check cursor btn btn-outline-success mt-1 mb-1  w-100" wire:click="setLocation('{{$user->id}}')"> ارسال</span>                                
+                            <div class="mb-0 text-muted"> <i class="bi bi-phone"></i> {{$user->phone}}</div>
+                            <div class="mb-0 text-muted"> <i class="bi bi-geo-alt"></i> {{$user->location}}</div>
+                            <div class="row">
+                                <div class="col">
+                                    <small title="مبادلاتي" class="glow mx-1"> <i class="bi bi-arrow-down-up"></i> {{$user->swaps}}</small>
+                                    {{-- <small title="تبرعاتي" class="glow mx-1"> <i class="bi bi-person"></i> 0 </small> --}}
+                                    <small title="اغراضي" class="glow mx-1"> <i class="bi bi-card-list"></i> {{count($user->items)}}  </small>
                                 </div>
-                            @else
-                                <div class="mb-0 text-muted"> <i class="bi bi-phone"></i> {{$user->phone}}</div>
-                                <div class="mb-0 text-muted"> <i class="bi bi-geo-alt"></i> {{$user->location}}</div>
-                                <div class="row">
-                                    <div class="col">
-                                        <small title="مبادلاتي" class="glow mx-1"> <i class="bi bi-arrow-down-up"></i> {{$user->swaps}}</small>
-                                        {{-- <small title="تبرعاتي" class="glow mx-1"> <i class="bi bi-person"></i> 0 </small> --}}
-                                        <small title="اغراضي" class="glow mx-1"> <i class="bi bi-card-list"></i> {{count($user->items)}}  </small>
-                                    </div>
-                                </div>
-                            @endif
+                            </div>
                         </div>
                         {{-- <div class="card-footer text-muted text-center">
                             <div class="btn-group py-1" role="group" aria-label="Basic outlined example">

@@ -51,7 +51,6 @@
                 </div>
             </div>            
             @break
-
         @default 
             <div class="text-center m-4" >
                 <div class="spinner-border" role="status">
@@ -59,6 +58,45 @@
                 </div>
             </div>           
     @endswitch
+    @if(Auth::user()->location == 'not-set' && Auth::user()->phone == 'not-set')
+    <div class="smodal ">
+        <div class="card shadow show ani ani_fadeIn p-3 min-wid-300 w-100" >
+            <div class="location border rounded border-info p-2">
+                <label for=""><span>ادخل الموقع</span></label>               
+                <table>
+                    <tr>
+                        <td class="px-2 px-sm-1" ><small>المحافظة</small></td>
+                        <td class="px-3 px-sm-4" ><small>المنطقة</small></td>
+                        <td class="px-2 px-sm-1" ><small>الحي</small></td>
+                    </tr>
+                </table>                
+                <div class="input-group">
+                    <input type="text" aria-label="governent" list="covernent-list" class="form-control" wire:model.defer="user_location.covernent">
+                    
+                    <input type="text" aria-label="area"  class="form-control" wire:model.defer="user_location.area">
+                    
+                    <input type="text" aria-label="nighborhood"  class="form-control" wire:model.defer="user_location.naighbor">
+                </div>
+                <datalist id="covernent-list">
+                    <option value="القاهرة">
+                    <option value="الاسكندرية">
+                    <option value="اسيوط">
+                    <option value="اسماعيلية">
+                    <option value="طنطا">
+                    <option value="سوهاج">
+                    <option value="اسوان">
+                    <option value="جينه">
+                </datalist>
+                <div class="mt-5px" >                                        
+                    <label for=""><span>ادخل رقم الهاتف</span></label>
+                    <input type="text" class="form-control" placeholder="0201-01234567" readonly>
+                    <input class="form-control" type="text" inputmode="numeric" pattern="(02)(01)[0145]\d{7}" wire:model.defer="user_phone" required />
+                </div> 
+                <span class="bi bi-check cursor btn btn-outline-success mt-1 mb-1  w-100" wire:click="setLocation"> ارسال</span>                                
+            </div>
+        </div>
+    </div> 
+    @endif
     <div class="col text-center mspinner" wire:loading >
         <div class="m-4" >
             <div class="spinner-border" role="status">

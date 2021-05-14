@@ -43,19 +43,6 @@ class Menu extends Component
         }
     }
 
-    public function setLocation($user_id){
-        $noti = [['تم اضافة معلومات ','g','حسنا'],['املئ الحقول المطلوبة','r','خطا']];
-        if(is_array($this->user_location) && count($this->user_location) >2 && isset($this->user_phone)){
-            $this->user = User::find(Auth::user()->id);
-            $this->user->location = $this->user_location['covernent'].'-'.$this->user_location['area'].'-'.$this->user_location['naighbor'];
-            $this->user->phone = $this->user_phone;
-            $this->user->save();
-            $this->emit('notifi',$noti[0]);
-        }else{
-            $this->emit('notifi',$noti[1]);
-        }
-    }
-
     public function getNotification()
     {
         return Notifyer::getnotifications(Auth::id());

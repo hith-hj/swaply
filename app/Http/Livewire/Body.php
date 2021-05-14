@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Report;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use App\Models\User;
 
 class Body extends Component
 {
@@ -15,6 +16,8 @@ class Body extends Component
     public $visted = [];
     public $v_ids = [];
     public $problem;
+    public $user_location;
+    public $user_phone;
 
     public function changeBody($to){
         $ids = 0;
@@ -93,8 +96,23 @@ class Body extends Component
         ? $this->emit('notifi',$notis[0]) 
         : $this->emit('notifi',$notis[1]);
         }
-        
     }
+
+    public function setLocation(){
+        $noti = [['تم اضافة معلومات ','g','حسنا'],['املئ الحقول المطلوبة','r','خطا']];
+        if(is_array($this->user_location) && count($this->user_location) >2 && isset($this->user_phone)){
+            $this->user = User::find(Auth::user()->id);
+            $this->user->location = $this->user_location['covernent'].'-'.$this->user_location['area'].'-'.$this->user_location['naighbor'];
+            $this->user->phone = $this->user_phone;
+            $this->user->save();
+            $this->emit('notifi',$noti[0]);
+        }else{
+            $this->emit('notifi',$noti[1]);
+        }
+
+        $this->changeBody('feeds');
+    }
+
 
     public function render()
     {
