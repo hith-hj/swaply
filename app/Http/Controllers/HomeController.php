@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
-use Image;
+use Intervention\Image\Facades\Image;
 
 class HomeController extends Controller
 {
@@ -36,9 +36,7 @@ class HomeController extends Controller
 
     public function addItem(Request $req)
     {
-        // dd('here');
         $directory = $this->getDirectory();
-        // $directory = 'fto';
         $data = $req->all();        
         $collection = [];        
         $vali = Validator::make($req->all(), [
@@ -104,8 +102,7 @@ class HomeController extends Controller
             $this->emit('notifi',$noti);
         }finally{
             return $nameToStore;
-        }
-        
+        }        
     }
 
     /**
@@ -124,15 +121,6 @@ class HomeController extends Controller
             Storage::disk('items')->makeDirectory($directory);
         }
         return $directory;
-    }
-
-    function oldImgUpload()
-    {
-        // $ext = $img->getClientOriginalExtension();
-        // $nameWithExt = $img->getClientOriginalName();
-        // $fileName = pathinfo($nameWithExt,PATHINFO_FILENAME);
-        // $nameToStore = $fileName.'_'.$currentDate.'.'.$ext;
-        // $img->storeAs($directory,$nameToStore,['disk'=>'items']);
     }
 
 }

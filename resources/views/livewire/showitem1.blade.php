@@ -39,7 +39,7 @@
                                 <small class="card-subtitle text-muted m-0" title="بديل الغرض"><i class="mx-1 bi bi-arrow-down-up"></i><span>{{substr($feed->swap_with,0,strlen($feed->swap_with) < 30? strlen($feed->swap_with) : strlen($feed->swap_with)/3)}}</span></small>
                             @endif
                             <small class="card-subtitle text-muted m-0" title="تاريخ النشر"><i class="mx-1 bi bi-calendar-day"></i><span>{{$feed->created_at->diffForHumans()}}</span></small>
-                            <small class="card-subtitle text-muted m-0"> <i class="bi bi-images"></i> {{ count($feed->collection)}} </small>
+                            <small class="card-subtitle text-muted m-0"> <i class="mx-1 bi bi-images"></i> {{ count($feed->collection)}} </small>
                         </div>
                     </div>  
                     <hr>
@@ -50,21 +50,23 @@
                                 @foreach ($feed->collection as $img)
                                     <div class="carousel-item px-2 py-1 {{ $loop->first ? "active" :''}} ani ani_fadeIn1 ani_slow">
                                         @if($feed->collection[0] != 'dark-logo.png')
-                                            <img class="glow px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" >
+                                            <img class="glow px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$img)}}" alt="{{$feed->item_title}}" >
                                         @else 
-                                            <img class="glow px-1" src="{{asset('assets/fto/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" >
+                                            <img class="glow px-1" src="{{asset('assets/fto/'.$feed->collection[0])}}" alt="{{$feed->item_title}}" >
                                         @endif
                                     </div>
                                 @endforeach
                             </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                            <span aria-hidden="true"><i class="bi bi-chevron-right cb"></i></span>
-                            <span class="visually-hidden"></span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                            <span aria-hidden="true"><i class="bi bi-chevron-left cb"></i></span>
-                            <span class="visually-hidden"></span>
-                            </button>
+                            @if(count($feed->collection) > 1)
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                <span aria-hidden="true"><i class="bi bi-chevron-right cb"></i></span>
+                                <span class="visually-hidden"></span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                <span aria-hidden="true"><i class="bi bi-chevron-left cb"></i></span>
+                                <span class="visually-hidden"></span>
+                                </button>
+                            @endif
                         </div>
                     </div>
                     <hr>
