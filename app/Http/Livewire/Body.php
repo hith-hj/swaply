@@ -33,12 +33,13 @@ class Body extends Component
             // $to = $to[0];
         }  
         array_push($this->visted,$to);
-        array_push($this->v_ids,$ids);       
+        array_push($this->v_ids,$ids);      
         $this->body = $to;
         $this->body == 'feeds' ? $this->emitTo('menu','refresh') : '' ;
     }
 
-    public function goBack(){
+    public function goBack()
+    {
         if(sizeof($this->visted) > 1){
             end($this->visted);
             $to = prev($this->visted);        
@@ -54,10 +55,11 @@ class Body extends Component
             $this->g_id = $id;
             unset($this->visted[array_search($to, $this->visted)]);
             unset($this->v_ids[array_search($id, $this->v_ids)]);
-        }
+        } 
     }
 
-    public function goNext(){
+    public function goNext()
+    {
         $noti = ['هتروح فين','b','في ايه'];
         return $this->emit('notifi',$noti);
         if(sizeof($this->visted) >3){
@@ -98,7 +100,8 @@ class Body extends Component
         }
     }
 
-    public function setLocation(){
+    public function setLocation()
+    {
         $noti = [['تم اضافة معلومات ','g','حسنا'],['املئ الحقول المطلوبة','r','خطا']];
         if(is_array($this->user_location) && count($this->user_location) >2 && isset($this->user_phone)){
             $this->user = User::find(Auth::user()->id);

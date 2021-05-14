@@ -39,7 +39,7 @@ document.querySelector(".fullPage").addEventListener('click', (e) => {
     let nav = document.querySelector("#navMenu")
     if (nav.classList.contains("cir-perant") && nav.firstElementChild.classList.contains("hidden") === false) {
         nav.firstElementChild.classList.add("hidden")
-        let icon = nav.querySelector("#cir-icon")
+        let icon = document.querySelector("#cir-icon")
         icon.classList.remove("rotate")
     }
 })

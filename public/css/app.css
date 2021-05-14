@@ -237,20 +237,25 @@ textarea::selection {
 }
 
 .cir-perant {
-    position: absolute;
-    bottom: 1%;
-    right: 2%;
     background-color: #f7f7f7;
     border-radius: 0.27rem;
     cursor: pointer;
     color: #555;
     display: grid;
     place-items: center;
-    z-index: 8;
+    z-index: 7;
+    position: fixed;
+    bottom: 25%;
+    transition: ease-in 1s;
+    animation: show 1s ease forwards;
 }
 
 #cir-menu {
     position: relative;
+}
+
+.rotate {
+    transform: rotate(90deg) scaleX(-1);
 }
 
 #cir-icon {
@@ -258,42 +263,31 @@ textarea::selection {
     display: none;
     place-content: center;
     margin: 0 0.4rem;
-    font-size: 1.4rem !important;
-}
-
-.rotate {
-    transform: rotate(90deg) scaleX(-1);
+    font-size: 2rem !important;
+    position: fixed;
+    bottom: .11rem;
+    right: 2%;
+    z-index: 7;
 }
 
 .cir-list {
-    animation: show 0.5s ease forwards;
     list-style: none;
     width: auto;
     padding: 0;
     margin: 0;
-    border: 0.125rem solid #a4a4a4;
-    border-bottom: none;
+    border: 0.125rem solid #c3c4c3;
     border-radius: 0.2rem;
 }
 
 @keyframes show {
     0% {
-        height: 5rem;
+        right: -5%;
     }
-    20% {
-        height: 10rem;
-    }
-    40% {
-        height: 14rem;
-    }
-    60% {
-        height: 16rem;
-    }
-    80% {
-        height: 18rem;
+    50% {
+        right: 0%;
     }
     100% {
-        height: 20rem;
+        right: 5%;
     }
 }
 
