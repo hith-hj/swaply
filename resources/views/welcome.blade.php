@@ -8,7 +8,7 @@
     <meta name="theme-color" content="#9decae" />
     <link rel="shortcut icon" href="imgs/new-logo.png" type="image/x-icon" />
     <link rel="apple-touch-icon-precomposed" href="imgs/new-logo.png" />
-    <title>swaply | welcome here</title>
+    <title>swaply</title>
     <!-- Styles -->
     <link href="css/welani.css" rel="stylesheet" />
 </head>
