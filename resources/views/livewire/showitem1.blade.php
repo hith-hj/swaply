@@ -39,6 +39,7 @@
                                 <small class="card-subtitle text-muted m-0" title="بديل الغرض"><i class="mx-1 bi bi-arrow-down-up"></i><span>{{substr($feed->swap_with,0,strlen($feed->swap_with) < 30? strlen($feed->swap_with) : strlen($feed->swap_with)/3)}}</span></small>
                             @endif
                             <small class="card-subtitle text-muted m-0" title="تاريخ النشر"><i class="mx-1 bi bi-calendar-day"></i><span>{{$feed->created_at->diffForHumans()}}</span></small>
+                            <small class="card-subtitle text-muted m-0"> <i class="bi bi-images"></i> {{ count($feeds->collection)}} </small>
                         </div>
                     </div>  
                     <hr>
@@ -48,8 +49,11 @@
                             <div class="carousel-inner">
                                 @foreach ($feed->collection as $img)
                                     <div class="carousel-item px-2 py-1 {{ $loop->first ? "active" :''}} ani ani_fadeIn1 ani_slow">
-                                        {{-- <img class="d-block glow w-100 " src="{{asset('assets/items/'.$feed->directory.'/'.$img)}}" alt="{{$feed->item_type}}" > --}}
-                                        <img class="glow px-1" src="{{asset('assets/forTestOnly/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" >
+                                        @if($feed->collection[0] != 'dark-logo.png')
+                                            <img class="glow px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" >
+                                        @else 
+                                            <img class="glow px-1" src="{{asset('assets/fto/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" >
+                                        @endif
                                     </div>
                                 @endforeach
                             </div>

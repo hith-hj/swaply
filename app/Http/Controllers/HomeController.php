@@ -37,8 +37,8 @@ class HomeController extends Controller
     public function addItem(Request $req)
     {
         // dd('here');
-        // $directory = $this->getDirectory();
-        $directory = 'fto';
+        $directory = $this->getDirectory();
+        // $directory = 'fto';
         $data = $req->all();        
         $collection = [];        
         $vali = Validator::make($req->all(), [
@@ -92,8 +92,7 @@ class HomeController extends Controller
         $nameWithExt = $image->getClientOriginalName();                        
         $fileName = pathinfo($nameWithExt,PATHINFO_FILENAME);     
         $nameToStore = $fileName.'_'.$CD.'.'.$ext;     
-        // $filePath = public_path('/assets/items/'.$directory);
-        $filePath = public_path('assets/'.$directory);
+        $filePath = public_path('/assets/items/'.$directory);
         $img = Image::make($image->path());
         try {
             $img->resize($size[0],$size[1])
