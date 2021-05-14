@@ -1,14 +1,14 @@
 {
-    "name": "Swaply",
-    "short_name": "swaply",
+    "name": "Swaply | For better use of things",
+    "short_name": "Swaply",
     "description": "app for swapping items between people",
-    "lang": "ar-EG",
-    "start_url": "/home",
+    "lang": "ar",
+    "start_url": "/",
     "scope": "./",
     "display": "standalone",
-    "theme_color": "#9decae",
+    "theme_color": "#5bab65",
     "orientation": "portrait",
-    "background_color": "#5bab65",
+    "background_color": "#9decae",
     "prefer_related_applications": false,
     "shortcut": [{
             "name": "My items",
@@ -26,28 +26,27 @@
         }
     ],
     "icons": [{
-            "src": "/imgs/icons/android/icon-512.png",
+            "src": "/imgs/icons/android/android-launchericon-512-512.png",
             "sizes": "512x512"
         },
         {
-            "src": "/imgs/icons/android/icon-192.png",
+            "src": "/imgs/icons/android/android-launchericon-192-192.png",
             "sizes": "192x192"
         },
         {
-            "src": "/imgs/icons/android/icon-144.png",
-            "sizes": "144x144",
-            "purpose": "any maskable"
+            "src": "/imgs/icons/android/android-launchericon-144-144.png",
+            "sizes": "144x144"
         },
         {
-            "src": "/imgs/icons/android/icon-96.png",
+            "src": "/imgs/icons/android/android-launchericon-96-96.png",
             "sizes": "96x96"
         },
         {
-            "src": "/imgs/icons/android/icon-72.png",
+            "src": "/imgs/icons/android/android-launchericon-72-72.png",
             "sizes": "72x72"
         },
         {
-            "src": "/imgs/icons/android/icon-48.png",
+            "src": "/imgs/icons/android/android-launchericon-48-48.png",
             "sizes": "48x48"
         }
     ],
