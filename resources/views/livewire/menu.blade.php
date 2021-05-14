@@ -263,7 +263,7 @@
         </li>
     </ul>
     <div id="myModal" class="hidden smodal ">
-        <div id="dataForm" class="card shadow show ani ani_slideInUp p-3 min-wh w-100" >
+        <div id="dataForm" class="card shadow show ani ani_fadeIn p-3 min-wh w-100" >
             <form id="add-item-form" class="text-centerz" onsubmit="AddItem(event)" method="POST" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-8">
