@@ -36,7 +36,8 @@ class HomeController extends Controller
 
     public function addItem(Request $req)
     {
-        $directory = $this->getDirectory();
+        // $directory = $this->getDirectory();
+        $directory = 'forTestOnly';
         $data = $req->all();        
         $collection = [];        
         $vali = Validator::make($req->all(), [
