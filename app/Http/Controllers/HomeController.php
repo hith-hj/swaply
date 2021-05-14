@@ -101,7 +101,7 @@ class HomeController extends Controller
             ->save($filePath.'/'.$nameToStore);
         } catch (\Throwable $th) {
             $nameToStore = 'dark-logo.png';
-            $noti = ['حدث خطا ما اثنء رفع الصور','r','خطا'];
+            $noti = ['حدث خطا ما اثناء رفع الصور','r','خطا'];
             $this->emit('notifi',$noti);
         }finally{
             return $nameToStore;
