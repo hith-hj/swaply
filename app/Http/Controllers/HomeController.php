@@ -86,7 +86,7 @@ class HomeController extends Controller
      */
     private function imgResizer(object $image,string $directory):string
     {
-        $CD = Carbon::now()->format('D-h-i-s-ms');
+        $CD = Carbon::now()->format('i-s-ms');
         $size = [400,250];
         $ext = $image->extension();
         $nameWithExt = $image->getClientOriginalName();                        
