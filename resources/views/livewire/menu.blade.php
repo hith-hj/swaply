@@ -295,7 +295,7 @@
                 <textarea name="item_description" wrap="hard" class="form-control mb-1" rows="2" title="اختياري" placeholder="وصف عن الغرض"></textarea>
                 <div id="imgs_collection" hidden></div>
                 <div class="js-upload upload mb-1" uk-form-custom>
-                    <input name="item_imgs[]" multiple required type="file" id="itemgs" onchange="displayUploadedImages(event)" hidden>
+                    <input name="item_imgs" multiple required type="file" id="itemgs" onchange="displayUploadedImages(event)" hidden>
                     <label for="itemgs" class="cursor sbtn-txt " tabindex="0"> <i class="bi bi-images"></i>
                         أختر صور</label>
                 </div>

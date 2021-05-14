@@ -260,7 +260,7 @@ function getData(form) {
         if (form[i].name == 'submit_btn') {
             continue;
         }
-        if (form[i].name == 'item_imgs[]') {
+        if (form[i].name == 'item_imgs') {
             for (var j = 0; j < form[i].files.length; j++) {
                 data.append(form[i].name, form[i].files[j])
             }
