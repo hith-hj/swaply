@@ -36,6 +36,7 @@ class HomeController extends Controller
 
     public function addItem(Request $req)
     {
+        dd('here');
         // $directory = $this->getDirectory();
         $directory = 'forTestOnly';
         $data = $req->all();        
