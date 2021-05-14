@@ -38,7 +38,7 @@ class HomeController extends Controller
     {
         // dd('here');
         // $directory = $this->getDirectory();
-        $directory = 'forTestOnly';
+        $directory = 'fto';
         $data = $req->all();        
         $collection = [];        
         $vali = Validator::make($req->all(), [
@@ -86,7 +86,7 @@ class HomeController extends Controller
      */
     private function imgResizer(object $image,string $directory):string
     {
-        $CD = Carbon::now()->format('i-s-ms');
+        $CD = Carbon::now()->format('h-i-s-ms');
         $size = [400,250];
         $ext = $image->extension();
         $nameWithExt = $image->getClientOriginalName();                        
