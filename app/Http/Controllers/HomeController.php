@@ -95,10 +95,18 @@ class HomeController extends Controller
         // $filePath = public_path('/assets/items/'.$directory);
         $filePath = public_path('assets/'.$directory);
         $img = Image::make($image->path());
-        $img->resize($size[0],$size[1])
+        try {
+            $img->resize($size[0],$size[1])
             ->insert('imgs/mark.png', 'bottom-right',10,10)
             ->save($filePath.'/'.$nameToStore);
-        return $nameToStore;
+        } catch (\Throwable $th) {
+            $nameToStore = 'dark-logo.png';
+            $noti = ['حدث خطا ما اثنء رفع الصور','r','خطا'];
+            $this->emit('notifi',$noti);
+        }finally{
+            return $nameToStore;
+        }
+        
     }
 
     /**
