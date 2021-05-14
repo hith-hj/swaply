@@ -37,7 +37,8 @@
                     <div class="cursor" wire:click="$emitTo('body','changeBody',['showitem','{{$feed->id}}'])" title="عرض المنشور">
                         <small class="card-text"><span>{{$feed->item_info}}</span></small><br>
                         <div class="d-flex justify-content-evenly mt-2" >
-                            <img class="glow px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" >
+                            {{-- <img class="glow px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" > --}}
+                            <img class="glow px-1" src="{{asset('assets/forTestOnly/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" >
                         </div>
                     </div>
                     <hr>

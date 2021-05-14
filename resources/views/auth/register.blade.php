@@ -37,9 +37,9 @@
                                 <x-input class="form-control-light" id="email" placeholder="{{__('البريد الالكتروني')}}" type="text" inputmode="email" name="email" :value="old('email')" required autocomplete="email"/>
                             </div>
 
-                            <div class="mt-5px" >
+                            {{-- <div class="mt-5px" >
                                 <x-input class="form-control-light" id="phone" placeholder="{{__('الهاتف المحمول')}}" type="text" inputmode="numeric" pattern="(02)(01)[0145]\d{7}" placeholder="0201-01234567" name="phone" :value="old('phone')" required autocomplete="phone"/>
-                            </div>
+                            </div> --}}
 
                             <div class="mt-5px" >
                                 <x-input class="form-control-light" id="password" placeholder="{{__('كلمة المرور')}}" type="password" name="password" required autocomplete="new-password" />

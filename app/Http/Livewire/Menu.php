@@ -12,6 +12,7 @@ use App\Models\User;
 class Menu extends Component
 {
     public $user_location;
+    public $user_phone;
     protected $listeners = ['refresh'];
     protected $user;
 
@@ -32,7 +33,7 @@ class Menu extends Component
 
     public function getUser()
     {
-        $this->user = User::find(Auth::user()->id);
+        $this->user = User::find(Auth::id());
         $this->user->items = Item::all()->where('user_id',Auth::user()->id)->sortByDesc('created_at');
         $this->user->swaps = Swap::where('user_id','=',Auth::id())->orWhere('sender_id','=',Auth::id())->count();
         $this->user->notification = Notifyer::getnotifications(Auth::id());
@@ -43,10 +44,11 @@ class Menu extends Component
     }
 
     public function setLocation($user_id){
-        $noti = [['تم اضافة معلومات الموقع','g','حسنا'],['املئ الحقول المطلوبة','r','خطا']];
-        if(is_array($this->user_location) && count($this->user_location) >2){
+        $noti = [['تم اضافة معلومات ','g','حسنا'],['املئ الحقول المطلوبة','r','خطا']];
+        if(is_array($this->user_location) && count($this->user_location) >2 && isset($this->user_phone)){
             $this->user = User::find(Auth::user()->id);
             $this->user->location = $this->user_location['covernent'].'-'.$this->user_location['area'].'-'.$this->user_location['naighbor'];
+            $this->user->phone = $this->user_phone;
             $this->user->save();
             $this->emit('notifi',$noti[0]);
         }else{

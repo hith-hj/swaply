@@ -5,15 +5,15 @@
                 <i class="bi bi-house"></i>
             </span>
         </li>
-        <li class="cursor ver-li" title="معلوماتي">
+        <li class="cursor ver-li " title="معلوماتي" >
             <div class="dropend">
-                <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-30,5" aria-expanded="false">
+                <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-60,5" aria-expanded="false">
                     <i class="bi bi-person "></i>
                     @if($user->location == 'not-set') 
-                        <span class="bi bi-exclamation-circle red-alert icon-sm-5"></span>
+                        <span class="bi bi-exclamation-circle red-alert icon-sm ani ani_flash ani_loop"></span>
                     @endif
                 </span>
-                <div class="dropdown-menu min-wid-300 px-1">
+                <div class="dropdown-menu min-wid-300 px-1 {{$user->location == 'not-set' ? 'show ani ani_pulse ani_repeat-3' :''}}">
                     <div class="card shadow-sm position-relative text-center">
                         <div class="p-1 position-static">
                             <div class="card-header">
@@ -21,9 +21,8 @@
                             </div>
                             <hr>                            
                             <div class="mb-0 text-muted"> <i class="bi bi-envelope"></i> {{$user->email}}</div>
-                            <div class="mb-0 text-muted"> <i class="bi bi-phone"></i> {{$user->phone}}</div>
-                            @if($user->location == 'not-set')
-                                <div class="location border rounded border-info">
+                            @if($user->location == 'not-set' && $user->phone == 'not-set')
+                                <div class="location border rounded border-info p-2">
                                     <label for=""><span>ادخل الموقع</span></label>
                                     <input type="text" class="form-control" placeholder=" المحافظة-المنطقة/المركز-الحي/القرية" readonly>
                                     <div class="input-group">
@@ -41,18 +40,24 @@
                                         <option value="اسوان">
                                         <option value="جينه">
                                     </datalist>
-                                    <i class="bi bi-check cursor" wire:click="setLocation('{{$user->id}}')"></i>                                    
+                                    <div class="mt-5px" >                                        
+                                        <label for=""><span>ادخل رقم الهاتف</span></label>
+                                        <input type="text" class="form-control" placeholder="0201-01234567" readonly>
+                                        <input class="form-control" type="text" inputmode="numeric" pattern="(02)(01)[0145]\d{7}" wire:model.defer="user_phone" required />
+                                    </div> 
+                                    <span class="bi bi-check cursor btn btn-outline-success mt-1 mb-1  w-100" wire:click="setLocation('{{$user->id}}')"> ارسال</span>                                
                                 </div>
                             @else
+                                <div class="mb-0 text-muted"> <i class="bi bi-phone"></i> {{$user->phone}}</div>
                                 <div class="mb-0 text-muted"> <i class="bi bi-geo-alt"></i> {{$user->location}}</div>
-                            @endif
-                            <div class="row">
-                                <div class="col">
-                                    <small title="مبادلاتي" class="glow mx-1"> <i class="bi bi-arrow-down-up"></i> {{$user->swaps}}</small>
-                                    {{-- <small title="تبرعاتي" class="glow mx-1"> <i class="bi bi-person"></i> 0 </small> --}}
-                                    <small title="اغراضي" class="glow mx-1"> <i class="bi bi-card-list"></i> {{count($user->items)}}  </small>
+                                <div class="row">
+                                    <div class="col">
+                                        <small title="مبادلاتي" class="glow mx-1"> <i class="bi bi-arrow-down-up"></i> {{$user->swaps}}</small>
+                                        {{-- <small title="تبرعاتي" class="glow mx-1"> <i class="bi bi-person"></i> 0 </small> --}}
+                                        <small title="اغراضي" class="glow mx-1"> <i class="bi bi-card-list"></i> {{count($user->items)}}  </small>
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                         </div>
                         {{-- <div class="card-footer text-muted text-center">
                             <div class="btn-group py-1" role="group" aria-label="Basic outlined example">
@@ -258,15 +263,15 @@
         </li>
     </ul>
     <div id="myModal" class="hidden smodal ">
-        <div id="dataForm" class="show ani ani_slideInUp px-1 min-wh" role="menu" style="position: initial">
+        <div id="dataForm" class="card shadow show ani ani_slideInUp p-3 min-wh w-100" >
             <form id="add-item-form" class="text-centerz" onsubmit="AddItem(event)" method="POST" enctype="multipart/form-data">
                 <div class="row">
-                    <div class="col-10">
+                    <div class="col-8">
                         <label class="form-label" >مكان الغرض</label>
                         <small id="setLocation" class="cursor btn glow" title="اضف موقعي" onclick="setItemLocation('{{Auth::user()->location}}')"> <i class="bi bi-geo-alt "></i> </small>
                         <small id="resetLocation" class="cursor btn glow hidden" title="إعادة ضبط" onclick="resetItemLocation()"> <i class="bi bi-arrow-repeat "></i> </small>
                     </div>
-                    <div class="col-1">
+                    <div class="col-1 offset-2">
                         <i class="bi bi-x icon-15" onclick="document.querySelector('#myModal').classList.toggle('hidden')"></i>
                     </div>
                 </div>
@@ -286,21 +291,21 @@
                     <input type="text" name="item_location_area" aria-label="Last name" required class="form-control">
                     <input type="text" name="item_location_naighbor" aria-label="Last name" required class="form-control">
                 </div>
-                <input type="text" id="location-input" class="form-control hidden mb-1" name="item_location" readonly>
+                <input name="item_location" type="text" id="location-input" class="form-control hidden mb-1 w-100"  readonly>
                 
-                <input name="item_title" type="text" class="form-control mb-1" required placeholder="اسم الغرض" aria-label="location" aria-describedby="location-input">
+                <input name="item_title" type="text" class="form-control mb-1" placeholder="اسم الغرض" required>
                 
-                <input id="swap_with" name="swap_with" type="text" placeholder="عايز تبدل الغرض بأيه" class="form-control mb-1" title="الاسم واضح" required>
+                <input name="swap_with" type="text" id="swap_with" placeholder="عايز تبدل الغرض بأيه" class="form-control mb-1" title="الاسم واضح" required>
 
                 <textarea name="item_description" wrap="hard" class="form-control mb-1" rows="2" title="اختياري" placeholder="وصف عن الغرض"></textarea>
                 <div id="imgs_collection" hidden></div>
                 <div class="js-upload upload mb-1" uk-form-custom>
-                    <input name="item_imgs" multiple required type="file" id="itemgs" onchange="displayUploadedImages(event)" hidden>
+                    <input name="item_imgs[]" multiple required type="file" id="itemgs" onchange="displayUploadedImages(event)" hidden>
                     <label for="itemgs" class="cursor sbtn-txt " tabindex="0"> <i class="bi bi-images"></i>
                         أختر صور</label>
                 </div>
                 <div class="text-center">
-                    <button id="submit-form" type="submit" name="submit_btn" class="sbtn sbtn-txt">
+                    <button id="submit-form" type="submit" name="submit_btn" class="btn btn-outline-success w-100 mt-2">
                         <i class="bi bi-cloud-arrow-up icon-15"></i> رفع</button>
                 </div>
                     @csrf

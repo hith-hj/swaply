@@ -92,7 +92,7 @@ class HomeController extends Controller
         $fileName = pathinfo($nameWithExt,PATHINFO_FILENAME);     
         $nameToStore = $fileName.'_'.$CD.'.'.$ext;     
         // $filePath = public_path('/assets/items/'.$directory);
-        $filePath = public_path('items/'.$directory);
+        $filePath = public_path('/assets/'.$directory);
         $img = Image::make($image->path());
         $img->resize($size[0],$size[1])
             ->insert('imgs/mark.png', 'bottom-right',10,10)

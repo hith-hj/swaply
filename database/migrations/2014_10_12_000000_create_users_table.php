@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('phone');
+            $table->string('phone')->default('not-set');
             $table->string('location')->default('not-set');
             $table->string('status')->default(000);
             $table->string('set-ref')->default(000);

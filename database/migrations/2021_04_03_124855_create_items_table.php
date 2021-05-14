@@ -19,7 +19,7 @@ class CreateItemsTable extends Migration
             $table->string('item_type');
             $table->string('item_title');
             $table->string('item_info');
-            $table->string('collection');
+            $table->text('collection');
             $table->string('swap_with');
             $table->string('item_location');
             $table->string('directory');

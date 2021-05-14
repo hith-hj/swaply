@@ -47,7 +47,8 @@
                             <div class="carousel-inner">
                                 @foreach ($feed->collection as $img)
                                     <div class="carousel-item px-2 py-1 {{ $loop->first ? "active" :''}} ani ani_fadeIn1 ani_slow">
-                                        <img class="d-block glow w-100 " src="{{asset('assets/items/'.$feed->directory.'/'.$img)}}" alt="{{$feed->item_type}}" >
+                                        {{-- <img class="d-block glow w-100 " src="{{asset('assets/items/'.$feed->directory.'/'.$img)}}" alt="{{$feed->item_type}}" > --}}
+                                        <img class="glow px-1" src="{{asset('assets/forTestOnly/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" >
                                     </div>
                                 @endforeach
                             </div>
@@ -118,7 +119,7 @@
                     </div>
                 </div>
                 @if($feed->status == 1 )
-                    @if($feed->user_id == Auth::id())
+                    @if($feed->user_id == Auth::id() && count($feed->requests) > 0)
                         <div class="card-footer text-centerz">
                             <div class="alert alert-success" role="alert">
                                 <div class="row">

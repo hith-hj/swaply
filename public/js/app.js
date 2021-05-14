@@ -207,7 +207,7 @@ function displayUploadedImages(ev) {
     var count = files.length;
     if (count > 5) {
         files = [];
-        notify("max 5 imgs", 'warning');
+        notify("max 5 images", 'r', 'hold');
     } else {
         for (let i = 0; i < files.length; i++) {
             // console.log(files[i])
@@ -217,8 +217,8 @@ function displayUploadedImages(ev) {
             div.classList.add('d-inline-block', 'text-center', );
             img.setAttribute('src', window.URL.createObjectURL(files[i]));
             img.setAttribute('class', 'uploaded-img animation-fade');
-            img.setAttribute('width', '52');
-            img.setAttribute('height', '52');
+            img.setAttribute('width', '80');
+            img.setAttribute('height', '80');
             img.setAttribute('id', 'img_' + files[i].size);
             itag.setAttribute('id', 'rem_' + files[i].size);
             itag.setAttribute('class', 'bi bi-x');
@@ -260,7 +260,7 @@ function getData(form) {
         if (form[i].name == 'submit_btn') {
             continue;
         }
-        if (form[i].name == 'item_imgs') {
+        if (form[i].name == 'item_imgs[]') {
             for (var j = 0; j < form[i].files.length; j++) {
                 data.append(form[i].name, form[i].files[j])
             }
@@ -281,6 +281,7 @@ function sendData(url, method, data) {
         resetForm();
         if (res.status == 200 || res.statusText == "OK") {
             Livewire.emit('changeBody', 'items');
+            Livewire.emit('getFeeds');
             return notify("تم اضافة غرضك", 'g', 'حسنا');
         }
         notify(res.msg, 'r', ' حدث خطا ما');
