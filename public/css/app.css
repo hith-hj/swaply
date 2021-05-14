@@ -71,6 +71,14 @@ html {
     border: 0.125rem dashed #d3d3d3;
     border-radius: 0.125rem;
     cursor: pointer;
+    padding: .2rem;
+}
+
+.uploaded-img {
+    padding: 0.1rem;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
 }
 
 #add-item textarea {
@@ -627,4 +635,26 @@ textarea::selection {
     transform: translate(0, -50%);
     opacity: .5;
     color: green;
+}
+
+.smodal {
+    display: grid;
+    place-items: center;
+    place-content: center;
+    min-width: 100vw;
+    min-height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 0.5rem 0;
+    font-size: 1rem;
+    background-color: #f4fbf0ed;
+    border: 0.0625rem solid #d3d5d1ed;
+    border-radius: 0.25rem;
+    z-index: 10;
+}
+
+.min-wh {
+    min-height: 22rem !important;
+    min-width: 280px !important;
 }

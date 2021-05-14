@@ -216,7 +216,7 @@ function displayUploadedImages(ev) {
             var itag = document.createElement('i');
             div.classList.add('d-inline-block', 'text-center', );
             img.setAttribute('src', window.URL.createObjectURL(files[i]));
-            img.setAttribute('class', 'img-thumbnail animation-fade');
+            img.setAttribute('class', 'uploaded-img animation-fade');
             img.setAttribute('width', '52');
             img.setAttribute('height', '52');
             img.setAttribute('id', 'img_' + files[i].size);
@@ -226,7 +226,7 @@ function displayUploadedImages(ev) {
             div.appendChild(img);
             div.appendChild(itag);
             gal.appendChild(div);
-            gal.classList.add('mb-1', 'border', 'rounded');
+            gal.classList.add('mb-1', 'border', 'rounded', 'p-1');
         }
     }
 }

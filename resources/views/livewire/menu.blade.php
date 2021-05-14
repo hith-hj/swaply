@@ -100,7 +100,7 @@
                 </div>
             </div>
         </li>
-        <li class="cursor ver-li" title="اضافة غرض جديد" id="addItemForm">
+        {{-- <li class="cursor ver-li" title="اضافة غرض جديد" id="addItemForm">
             <div class="dropend dataForm">
                 <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-150,6" aria-expanded="false">
                     <i class="bi bi-plus-square-dotted icon-25"></i>
@@ -163,7 +163,14 @@
                 </div>
                 
             </div>
-        </li>        
+        </li> --}}
+        <li class="cursor ver-li" title="اضافة غرض جديد" id="addItemForm">
+            <div class="dataForm">
+                <span class="ver-link" onclick="document.querySelector('#myModal').classList.toggle('hidden')">
+                    <i class="bi bi-plus-square-dotted icon-25"></i>
+                </span>               
+            </div>
+        </li> 
         <li class="cursor ver-li" title="صفحات">
             <div class="dropend">
                 <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-50,6" aria-expanded="false">
@@ -250,5 +257,55 @@
             </div>
         </li>
     </ul>
+    <div id="myModal" class="hidden smodal ">
+        <div id="dataForm" class="show ani ani_slideInUp px-1 min-wh" role="menu" style="position: initial">
+            <form id="add-item-form" class="text-centerz" onsubmit="AddItem(event)" method="POST" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-10">
+                        <label class="form-label" >مكان الغرض</label>
+                        <small id="setLocation" class="cursor btn glow" title="اضف موقعي" onclick="setItemLocation('{{Auth::user()->location}}')"> <i class="bi bi-geo-alt "></i> </small>
+                        <small id="resetLocation" class="cursor btn glow hidden" title="إعادة ضبط" onclick="resetItemLocation()"> <i class="bi bi-arrow-repeat "></i> </small>
+                    </div>
+                    <div class="col-1">
+                        <i class="bi bi-x icon-15" onclick="document.querySelector('#myModal').classList.toggle('hidden')"></i>
+                    </div>
+                </div>
+                <small><span>محافظة-المنطقة او المركز-الحي او القرية</span></small>
+                <div id="location-group" class="input-group mb-1" title="محافظة-المنطقة او المركز-الحي او القرية">
+                    <select name="item_location_covernent"  required class="form-select">
+                        <option id="location-inputz" ></option>
+                        <option value="القاهرة"> <span>القاهرة</span> </option>
+                        <option value="الاسكندرية"> <span>الاسكندرية</span> </option>
+                        <option value="اسيوط"> <span>اسيوط</span> </option>
+                        <option value="اسماعيلية"> <span>اسماعيلية</span> </option>
+                        <option value="طنطا"> <span>طنطا</span> </option>
+                        <option value="سوهاج"> <span>سوهاج</span> </option>
+                        <option value="اسوان"> <span>اسوان</span> </option>
+                        <option value="جينه"> <span>جينه</span> </option>
+                    </select>
+                    <input type="text" name="item_location_area" aria-label="Last name" required class="form-control">
+                    <input type="text" name="item_location_naighbor" aria-label="Last name" required class="form-control">
+                </div>
+                <input type="text" id="location-input" class="form-control hidden mb-1" name="item_location" readonly>
+                
+                <input name="item_title" type="text" class="form-control mb-1" required placeholder="اسم الغرض" aria-label="location" aria-describedby="location-input">
+                
+                <input id="swap_with" name="swap_with" type="text" placeholder="عايز تبدل الغرض بأيه" class="form-control mb-1" title="الاسم واضح" required>
+
+                <textarea name="item_description" wrap="hard" class="form-control mb-1" rows="2" title="اختياري" placeholder="وصف عن الغرض"></textarea>
+                <div id="imgs_collection" hidden></div>
+                <div class="js-upload upload mb-1" uk-form-custom>
+                    <input name="item_imgs[]" multiple required type="file" id="itemgs" onchange="displayUploadedImages(event)" hidden>
+                    <label for="itemgs" class="cursor sbtn-txt " tabindex="0"> <i class="bi bi-images"></i>
+                        أختر صور</label>
+                </div>
+                <div class="text-center">
+                    <button id="submit-form" type="submit" name="submit_btn" class="sbtn sbtn-txt">
+                        <i class="bi bi-cloud-arrow-up icon-15"></i> رفع</button>
+                </div>
+                    @csrf
+            </form>
+        </div>
+    </div> 
     <label id="cir-icon" class="cursor"><i class="bi bi-list"></i></label>
 </div>
