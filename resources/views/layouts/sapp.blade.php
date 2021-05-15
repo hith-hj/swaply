@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
     <head>
-        <link rel="manifest" href="manifest.webmanifest">
+        <link rel="manifest" href="./manifest.webmanifest">
         <meta charset="utf-8">
         <meta name="theme-color" content="#9decae">
         <meta name="csrf-token" content="{{ csrf_token() }}">
