@@ -55,7 +55,14 @@ window.addEventListener('hide.bs.dropdown', function(e) {
 
 window.addEventListener("load", menuView);
 window.addEventListener("resize", menuView);
-
+let _clicks = 0;
+window.addEventListener("click", (e) => {
+    if (_clicks == 5) {
+        Livewire.emit('getFeeds')
+        Livewire.emit('refresh')
+        _clicks = 0
+    }
+});
 
 //end listener 
 
