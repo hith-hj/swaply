@@ -9,4 +9,6 @@ if ("serviceWorker" in navigator) {
                 console.error("Error registering the Service Worker: ", error);
             });
     })
+} else {
+    console.log('wtf');
 }
