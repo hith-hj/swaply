@@ -30,8 +30,8 @@
                         
                         <div class="col">
                             <div wire:click="$emitTo('body','changeBody',['showitem','{{$swap->sender_item->id}}'])" title=" عرض {{$swap->sender_item->item_title}}">
-                                <small class="card-text"> <i class="bi bi-card-text"></i> {{$swap->sender_item->item_title}} </small> |
-                                <small class="text-muted "> <i class="bi bi-justify-right"></i> <span>{{$swap->sender_item->item_info}}</span></small><hr>
+                                <small class="card-text"> <i class="mx-1 bi bi-card-text"></i> {{$swap->sender_item->item_title}} </small>
+                                <small class="text-muted "> <i class="mx-1 bi bi-justify-right"></i> <span>{{$swap->sender_item->item_info}}</span></small><hr>
                                 <div class="d-flex justify-content-evenly mt-5px" wire:loading.grid >
                                     <img class=" glow" src="{{asset('assets/items/'.$swap->sender_item->directory.'/'.$swap->sender_item->collection[0])}}" width="180" alt="{{$swap->sender_item->item_type}}" >
                                 </div><hr>
