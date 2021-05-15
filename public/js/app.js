@@ -116,16 +116,18 @@ inbox.addEventListener('touchstart', e => {
 }, { passive: true });
 
 inbox.addEventListener('touchmove', e => {
-    const y = e.touches[0].pageY;
+    let y = e.touches[0].pageY;
+    y = y / 2;
     // Activate custom pull-to-refresh effects when at the top of the container
     // and user is scrolling up.
     if (document.scrollingElement.scrollTop === 0 && y > _startY &&
         !document.body.classList.contains('refreshing')) {
-        Livewire.emit('getFeeds')
+        Livewire.emit('changeBody', 'feeds');
+        console.log('erre');
     }
 }, { passive: true });
 
-// end handel bapull reffresh ck btn
+// end handel bull reffresh ck btn
 
 function notify(msg, status, head) {
     let notifi = document.querySelector("#notification");
@@ -296,8 +298,7 @@ function sendData(url, method, data) {
     }).then(res => res.json()).then((res) => {
         resetForm();
         if (res.status == 200 || res.statusText == "OK") {
-            Livewire.emit('changeBody', 'items');
-            Livewire.emit('getFeeds');
+            Livewire.emit('changeBody', 'feeds');
             return notify("تم اضافة غرضك", 'g', 'حسنا');
         }
         notify(res.msg, 'r', ' حدث خطا ما');

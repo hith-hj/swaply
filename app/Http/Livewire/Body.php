@@ -102,8 +102,13 @@ class Body extends Component
 
     public function setLocation()
     {
-        $noti = [['تم اضافة معلومات ','g','حسنا'],['املئ الحقول المطلوبة','r','خطا']];
+        $noti = [['تم اضافة معلومات ','g','حسنا'],['املئ الحقول المطلوبة','r','خطا'],['الرثم المدخل لايطابق الشروط','r','خطا'],];
         if(is_array($this->user_location) && count($this->user_location) >2 && isset($this->user_phone)){
+            preg_match('/(02)(01)[0145]\d{7}/',$this->user_phone,$mat);
+            if(count($mat) < 3)
+            {
+                return $this->emit('notifi',$noti[2]);
+            }
             $this->user = User::find(Auth::user()->id);
             $this->user->location = $this->user_location['covernent'].'-'.$this->user_location['area'].'-'.$this->user_location['naighbor'];
             $this->user->phone = $this->user_phone;
@@ -113,7 +118,7 @@ class Body extends Component
             $this->emit('notifi',$noti[1]);
         }
 
-        $this->changeBody('feeds');
+        $this->emit('changeBody','feeds');
     }
 
 

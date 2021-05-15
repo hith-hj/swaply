@@ -40,13 +40,16 @@ class HomeController extends Controller
         $data = $req->all();        
         $collection = [];        
         $vali = Validator::make($req->all(), [
+            "item_title" => "alpha_dash",
+            "swap_with"=>"alpha",
+            "item_description"=>"string",
             "item_imgs"    => "required|array",
             "item_imgs.*"  => "image|mimes:jpg,png|max:2048",
         ]);
         if($vali->fails()){
          return response()->json([
              'status'=>'400',
-             'msg'=>'خطأ , اما احجام الصور كبيرة او نوع الصورة غير مناسب']);
+             'msg'=>'اما المعلومات المدخلة غير صحيحة او احجام الصور كبيرة او غير مناسبة']);
         }
         foreach($data['item_imgs'] as $key => $img){
             if($img->isFile()){
