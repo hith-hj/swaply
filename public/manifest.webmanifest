@@ -13,16 +13,23 @@
     "shortcuts": [{
             "name": "My items",
             "short_name": "items",
-            "description": "View my item list",
-            "url": "/items?ud=###?source=pwa",
-            "icons": [{ "src": "/imgs/new-logo.png", "sizes": "512x512" }]
+            "description": "View my items",
+            "url": "/home/body=items?source=pwa",
+            "icons": [{ "src": "/imgs/mark.png", "sizes": "512x512" }]
         },
         {
-            "name": "interaction",
+            "name": "Requests",
+            "short_name": "reqs",
+            "description": "View Requests",
+            "url": "/home/body=requests?source=pwa",
+            "icons": [{ "src": "/imgs/mark.png", "sizes": "512x512" }]
+        },
+        {
+            "name": "Swaps",
             "short_name": "swaps",
-            "description": "View swaps and offers",
-            "url": "/interact?ud=###?source=pwa",
-            "icons": [{ "src": "/imgs/new-logo.png", "sizes": "512x512" }]
+            "description": "View my swaps",
+            "url": "/home/body=swpas?source=pwa",
+            "icons": [{ "src": "/imgs/mark.png", "sizes": "512x512" }]
         }
     ],
     "icons": [{
