@@ -35,10 +35,12 @@
                                                 @break
                                             @case(1)
                                                 <div class="alert alert-success" role="alert">
-                                                    <span>تم قبول الطلب  <span>{{$req->updated_at->diffForHumans()}}</span> </span><br>
-                                                    <small> <span>معلومات التواصل</span></small><br> 
+                                                    <span>تم قبول الطلب  <span>{{$req->updated_at->diffForHumans()}}</span> </span><br>                                                    
+                                                    <small> <span>معلومات التواصل</span></small>
                                                     <small> <i class="bi bi-person"></i><span> {{$req->user->name}} </span> </small> <br>   
-                                                    <small> <a href="tel:+2{{$req->user->phone}}"><i class="bi bi-phone"></i><span> {{$req->user->phone}}</span></a></small> 
+                                                    <small> <a href="tel:+2{{$req->user->phone}}"><i class="bi bi-phone"></i><span> {{$req->user->phone}}</span></a></small> <br>
+                                                    <small><a href="whatsapp://send?phone=+{{$req->user->phone}}&text=Swaply"><i class="bi bi-whatsapp mx-2" > Whatsapp</i></a></small><br>
+                                                
                                                 </div>
                                                 @break
                                             @default

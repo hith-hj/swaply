@@ -11,7 +11,7 @@
                     </div>   
                     <hr>
                     <div class="row">
-                        <div class="col br-dark">
+                        <div class="col">
                             <div wire:click="$emitTo('body','changeBody',['showitem','{{$swap->user_item->id}}'])" title=" عرض {{$swap->user_item->item_title}}">
                                 <small class="text-muted"> <i class="bi bi-card-text"></i> {{$swap->user_item->item_title}} </small> |
                                 <small class="text-muted"> <i class="bi bi-justify-right"></i> <span>{{$swap->user_item->item_info}}</span></small><hr>
@@ -28,7 +28,7 @@
                             </div>
                         </div>
                         
-                        <div class="col br-success">
+                        <div class="col">
                             <div wire:click="$emitTo('body','changeBody',['showitem','{{$swap->sender_item->id}}'])" title=" عرض {{$swap->sender_item->item_title}}">
                                 <small class="card-text"> <i class="bi bi-card-text"></i> {{$swap->sender_item->item_title}} </small> |
                                 <small class="text-muted "> <i class="bi bi-justify-right"></i> <span>{{$swap->sender_item->item_info}}</span></small><hr>
