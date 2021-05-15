@@ -4,7 +4,7 @@
     "description": "app for swapping items between people",
     "lang": "ar",
     "start_url": "/",
-    "scope": "./",
+    "scope": "/",
     "display": "standalone",
     "theme_color": "#5bab65",
     "orientation": "portrait",
