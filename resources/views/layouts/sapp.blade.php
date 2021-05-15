@@ -40,7 +40,7 @@
     </body>
     @livewireScripts
     <script src="{{asset('js/app.js')}}" ></script> 
-    
+    <script src="{{asset('rej.js')}}"></script>
     <script src="{{asset('js/popper.min.js')}}" defer></script> 
     <script src="{{asset('js/bootstrap.min.js')}}" defer></script>
     

@@ -6,6 +6,7 @@
 /vold
 /.vscode
 /public/assets
+/public/imgs
 .env
 .env.backup
 .phpunit.result.cache
