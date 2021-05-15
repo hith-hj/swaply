@@ -56,7 +56,7 @@ window.addEventListener('hide.bs.dropdown', function(e) {
 window.addEventListener("load", menuView);
 window.addEventListener("resize", menuView);
 let _clicks = 0;
-window.addEventListener("click", (e) => {
+window.addEventListener("touchstart", (e) => {
     if (_clicks == 5) {
         Livewire.emit('getFeeds')
         Livewire.emit('refresh')
