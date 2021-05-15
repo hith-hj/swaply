@@ -40,8 +40,8 @@ class HomeController extends Controller
         $data = $req->all();        
         $collection = [];        
         $vali = Validator::make($req->all(), [
-            "item_title" => "alpha_dash",
-            "swap_with"=>"alpha",
+            "item_title" => "string",
+            "swap_with"=>"string",
             "item_description"=>"string",
             "item_imgs"    => "required|array",
             "item_imgs.*"  => "image|mimes:jpg,png|max:2048",
