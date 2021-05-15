@@ -5,6 +5,7 @@
 /vendor
 /vold
 /.vscode
+/public/assets
 .env
 .env.backup
 .phpunit.result.cache
