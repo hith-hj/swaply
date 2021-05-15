@@ -13,17 +13,17 @@ class Body extends Component
     protected $body = 'feeds';
     public $g_id = null;
     public $show = null;
-    public $visted = [];
-    public $v_ids = [];
+    public $visted = [['feeds',0]];
+    public $forward = [0];
     public $problem;
     public $user_location;
     public $user_phone;
 
     public function changeBody($to){
-        $ids = 0;
+        $cid = 0;
         if(is_array($to)){
             $this->g_id = $to[1];
-            $ids = $to[1];
+            $cid = $to[1];
             if($to[0] == 'showitem' && $this->show == 'showitem'){
                 $to = $to[0].'1';
             }else{
@@ -31,48 +31,36 @@ class Body extends Component
             }
             $this->show = $to;
             // $to = $to[0];
-        }  
-        array_push($this->visted,$to);
-        array_push($this->v_ids,$ids);      
+        }
+        $last = [$to,$cid];
+        array_push($this->visted,$last);     
         $this->body = $to;
         $this->body == 'feeds' ? $this->emitTo('menu','refresh') : '' ;
     }
 
     public function goBack()
     {
-        if(sizeof($this->visted) > 1){
+        if(sizeof($this->visted) > 1 ){
+            array_values($this->visted);
             end($this->visted);
-            $to = prev($this->visted);        
-            end($this->v_ids);
-            $id = prev($this->v_ids); 
-            if($to == 'showitem' && $this->show == 'showitem'){
-                $to = $to.'1';
-            }else{
-                $to = $to;
-            }
-            $this->show = $to;
-            $this->body = $to;
-            $this->g_id = $id;
-            unset($this->visted[array_search($to, $this->visted)]);
-            unset($this->v_ids[array_search($id, $this->v_ids)]);
-        } 
+            $temp = count($this->visted) == 1 ? $this->visted[0] : prev($this->visted);
+            $this->body = $temp[0];
+            $this->g_id = $temp[1];           
+            $last = array_pop($this->visted);  
+            array_push($this->forward ,$last);
+        }else{
+            $noti = ['','b','خلصو خلاص'];
+            $this->emit('notifi',$noti);
+        }
     }
 
     public function goNext()
     {
-        $noti = ['هتروح فين','b','في ايه'];
-        return $this->emit('notifi',$noti);
-        if(sizeof($this->visted) >3){
-            $to = $this->visted[array_search($this->body, $this->visted)+1];
-            $id = $this->v_ids[array_search($this->g_id, $this->visted)+1];
-            if($to == 'showitem' && $this->show == 'showitem'){
-                $to = $to.'1';
-            }else{
-                $to = $to;
-            }
-            $this->show = $to;
-            $this->body = $to;
-            $this->g_id = $id;
+        if(sizeof($this->forward) >1){
+            $temp = end($this->forward);
+            $this->body = $temp[0];
+            $this->g_id = $temp[1];
+            array_pop($this->forward);
         }else{
             $noti = ['هتروح فين','b','في ايه'];
             $this->emit('notifi',$noti);
@@ -120,7 +108,6 @@ class Body extends Component
 
         $this->emit('changeBody','feeds');
     }
-
 
     public function render()
     {
