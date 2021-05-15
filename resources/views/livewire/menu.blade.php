@@ -183,7 +183,7 @@
                     <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" >
                         <i class="bi bi-bell "></i>
                         @if(count($user->notification) >0 )
-                            <span class="bi bi-exclamation-circle red-alert icon-sm-5"></span>
+                            <span class="bi bi-exclamation-circle red-alert icon-sm"></span>
                         @endif
                     </span>
                     <div class="dropdown-menu min-wid-300 px-2">
@@ -286,6 +286,11 @@
             </div>
         </div> 
     </div>
-    
-    <label id="cir-icon" class="cursor"><i class="bi bi-list"></i></label>
+
+    <span  id="cir-icon" class="cursor" >
+        <i class="bi bi-list"></i>
+        @if(count($user->notification) >0 )
+            <span class="bi bi-dot red-alert icon-2"></span>
+        @endif
+    </span>
 </div>

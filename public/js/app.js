@@ -116,8 +116,7 @@ inbox.addEventListener('touchstart', e => {
 }, { passive: true });
 
 inbox.addEventListener('touchmove', e => {
-    let y = e.touches[0].pageY;
-    y = y;
+    const y = e.touches[0].pageY;
     // Activate custom pull-to-refresh effects when at the top of the container
     // and user is scrolling up.
     if (document.scrollingElement.scrollTop === 0 && y > _startY &&

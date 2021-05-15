@@ -136,9 +136,11 @@
                                         </small>
                                     </div>
                                 </div>
-                                <small> <span>معلومات التواصل</span></small><br> 
+                                <small> <span>معلومات التواصل</span></small>
                                 <small> <i class="bi bi-person"></i><span> {{$feed->sender->name}} </span> </small> <br>   
-                                <small> <a href="tel:+2{{$feed->sender->phone}}"><i class="bi bi-phone"></i><span> {{$feed->sender->phone}}</span></a></small> 
+                                <small> <a href="tel:+2{{$feed->sender->phone}}"><i class="bi bi-phone"></i><span> {{$feed->sender->phone}}</span></a></small> <br>
+                                <small><a href="whatsapp://send?phone=+{{$feed->sender->phone}}&text=Swaply"><i class="bi bi-whatsapp mx-2" > Whatsapp</i></a></small><br>
+                                <small><a href="tg://msg?text=Swaply&to=+{{$feed->sender->phone}}"></a> <i class="bi bi-telegram mx-2" > Telegram</i></small>
                             </div>
                         </div>
                     @else 
