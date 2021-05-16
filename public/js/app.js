@@ -131,6 +131,8 @@ inbox.addEventListener('touchmove', e => {
     if (document.scrollingElement.scrollTop === 0 && y > _startY &&
         !document.body.classList.contains('refreshing')) {
         Livewire.emit('changeBody', 'feeds');
+        Livewire.emit('getFeeds');
+        Livewire.emit('refresh');
         console.log('erre');
     }
 }, { passive: true });
