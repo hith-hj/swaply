@@ -15,15 +15,20 @@
                         @endif
                     </span>
                     <div class="dropdown-menu min-wid-300 px-1 {{$user->location == 'not-set' ? 'show ani ani_pulse ani_repeat-3' :''}}">
-                        <div class="card shadow-sm position-relative text-center">
-                            <div class="p-1 position-static">
-                                <div class="card-header">
-                                    <h5 class="mb-0"> {{$user->name}}</h5>
+                        <div class="card shadow-sm position-relative p-1">
+                            <div class="card-header row px-1">
+                                <div class="col-8">
+                                    <h5>{{$user->name}}</h5>
                                 </div>
-                                <hr>                            
+                                <div class="col-2 offset-1 hidden">
+                                    <span class="cursor icon-1 link-dark" onclick="document.querySelector('#editMyInfoModal').classList.toggle('hidden')"><i class="bi bi-pencil-square"></i></span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="card-body">
+                                <div class="mb-0 text-muted"> <i class="bi bi-geo-alt"></i> {{$user->location}}</div>
                                 <div class="mb-0 text-muted"> <i class="bi bi-envelope"></i> {{$user->email}}</div>
                                 <div class="mb-0 text-muted"> <i class="bi bi-phone"></i> {{$user->phone}}</div>
-                                <div class="mb-0 text-muted"> <i class="bi bi-geo-alt"></i> {{$user->location}}</div>
                                 <div class="row">
                                     <div class="col">
                                         <small title="مبادلاتي" class="glow mx-1"> <i class="bi bi-arrow-down-up"></i> {{$user->swaps}}</small>
@@ -32,12 +37,6 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="card-footer text-muted text-center">
-                                <div class="btn-group py-1" role="group" aria-label="Basic outlined example">
-                                    <button type="button" class="btn btn-outline-dark btn-sm"><i class="bi bi-gear ml-1"></i><span>اعداداتي</span></button>
-                                    <button type="button" class="btn btn-outline-success btn-sm"><i class="bi bi-pencil-square mx-1"></i><span>معلوماتي</span></button>
-                                </div>
-                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -80,7 +79,7 @@
             </li>
             <li class="cursor ver-li" title="اضافة غرض جديد" id="addItemForm">
                 <div class="dataForm">
-                    <span class="ver-link" onclick="document.querySelector('#myModal').classList.toggle('hidden')">
+                    <span class="ver-link" onclick="document.querySelector('#newItemModal').classList.toggle('hidden')">
                         <i class="bi bi-plus-square-dotted icon-25"></i>
                     </span>               
                 </div>
@@ -167,7 +166,7 @@
                 </div>
             </li>
         </ul>
-        <div id="myModal" class="hidden smodal ">
+        <div id="newItemModal" class="hidden smodal">
             <div id="dataForm" class="card shadow show ani ani_fadeIn p-3 min-wh w-100" >
                 <form id="add-item-form" class="text-centerz" onsubmit="AddItem(event)" method="POST" enctype="multipart/form-data">
                     <div class="row">
@@ -177,7 +176,7 @@
                             <small id="resetLocation" class="cursor btn glow border hidden" title="إعادة ضبط" onclick="resetItemLocation()"> <i class="bi bi-arrow-repeat "></i> </small>
                         </div>
                         <div class="col-1 offset-2">
-                            <i class="bi bi-x icon-15" onclick="document.querySelector('#myModal').classList.toggle('hidden')"></i>
+                            <i class="bi bi-x icon-15" onclick="document.querySelector('#newItemModal').classList.toggle('hidden')"></i>
                         </div>
                     </div>
                     <small>
@@ -228,7 +227,54 @@
                         @csrf
                 </form>
             </div>
-        </div> 
+        </div>
+        <div id="editMyInfoModal" class="hidden smodal">
+            <div class="card shadow show ani ani_fadeIn p-2 w-100">
+                    <div class="row">
+                        <div class="col-8">
+                            <label class="form-label" >تعديل معلوماتي</label>
+                        </div>
+                        <div class="col-1 offset-2">
+                            <i class="bi bi-x icon-15" onclick="document.querySelector('#editMyInfoModal').classList.toggle('hidden')"></i>
+                        </div>
+                    </div> 
+                    <div class="location">
+                        <label for=""><span>ادخل الموقع</span></label>               
+                        <table>
+                            <tr>
+                                <td class="px-2 px-sm-1" ><small>المحافظة</small></td>
+                                <td class="px-3 px-sm-4" ><small>المنطقة</small></td>
+                                <td class="px-2 px-sm-1" ><small>الحي</small></td>
+                            </tr>
+                        </table>                
+                        <div class="input-group">
+                            <input type="text" aria-label="governent" list="covernent-list" class="form-control" zwire:model.defer="user_location.covernent">
+                            
+                            <input type="text" aria-label="area"  class="form-control" zwire:model.defer="user_location.area">
+                            
+                            <input type="text" aria-label="nighborhood"  class="form-control" zwire:model.defer="user_location.naighbor">
+                        </div>
+                        <datalist id="covernent-list">
+                            <option value="القاهرة">
+                            <option value="الاسكندرية">
+                            <option value="اسيوط">
+                            <option value="اسماعيلية">
+                            <option value="طنطا">
+                            <option value="سوهاج">
+                            <option value="اسوان">
+                            <option value="جينه">
+                        </datalist>
+                        <div class="mt-5px" >                                        
+                            <label for=""><span>ادخل رقم الهاتف</span></label><br>
+                            <label for=""><small>(0201-01234567)</small></label>
+                            <input class="form-control" type="text" inputmode="numeric" zwire:model.defer="user_phone" required />
+                        </div> 
+                        <span class="bi bi-check icon-1 cursor btn btn-outline-success mt-1 mb-1 w-100" zwire:click="setLocation">حفظ</span>                                
+                    </div>
+            </div>
+        </div>
+        
+        
     </div>
 
     <span  id="cir-icon" class="cursor" >

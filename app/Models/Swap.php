@@ -11,5 +11,5 @@ class Swap extends Model
     protected $table ='swaps';
     protected $primarykey='id';
     public $timestamp='true';
-    protected $fillable=['request_id','user_id','sender_id','item_id','sender_item',];
+    protected $fillable=['request_id','user_id','sender_id','item_id','sender_item','user_item_rate','sender_item_rate'];
 }

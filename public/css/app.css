@@ -178,6 +178,10 @@ textarea::selection {
     cursor: pointer;
 }
 
+.baned {
+    cursor: not-allowed;
+}
+
 .cb {
     color: #000 !important;
 }
