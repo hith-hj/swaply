@@ -1,10 +1,10 @@
 <div>
     first
     @if (empty($feed) && count($feed) <= 0 )
-    <div class="alert alert-light mt-5px ani ani_fadeIn" role="alert">
-        <h3>عذرا عزيزي المشترك</h3>
-        <p>من الممكن ان يكون قد تم حذف او ازالة المنشور </p><br>
-    </div>
+        <div class="alert alert-light mt-5px ani ani_fadeIn" role="alert">
+            <h3>عذرا عزيزي المشترك</h3>
+            <p>من الممكن ان يكون قد تم حذف او ازالة المنشور </p><br>
+        </div>
     @else
         <div class="col mt-5px ani ani_fadeIn " >
             <div class="card shadow">
@@ -45,28 +45,16 @@
                     <hr>
                     <div title="معرض الصور">
                         <small class="card-text"><span>{{$feed->item_info}}</span></small><br>
-                        <div id="carouselExampleControls" class="carousel slide text-center carousel-fade" data-bs-ride="carousel">
-                            <div class="carousel-inner">
-                                @foreach ($feed->collection as $img)
-                                    <div class="carousel-item px-2 py-1 {{ $loop->first ? "active" :''}} ani ani_fadeIn1 ani_slow">
-                                        @if($feed->collection[0] != 'dark-logo.png')
-                                            <img class="glow px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$img)}}" alt="{{$feed->item_title}}" >
-                                        @else 
-                                            <img class="glow px-1" src="{{asset('assets/fto/'.$feed->collection[0])}}" alt="{{$feed->item_title}}" >
-                                        @endif
-                                    </div>
-                                @endforeach
+                        <div id="carouselExampleControls" class="carousel slide text-center carousel-fade" data-bs-ride="carousel" >
+                            <div class="carousel-inner" onclick="document.querySelector('#showItemImages').classList.toggle('hidden')">
+                                <div class="carousel-item px-2 py-1 active ani ani_fadeIn1 ani_slow">
+                                    @if($feed->collection[0] != 'dark-logo.png')
+                                        <img class="glow px-1 " src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_title}}" >
+                                    @else 
+                                        <img class="glow px-1 " src="{{asset('assets/fto/'.$feed->collection[0])}}" alt="{{$feed->item_title}}" >
+                                    @endif
+                                </div>
                             </div>
-                            @if(count($feed->collection) > 1)
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                                <span aria-hidden="true"><i class="bi bi-chevron-right cb"></i></span>
-                                <span class="visually-hidden"></span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                                <span aria-hidden="true"><i class="bi bi-chevron-left cb"></i></span>
-                                <span class="visually-hidden"></span>
-                                </button>
-                            @endif
                         </div>
                     </div>
                     <hr>
@@ -125,6 +113,42 @@
                         </div>
                     </div>
                 </div>
+
+                <div id="showItemImages" class="hidden smodal ani ani_slideInDown" style="background: #e1eee0fb;z-index:12; ">
+                    <div class="ani ani_fadeIn p-2 w-100">
+                        <div id="showFullImage" class="carousel slide text-center carousel-fade" data-bs-ride="carousel" >
+                            <i class="bi bi-x close-gallery cursor" onclick="document.querySelector('#showItemImages').classList.add('hidden')"></i>
+                            <div class="carousel-inner ">
+                                @foreach ($feed->collection as $img)                                  
+                                    <div class="carousel-item px-2 py-1 {{ $loop->first ? "active" :''}} ani ani_fadeIn1 ani_slow text-center">
+                                        @if($feed->collection[0] != 'dark-logo.png')
+                                            <img class="glow px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$img)}}" alt="{{$feed->item_title}}" >
+                                        @else 
+                                            <img class="glow px-1" src="{{asset('assets/fto/'.$feed->collection[0])}}" alt="{{$feed->item_title}}" >
+                                        @endif
+                                        <br>
+                                        <br>
+                                        <span class="h4 text-muted">{{$loop->index + 1}}</span>
+                                    </div>                                                                                                                                     
+                                @endforeach
+                            </div>
+                            
+                        </div>
+                        @if(count($feed->collection) > 1)
+                               <div class="text-center">
+                                    <button class="sbtn sbtn-txt carousel-control-prevz mx-3" type="button" data-bs-target="#showFullImage" data-bs-slide="next">
+                                        <span aria-hidden="true"><i class="bi bi-chevron-right icon-2 cb"></i></span>
+                                        <span class="visually-hidden"></span>
+                                    </button>
+                                    <button class="sbtn sbtn-txt carousel-control-nextz mx-3" type="button" data-bs-target="#showFullImage" data-bs-slide="prev">
+                                        <span aria-hidden="true"><i class="bi bi-chevron-left icon-2 cb"></i></span>
+                                        <span class="visually-hidden"></span>
+                                    </button>
+                                </div> 
+                        @endif
+                    </div>
+                </div>
+
                 @if($feed->status == 1 )
                     @if($feed->user_id == Auth::id() && count($feed->requests) > 0)
                         <div class="card-footer text-centerz">
@@ -132,7 +156,7 @@
                                 <div class="row">
                                     <div class="col " >
                                         <small> عملية التبادل ناجحة</small>
-                                        <small class="p-1">البديل 
+                                        <small class="p-1">البديل
                                             <strong class="cursor" wire:click="$emit('changeBody',['showitem','{{$feed->sender_item->id}}'])">{{$feed->sender_item->item_title}}</strong>
                                         </small>
                                     </div>

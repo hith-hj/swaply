@@ -156,7 +156,7 @@
                                     <div class="col " >
                                         <small> عملية التبادل ناجحة</small>
                                         <small class="p-1">البديل
-                                                <strong class="cursor" wire:click="$emit('changeBody',['showitem','{{$feed->sender_item->id}}'])">{{$feed->sender_item->item_title}}</strong>
+                                            <strong class="cursor" wire:click="$emit('changeBody',['showitem','{{$feed->sender_item->id}}'])">{{$feed->sender_item->item_title}}</strong>
                                         </small>
                                     </div>
                                 </div>
