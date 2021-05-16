@@ -318,8 +318,11 @@ function removeImageFromUploaded(id) {
                 sbtn.disabled = false;
                 spiner.classList.add('hidden');
                 return notify("تم اضافة غرضك", 'g', 'حسنا');
+            } else {
+                notify(res.msg, 'r', ' حدث خطا ما');
+                sbtn.disabled = false;
+                spiner.classList.add('hidden');
             }
-            notify(res.msg, 'r', ' حدث خطا ما');
         }).catch((err) => {
             console.log(err);
             sbtn.disabled = false;
