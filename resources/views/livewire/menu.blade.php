@@ -211,7 +211,11 @@
                     </div>
                     <div class="text-center">
                         <button id="submit-form" type="submit" name="submit_btn" class="btn btn-outline-success w-100 mt-2">
-                            <i class="bi bi-cloud-arrow-up icon-15"></i> رفع</button>
+                            <div class="spinner-border m-2 hidden" id="formLoading" style="height: 1rem;width:1rem"> 
+                                <span class="visually-hidden"></span>
+                            </div>
+                            <i class="bi bi-cloud-arrow-up icon-15"></i> رفع
+                        </button>
                     </div>
                         @csrf
                 </form>
