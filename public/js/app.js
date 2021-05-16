@@ -262,66 +262,71 @@ function removeImageFromUploaded(id) {
     var rem = document.querySelector('#rem_' + id);
     del.parentNode.removeChild(del);
     rem.parentNode.removeChild(rem);
-}
-
-function AddItem(event) {
-    event.preventDefault();
+} {
     let sbtn = document.getElementById("submit-form");
     let spiner = document.getElementById("formLoading");
-    sbtn.disabled = true;
-    spiner.classList.remove('hidden');
-    let form = document.getElementById('add-item-form');
 
-    let data = getData(form);
-    if (data == 'isEmpty') {
-        return notify('الرجاء ملئ الحقول المطلوبة ', 'danger');
-    }
-    let url = "/addItem";
-    let method = 'POST';
+    function AddItem(event) {
+        event.preventDefault();
+        sbtn.disabled = true;
+        spiner.classList.toggle('hidden');
 
-    sendData(url, method, data);
-    sbtn.disabled = false;
-    spiner.classList.add('hidden');
-}
-
-function getData(form) {
-    let data = new FormData();
-    for (let i = 0; i < form.length; i++) {
-        // if (form[i].value == '') {
-        //     return data = 'isEmpty'
-        // }
-        if (form[i].name == 'submit_btn') {
-            continue;
+        let form = document.getElementById('add-item-form');
+        let data = getData(form);
+        if (data == 'isEmpty') {
+            return notify('الرجاء ملئ الحقول المطلوبة ', 'danger');
         }
-        if (form[i].name == 'item_imgs[]') {
-            for (var j = 0; j < form[i].files.length; j++) {
-                data.append(form[i].name, form[i].files[j])
+        let url = "/addItem";
+        let method = 'POST';
+
+        sendData(url, method, data);
+
+    }
+
+    function getData(form) {
+        let data = new FormData();
+        for (let i = 0; i < form.length; i++) {
+            // if (form[i].value == '') {
+            //     return data = 'isEmpty'
+            // }
+            if (form[i].name == 'submit_btn') {
+                continue;
             }
-            continue;
+            if (form[i].name == 'item_imgs[]') {
+                for (var j = 0; j < form[i].files.length; j++) {
+                    data.append(form[i].name, form[i].files[j])
+                }
+                continue;
+            }
+            data.append(form[i].name, form[i].value);
         }
-        data.append(form[i].name, form[i].value);
+        return data;
     }
-    return data;
-}
 
-function sendData(url, method, data) {
-    let token = document.querySelector('meta[name="csrf-token"]');
-    let x;
-    fetch(url, {
-        method: method,
-        body: data
-    }).then(res => res.json()).then((res) => {
-        resetForm();
-        if (res.status == 200 || res.statusText == "OK") {
-            Livewire.emit('changeBody', 'feeds');
-            return notify("تم اضافة غرضك", 'g', 'حسنا');
-        }
-        notify(res.msg, 'r', ' حدث خطا ما');
-    }).catch((err) => {
-        console.log(err);
-        notify("حدث خطا ما . حاول لاحقا", 'r', 'للاسف');
-    });
-    return;
+    function sendData(url, method, data) {
+        let token = document.querySelector('meta[name="csrf-token"]');
+        fetch(url, {
+            method: method,
+            body: data
+        }).then(res => res.json()).then((res) => {
+            resetForm();
+            if (res.status == 200 || res.statusText == "OK") {
+                Livewire.emit('changeBody', 'feeds');
+                Livewire.emitTo('feeds', 'getFeeds');
+                sbtn.disabled = false;
+                spiner.classList.add('hidden');
+                return notify("تم اضافة غرضك", 'g', 'حسنا');
+            }
+            notify(res.msg, 'r', ' حدث خطا ما');
+        }).catch((err) => {
+            console.log(err);
+            sbtn.disabled = false;
+            spiner.classList.add('hidden');
+            return notify("حدث خطا ما . حاول لاحقا", 'r', 'للاسف');
+        });
+
+    }
+
 }
 
 function resetForm() {

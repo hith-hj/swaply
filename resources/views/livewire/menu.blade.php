@@ -173,14 +173,22 @@
                     <div class="row">
                         <div class="col-8">
                             <label class="form-label" >مكان الغرض</label>
-                            <small id="setLocation" class="cursor btn glow" title="اضف موقعي" onclick="setItemLocation('{{Auth::user()->location}}')"> <i class="bi bi-geo-alt "></i> </small>
-                            <small id="resetLocation" class="cursor btn glow hidden" title="إعادة ضبط" onclick="resetItemLocation()"> <i class="bi bi-arrow-repeat "></i> </small>
+                            <small id="setLocation" class="cursor btn glow border" title="اضف موقعي" onclick="setItemLocation('{{Auth::user()->location}}')"> <i class="bi bi-geo-alt "></i> </small>
+                            <small id="resetLocation" class="cursor btn glow border hidden" title="إعادة ضبط" onclick="resetItemLocation()"> <i class="bi bi-arrow-repeat "></i> </small>
                         </div>
                         <div class="col-1 offset-2">
                             <i class="bi bi-x icon-15" onclick="document.querySelector('#myModal').classList.toggle('hidden')"></i>
                         </div>
                     </div>
-                    <small><span>محافظة-المنطقة او المركز-الحي او القرية</span></small>
+                    <small>
+                        <table>
+                            <tr>
+                                <td class="px-4 "><small>المحافظة</small></td>
+                                <td class="px-5 "><small>المنطقة</small></td>
+                                <td class="px-4 "><small>الحي</small></td>
+                            </tr>
+                        </table>
+                    </small>
                     <div id="location-group" class="input-group mb-1" title="محافظة-المنطقة او المركز-الحي او القرية">
                         <select name="item_location_covernent"  required class="form-select">
                             <option id="location-inputz" ></option>
@@ -196,18 +204,18 @@
                         <input type="text" name="item_location_area" aria-label="Last name" required class="form-control">
                         <input type="text" name="item_location_naighbor" aria-label="Last name" required class="form-control">
                     </div>
-                    <input name="item_location" type="text" id="location-input" class="form-control hidden mb-1 w-100"  readonly>
-                    
+                    <input name="item_location" type="text" id="location-input" class="form-control hidden mb-1 w-100" readonly>
+
                     <input name="item_title" type="text" class="form-control mb-1" placeholder="اسم الغرض" required>
-                    
+
                     <input name="swap_with" type="text" id="swap_with" placeholder="عايز تبدل الغرض بأيه" class="form-control mb-1" title="الاسم واضح" required>
 
                     <textarea name="item_description" wrap="hard" class="form-control mb-1" rows="2" title="اختياري" placeholder="وصف عن الغرض"></textarea>
                     <div id="imgs_collection" hidden></div>
                     <div class="js-upload upload mb-1" uk-form-custom>
                         <input name="item_imgs[]" multiple required type="file" id="itemgs" onchange="displayUploadedImages(event)" hidden>
-                        <label for="itemgs" class="cursor sbtn-txt " tabindex="0"> <i class="bi bi-images"></i>
-                            أختر صور</label>
+                        <button class="cursor sbtn sbtn-txt" tabindex="0" type="button" onclick="document.querySelector('#itemgs').click()"> <i class="bi bi-images"></i>
+                            أختر صور</button>
                     </div>
                     <div class="text-center">
                         <button id="submit-form" type="submit" name="submit_btn" class="btn btn-outline-success w-100 mt-2">
