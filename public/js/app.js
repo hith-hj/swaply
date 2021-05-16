@@ -266,17 +266,19 @@ function removeImageFromUploaded(id) {
 
 function AddItem(event) {
     event.preventDefault();
-    let form = document.getElementById('add-item-form');
     let sbtn = document.getElementById("submit-form");
     let spiner = document.getElementById("formLoading");
+    sbtn.disabled = true;
+    spiner.classList.remove('hidden');
+    let form = document.getElementById('add-item-form');
+
     let data = getData(form);
     if (data == 'isEmpty') {
         return notify('الرجاء ملئ الحقول المطلوبة ', 'danger');
     }
     let url = "/addItem";
     let method = 'POST';
-    sbtn.disabled = true;
-    spiner.classList.remove('hidden');
+
     sendData(url, method, data);
     sbtn.disabled = false;
     spiner.classList.add('hidden');
