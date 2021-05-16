@@ -44,7 +44,7 @@ class HomeController extends Controller
             "swap_with"=>"string",
             "item_description"=>"string",
             "item_imgs"    => "required|array",
-            "item_imgs.*"  => "image|mimes:jpg,png|max:2048",
+            "item_imgs.*"  => "image|mimes:jpg,png|max:5000",
         ]);
         if($vali->fails()){
          return response()->json([

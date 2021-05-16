@@ -130,8 +130,8 @@ inbox.addEventListener('touchmove', e => {
     // and user is scrolling up.
     if (document.scrollingElement.scrollTop === 0 && y > _startY &&
         !document.body.classList.contains('refreshing')) {
-        Livewire.emit('changeBody', 'feeds');
         Livewire.emit('getFeeds');
+        Livewire.emit('changeBody', 'feeds');
         Livewire.emit('refresh');
         console.log('erre');
     }
