@@ -92,7 +92,14 @@
                         <label for=""><small>(0201-01234567)</small></label>
                         <input class="form-control" type="text" inputmode="numeric" wire:model.defer="user_phone" required />
                     </div> 
-                    <span class="bi bi-check icon-1 cursor btn btn-outline-success mt-1 mb-1 w-100" wire:click="setLocation">حفظ</span>                                
+                    <span class="bi bi-check icon-1 cursor btn btn-outline-success mt-1 mb-1 w-100" wire:loading.class="hidden" wire:click="setLocation">حفظ</span> 
+                    <div class="col text-center mspinner" wire:loading >
+                        <div class="m-4" >
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden"></span>
+                            </div>
+                        </div> 
+                    </div>                               
                 </div>
             </div>
         </div> 

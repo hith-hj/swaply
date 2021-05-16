@@ -48,16 +48,18 @@ class Feeds extends Component
             {
                 foreach($requests as $req)
                 {
-                    // if($feed->id == $req->item_id){
                     if($feed->id == $req->item_id || $feed->id == $req->sender_item){
                         $this->feeds->forget($key);
                     }
                 }
             }
         }
-        $myItem = Item::where('user_id','=',Auth::id())->orderByDesc('updated_at')->take(2)->get();
-        foreach($myItem as $item){
-            $this->feeds->push($item);
+
+        $myItem = Item::Where('user_id','=',Auth::id())->orderByDesc('updated_at')->get()->last();
+
+        if(isset($myItem))
+        {
+            $this->feeds->prepend($myItem);
         }
         
         $this->feeds->each(function($feed){
@@ -69,10 +71,7 @@ class Feeds extends Component
                 ])->get();
         });
 
-        // $this->feeds->sortByDesc('created_at');
-        
-        // dd($this->feeds);
-
+        $this->feeds->sortByDesc('updated_at');
     }
 
     public function savePost($postId,$user_id)

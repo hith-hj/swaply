@@ -657,3 +657,11 @@ textarea::selection {
     min-height: 22rem !important;
     min-width: 20% !important;
 }
+
+.close-gallery {
+    font-size: 2rem;
+    position: fixed;
+    top: 5%;
+    border: 2px solid #aaa;
+    border-radius: 50px;
+}
