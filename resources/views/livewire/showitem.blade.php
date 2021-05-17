@@ -113,7 +113,7 @@
                     </div>
                 </div>
 
-                <div id="showItemImages" class="hidden smodal ani ani_fadeIn" style="background: #e1eee0fb;z-index:12; ">
+                <div id="showItemImages" class="hidden smodal ani ani_fadeIn text-center" style="background: #e1eee0fb;z-index:12; ">
                     <div class="ani ani_fadeIn p-2 w-100">
                         <div id="showFullImage" class="carousel slide text-center carousel-fade" data-bs-ride="carousel" >
                             <i class="bi bi-x close-gallery cursor" onclick="document.querySelector('#showItemImages').classList.add('hidden')"></i>
@@ -127,18 +127,18 @@
                                         @endif
                                         <br>
                                         <br>
-                                        <span class="h4 text-muted">{{$loop->index + 1}}</span>
+                                        <span class="h4 text-muted ani ani_fadeIn">{{$loop->index + 1}}</span>
                                     </div>                                                                                                                                     
                                 @endforeach
                             </div>                            
                         </div>
                         @if(count($feed->collection) > 1)
                                <div class="text-center">
-                                    <button class="sbtn sbtn-txt carousel-control-prevz mx-3" type="button" data-bs-target="#showFullImage" data-bs-slide="next">
+                                    <button class="sbtn sbtn-txt carousel-control-prevz mx-5" type="button" data-bs-target="#showFullImage" data-bs-slide="next">
                                         <span aria-hidden="true"><i class="bi bi-chevron-right icon-2 cb"></i></span>
                                         <span class="visually-hidden"></span>
                                     </button>
-                                    <button class="sbtn sbtn-txt carousel-control-nextz mx-3" type="button" data-bs-target="#showFullImage" data-bs-slide="prev">
+                                    <button class="sbtn sbtn-txt carousel-control-nextz mx-5" type="button" data-bs-target="#showFullImage" data-bs-slide="prev">
                                         <span aria-hidden="true"><i class="bi bi-chevron-left icon-2 cb"></i></span>
                                         <span class="visually-hidden"></span>
                                     </button>

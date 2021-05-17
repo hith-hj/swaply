@@ -54,18 +54,6 @@ html {
     margin-top: 0;
 }
 
-
-/* #add-item {
-    position: fixed;
-    width: 20%;
-    right: 12%;
-    top: 30%;
-    border: 0.125rem solid #fff;
-    border-radius: 0.125rem;
-    background-color: #fff;
-    padding: 0.2rem;
-} */
-
 .upload {
     width: 99%;
     text-align: center;
@@ -83,18 +71,11 @@ html {
     border-radius: 0.25rem;
 }
 
-
-/* #add-item textarea {
-    border: 0.0625rem solid #d3d3d3;
-    background-color: transparent;
-    resize: none;
-    border-radius: 0.125rem !important;
-} */
-
 .body {
     max-height: calc(100vh - 12vh);
     padding-bottom: 3.0625rem !important;
     overflow: auto;
+    overflow-x: hidden;
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
@@ -103,7 +84,8 @@ html {
     display: none;
 }
 
-.max-with-scroll {
+
+/* .max-with-scroll {
     max-height: 21.375rem;
     overflow: auto;
     -ms-overflow-style: none;
@@ -112,7 +94,7 @@ html {
 
 .max-with-scroll::-webkit-scrollbar {
     display: none;
-}
+} */
 
 .glow:focus,
 .glow:hover {
@@ -149,10 +131,6 @@ html {
 
 .mr-2 {
     margin-right: 1.4rem;
-}
-
-.pr5px {
-    padding-right: 0.27rem !important;
 }
 
 .min-wid-300 {
@@ -197,7 +175,7 @@ textarea::selection {
 }
 
 .fs-2 {
-    font-size: 2rem;
+    font-size: 2.5rem;
 }
 
 .ver-menu {
@@ -405,28 +383,6 @@ textarea::selection {
     display: none !important;
 }
 
-.centar {
-    display: grid;
-    place-items: center;
-}
-
-.padbor {
-    border: 0.125rem solid #555;
-    border-radius: 0.27rem;
-    padding: 0.55rem !important;
-}
-
-.danger {
-    color: red !important;
-}
-
-.vertical-divider {
-    width: 0.0625rem;
-    height: 1.8rem;
-    border-right: 0.0625rem solid #e5e5e5;
-    padding-top: 1.25rem;
-}
-
 .item-img-upload {
     height: 7vh;
     width: 7vw;
@@ -514,10 +470,6 @@ textarea::selection {
     display: none;
 }
 
-.animation-fade {
-    animation: fade 0.2s forwards;
-}
-
 @keyframes fade {
     25% {
         opacity: 0.25;
@@ -531,11 +483,6 @@ textarea::selection {
     100% {
         opacity: 1;
     }
-}
-
-.red-alert {
-    position: fixed;
-    color: red;
 }
 
 .footer {

@@ -80,7 +80,7 @@
             <li class="cursor ver-li" title="اضافة غرض جديد" id="addItemForm">
                 <div class="dataForm">
                     <span class="ver-link p-1" onclick="document.querySelector('#newItemModal').classList.toggle('hidden')">
-                        <i class="bi bi-plus-square-dotted  icon-15"></i>
+                        <i class="bi bi-plus-square-dotted icon-2"></i>
                     </span>               
                 </div>
             </li> 
