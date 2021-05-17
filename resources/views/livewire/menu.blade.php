@@ -282,7 +282,7 @@
     <span  id="cir-icon" class="cursor" >
         <i class="bi bi-list"></i>
         @if(count($user->notification) >0 )
-            <span class="bi bi-dot red-alert icon-2"></span>
+            <span class="bi bi-dot red-alert icon-1"></span>
         @endif
     </span>
 </div>

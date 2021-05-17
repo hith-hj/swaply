@@ -250,7 +250,7 @@ textarea::selection {
     place-content: center;
     margin: 0 0.4rem;
     position: fixed;
-    bottom: .7rem;
+    bottom: 2.1%;
     right: 4%;
     z-index: 7;
     transform: scale(3);

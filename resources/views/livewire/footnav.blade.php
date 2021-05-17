@@ -23,7 +23,7 @@
             </small> --}}
         </div>
 
-        <div class="cursor"  title="خروج (خليك معنا)" style="position: fixed;bottom: 1.2%;left: 3%;transform: scale(1);">
+        <div class="cursor"  title="خروج (خليك معنا)" style="position: fixed;bottom: 2%;left: 3%;transform: scale(1);">
             <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="bi bi-arrow-left-square icon-15"></i>
             </span>                    
