@@ -1,7 +1,7 @@
 
 <div>
     @forelse ($feeds as $feed)
-        <div class="col mt-5px ani ani_fadeIn ani_delay-{{$loop->index}}s {{$feed->status == 1 ? 'br-success' : ''}}" >
+        <div class="col mt-5px ani ani_fadeIn {{$feed->status == 1 ? 'br-success' : ''}}" >
             <div class="card shadow">
                 <div class="card-body" >
                     <div class="row">

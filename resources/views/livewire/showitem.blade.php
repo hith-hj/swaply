@@ -113,7 +113,7 @@
                     </div>
                 </div>
 
-                <div id="showItemImages" class="hidden smodal ani ani_slideInDown" style="background: #e1eee0fb;z-index:12; ">
+                <div id="showItemImages" class="hidden smodal ani ani_fadeIn" style="background: #e1eee0fb;z-index:12; ">
                     <div class="ani ani_fadeIn p-2 w-100">
                         <div id="showFullImage" class="carousel slide text-center carousel-fade" data-bs-ride="carousel" >
                             <i class="bi bi-x close-gallery cursor" onclick="document.querySelector('#showItemImages').classList.add('hidden')"></i>
@@ -130,8 +130,7 @@
                                         <span class="h4 text-muted">{{$loop->index + 1}}</span>
                                     </div>                                                                                                                                     
                                 @endforeach
-                            </div>
-                            
+                            </div>                            
                         </div>
                         @if(count($feed->collection) > 1)
                                <div class="text-center">

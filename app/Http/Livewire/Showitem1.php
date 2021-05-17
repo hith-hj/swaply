@@ -48,53 +48,54 @@ class Showitem1 extends Component
 
     public function getItem($id)
     {
-        $this->item = Item::find($id);
-        if($this->item == null )
-        {
-            return $this->item = [];
-        }
-        $this->item->views += 1;
-        $this->item->save();
-        $this->item->user = User::find($this->item->user_id);
-        $this->item->requestsCount = $this->item->requests;
-        $this->item->collection = unserialize($this->item->collection);
-        $this->item->user_items = Item::all()->where("user_id",Auth::user()->id);
-        $this->item->requests = Requests::where('item_id',$id)->orWhere('sender_item',$id)->get();
-        if($this->item->status == 1)
-        {
-            $this->item->requests->filter(function($req){
-                if($req->status == 1)
-                {
-                    if($req->user_id == Auth::id()){
-                        $uid = $req->sender_id;
-                        $uitem = $req->sender_item;
-                    }else{
-                        $uid = $req->user_id;
-                        $uitem = $req->item_id;
+        $item = Item::find($id);
+        $item = $item != null ? true : false;
+        if($item == true ){            
+            $this->item = Item::find($id);
+            $this->item->views += 1;
+            $this->item->save();
+            $this->item->user = User::find($this->item->user_id);
+            $this->item->requestsCount = $this->item->requests;
+            $this->item->collection = unserialize($this->item->collection);
+            $this->item->user_items = Item::all()->where("user_id",Auth::user()->id);
+            $this->item->requests = Requests::where('item_id',$id)->orWhere('sender_item',$id)->get();
+            if($this->item->status == 1)
+            {
+                $this->item->requests->filter(function($req){
+                    if($req->status == 1)
+                    {
+                        if($req->user_id == Auth::id()){
+                            $uid = $req->sender_id;
+                            $uitem = $req->sender_item;
+                        }else{
+                            $uid = $req->user_id;
+                            $uitem = $req->item_id;
+                        }
+                        $this->item->sender = User::find($uid);
+                        $this->item->sender_item = Item::find($uitem);
+                        return $req;
                     }
-                    $this->item->sender = User::find($uid);
-                    $this->item->sender_item = Item::find($uitem);
-                    return $req;
-                }
-            });
-        }else{
-            foreach($this->item->requests as $req){
-                $req->sender = User::find($req->sender_id);
-                if($req->item_type == 1){
-                    $req->sender_item = Item::find($req->sender_item);
-                    $req->sender_item->collection = unserialize($req->sender_item->collection);
+                });
+            }else{
+                foreach($this->item->requests as $req){
+                    $req->sender = User::find($req->sender_id);
+                    if($req->item_type == 1){
+                        $req->sender_item = Item::find($req->sender_item);
+                        $req->sender_item->collection = unserialize($req->sender_item->collection);
+                    }
                 }
             }
+            $this->editedFeed['item_title'] = $this->item->item_title;
+            $this->editedFeed['item_info'] = $this->item->item_info;
+            $this->editedFeed['item_location'] = $this->item->item_location;
+            $this->editedFeed['swap_with'] = $this->item->swap_with; 
+            
+            if($this->item->user_id != Auth::id()){
+                $this->item = $this->checkIfRequested($this->item);
+            }
+        }else{
+            return $this->item = [];
         }
-        $this->editedFeed['item_title'] = $this->item->item_title;
-        $this->editedFeed['item_info'] = $this->item->item_info;
-        $this->editedFeed['item_location'] = $this->item->item_location;
-        $this->editedFeed['swap_with'] = $this->item->swap_with; 
-        
-        if($this->item->user_id != Auth::id()){
-            $this->item = $this->checkIfRequested($this->item);
-        }
-        // dd($this->item);
     }
 
     /**
@@ -182,6 +183,8 @@ class Showitem1 extends Component
             $it->status = 1;
             return $it->save();
         });
+        
+        Notifyer::store(Auth::id(),$user_id,'تم قبول العرض',$item_id);
         $this->emit('notifi',$this->notis[5]);
         $this->emitTo('body','changeBody','swaps');
     }

@@ -54,7 +54,8 @@ html {
     margin-top: 0;
 }
 
-#add-item {
+
+/* #add-item {
     position: fixed;
     width: 20%;
     right: 12%;
@@ -63,7 +64,7 @@ html {
     border-radius: 0.125rem;
     background-color: #fff;
     padding: 0.2rem;
-}
+} */
 
 .upload {
     width: 99%;
@@ -82,12 +83,13 @@ html {
     border-radius: 0.25rem;
 }
 
-#add-item textarea {
+
+/* #add-item textarea {
     border: 0.0625rem solid #d3d3d3;
     background-color: transparent;
     resize: none;
     border-radius: 0.125rem !important;
-}
+} */
 
 .body {
     max-height: calc(100vh - 12vh);
@@ -190,17 +192,20 @@ textarea::selection {
     color: red !important;
 }
 
-.fs-20 {
-    font-size: 1.25rem;
+.fs-15 {
+    font-size: 1.5rem;
+}
+
+.fs-2 {
+    font-size: 2rem;
 }
 
 .ver-menu {
     display: block;
     position: fixed;
     top: 25%;
-    right: 8%;
-    width: 3rem;
-    border-radius: 0.1rem;
+    right: 6%;
+    border-radius: 0.25rem;
     background-color: #fff;
     transition: all 0.3s ease-in-out;
 }
@@ -219,7 +224,7 @@ textarea::selection {
 }
 
 .ver-li {
-    margin: 0.6rem 0.1rem;
+    margin: 1rem .3rem;
 }
 
 .ver-link {
@@ -250,7 +255,6 @@ textarea::selection {
     z-index: 7;
     position: fixed;
     bottom: 25%;
-    transition: ease-in 1s;
     animation: show 1s ease forwards;
 }
 
@@ -259,19 +263,19 @@ textarea::selection {
 }
 
 .rotate {
-    transform: rotate(90deg) scaleX(-1);
+    transform: scale(3) rotate(90deg) scale(-1) !important;
 }
 
 #cir-icon {
-    transition: all 0.2s ease;
+    transition: all .1s ease;
     display: none;
     place-content: center;
     margin: 0 0.4rem;
-    font-size: 2rem !important;
     position: fixed;
-    bottom: .11rem;
-    right: 2%;
+    bottom: .7rem;
+    right: 4%;
     z-index: 7;
+    transform: scale(3);
 }
 
 .cir-list {
@@ -291,7 +295,7 @@ textarea::selection {
         right: 0%;
     }
     100% {
-        right: 3%;
+        right: 2.5%;
     }
 }
 
@@ -432,24 +436,24 @@ textarea::selection {
 }
 
 .icon-1 {
-    font-size: 1rem !important;
+    transform: scale(1) !important;
 }
 
 .icon-15 {
-    font-size: 1.5rem !important;
+    transform: scale(1.5) !important;
 }
 
 .icon-2 {
-    font-size: 2rem !important;
+    transform: scale(2) !important;
     padding: 0.5rem;
 }
 
 .icon-25 {
-    font-size: 2.5rem !important;
+    transform: scale(2.5) !important;
 }
 
 .icon-sm {
-    font-size: 0.8rem;
+    transform: scale(.5);
 }
 
 .sbtn {

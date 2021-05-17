@@ -36,12 +36,16 @@
             <div class="alert alert-light ani ani_flash" role="alert">
                 <div class="w-95 mx-auto mt-0 z-100">
                     <div class="modal-header">
-                        <h5 class="modal-title m-0"><i class="bi bi-flag cr"></i> تبليغ مشكلة</h5>
+                        <h5 class="modal-title m-0"><i class="bi bi-flag cr"></i> اقتراح او تبليغ مشكلة</h5>
                     </div>
                     <div class="modal-body">
-                        <!-- <label for="" class="form-label">نوع المشكلة</label>
-                        <input type="text" class="form-control" wire:model.defer="problem.type"> -->
-                        <label for="" class="form-label">وضح لنا المشكلة لو سمحت</label>
+                        <label for="" class="form-label">اختر نوع البلاغ</label>
+                        <input type="text" class="form-control" list="reportTypeList" wire:model.defer="problem.type">
+                        <datalist id="reportTypeList">
+                            <option value="اقتراح">
+                            <option value="مشكلة">
+                        </datalist>
+                        <label for="" class="form-label">وضح لنا لو سمحت</label>
                         <textarea class="form-control my-1" wrap="hard" rows="2" wire:model.defer="problem.info"></textarea>
                     </div>
                     <div class="modal-footer justify-content-center">                    
@@ -58,6 +62,7 @@
                 </div>
             </div>           
     @endswitch
+
     @if(Auth::user()->location == 'not-set' && Auth::user()->phone == 'not-set')
         <div class="smodal ">
             <div class="card shadow show ani ani_fadeIn p-1 min-wid-300 w-100" >
@@ -104,6 +109,7 @@
             </div>
         </div> 
     @endif
+
     <div class="col text-center mspinner" wire:loading >
         <div class="m-4" >
             <div class="spinner-border" role="status">

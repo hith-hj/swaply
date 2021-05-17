@@ -69,23 +69,25 @@ class Body extends Component
 
     public function reportProblem()
     {
+        $id='x00Swaply_officals00x';
         $prob='x00Swaply-Problem00x';
+        $notis = [['شكرا لك لمساعدتنا على تحسين الموقع تم استلام البلاغ و سنعمل عليه باسرع وقت','g','حسنا']
+                ,['لم يتم ارسال المشكلة , الرجاء ملئ الحقول و الإعادة مرة اخرى','r','خطا']];
         $res = false;
-        if($this->problem != null && count($this->problem) > 0)
+        if($this->problem != null && count($this->problem) == 2)
         {
             $res = Report::create([
-                'user_id'=>$prob,
+                'user_id'=>$id,
                 'maker_id'=>Auth::user()->id,
                 'post_id'=>$prob,
-                'report_type'=>$prob,
+                'report_type'=>$this->problem['type'],
                 'report_info'=>$this->problem['info'],
             ]);
-            $notis = [['شكرا لك لمساعدتنا على تحسين الموقع تم استلام المشكلة و سنعمل على حلها باسرع وقت','g','حسنا']
-                ,['لم يتم ارسال المشكلة , الرجاء ملئ الحقول و الإعادة مرة اخرى','r','خطا']];
+        }
+        $this->problem = [];
         $res == true 
         ? $this->emit('notifi',$notis[0]) 
         : $this->emit('notifi',$notis[1]);
-        }
     }
 
     public function setLocation()

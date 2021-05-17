@@ -39,8 +39,7 @@ class Feeds extends Component
         // $requests = Requests::where('sender_id','=',Auth::user()->id)->get();
         $requests = Requests::where('sender_id','=',Auth::user()->id)->orWhere('user_id','=',Auth::user()->id)->get();
         $this->feeds = Item::where([
-            ['status','!=',1],
-            ['user_id','!=',Auth::id()]])->get();
+            ['status','!=',1],])->get()->take(25)->sortByDesc('updated_at');
         $requests = count($requests) > 0  ? $requests : false ;
         foreach($this->feeds as $key=>$feed)
         {
@@ -54,13 +53,6 @@ class Feeds extends Component
                 }
             }
         }
-
-        $myItem = Item::Where('user_id','=',Auth::id())->orderByDesc('updated_at')->get()->last();
-
-        if(isset($myItem))
-        {
-            $this->feeds->prepend($myItem);
-        }
         
         $this->feeds->each(function($feed){
             $feed->user = User::find($feed->user_id);
@@ -70,8 +62,6 @@ class Feeds extends Component
                 ['status','=',0]
                 ])->get();
         });
-
-        $this->feeds->sortByDesc('updated_at');
     }
 
     public function savePost($postId,$user_id)

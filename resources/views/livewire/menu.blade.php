@@ -1,11 +1,11 @@
 <div>
     <div id="navMenu" class="ver-menu" onload="menuView()">
         <ul id="navList" class="ver-list">
-            <li class="cursor ver-li" title="الرئيسية" wire:click="$emitTo('body','changeBody','feeds')">
+            {{-- <li class="cursor ver-li" title="الرئيسية" wire:click="$emitTo('body','changeBody','feeds')">
                 <span class="ver-link">
                     <i class="bi bi-house"></i>
                 </span>
-            </li>
+            </li> --}}
             <li class="cursor ver-li " title="معلوماتي" >
                 <div class="dropend">
                     <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-60,5" aria-expanded="false">
@@ -79,8 +79,8 @@
             </li>
             <li class="cursor ver-li" title="اضافة غرض جديد" id="addItemForm">
                 <div class="dataForm">
-                    <span class="ver-link" onclick="document.querySelector('#newItemModal').classList.toggle('hidden')">
-                        <i class="bi bi-plus-square-dotted icon-25"></i>
+                    <span class="ver-link p-1" onclick="document.querySelector('#newItemModal').classList.toggle('hidden')">
+                        <i class="bi bi-plus-square-dotted  icon-15"></i>
                     </span>               
                 </div>
             </li> 
@@ -105,7 +105,7 @@
                                     <span class="dropdown-item" > <i class="bi bi-bookmark-plus"></i> <span>مقترحات</span> </span>
                                 </li>
                                 <li class="cursor" wire:click="$emitTo('body','changeBody','reportProblem')">
-                                    <span class="dropdown-item" > <i class="bi bi-flag cr"></i> <span>تبليغ مشكلة</span> </span>
+                                    <span class="dropdown-item" > <i class="bi bi-flag cr"></i> <span>اقتراحات و مشاكل</span> </span>
                                 </li>
                             </ul>
                         </div>
@@ -147,7 +147,7 @@
                     </div>
                 </div>
             </li>
-            <li class="cursor ver-li" title="خروج (خليك معنا)">
+            {{-- <li class="cursor ver-li" title="خروج (خليك معنا)">
                 <div class="dropend">
                     <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-chevron-left "></i>
@@ -164,8 +164,9 @@
                         @csrf
                     </form>
                 </div>
-            </li>
+            </li> --}}
         </ul>
+
         <div id="newItemModal" class="hidden smodal">
             <div id="dataForm" class="card shadow show ani ani_fadeIn p-3 min-wh w-100" >
                 <form id="add-item-form" class="text-centerz" onsubmit="AddItem(event)" method="POST" enctype="multipart/form-data">
@@ -175,8 +176,8 @@
                             <small id="setLocation" class="cursor btn glow border" title="اضف موقعي" onclick="setItemLocation('{{Auth::user()->location}}')"> <i class="bi bi-geo-alt "></i> </small>
                             <small id="resetLocation" class="cursor btn glow border hidden" title="إعادة ضبط" onclick="resetItemLocation()"> <i class="bi bi-arrow-repeat "></i> </small>
                         </div>
-                        <div class="col-1 offset-2">
-                            <i class="bi bi-x icon-15" onclick="document.querySelector('#newItemModal').classList.toggle('hidden')"></i>
+                        <div class="col-1 offset-2 cursor">
+                            <i class="bi bi-x fs-2" onclick="document.querySelector('#newItemModal').classList.toggle('hidden')"></i>
                         </div>
                     </div>
                     <small>
@@ -221,13 +222,14 @@
                             <div class="spinner-border m-2 hidden" id="formLoading" style="height: 1rem;width:1rem"> 
                                 <span class="visually-hidden"></span>
                             </div>
-                            <i class="bi bi-cloud-arrow-up icon-15"></i> رفع
+                            <i class="bi bi-cloud-arrow-up fs-15"></i> رفع
                         </button>
                     </div>
                         @csrf
                 </form>
             </div>
         </div>
+
         <div id="editMyInfoModal" class="hidden smodal">
             <div class="card shadow show ani ani_fadeIn p-2 w-100">
                     <div class="row">
