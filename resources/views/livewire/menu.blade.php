@@ -172,7 +172,7 @@
                 <form id="add-item-form" class="text-centerz" onsubmit="AddItem(event)" method="POST" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-8">
-                            <label class="form-label" >مكان الغرض</label>
+                            <label class="p-2">مكان الغرض</label>
                             <small id="setLocation" class="cursor btn glow border" title="اضف موقعي" onclick="setItemLocation('{{Auth::user()->location}}')"> <i class="bi bi-geo-alt "></i> </small>
                             <small id="resetLocation" class="cursor btn glow border hidden" title="إعادة ضبط" onclick="resetItemLocation()"> <i class="bi bi-arrow-repeat "></i> </small>
                         </div>
