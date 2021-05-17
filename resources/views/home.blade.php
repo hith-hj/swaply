@@ -2,6 +2,7 @@
 
 @section('content')
 
+    @livewire('menu')
     <div class="fullPage">
         <div id="center">
             @livewire('search')
@@ -12,8 +13,5 @@
         
         @livewire('footnav')
     </div>
-    {{-- @include('comps.menu') --}}
-    @livewire('menu')
-    {{--  --}}
     
 @endsection
