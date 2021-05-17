@@ -485,6 +485,11 @@ textarea::selection {
     }
 }
 
+.red-alert {
+    position: fixed;
+    color: red;
+}
+
 .footer {
     position: fixed;
     bottom: 0;
