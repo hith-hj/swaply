@@ -53,7 +53,26 @@
                         <button type="button" class="sbtn sbtn-txt mx-3" data-bs-dismiss="modal" wire:click="$emit('changeBody','feeds')"><span>أغلاق</span></button>
                     </div>
                 </div>
-            </div>            
+            </div>
+            @break
+        @case('termsOfUse')
+            <div class="card">
+                <div class="card-body">
+                    <div class="alert alert-success" role="alert">
+                        <h3>شروط الاستخدام</h3>
+                    </div>
+                    <div class="px-4">
+                        <ol style="list-style: arabic-indic;">
+                            <li class="py-2">الرجاء التعامل بمصداقية</li>
+                            <li class="py-2">الرجاء الألتزام بالقيم الأخلاقية اللازمة</li>
+                            <li class="py-2">الرجاء عدم نشر اي شي يخل بالأداب العامة </li>
+                            <li class="py-2">الرجاء رفع صور الغرض بشكل واضح و بدون تعديل</li>
+                            <li class="py-2">الرجاء الألتزام بشروط الأستخدام لعدم التعرض لحذف الحساب</li>
+                            {{-- <li></li> --}}
+                        </ol>
+                    </div>
+                </div>
+            </div>
             @break
         @default 
             <div class="text-center m-4" >

@@ -102,7 +102,14 @@
                                     <span class="dropdown-item" > <i class="bi bi-save"></i> <span>محفوظات</span> </span>
                                 </li>
                                 <li class="cursor" wire:click="$emitTo('body','changeBody','recommends')">
-                                    <span class="dropdown-item" > <i class="bi bi-bookmark-plus"></i> <span>مقترحات</span> </span>
+                                    <span class="dropdown-item" > 
+                                        @if($user->recommends > 0)
+                                            <span class="bi bi-dot red-alert icon-15"></span>
+                                        @endif
+                                        <i class="bi bi-bookmark-plus"></i> <span>مقترحات</span> </span>
+                                </li>
+                                <li class="cursor" wire:click="$emitTo('body','changeBody','termsOfUse')">
+                                    <span class="dropdown-item" > <i class="bi bi-ui-checks"></i> <span>شروط الاستخدام</span> </span>
                                 </li>
                                 <li class="cursor" wire:click="$emitTo('body','changeBody','reportProblem')">
                                     <span class="dropdown-item" > <i class="bi bi-flag cr"></i> <span>اقتراحات و مشاكل</span> </span>
@@ -171,8 +178,9 @@
             <div id="dataForm" class="card shadow show ani ani_fadeIn p-3 min-wh w-100" >
                 <form id="add-item-form" class="text-centerz" onsubmit="AddItem(event)" method="POST" enctype="multipart/form-data">
                     <div class="row">
-                        <div class="col-8">
-                            <label class="p-2">مكان الغرض</label>
+                        <div class="col-8 ">
+                            <label class="p-2">مكان الغرض</label><br>
+                            <small class="text-muted py-1"> ضيف موقعك من هنا</small>
                             <small id="setLocation" class="cursor btn glow border" title="اضف موقعي" onclick="setItemLocation('{{Auth::user()->location}}')"> <i class="bi bi-geo-alt "></i> </small>
                             <small id="resetLocation" class="cursor btn glow border hidden" title="إعادة ضبط" onclick="resetItemLocation()"> <i class="bi bi-arrow-repeat "></i> </small>
                         </div>
@@ -193,13 +201,33 @@
                         <select name="item_location_covernent"  required class="form-select">
                             <option id="location-inputz" ></option>
                             <option value="القاهرة"> <span>القاهرة</span> </option>
-                            <option value="الاسكندرية"> <span>الاسكندرية</span> </option>
-                            <option value="اسيوط"> <span>اسيوط</span> </option>
-                            <option value="اسماعيلية"> <span>اسماعيلية</span> </option>
-                            <option value="طنطا"> <span>طنطا</span> </option>
+                            <option value="الجيزة"> <span>الجيزة</span> </option>
+                            <option value="القليوبية"> <span>القليوبية</span> </option>
+                            <option value="الشرقية"> <span>الشرقية</span> </option>
+                            <option value="المنوفية"> <span>المنوفية</span> </option>
+                            <option value="الغربية"> <span>الغربية</span> </option>
+                            <option value="كفر الشيخ"> <span>كفر الشيخ</span> </option>
+                            <option value="الدقهلية"> <span>الدقهلية</span> </option>
+                            <option value="دمياط"> <span>دمياط</span> </option>
+                            <option value="البحيرة"> <span>البحيرة</span> </option>
+                            <option value="الأسكندرية"> <span>الأسكندرية</span> </option>
+                            <option value="مرسي مطروح"> <span>مرسي مطروح</span> </option>
+                            <option value="بور سعيد"> <span>بور سعيد</span> </option>
+                            <option value="الإسماعيلة"> <span>الإسماعيلة</span> </option>
+                            <option value="السويس"> <span>السويس</span> </option>
+                            <option value="البحر الاحمر"> <span>البحر الاحمر</span> </option>
+                            <option value="شمال سيناء"> <span>شمال سيناء</span> </option>                            
+                            <option value="جنوب سيناء"> <span>جنوب سيناء</span> </option>
+                            <option value="شرم الشيخ"> <span>شرم الشيخ</span> </option>
+                            <option value="الوادي الجديد"> <span>الوادي الجديد</span> </option>
+                            <option value="الفيوم"> <span>الفيوم</span> </option>
+                            <option value="بني سويف"> <span>بني سويف</span> </option>
+                            <option value="المنيا"> <span>المنيا</span> </option>
+                            <option value="أسيوط"> <span>أسيوط</span> </option>
                             <option value="سوهاج"> <span>سوهاج</span> </option>
-                            <option value="اسوان"> <span>اسوان</span> </option>
-                            <option value="جينه"> <span>جينه</span> </option>
+                            <option value="قنا"> <span>قنا</span> </option>
+                            <option value="الأقصر"> <span>الأقصر</span> </option>                            
+                            <option value="أسوان"> <span>أسوان</span> </option>                      
                         </select>
                         <input type="text" name="item_location_area" aria-label="Last name" required class="form-control">
                         <input type="text" name="item_location_naighbor" aria-label="Last name" required class="form-control">
@@ -258,13 +286,33 @@
                         </div>
                         <datalist id="covernent-list">
                             <option value="القاهرة">
-                            <option value="الاسكندرية">
-                            <option value="اسيوط">
-                            <option value="اسماعيلية">
-                            <option value="طنطا">
+                            <option value="الجيزة">
+                            <option value="القليوبية">
+                            <option value="الشرقية">
+                            <option value="المنوفية">
+                            <option value="الغربية">
+                            <option value="كفر الشيخ"> 
+                            <option value="الدقهلية">
+                            <option value="دمياط">
+                            <option value="البحيرة">
+                            <option value="الأسكندرية">
+                            <option value="مرسي مطروح"> 
+                            <option value="بور سعيد"> 
+                            <option value="الإسماعيلة">
+                            <option value="السويس">
+                            <option value="البحر الاحمر"> 
+                            <option value="شمال سيناء">                             
+                            <option value="جنوب سيناء"> 
+                            <option value="شرم الشيخ"> 
+                            <option value="الوادي الجديد"> 
+                            <option value="الفيوم">
+                            <option value="بني سويف"> 
+                            <option value="المنيا">
+                            <option value="أسيوط">
                             <option value="سوهاج">
-                            <option value="اسوان">
-                            <option value="جينه">
+                            <option value="قنا">
+                            <option value="الأقصر">                            
+                            <option value="أسوان"> 
                         </datalist>
                         <div class="mt-5px" >                                        
                             <label for=""><span>ادخل رقم الهاتف</span></label><br>
@@ -281,7 +329,7 @@
 
     <span  id="cir-icon" class="cursor" >
         <i class="bi bi-list"></i>
-        @if(count($user->notification) >0 )
+        @if(count($user->notification) > 0 || $user->recommends > 0)
             <span class="bi bi-dot red-alert icon-15"></span>
         @endif
     </span>
