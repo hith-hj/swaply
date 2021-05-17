@@ -73,7 +73,7 @@ html {
 
 .body {
     max-height: calc(100vh - 12vh);
-    padding-bottom: 3.0625rem !important;
+    padding-bottom: 4rem !important;
     overflow: auto;
     overflow-x: hidden;
     -ms-overflow-style: none;
