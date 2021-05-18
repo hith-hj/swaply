@@ -34,7 +34,7 @@
                     <div class="row">
                         <div class="col">
                             <small class="mx-1"><span> المكان :</span> {{$feed->item_location}}</small>|
-                            <small class="mx-1"><span> عروض :</span> {{$feed->offers}}</small>|
+                            <small class="mx-1"><span> عروض :</span> {{$feed->requests}}</small>|
                             <small class="mx-1">شوهد : <span>{{$feed->views}}</span></small>
                         </div>
                     </div>

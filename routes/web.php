@@ -18,7 +18,12 @@ require __DIR__.'/auth.php';
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $items = Item::where('status','=',0)->get()->sortByDesc('views')->take(10);
+    $items->each(function($item){
+        $item->collection = unserialize($item->collection);
+    });
+    // dd($items);
+    return view('welcome',compact('items'));
 });
 
 Route::get('/home', function () {
