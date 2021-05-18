@@ -61,7 +61,7 @@ class HomeController extends Controller
             array_push($collection,$nameToStore);
         }
         
-        if($data['item_location_covernent'] == 'المحافظة' && $data['item_location_naighbor'] == null && $data['item_location_naighbor'] == null ){
+        if($data['item_location_covernent'] == null && $data['item_location_area'] == null && $data['item_location_naighbor'] == null ){
             $location = Auth::user()->location;
         }else{
             $location = $data['item_location_covernent'].'-'
