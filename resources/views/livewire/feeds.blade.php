@@ -36,7 +36,10 @@
                     </div>   
                     <hr>
                     <div class="cursor" wire:click="$emitTo('body','changeBody',['showitem','{{$feed->id}}'])" title="عرض المنشور">
-                        <small class="card-text"><span>{{$feed->item_info}}</span></small><br>
+                        <small class="card-text"><span>
+                            {{substr($feed->item_info,0,strlen($feed->item_info) < 70 ? strlen($feed->item_info): strlen($feed->item_info)/2)}}...
+                        </span></small><br>
+                        
                         <div class="d-flex justify-content-evenly mt-2" >
                             @if($feed->collection[0] != 'dark-logo.png')
                                 <img class="d-block glow px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" >

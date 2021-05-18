@@ -20,7 +20,7 @@
                                 <div class="col-8">
                                     <h5>{{$user->name}}</h5>
                                 </div>
-                                <div class="col-2 offset-1 hidden">
+                                <div class="col-2 offset-1">
                                     <span class="cursor icon-1 link-dark" onclick="document.querySelector('#editMyInfoModal').classList.toggle('hidden')"><i class="bi bi-pencil-square"></i></span>
                                 </div>
                             </div>
@@ -92,9 +92,7 @@
                     <div class="dropdown-menu px-1">
                         <div class="card">
                             <ul class="" style="list-style: none;padding:0;">
-                                <li class="cursor" wire:click="$emitTo('body','changeBody','requests')">
-                                    <span class="dropdown-item" > <i class="bi bi-arrows-expand"></i> <span>عروض</span> </span>
-                                </li>
+                                
                                 <li class="cursor" wire:click="$emitTo('body','changeBody','swaps')">
                                     <span class="dropdown-item" > <i class="bi bi-arrow-down-up"></i> <span>مبادلات</span> </span>
                                 </li>
@@ -107,6 +105,9 @@
                                             <span class="bi bi-dot red-alert icon-15"></span>
                                         @endif
                                         <i class="bi bi-bookmark-plus"></i> <span>مقترحات</span> </span>
+                                </li>
+                                <li class="cursor" wire:click="$emitTo('body','changeBody','requests')">
+                                    <span class="dropdown-item" > <i class="bi bi-arrow-bar-up"></i> <span> العروض المرسلة</span> </span>
                                 </li>
                                 <li class="cursor" wire:click="$emitTo('body','changeBody','termsOfUse')">
                                     <span class="dropdown-item" > <i class="bi bi-ui-checks"></i> <span>شروط الاستخدام</span> </span>
@@ -175,73 +176,69 @@
         </ul>
 
         <div id="newItemModal" class="hidden smodal">
-            <div id="dataForm" class="card shadow show ani ani_fadeIn p-3 min-wh w-100" >
+            <div id="dataForm" class="card shadow show ani ani_fadeIn p-2 w-100" >
                 <form id="add-item-form" class="text-centerz" onsubmit="AddItem(event)" method="POST" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-8 ">
-                            <label class="p-2">مكان الغرض</label><br>
-                            <small class="text-muted py-1"> ضيف موقعك من هنا</small>
-                            <small id="setLocation" class="cursor btn glow border" title="اضف موقعي" onclick="setItemLocation('{{Auth::user()->location}}')"> <i class="bi bi-geo-alt "></i> </small>
-                            <small id="resetLocation" class="cursor btn glow border hidden" title="إعادة ضبط" onclick="resetItemLocation()"> <i class="bi bi-arrow-repeat "></i> </small>
+                            <label class="p-2">أضافة</label><br>
                         </div>
-                        <div class="col-1 offset-2 cursor">
+                        <div class="col-1 offset-1 cursor">
                             <i class="bi bi-x fs-2" onclick="document.querySelector('#newItemModal').classList.toggle('hidden')"></i>
                         </div>
                     </div>
-                    <small>
-                        <table>
-                            <tr>
-                                <td class="px-4 "><small>المحافظة</small></td>
-                                <td class="px-5 "><small>المنطقة</small></td>
-                                <td class="px-4 "><small>الحي</small></td>
-                            </tr>
-                        </table>
-                    </small>
-                    <div id="location-group" class="input-group mb-1" title="محافظة-المنطقة او المركز-الحي او القرية">
-                        <select name="item_location_covernent"  required class="form-select">
-                            <option id="location-inputz" ></option>
-                            <option value="القاهرة"> <span>القاهرة</span> </option>
-                            <option value="الجيزة"> <span>الجيزة</span> </option>
-                            <option value="القليوبية"> <span>القليوبية</span> </option>
-                            <option value="الشرقية"> <span>الشرقية</span> </option>
-                            <option value="المنوفية"> <span>المنوفية</span> </option>
-                            <option value="الغربية"> <span>الغربية</span> </option>
-                            <option value="كفر الشيخ"> <span>كفر الشيخ</span> </option>
-                            <option value="الدقهلية"> <span>الدقهلية</span> </option>
-                            <option value="دمياط"> <span>دمياط</span> </option>
-                            <option value="البحيرة"> <span>البحيرة</span> </option>
-                            <option value="الأسكندرية"> <span>الأسكندرية</span> </option>
-                            <option value="مرسي مطروح"> <span>مرسي مطروح</span> </option>
-                            <option value="بور سعيد"> <span>بور سعيد</span> </option>
-                            <option value="الإسماعيلة"> <span>الإسماعيلة</span> </option>
-                            <option value="السويس"> <span>السويس</span> </option>
-                            <option value="البحر الاحمر"> <span>البحر الاحمر</span> </option>
-                            <option value="شمال سيناء"> <span>شمال سيناء</span> </option>                            
-                            <option value="جنوب سيناء"> <span>جنوب سيناء</span> </option>
-                            <option value="شرم الشيخ"> <span>شرم الشيخ</span> </option>
-                            <option value="الوادي الجديد"> <span>الوادي الجديد</span> </option>
-                            <option value="الفيوم"> <span>الفيوم</span> </option>
-                            <option value="بني سويف"> <span>بني سويف</span> </option>
-                            <option value="المنيا"> <span>المنيا</span> </option>
-                            <option value="أسيوط"> <span>أسيوط</span> </option>
-                            <option value="سوهاج"> <span>سوهاج</span> </option>
-                            <option value="قنا"> <span>قنا</span> </option>
-                            <option value="الأقصر"> <span>الأقصر</span> </option>                            
-                            <option value="أسوان"> <span>أسوان</span> </option>                      
-                        </select>
-                        <input type="text" name="item_location_area" aria-label="Last name" required class="form-control">
-                        <input type="text" name="item_location_naighbor" aria-label="Last name" required class="form-control">
+
+                    <input name="item_title" type="text" class="form-control mb-1" placeholder="نوع حاجتك" required>
+
+                    <input name="swap_with" type="text" id="swap_with" placeholder=" هتبدل حاجتك بأيه" class="form-control mb-1" title="الاسم واضح" required>
+
+                    <textarea name="item_description" wrap="hard" class="form-control" rows="2" title="اختياري" placeholder="اوصف حاجتك"></textarea>
+
+                    <div class="location mb-1">
+                        <button id="setLocation" type="button" class="btn text-muted cursor glow" tabindex="0" onclick="setItemLocation()">إضافة عنوان اخر</button>
+                        <span id="resetLocation" class="hidden cursor glow " tabindex="0" onclick="resetItemLocation()"><i class="bi bi-x"></i></span>
+                        <div id="addLocationBio" class="hidden">
+                            <small>اضف هذا العنوان في حال كان عنوانك يختلف عن عنوان الحاجة التي تنشرها</small>
+                        </div>
+                        <div id="location-group" class="input-group mb-1 hidden" title="محافظة-المنطقة او المركز-الحي او القرية">
+                            <select name="item_location_covernent" tabindex="0" class="form-select" disabled="true">
+                                <option selected>المحافظة</option>
+                                <option value="القاهرة"> <span>القاهرة</span> </option>
+                                <option value="الجيزة"> <span>الجيزة</span> </option>
+                                <option value="القليوبية"> <span>القليوبية</span> </option>
+                                <option value="الشرقية"> <span>الشرقية</span> </option>
+                                <option value="المنوفية"> <span>المنوفية</span> </option>
+                                <option value="الغربية"> <span>الغربية</span> </option>
+                                <option value="كفر الشيخ"> <span>كفر الشيخ</span> </option>
+                                <option value="الدقهلية"> <span>الدقهلية</span> </option>
+                                <option value="دمياط"> <span>دمياط</span> </option>
+                                <option value="البحيرة"> <span>البحيرة</span> </option>
+                                <option value="الأسكندرية"> <span>الأسكندرية</span> </option>
+                                <option value="مرسي مطروح"> <span>مرسي مطروح</span> </option>
+                                <option value="بور سعيد"> <span>بور سعيد</span> </option>
+                                <option value="الإسماعيلة"> <span>الإسماعيلة</span> </option>
+                                <option value="السويس"> <span>السويس</span> </option>
+                                <option value="البحر الاحمر"> <span>البحر الاحمر</span> </option>
+                                <option value="شمال سيناء"> <span>شمال سيناء</span> </option>                            
+                                <option value="جنوب سيناء"> <span>جنوب سيناء</span> </option>
+                                <option value="شرم الشيخ"> <span>شرم الشيخ</span> </option>
+                                <option value="الوادي الجديد"> <span>الوادي الجديد</span> </option>
+                                <option value="الفيوم"> <span>الفيوم</span> </option>
+                                <option value="بني سويف"> <span>بني سويف</span> </option>
+                                <option value="المنيا"> <span>المنيا</span> </option>
+                                <option value="أسيوط"> <span>أسيوط</span> </option>
+                                <option value="سوهاج"> <span>سوهاج</span> </option>
+                                <option value="قنا"> <span>قنا</span> </option>
+                                <option value="الأقصر"> <span>الأقصر</span> </option>                            
+                                <option value="أسوان"> <span>أسوان</span> </option>                      
+                            </select>
+                            <input name="item_location_area"  type="text" tabindex="0" class="form-control" placeholder="المنطقة"  disabled="true">
+                            <input name="item_location_naighbor"  type="text" tabindex="0" class="form-control" placeholder="الحي"  disabled="true">
+                        </div>
                     </div>
-                    <input name="item_location" type="text" id="location-input" class="form-control hidden mb-1 w-100" readonly>
 
-                    <input name="item_title" type="text" class="form-control mb-1" placeholder="اسم الغرض" required>
-
-                    <input name="swap_with" type="text" id="swap_with" placeholder="عايز تبدل الغرض بأيه" class="form-control mb-1" title="الاسم واضح" required>
-
-                    <textarea name="item_description" wrap="hard" class="form-control mb-1" rows="2" title="اختياري" placeholder="وصف عن الغرض"></textarea>
                     <div id="imgs_collection" hidden></div>
                     <div class="js-upload upload mb-1" uk-form-custom>
-                        <input name="item_imgs[]" multiple required type="file" id="itemgs" onchange="displayUploadedImages(event)" hidden>
+                        <input name="item_imgs[]" multiple required type="file" id="itemgs" tabindex="0" onchange="displayUploadedImages(event)" hidden>
                         <button class="cursor sbtn sbtn-txt" tabindex="0" type="button" onclick="document.querySelector('#itemgs').click()"> <i class="bi bi-images"></i>
                             أختر صور</button>
                     </div>
@@ -253,6 +250,65 @@
                             <i class="bi bi-cloud-arrow-up fs-15"></i> رفع
                         </button>
                     </div>
+
+                    {{-- <div class="hidden">
+                        <div class="row">
+                            <div class="col-8 ">
+                                <label class="p-2">مكان الغرض</label><br>
+                                <small class="text-muted py-1"> ضيف موقعك من هنا</small>
+                                <small id="setLocation" class="cursor btn glow border" title="اضف موقعي" onclick="setItemLocation('{{Auth::user()->location}}')"> <i class="bi bi-geo-alt "></i> </small>
+                                <small id="resetLocation" class="cursor btn glow border hidden" title="إعادة ضبط" onclick="resetItemLocation()"> <i class="bi bi-arrow-repeat "></i> </small>
+                            </div>
+                            <div class="col-1 offset-2 cursor">
+                                <i class="bi bi-x fs-2" onclick="document.querySelector('#newItemModal').classList.toggle('hidden')"></i>
+                            </div>
+                        </div>
+                        <small>
+                            <table>
+                                <tr>
+                                    <td class="px-4 "><small>المحافظة</small></td>
+                                    <td class="px-5 "><small>المنطقة</small></td>
+                                    <td class="px-4 "><small>الحي</small></td>
+                                </tr>
+                            </table>
+                        </small>
+                        <div id="location-group" class="input-group mb-1" title="محافظة-المنطقة او المركز-الحي او القرية">
+                            <select name="item_location_covernent"  required class="form-select">
+                                <option id="location-inputz" ></option>
+                                <option value="القاهرة"> <span>القاهرة</span> </option>
+                                <option value="الجيزة"> <span>الجيزة</span> </option>
+                                <option value="القليوبية"> <span>القليوبية</span> </option>
+                                <option value="الشرقية"> <span>الشرقية</span> </option>
+                                <option value="المنوفية"> <span>المنوفية</span> </option>
+                                <option value="الغربية"> <span>الغربية</span> </option>
+                                <option value="كفر الشيخ"> <span>كفر الشيخ</span> </option>
+                                <option value="الدقهلية"> <span>الدقهلية</span> </option>
+                                <option value="دمياط"> <span>دمياط</span> </option>
+                                <option value="البحيرة"> <span>البحيرة</span> </option>
+                                <option value="الأسكندرية"> <span>الأسكندرية</span> </option>
+                                <option value="مرسي مطروح"> <span>مرسي مطروح</span> </option>
+                                <option value="بور سعيد"> <span>بور سعيد</span> </option>
+                                <option value="الإسماعيلة"> <span>الإسماعيلة</span> </option>
+                                <option value="السويس"> <span>السويس</span> </option>
+                                <option value="البحر الاحمر"> <span>البحر الاحمر</span> </option>
+                                <option value="شمال سيناء"> <span>شمال سيناء</span> </option>                            
+                                <option value="جنوب سيناء"> <span>جنوب سيناء</span> </option>
+                                <option value="شرم الشيخ"> <span>شرم الشيخ</span> </option>
+                                <option value="الوادي الجديد"> <span>الوادي الجديد</span> </option>
+                                <option value="الفيوم"> <span>الفيوم</span> </option>
+                                <option value="بني سويف"> <span>بني سويف</span> </option>
+                                <option value="المنيا"> <span>المنيا</span> </option>
+                                <option value="أسيوط"> <span>أسيوط</span> </option>
+                                <option value="سوهاج"> <span>سوهاج</span> </option>
+                                <option value="قنا"> <span>قنا</span> </option>
+                                <option value="الأقصر"> <span>الأقصر</span> </option>                            
+                                <option value="أسوان"> <span>أسوان</span> </option>                      
+                            </select>
+                            <input type="text" name="item_location_area" aria-label="Last name" required class="form-control">
+                            <input type="text" name="item_location_naighbor" aria-label="Last name" required class="form-control">
+                        </div>
+                        <input name="item_location" type="text" id="location-input" class="form-control hidden mb-1 w-100" readonly>
+                    </div> --}}
                         @csrf
                 </form>
             </div>

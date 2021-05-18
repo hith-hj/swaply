@@ -16,7 +16,7 @@
                                 <small class="text-muted"> <i class="bi bi-card-text mx-1"></i> {{$swap->user_item->item_title}} </small>
                                 <small class="text-muted"> <i class="bi bi-justify mx-1"></i> <span>
                                     {{-- {{$swap->user_item->item_info}} --}}
-                                    {{substr($swap->user_item->item_info,0,strlen($swap->user_item->item_info) < 40? strlen($swap->user_item->item_info): strlen($swap->user_item->item_info)/2)}}...
+                                    {{substr($swap->user_item->item_info,0,strlen($swap->user_item->item_info) < 20 ? strlen($swap->user_item->item_info): strlen($swap->user_item->item_info)/2)}}...
                                 </span></small><hr>
                                 <div class="d-flex justify-content-evenly mt-5px" wire:loading.grid >
                                     <img class=" glow" src="{{asset('assets/items/'.$swap->user_item->directory.'/'.$swap->user_item->collection[0])}}" width="180" alt="{{$swap->item_type}}" >
@@ -36,7 +36,7 @@
                                 <small class="text-muted"> <i class="bi bi-card-text mx-1"></i> {{$swap->sender_item->item_title}} </small>
                                 <small class="text-muted"> <i class="bi bi-justify mx-1"></i> <span>
                                     {{-- {{$swap->sender_item->item_info}} --}}                                    
-                                    {{substr($swap->sender_item->item_info,0,strlen($swap->sender_item->item_info) < 40? strlen($swap->sender_item->item_info): strlen($swap->sender_item->item_info)/2)}}...
+                                    {{substr($swap->sender_item->item_info,0,strlen($swap->sender_item->item_info) < 20 ? strlen($swap->sender_item->item_info): strlen($swap->sender_item->item_info)/2)}}...
                                 </span></small><hr>
                                 <div class="d-flex justify-content-evenly mt-5px" wire:loading.grid >
                                     <img class=" glow" src="{{asset('assets/items/'.$swap->sender_item->directory.'/'.$swap->sender_item->collection[0])}}" width="180" alt="{{$swap->sender_item->item_type}}" >

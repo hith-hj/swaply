@@ -25,13 +25,13 @@
 
         <div class="cursor"  title="خروج (خليك معنا)" style="position: fixed;bottom: 1.65%;left: 3%;transform: scale(1);">
             <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-arrow-left-square icon-15"></i>
+                    <i class="bi bi-box-arrow-left icon-15"></i>
             </span>                    
             <div class="dropdown-menu px-1">
                 <div class="card">
                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                 document.querySelector('#logout-form').submit();">
-                        <i class="bi bi-door-open cr"></i><span>طلعني برا (خروج)</span>
+                        <i class="bi bi-door-open cr"></i><span>خروج</span>
                     </a>
                 </div>
             </div>                        

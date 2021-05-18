@@ -36,6 +36,7 @@ class HomeController extends Controller
 
     public function addItem(Request $req)
     {
+        // dd($req->all());
         $directory = $this->getDirectory();
         $data = $req->all();        
         $collection = [];        
@@ -59,19 +60,23 @@ class HomeController extends Controller
             }
             array_push($collection,$nameToStore);
         }
-        $location = $data['item_location'] != null 
-            ? $data['item_location']
-            : $data['item_location_covernent'].'-'
-            . $data['item_location_area'].'-'
-            . $data['item_location_naighbor'];
+        
+        if($data['item_location_covernent'] == 'المحافظة' && $data['item_location_naighbor'] == null && $data['item_location_naighbor'] == null ){
+            $location = Auth::user()->location;
+        }else{
+            $location = $data['item_location_covernent'].'-'
+                        . $data['item_location_area'].'-'
+                        . $data['item_location_naighbor'];
+        }
+        $toReplace = [0,1,2,3,4,5,6,7,8,9];
         $item = new Item();
         $item->user_id = Auth::id();
         // $item->item_type = $data['item_type'];
         $item->item_type = 1;
-        $item->item_title = $data['item_title'];
-        $item->item_info = $data['item_description'];
-        $item->item_location = $location;
-        $item->swap_with = $data['swap_with'] ?? 'give';
+        $item->item_title = str_replace($toReplace,'',$data['item_title']);
+        $item->item_info = str_replace($toReplace,'',$data['item_description']);
+        $item->item_location = str_replace($toReplace,'',$location);
+        $item->swap_with = str_replace($toReplace,'',$data['swap_with']) ?? 'give';
         $item->collection = serialize($collection);
         $item->directory = $directory;
         $item->save();

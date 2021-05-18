@@ -99,7 +99,7 @@ html {
 .glow:focus,
 .glow:hover {
     color: #57c56f !important;
-    filter: drop-shadow(0 0 0.3rem #57c56f);
+    filter: drop-shadow(0 0 0.3rem #8cf1a2);
     transition: 0.2s ease-out;
 }
 
@@ -501,7 +501,7 @@ textarea::selection {
     position: fixed;
     z-index: 6;
     left: 1.8rem;
-    background: #f5fdf6de;
+    background: #f5fdf6f8;
     border-radius: 0.25rem;
     width: 16rem;
     padding: 0.5rem;
@@ -512,7 +512,7 @@ textarea::selection {
 }
 
 .bottom {
-    bottom: 3rem;
+    bottom: 3.8rem;
 }
 
 .noti {

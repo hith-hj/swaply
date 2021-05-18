@@ -46,6 +46,13 @@ body {
     text-align: center;
 }
 
+#slogan-header {
+    font-size: 40px;
+    color: #81CB80;
+    text-align: center;
+    margin-top: 0;
+}
+
 
 /* #logo {
 animation: logo-anim 3s ease forwards 1.5s;
@@ -86,7 +93,7 @@ animation: logo-anim 3s ease forwards 1.5s;
 }
 
 .row {
-    margin-top: 10px;
+    margin-top: 5px;
     animation: opfill 12s ease-in-out;
 }
 

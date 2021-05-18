@@ -128,7 +128,7 @@
                                         @endif
                                         <br>
                                         <br>
-                                        <span class="h4 text-muted">{{$loop->index + 1}}</span>
+                                        <span class="h5 text-muted">{{$loop->index + 1}}</span>
                                     </div>                                                                                                                                     
                                 @endforeach
                             </div>
@@ -136,11 +136,11 @@
                         </div>
                         @if(count($feed->collection) > 1)
                                <div class="text-center">
-                                    <button class="sbtn sbtn-txt carousel-control-prevz mx-3" type="button" data-bs-target="#showFullImage" data-bs-slide="next">
+                                    <button class="sbtn sbtn-txt carousel-control-prevz mx-5" type="button" data-bs-target="#showFullImage" data-bs-slide="next">
                                         <span aria-hidden="true"><i class="bi bi-chevron-right icon-2 cb"></i></span>
                                         <span class="visually-hidden"></span>
                                     </button>
-                                    <button class="sbtn sbtn-txt carousel-control-nextz mx-3" type="button" data-bs-target="#showFullImage" data-bs-slide="prev">
+                                    <button class="sbtn sbtn-txt carousel-control-nextz mx-5" type="button" data-bs-target="#showFullImage" data-bs-slide="prev">
                                         <span aria-hidden="true"><i class="bi bi-chevron-left icon-2 cb"></i></span>
                                         <span class="visually-hidden"></span>
                                     </button>

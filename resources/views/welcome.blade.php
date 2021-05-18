@@ -37,7 +37,9 @@
             </svg>
 
             <div class="row">
-                <p id="slogan">بدل حاجتك النايمة بحاجة مفيدة بدل ما ترميها</p>
+                <h1 id="slogan-header">سوابلي</h1>
+                <p id="slogan">بدل الي مش محتاجه بدوسة</p>
+                <small></small>
             </div>
 
             @if (Route::has('login'))

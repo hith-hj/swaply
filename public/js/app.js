@@ -360,32 +360,35 @@ function copyLink(id) {
 }
 
 function setItemLocation(loca) {
-    let group = document.querySelector("#location-group")
-    let input = document.querySelector("#location-input")
-    let set = document.querySelector("#setLocation")
-    let reset = document.querySelector("#resetLocation")
-    set.classList.add("hidden")
-    reset.classList.remove("hidden")
-    input.classList.remove("hidden")
-    input.value = loca
-    group.classList.add("hidden")
+    let setBtn = document.querySelector('#setLocation');
+    let resetBtn = document.querySelector('#resetLocation');
+    let group = document.querySelector("#location-group");
+    let bio = document.querySelector("#addLocationBio");
+
+
+    bio.classList.remove('hidden');
+    setBtn.classList.add('hidden');
+    resetBtn.classList.remove('hidden');
+    group.classList.remove("hidden");
     for (el of group.children) {
-        el.setAttribute('disabled', 'true')
-        el.value = ''
+        el.setAttribute('disabled', 'false');
+        el.disabled = false;
     }
 }
 
 function resetItemLocation() {
+    let setBtn = document.querySelector('#setLocation');
+    let resetBtn = document.querySelector('#resetLocation');
     let group = document.querySelector("#location-group")
-    let input = document.querySelector("#location-input")
-    let set = document.querySelector("#setLocation")
-    let reset = document.querySelector("#resetLocation")
-    set.classList.remove("hidden")
-    reset.classList.add("hidden")
-    input.classList.add("hidden")
-    input.value = ''
-    group.classList.remove("hidden")
+    let bio = document.querySelector("#addLocationBio");
+
+
+    bio.classList.add('hidden');
+    setBtn.classList.remove('hidden')
+    resetBtn.classList.add('hidden')
+    group.classList.add("hidden")
     for (el of group.children) {
-        el.removeAttribute('disabled')
+        el.setAttribute('disabled', 'true')
+        el.value = null
     }
 }

@@ -48,10 +48,11 @@ class Body extends Component
             $this->g_id = $temp[1];           
             $last = array_pop($this->visted);  
             array_push($this->forward ,$last);
-        }else{
-            $noti = ['','b','خلصو خلاص'];
-            $this->emit('notifi',$noti);
         }
+        // else{
+        //     $noti = ['','b','خلصو خلاص'];
+        //     $this->emit('notifi',$noti);
+        // }
     }
 
     public function goNext()
@@ -61,10 +62,11 @@ class Body extends Component
             $this->body = $temp[0];
             $this->g_id = $temp[1];
             array_pop($this->forward);
-        }else{
-            $noti = ['هتروح فين','b','في ايه'];
-            $this->emit('notifi',$noti);
         }
+        // else{
+        //     $noti = ['هتروح فين','b','في ايه'];
+        //     $this->emit('notifi',$noti);
+        // }
     }
 
     public function reportProblem()
