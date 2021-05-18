@@ -627,8 +627,10 @@ textarea::selection {
     font-size: 2rem;
     position: fixed;
     top: 5%;
+    display: grid;
     border: 2px solid #aaa;
     border-radius: 50px;
+    left: 48%;
 }
 
 .itemCard {
