@@ -175,14 +175,14 @@
             </li> --}}
         </ul>
 
-        <div id="newItemModal" class="hidden smodal">
-            <div id="dataForm" class="card shadow show ani ani_fadeIn p-2 w-100" >
-                <form id="add-item-form" class="text-centerz" onsubmit="AddItem(event)" method="POST" enctype="multipart/form-data">
+        <div id="newItemModal" class="hidden smodal ">
+            <div id="dataForm" class="itemCard shadow show ani ani_fadeIn p-2" >
+                <form id="add-item-form" class="width-auto" onsubmit="AddItem(event)" method="POST" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-8 ">
                             <label class="p-2">أضافة</label><br>
                         </div>
-                        <div class="col-1 offset-1 cursor">
+                        <div class="col-1 offset-2 cursor">
                             <i class="bi bi-x fs-2" onclick="document.querySelector('#newItemModal').classList.toggle('hidden')"></i>
                         </div>
                     </div>
