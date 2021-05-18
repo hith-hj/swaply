@@ -68,7 +68,8 @@ class HomeController extends Controller
                         . $data['item_location_area'].'-'
                         . $data['item_location_naighbor'];
         }
-        $toReplace = [0,1,2,3,4,5,6,7,8,9];
+        $toReplace = [0,1,2,3,4,5,6,7,8,9,'٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+       
         $item = new Item();
         $item->user_id = Auth::id();
         // $item->item_type = $data['item_type'];
