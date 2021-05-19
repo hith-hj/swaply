@@ -13,6 +13,18 @@ if ("serviceWorker" in navigator) {
     console.log('wtf');
 }
 
+if (location.pathname == '/login') {
+    window.addEventListener('load', (e) => {
+        if (localStorage.getItem('user') != null && localStorage.getItem('pass') != null) {
+            let rem = document.querySelector("#remember_me").checked = true;
+            let user = document.querySelector("#name").value = localStorage.getItem('user');
+            let pass = document.querySelector("#password").value = localStorage.getItem('pass');
+            let submit = document.querySelector("#loginBtn").click();
+        }
+        // if(localStorage.getItem())
+    })
+}
+
 // Livewire
 
 Livewire.on('notifi', (e) => {
@@ -59,7 +71,17 @@ window.addEventListener("load", menuView);
 window.addEventListener("resize", menuView);
 let _clicks = 0;
 window.addEventListener("touchstart", (e) => {
-    if (_clicks == 5) {
+    _clicks++;
+    if (_clicks == 15) {
+        Livewire.emit('getFeeds')
+        Livewire.emit('refresh')
+        _clicks = 0
+    }
+});
+
+window.addEventListener("click", (e) => {
+    _clicks++;
+    if (_clicks == 15) {
         Livewire.emit('getFeeds')
         Livewire.emit('refresh')
         _clicks = 0
@@ -391,4 +413,12 @@ function resetItemLocation() {
         el.setAttribute('disabled', 'true')
         el.value = null
     }
+}
+
+function rememberMe() {
+    let user = document.querySelector("#name").value;
+    let pass = document.querySelector("#password").value;
+
+    localStorage.setItem('user', user)
+    localStorage.setItem('pass', pass)
 }

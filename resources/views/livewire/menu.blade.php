@@ -60,7 +60,7 @@
                                                 <span> <i class="bi bi-distribute-horizontal"></i> {{$item->item_type == 1? 'مبادلة':'تبرع'}} |</span>
                                             </small>
                                             <small class=" {{$item->item_type == 2 ? 'hidden' : ''}}"><i class="mx-1 bi bi-arrow-down-up"></i> {{$item->swap_with}} |</small>
-                                            <small class=""> عروض : {{$item->requests}}</small> 
+                                            <small class=""> شوهد : {{$item->views}}</small> 
                                         </div>
                                     </div>                                
                                     <small> <i class="bi bi-justify-right"></i> {{substr($item->item_info,0,strlen($item->item_info) < 40? strlen($item->item_info): strlen($item->item_info)/2)}}</small> 
@@ -114,6 +114,15 @@
                                 </li>
                                 <li class="cursor" wire:click="$emitTo('body','changeBody','reportProblem')">
                                     <span class="dropdown-item" > <i class="bi bi-flag cr"></i> <span>اقتراحات و مشاكل</span> </span>
+                                </li>
+                                <li class="cursor">
+                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                document.querySelector('#logout-form').submit();">
+                                        <i class="bi bi-door-open cr mx-1"></i><small >تسجيل خروج</small>
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
                                 </li>
                             </ul>
                         </div>

@@ -36,7 +36,7 @@ class HomeController extends Controller
 
     public function addItem(Request $req)
     {
-        // dd($req->all());
+        var_dump($req->all());
         $directory = $this->getDirectory();
         $data = $req->all();        
         $collection = [];        

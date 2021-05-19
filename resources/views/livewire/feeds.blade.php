@@ -18,7 +18,7 @@
                                         <li class="cursor dropdown-item" wire:click="$emit('copyUrl',['{{$feed->id}}'])"><i class="bi bi-clipboard-plus"></i> <span>نسخ الرابط</span></li>
                                         <li class="cursor dropdown-item mb-0" onclick="
                                         document.querySelector(`#report_modal{{$feed->id}}`).classList.toggle('hidden');
-                                        "><i class="bi bi-flag cr"></i> <span>تبليغ إساءة</span></li>
+                                        "><i class="bi bi-flag cr"></i> <span>تبليغ المنشور</span></li>
                                     </ul>
                                 @endif
                             </div>

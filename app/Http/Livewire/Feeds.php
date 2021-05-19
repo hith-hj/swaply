@@ -38,8 +38,7 @@ class Feeds extends Component
     {
         // $requests = Requests::where('sender_id','=',Auth::user()->id)->get();
         $requests = Requests::where('sender_id','=',Auth::user()->id)->orWhere('user_id','=',Auth::user()->id)->get();
-        $this->feeds = Item::where([
-            ['status','!=',1],])->get()->take(25)->sortByDesc('updated_at');
+        $this->feeds = Item::all()->where('status','=',0)->take(15)->sortByDesc('updated_at');
         $requests = count($requests) > 0  ? $requests : false ;
         foreach($this->feeds as $key=>$feed)
         {

@@ -29,13 +29,19 @@ class Menu extends Component
 
     public function refresh()
     {
+        $this->getAll();
+    }
+
+    public function getAll()
+    {
+        $this->getUser();
         $this->getNotification();
     }
 
     public function getUser()
     {
         $this->user = User::find(Auth::id());
-        $this->user->items = Item::all()->where('user_id',Auth::user()->id)->sortByDesc('created_at');
+        $this->user->items = Item::where([['user_id','=',Auth::id()],['status','!=','soft_deleted']])->get()->sortByDesc('updated_at');;
         $this->user->swaps = Swap::where('user_id','=',Auth::id())->orWhere('sender_id','=',Auth::id())->count();
         $this->user->recommends = $this->getRecommends();
         $this->user->notification = $this->getNotification();        

@@ -15,10 +15,13 @@
                                         <h6 class="card-title m-0">
                                             <span wire:click="$emitTo('body','changeBody',['showitem','{{$req->sender_item->id}}'])"> ارسلت {{$req->sender_item->item_title}}</span>  &lArr;  
                                             <span class="cursor" wire:click="$emitTo('body','changeBody',['showitem','{{$req->item->id}}'])"> مقابل {{$req->item->item_title}}</span> </h6>
+                                            
                                         <div class="row">
                                             <div class="col">
                                                 <small class="mx-1"><span> <i class="bi bi-calendar"></i></span> {{$req->created_at->diffForHumans()}}</small>
                                                 <small class="mx-1"><span> المكان :</span> {{$req->item->item_location}}</small>
+                                                <small class="mx-3 cursor" onclick="document.querySelector('#delete{{$req->id}}').classList.toggle('hidden')" ><i class="me-auto bi bi-trash"></i>حذف الطلب</small>
+                                                <small class="hidden cr cursor glow" id="delete{{$req->id}}" wire:click="deleteRequest({{$req->id}})">حذف</small>
                                             </div>
                                         </div>   
                                         <hr>

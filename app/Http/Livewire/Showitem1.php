@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Item;
 use App\Models\Requests;
 use App\Models\Notifyer;
+use App\Models\Report;
 use App\Models\User;
 use App\Models\Save;
 use App\Models\Swap;
@@ -17,6 +18,7 @@ class Showitem1 extends Component
 {
     protected $item;
     public $item_id;
+    public $repo;
     public $req_item;
     public $req_info;
     public $editedFeed;
@@ -49,15 +51,15 @@ class Showitem1 extends Component
     public function getItem($id)
     {
         $item = Item::find($id);
-        $item = $item != null ? true : false;
-        if($item == true ){            
+        $stat = $item != null ? true : false;
+        if($stat == true && $item->status != 'soft_deleted'){            
             $this->item = Item::find($id);
             $this->item->views += 1;
             $this->item->save();
             $this->item->user = User::find($this->item->user_id);
             $this->item->requestsCount = $this->item->requests;
             $this->item->collection = unserialize($this->item->collection);
-            $this->item->user_items = Item::all()->where("user_id",Auth::user()->id);
+            $this->item->user_items = Item::all()->where('status','=',0)->where("user_id",Auth::id());
             $this->item->requests = Requests::where('item_id',$id)->orWhere('sender_item',$id)->get();
             if($this->item->status == 1)
             {
@@ -139,6 +141,7 @@ class Showitem1 extends Component
             Notifyer::store(Auth::id(),$user_id,'تم استلام عرض جديد',$item_id);
         }
         $off == true ? $this->emit('notifi',$this->notis[5]) : $this->emit('notifi',$this->notis[4]);
+        $this->emit('changeBody','feeds');
         $this->resetOffer();
     }
     
@@ -191,12 +194,13 @@ class Showitem1 extends Component
 
     public function editItem($item_id)
     {
+        $toReplace = [0,1,2,3,4,5,6,7,8,9,'٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
         try {
             $item = Item::find($item_id);
-            $item->item_title = $this->editedFeed['item_title'];
-            $item->item_info = $this->editedFeed['item_info'];
-            $item->item_location = $this->editedFeed['item_location'];
-            $item->swap_with = $this->editedFeed['swap_with'];
+            $item->item_title = str_replace($toReplace,'',$this->editedFeed['item_title']);
+            $item->item_info = str_replace($toReplace,'',$this->editedFeed['item_info']);
+            $item->item_location = str_replace($toReplace,'',$this->editedFeed['item_location']);
+            $item->swap_with = str_replace($toReplace,'',$this->editedFeed['swap_with']);
             $item->save();
             $this->emit('notifi',$this->notis[7]);
             $this->emit('changeBody',['showitem',$item_id]);
@@ -209,21 +213,35 @@ class Showitem1 extends Component
     {
         
         try {
-            $reqs = DB::table('requests')->where('item_id','=',$item_id)->orWhere('sender_item','=',$item_id);
-            $reqs->delete();
-            $noti = DB::table('notifications')->where('on_id','=',$item_id);
-            $noti->delete();
             $ite = Item::find($item_id);
-            if(Storage::disk('items')->exists($ite->directory)){
-                Storage::disk('items')->deleteDirectory($ite->directory);
-            }
-            $ite->delete();
+            $ite->status = 'soft_deleted';
+            $ite->save();
             $this->emit('notifi',$this->notis[9]);
         } catch (\Throwable $th) {
             $this->emit('notifi',$this->notis[1]);
         }finally{
             $this->emit('changeBody','feeds');
         }
+    }
+    public function report($post_id,$user_id):void
+    {
+        // dd($this->repo);
+        $res = false;
+        if($this->repo != null && count($this->repo) == 2)
+        {
+            Report::create([
+                'user_id'=>$user_id,
+                'maker_id'=>Auth::user()->id,
+                'post_id'=>$post_id,
+                'report_type'=>$this->repo['type'],
+                'report_info'=>$this->repo['info'],
+            ]);
+            $res = Notifyer::store(Auth::id(),$user_id,'تم تبليغ عن منشورك,الرجاء تعديل او ازالة المنشور',$post_id);
+        }
+        $res == true 
+        ? $this->emit('notifi',$this->notis[2]) 
+        : $this->emit('notifi',$this->notis[3]);
+        
     }
 
     public function render()

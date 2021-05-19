@@ -21,7 +21,7 @@
                                     @if($feed->user_id != Auth::user()->id)
                                         <li class="cursor dropdown-item" wire:click="savePost('{{$feed->id}}')"><i class="bi bi-save"></i> <span>حفظ</span></li>
                                         <li class="cursor dropdown-item" wire:click="$emit('copyUrl',['{{$feed->id}}'])"><i class="bi bi-clipboard-plus"></i> <span>نسخ الرابط</span></li>
-                                        <li class="cursor dropdown-item" onclick="toggleReportForm(event , {{$feed->id}})"><i class="bi bi-flag cr"></i> <span>تبليغ إساءة</span></li>
+                                        <li class="cursor dropdown-item" onclick="document.querySelector('#report{{$feed->id}}').classList.toggle('hidden')"><i class="bi bi-flag cr"></i> <span>تبليغ إساءة</span></li>
                                     @else 
                                         <li class="cursor dropdown-item" wire:click="$emit('copyUrl',['{{$feed->id}}'])"><i class="bi bi-clipboard-plus"></i> <span>نسخ الرابط</span></li>
                                         <li class="cursor dropdown-item" onclick="document.querySelector('#edit{{$feed->id}}').classList.toggle('hidden')" ><i class="bi bi-pencil-square"></i> <small> تعديل المنشور</small></li>
@@ -113,6 +113,26 @@
                     </div>
                 </div>
 
+                <div id="report{{$feed->id}}" class="hidden w-95 mx-auto mt-0 z-100">
+                    <hr>
+                    <div class="modal-body">
+                        <label for="" class="form-label">نوع الاساءة</label>
+                        <input type="text" wire:model.defer="repo.type" list="reportsType" class="form-control">
+                        <datalist id="reportsType">
+                                <option value="منشور وهمي">
+                                <option value="منشور مسيء">
+                                <option value="منشور غير مفهوم">
+                        </datalist>
+                        <label for="" class="form-label">وضح لنا الأساءة</label>
+                        <textarea class="form-control my-1" wrap="hard" wire:model.defer="repo.info" rows="2"></textarea>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        
+                        <button type="button" class="sbtn sbtn-txt mx-1" wire:click="report('{{$feed->id}}','{{$feed->user_id}}')"><span>ارسال</span></button>
+                        <button type="button" class="sbtn sbtn-txt mx-3" data-bs-dismiss="modal" wire:click="resetReport()"><span>أغلاق</span></button>
+                    </div>
+                </div>
+
                 <div id="showItemImages" class="hidden smodal ani ani_fadeIn text-center" style="background: #e1eee0;z-index:12; ">
                     <div class="ani ani_fadeIn p-2 w-100">
                         <div id="showFullImage" class="carousel slide text-center carousel-fade" data-bs-ride="carousel" >
@@ -130,7 +150,8 @@
                                         <span class="h4 text-muted ani ani_fadeIn">{{$loop->index + 1}}</span>
                                     </div>                                                                                                                                     
                                 @endforeach
-                            </div>                            
+                            </div>
+
                         </div>
                         @if(count($feed->collection) > 1)
                                <div class="text-center">
@@ -217,7 +238,7 @@
                                 <p>لايوجد عروض الى الأن</p>
                             </div>
                         @endif
-                    @else 
+                    @else
                         @if($feed->requested != true)
                             <div class="card-footer text-center">    
                                 <button class="sbtn sbtn-txt bg-white w-50 p-1" onclick="document.querySelector('#offer{{$feed->id}}').classList.toggle('hidden')"><span>ارسل <i class="bi bi-cloud-upload"></i></span></button>  

@@ -16,7 +16,7 @@ class Items extends Component
     
     public function getItems()
     {
-        $this->feeds = Item::all()->where('user_id',Auth::id())->sortByDesc('created_at');
+        $this->feeds = Item::where([['user_id','=',Auth::id()],['status','!=','soft_deleted']])->get()->sortByDesc('created_at');
         $this->feeds->each(function($feed){
             $feed->collection = unserialize($feed->collection);
         });

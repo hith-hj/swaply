@@ -23,7 +23,7 @@
             </small> --}}
         </div>
 
-        <div class="cursor"  title="خروج (خليك معنا)" style="position: fixed;bottom: 1.65%;left: 3%;transform: scale(1);">
+        {{-- <div class="cursor"  title="خروج (خليك معنا)" style="position: fixed;bottom: 1.65%;left: 3%;transform: scale(1);">
             <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="bi bi-box-arrow-left icon-15"></i>
             </span>                    
@@ -38,7 +38,7 @@
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf
             </form>
-        </div>
+        </div> --}}
         
     </div>
 </footer>

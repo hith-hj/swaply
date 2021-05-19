@@ -79,10 +79,26 @@ class Rexust extends Component
             $req->item->collection = unserialize($req->item->collection);
             if($req->item_type == 1 && $req->sender_item != 'order'){
                 $req->sender_item = Item::find($req->sender_item);
-                // $req->sender_item->collection = unserialize($req->sender_item->collection);
             }        
         }
         return $this->requests;
+    }
+
+    public function deleteRequest($id)
+    {
+        $notis=[['تم حذف الطلب','b','حسنا'],['لم يتم حذف الطلب','r','خطأ']];
+        try {
+            $req = Requests::find($id);
+            $item = Item::find($req->item_id);
+            $item->requests -= 1 ;
+            $item->save();
+            $req->delete();
+            $this->emit('notifi',$notis[0]);
+        } catch (\Throwable $th) {
+            $this->emit('notifi',$notis[1]);
+        }finally{
+            $this->changeRequests($this->view);
+        }
     }
 
     public function render()
