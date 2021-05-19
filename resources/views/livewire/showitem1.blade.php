@@ -240,8 +240,20 @@
                             </div>
                         @endif
                     @else
-                        @if($feed->requested != true)
-                            <div class="card-footer text-center">    
+                        @if($feed->requested == true)
+                            <div class="card-footer text-centerz">
+                                <div class="alert alert-info" role="alert">
+                                    <p>ارسلت عرض لهذا الغرض</p>
+                                </div> 
+                            </div>
+                        @elseif($feed->recived == true)
+                            <div class="card-footer text-centerz">
+                                <div class="alert alert-info" role="alert">
+                                    <p>استلمت عرض لهذا الغرض</p>
+                                </div> 
+                            </div>
+                        @else
+                            <div class="card-footer text-center">
                                 <button class="sbtn sbtn-txt bg-white w-50 p-1" onclick="document.querySelector('#offer{{$feed->id}}').classList.toggle('hidden')"><span>ارسل <i class="bi bi-cloud-upload"></i></span></button>  
                                 <div class="modal-dialog ani ani_fadeIn hidden mx-auto mb-1 mt-1" id="offer{{$feed->id}}">
                                     @if($feed->item_type == 2)
@@ -277,12 +289,6 @@
                                         </div>
                                     @endif
                                 </div>
-                            </div>
-                        @else 
-                            <div class="card-footer text-centerz">
-                                <div class="alert alert-info" role="alert">
-                                    <p>ارسلت عرض لهذا الغرض</p>
-                                </div> 
                             </div>
                         @endif
                     @endif

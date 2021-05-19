@@ -80,11 +80,21 @@ class Showitem1 extends Component
                 });
             }else{
                 foreach($this->item->requests as $req){
-                    $req->sender = User::find($req->sender_id);
-                    if($req->item_type == 1){
-                        $req->sender_item = Item::find($req->sender_item);
-                        $req->sender_item->collection = unserialize($req->sender_item->collection);
+                    if(Auth::id() == $req->user_id)
+                    {
+                        $req->sender = User::find($req->sender_id);
+                        if($req->item_type == 1){
+                            $req->sender_item = Item::find($req->sender_item);
+                            $req->sender_item->collection = unserialize($req->sender_item->collection);
+                        }
+                    }else{
+                        $req->sender = User::find($req->user_id);
+                        if($req->item_type == 1){
+                            $req->sender_item = Item::find($req->item_id);
+                            $req->sender_item->collection = unserialize($req->sender_item->collection);
+                        }
                     }
+
                 }
             }
             $this->editedFeed['item_title'] = $this->item->item_title;
@@ -92,8 +102,9 @@ class Showitem1 extends Component
             $this->editedFeed['item_location'] = $this->item->item_location;
             $this->editedFeed['swap_with'] = $this->item->swap_with; 
             
-            if($this->item->user_id != Auth::id()){
+            if($this->item->user_id != Auth::id() && $this->item->item_type == 1){
                 $this->item = $this->checkIfRequested($this->item);
+                $this->item = $this->checkIfRecived($this->item);
             }
         }else{
             return $this->item = [];
@@ -108,6 +119,15 @@ class Showitem1 extends Component
         $item->requested = Requests::where([
             ['item_id','=',$item->id],
             ['sender_id','=',Auth::id()]
+        ])->exists();
+        return $item;
+    }
+
+    public function checkIfRecived($item)
+    {
+        $item->recived = Requests::where([
+            ['sender_item','=',$item->id],
+            ['user_id','=',Auth::id()]
         ])->exists();
         return $item;
     }
