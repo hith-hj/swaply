@@ -36,7 +36,6 @@ class HomeController extends Controller
 
     public function addItem(Request $req)
     {
-        var_dump($req->all());
         $directory = $this->getDirectory();
         $data = $req->all();        
         $collection = [];        
@@ -77,7 +76,7 @@ class HomeController extends Controller
         $item->item_title = str_replace($toReplace,'',$data['item_title']);
         $item->item_info = str_replace($toReplace,'',$data['item_description']);
         $item->item_location = str_replace($toReplace,'',$location);
-        $item->swap_with = str_replace($toReplace,'',$data['swap_with']) ?? 'give';
+        $item->swap_with = $data['swap_with'] == 'x' ? 'اي شيء' : str_replace($toReplace,'',$data['swap_with']) ?? 'give';
         $item->collection = serialize($collection);
         $item->directory = $directory;
         $item->save();

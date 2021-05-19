@@ -198,7 +198,7 @@
 
                     <input name="item_title" type="text" class="form-control mb-1" placeholder="نوع حاجتك" required>
 
-                    <input name="swap_with" type="text" id="swap_with" placeholder=" هتبدل حاجتك بأيه" class="form-control mb-1" title="الاسم واضح" required>
+                    <input name="swap_with" type="text" id="swap_with" placeholder="هتبدل حاجتك بأيه (ادخل X اذا لاتريد شيئ معين)" class="form-control mb-1" title="الاسم واضح" required>
 
                     <textarea name="item_description" wrap="hard" class="form-control" rows="2" title="اختياري" placeholder="اوصف حاجتك"></textarea>
 
