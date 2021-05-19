@@ -43,7 +43,7 @@ class Menu extends Component
         $this->user = User::find(Auth::id());
         $this->user->items = Item::where([['user_id','=',Auth::id()],['status','!=','soft_deleted']])->get()->sortByDesc('updated_at');;
         $this->user->swaps = Swap::where('user_id','=',Auth::id())->orWhere('sender_id','=',Auth::id())->count();
-        $this->user->recommends = $this->getRecommends();
+        // $this->user->recommends = $this->getRecommends();
         $this->user->notification = $this->getNotification();        
     }
 

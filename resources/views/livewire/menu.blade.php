@@ -394,7 +394,7 @@
 
     <span  id="cir-icon" class="cursor" >
         <i class="bi bi-list"></i>
-        @if(count($user->notification) > 0 || $user->recommends > 0)
+        @if(count($user->notification) > 0)
             <span class="bi bi-dot red-alert icon-15"></span>
         @endif
     </span>
