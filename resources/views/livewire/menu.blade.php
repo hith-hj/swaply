@@ -118,7 +118,7 @@
                                 <li class="cursor">
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                 document.querySelector('#logout-form').submit();">
-                                        <i class="bi bi-door-open cr mx-1"></i><small >تسجيل خروج</small>
+                                        <i class="bi bi-door-open cr"></i><small >تسجيل خروج</small>
                                     </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
@@ -132,7 +132,7 @@
             </li>
             <li class="cursor ver-li" title="اشعارات" >
                 <div class="dropend">
-                    <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" >
+                    <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-15,10" aria-expanded="false" >
                         <i class="bi bi-bell "></i>
                         @if(count($user->notification) >0 )
                             <span class="bi bi-exclamation-circle red-alert icon-sm"></span>
@@ -154,7 +154,7 @@
                                         <small class="text-muted">{{$noti->created_at->diffForHumans()}}</small>
                                     </div>
                                     <small >{{$noti->item->item_title}}</small>
-                                </a>
+                                </span>
                             @empty 
                                 <div class="d-flex w-100 justify-content-between">
                                     <h6 class="mb-1">لايوجد اشعارات جديدة</h6>
@@ -260,65 +260,7 @@
                         </button>
                     </div>
 
-                    {{-- <div class="hidden">
-                        <div class="row">
-                            <div class="col-8 ">
-                                <label class="p-2">مكان الغرض</label><br>
-                                <small class="text-muted py-1"> ضيف موقعك من هنا</small>
-                                <small id="setLocation" class="cursor btn glow border" title="اضف موقعي" onclick="setItemLocation('{{Auth::user()->location}}')"> <i class="bi bi-geo-alt "></i> </small>
-                                <small id="resetLocation" class="cursor btn glow border hidden" title="إعادة ضبط" onclick="resetItemLocation()"> <i class="bi bi-arrow-repeat "></i> </small>
-                            </div>
-                            <div class="col-1 offset-2 cursor">
-                                <i class="bi bi-x fs-2" onclick="document.querySelector('#newItemModal').classList.toggle('hidden')"></i>
-                            </div>
-                        </div>
-                        <small>
-                            <table>
-                                <tr>
-                                    <td class="px-4 "><small>المحافظة</small></td>
-                                    <td class="px-5 "><small>المنطقة</small></td>
-                                    <td class="px-4 "><small>الحي</small></td>
-                                </tr>
-                            </table>
-                        </small>
-                        <div id="location-group" class="input-group mb-1" title="محافظة-المنطقة او المركز-الحي او القرية">
-                            <select name="item_location_covernent"  required class="form-select">
-                                <option id="location-inputz" ></option>
-                                <option value="القاهرة"> <span>القاهرة</span> </option>
-                                <option value="الجيزة"> <span>الجيزة</span> </option>
-                                <option value="القليوبية"> <span>القليوبية</span> </option>
-                                <option value="الشرقية"> <span>الشرقية</span> </option>
-                                <option value="المنوفية"> <span>المنوفية</span> </option>
-                                <option value="الغربية"> <span>الغربية</span> </option>
-                                <option value="كفر الشيخ"> <span>كفر الشيخ</span> </option>
-                                <option value="الدقهلية"> <span>الدقهلية</span> </option>
-                                <option value="دمياط"> <span>دمياط</span> </option>
-                                <option value="البحيرة"> <span>البحيرة</span> </option>
-                                <option value="الأسكندرية"> <span>الأسكندرية</span> </option>
-                                <option value="مرسي مطروح"> <span>مرسي مطروح</span> </option>
-                                <option value="بور سعيد"> <span>بور سعيد</span> </option>
-                                <option value="الإسماعيلة"> <span>الإسماعيلة</span> </option>
-                                <option value="السويس"> <span>السويس</span> </option>
-                                <option value="البحر الاحمر"> <span>البحر الاحمر</span> </option>
-                                <option value="شمال سيناء"> <span>شمال سيناء</span> </option>                            
-                                <option value="جنوب سيناء"> <span>جنوب سيناء</span> </option>
-                                <option value="شرم الشيخ"> <span>شرم الشيخ</span> </option>
-                                <option value="الوادي الجديد"> <span>الوادي الجديد</span> </option>
-                                <option value="الفيوم"> <span>الفيوم</span> </option>
-                                <option value="بني سويف"> <span>بني سويف</span> </option>
-                                <option value="المنيا"> <span>المنيا</span> </option>
-                                <option value="أسيوط"> <span>أسيوط</span> </option>
-                                <option value="سوهاج"> <span>سوهاج</span> </option>
-                                <option value="قنا"> <span>قنا</span> </option>
-                                <option value="الأقصر"> <span>الأقصر</span> </option>                            
-                                <option value="أسوان"> <span>أسوان</span> </option>                      
-                            </select>
-                            <input type="text" name="item_location_area" aria-label="Last name" required class="form-control">
-                            <input type="text" name="item_location_naighbor" aria-label="Last name" required class="form-control">
-                        </div>
-                        <input name="item_location" type="text" id="location-input" class="form-control hidden mb-1 w-100" readonly>
-                    </div> --}}
-                        @csrf
+                    @csrf
                 </form>
             </div>
         </div>
