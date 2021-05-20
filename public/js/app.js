@@ -72,7 +72,7 @@ window.addEventListener("resize", menuView);
 let _clicks = 0;
 window.addEventListener("touchstart", (e) => {
     _clicks++;
-    if (_clicks == 15) {
+    if (_clicks == 25) {
         Livewire.emit('getFeeds')
         Livewire.emit('refresh')
         _clicks = 0
@@ -81,7 +81,7 @@ window.addEventListener("touchstart", (e) => {
 
 window.addEventListener("click", (e) => {
     _clicks++;
-    if (_clicks == 15) {
+    if (_clicks == 25) {
         Livewire.emit('getFeeds')
         Livewire.emit('refresh')
         _clicks = 0
@@ -267,8 +267,8 @@ function displayUploadedImages(ev) {
             div.classList.add('d-inline-block', 'text-center', );
             img.setAttribute('src', window.URL.createObjectURL(files[i]));
             img.setAttribute('class', 'uploaded-img animation-fade');
-            img.setAttribute('width', '80');
-            img.setAttribute('height', '80');
+            img.setAttribute('width', '70');
+            img.setAttribute('height', '70');
             img.setAttribute('id', 'img_' + files[i].size);
             itag.setAttribute('id', 'rem_' + files[i].size);
             itag.setAttribute('class', 'bi bi-x');
@@ -276,7 +276,7 @@ function displayUploadedImages(ev) {
             div.appendChild(img);
             div.appendChild(itag);
             gal.appendChild(div);
-            gal.classList.add('mb-1', 'border', 'rounded', 'p-1');
+            gal.classList.add('mb-1', 'border-dashed', 'rounded', 'p-1');
         }
     }
 }
@@ -385,10 +385,10 @@ function setItemLocation(loca) {
     let setBtn = document.querySelector('#setLocation');
     let resetBtn = document.querySelector('#resetLocation');
     let group = document.querySelector("#location-group");
-    let bio = document.querySelector("#addLocationBio");
+    // let bio = document.querySelector("#addLocationBio");
 
 
-    bio.classList.remove('hidden');
+    // bio.classList.remove('hidden');
     setBtn.classList.add('hidden');
     resetBtn.classList.remove('hidden');
     group.classList.remove("hidden");
@@ -402,10 +402,10 @@ function resetItemLocation() {
     let setBtn = document.querySelector('#setLocation');
     let resetBtn = document.querySelector('#resetLocation');
     let group = document.querySelector("#location-group")
-    let bio = document.querySelector("#addLocationBio");
+        // let bio = document.querySelector("#addLocationBio");
 
 
-    bio.classList.add('hidden');
+    // bio.classList.add('hidden');
     setBtn.classList.remove('hidden')
     resetBtn.classList.add('hidden')
     group.classList.add("hidden")

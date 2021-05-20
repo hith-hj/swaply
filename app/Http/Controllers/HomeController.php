@@ -60,23 +60,23 @@ class HomeController extends Controller
             array_push($collection,$nameToStore);
         }
         
-        if($data['item_location_covernent'] == null && $data['item_location_area'] == null && $data['item_location_naighbor'] == null ){
+        if($data['item_location_covernent'] == null || $data['item_location_area'] == null || $data['item_location_naighbor'] == null ){
             $location = Auth::user()->location;
         }else{
             $location = $data['item_location_covernent'].'-'
                         . $data['item_location_area'].'-'
                         . $data['item_location_naighbor'];
         }
+
         $toReplace = [0,1,2,3,4,5,6,7,8,9,'٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
        
         $item = new Item();
         $item->user_id = Auth::id();
-        // $item->item_type = $data['item_type'];
-        $item->item_type = 1;
+        $item->item_type = $data['item_type']  ?? 1;
         $item->item_title = str_replace($toReplace,'',$data['item_title']);
         $item->item_info = str_replace($toReplace,'',$data['item_description']);
         $item->item_location = str_replace($toReplace,'',$location);
-        $item->swap_with = $data['swap_with'] == 'x' ? 'اي شيء' : str_replace($toReplace,'',$data['swap_with']) ?? 'give';
+        $item->swap_with = $data['swap_with'] == 'x' ? 'اي شيء' : str_replace($toReplace,'',$data['swap_with']) ?? 'doonation';
         $item->collection = serialize($collection);
         $item->directory = $directory;
         $item->save();

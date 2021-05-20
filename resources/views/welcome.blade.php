@@ -57,7 +57,7 @@
                         @endauth
                     </div>                
                 @endif
-            </div>           
+            </div>
             @if(count($items)>1)
                 <div class="taste row">
                     @foreach ($items as $feed)
@@ -68,13 +68,15 @@
                                     <small class="card-subtitle text-muted m-0" title="تاريخ النشر"><i class="mx-1 bi bi-calendar-day"></i><span>{{$feed->created_at->diffForHumans()}}</span></small>  
                                 </div>
                                 <hr>
-                                <div wire:click="$emitTo('body','changeBody',['showitem','{{$feed->id}}'])" data-bs-toggle="tooltip" title="عرض المنشور">
+                                <div style="align-content: center" data-bs-toggle="tooltip" title="عرض المنشور">
                                     <small class="card-text"><span>{{$feed->item_info}}</span></small><br>
-                                    @if($feed->collection[0] != 'dark-logo.png')
-                                        <img class="glow px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" >
-                                    @else 
-                                        <img class="glow px-1" src="{{asset('assets/fto/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" >
-                                    @endif
+                                    <div style="display: grid;place-items:center;place-content:center;">
+                                        @if($feed->collection[0] != 'dark-logo.png')
+                                            <img class="glow px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" >
+                                        @else 
+                                            <img class="glow px-1" src="{{asset('assets/fto/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" >
+                                        @endif
+                                    </div>
                                 </div>
                                 <hr>
                                 <div class="row">

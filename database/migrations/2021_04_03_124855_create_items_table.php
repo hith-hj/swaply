@@ -23,6 +23,7 @@ class CreateItemsTable extends Migration
             $table->string('swap_with');
             $table->string('item_location');
             $table->string('directory');
+            $table->string('amount')->default(0);
             $table->string('views')->default(0);
             $table->string('requests')->default(0);
             $table->string('status')->default(0);

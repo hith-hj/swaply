@@ -52,14 +52,6 @@ class Rexust extends Component
         return count($this->requests) > 0 ? $this->requests : [];
     }
 
-    private function getSentOrders()
-    {
-        return $this->requests = Requests::where([['sender_id','=',Auth::id()],['item_type','=',2]])->get();
-    }
-    private function getRecivedOrders()
-    {
-        return $this->requests = Requests::where([['user_id','=',Auth::id()],['item_type','=',2]])->get();
-    }
     private function getSentOffers()
     {
         return $this->requests = Requests::where([['sender_id','=',Auth::id()],['item_type','=',1]])->get();
@@ -68,7 +60,15 @@ class Rexust extends Component
     {
         return $this->requests = Requests::where([['user_id','=',Auth::id()],['item_type','=',1]])->get();
     }
-
+    private function getSentOrders()
+    {
+        return $this->requests = Requests::where([['sender_id','=',Auth::id()],['item_type','=',2]])->get();
+    }
+    private function getRecivedOrders()
+    {
+        return $this->requests = Requests::where([['user_id','=',Auth::id()],['item_type','=',2]])->get();
+    }
+    
     private function getITems()
     {
         foreach($this->requests as $req)
@@ -77,7 +77,7 @@ class Rexust extends Component
             $req->sender = User::find($req->sender_id);
             $req->item = Item::find($req->item_id);
             $req->item->collection = unserialize($req->item->collection);
-            if($req->item_type == 1 && $req->sender_item != 'order'){
+            if($req->item_type == 1){
                 $req->sender_item = Item::find($req->sender_item);
             }        
         }

@@ -55,10 +55,10 @@ html {
 }
 
 .upload {
-    width: 99%;
+    width: 100%;
     text-align: center;
     height: 2.5rem;
-    border: 0.125rem dashed #d3d3d3;
+    border: 1px dashed #d3d3d3;
     border-radius: 0.125rem;
     cursor: pointer;
     padding: .2rem;

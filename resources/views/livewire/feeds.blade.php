@@ -81,7 +81,7 @@
                     @if($feed->item_type == 1)
                         <div class="card-footer text-center ">    
                             <button class="sbtn sbtn-txt bg-white w-50 mb-1 mt-1" onclick="document.querySelector('#offer{{$feed->id}}').classList.toggle('hidden')"><span>ارسل عرض</span></button>
-                            <div class="modal-dialog  hidden mx-auto mb-1 mt-0 ani ani_fadeIn" id="offer{{$feed->id}}">
+                            <div class="modal-dialog hidden mx-auto mb-1 mt-0 ani ani_fadeIn" id="offer{{$feed->id}}">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title"> <i class="bi bi-box "></i> <span> تقديم عرض</span></h5>
@@ -112,8 +112,12 @@
                     @else 
                         <div class="card-footer text-center ">    
                             <button class="sbtn sbtn-txt bg-white w-50 mb-1 mt-1" onclick="document.querySelector('#offer{{$feed->id}}').classList.toggle('hidden')"><span>أطلب</span></button>  
-                            <div class="modal-dialog  hidden mx-auto mb-1 mt-0 ani ani_fadeIn" id="offer{{$feed->id}}">
+                            <div class="modal-dialog hidden mx-auto mb-1 mt-0 ani ani_fadeIn" id="offer{{$feed->id}}">
                                 <div class="modal-content">
+                                    <div class="modal-body">
+                                        <label for="">سبب الطلب</label>
+                                        <textarea id="" rows="3" maxlength="170" class="form-control" wire:model.defer="req_item"></textarea>
+                                    </div>
                                     <div class="modal-footer justify-content-center">
                                         <div class="btn-group" role="group">
                                             <button type="button" class="btn btn-outline-success " wire:click="sendOffer('{{$feed->id}}','{{$feed->user_id}}','{{$feed->item_type}}')"><i class="bi bi-cloud-upload mx-2"></i><small>ارسال</small></button> 

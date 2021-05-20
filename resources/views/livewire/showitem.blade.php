@@ -202,15 +202,11 @@
                                         <div class="modal-body">
                                             @if ($feed->item_type == 2)
                                                 @foreach ($feed->requests as $req)
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <h6 class="m-0">{{$req->sender->name}}</h6>
-                                                            <small class="card-subtitle text-muted m-0">{{$req->created_at->diffForHumans()}}</small>
-                                                        </div>
-                                                        <div class="col btn-group" >
-                                                            <button type="button" class="btn btn-outline-success btn-sm" title="قبول الطلب"><i class="bi bi-check ml-1"></i><span>قبول</span></button>
-                                                        </div>
-                                                    </div>                                                
+                                                    <div class="order">
+                                                        <h6 class="m-0">{{$req->sender_item}}</h6>
+                                                        <small class="card-subtitle text-muted m-0">{{$req->created_at->diffForHumans()}}</small><br>
+                                                        <button type="button" class="btn btn-outline-success w-100" title="قبول الطلب"><i class="bi bi-check ml-1"></i><span>قبول</span></button>
+                                                    </div>                      
                                                 @endforeach
                                             @else
                                                 @foreach ($feed->requests as $req)
@@ -242,7 +238,7 @@
                         @if($feed->requested == true)
                             <div class="card-footer text-centerz">
                                 <div class="alert alert-info" role="alert">
-                                    <p>ارسلت عرض لهذا الغرض</p>
+                                    <p>{{$feed->itme_type == 1 ? 'ارسلت عرض لهذا الغرض' : 'ارسلت طلب لهذا المنشور'}}</p>
                                 </div> 
                             </div>
                         @elseif($feed->recived == true)

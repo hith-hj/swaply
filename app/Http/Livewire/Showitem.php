@@ -102,14 +102,13 @@ class Showitem extends Component
             $this->editedFeed['item_location'] = $this->item->item_location;
             $this->editedFeed['swap_with'] = $this->item->swap_with; 
             
-            if($this->item->user_id != Auth::id() && $this->item->item_type == 1){
+            if($this->item->user_id != Auth::id()){
                 $this->item = $this->checkIfRequested($this->item);
                 $this->item = $this->checkIfRecived($this->item);
             }
         }else{
             return $this->item = [];
         }
-        // dd($this->item);
     }
 
     /**
@@ -284,7 +283,12 @@ class Showitem extends Component
         $res == true 
         ? $this->emit('notifi',$this->notis[2]) 
         : $this->emit('notifi',$this->notis[3]);
-        
+    }
+
+    public function resetReport()
+    {
+        $this->report_type = '';
+        $this->report_info = '';
     }
 
     public function render()

@@ -14,7 +14,8 @@ class Menu extends Component
 {
     public $user_location;
     public $user_phone;
-    protected $listeners = ['refresh'];
+    public $post_type = 'حاجتك';
+    protected $listeners = ['refresh','post_menu'];
     protected $user;
 
     public function mount(){
@@ -25,6 +26,12 @@ class Menu extends Component
     public function hydrate(){
         $this->getUser();
         $this->emit('resizer');
+    }
+
+    public function post_menu($type)
+    {
+        dd($type);
+        $this->post_type = $type;
     }
 
     public function refresh()
