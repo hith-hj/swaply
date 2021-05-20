@@ -284,9 +284,16 @@ function displayUploadedImages(ev) {
 function removeImageFromUploaded(id) {
     var del = document.querySelector('#img_' + id);
     var rem = document.querySelector('#rem_' + id);
+    let par = document.querySelector("#imgs_collection");
+
     del.parentNode.removeChild(del);
     rem.parentNode.removeChild(rem);
-} {
+    if (par.children.length == 1 || par.children.length == 2) {
+        par.classList.add('hidden');
+    }
+}
+
+{
     let sbtn = document.getElementById("submit-form");
     let spiner = document.getElementById("formLoading");
 
@@ -358,7 +365,7 @@ function removeImageFromUploaded(id) {
 
 function resetForm() {
     document.querySelector("#add-item-form").reset();
-    resetItemLocation();
+    // resetItemLocation();
     let gal = document.querySelector("#imgs_collection");
     if (gal.hasChildNodes) {
         while (gal.lastChild) {

@@ -196,13 +196,20 @@
                         </div>
                     </div>
 
-                    <input name="item_title" type="text" class="form-control mb-1" placeholder="نوع حاجتك" required>
+                    <div id="imgs_collection " hidden></div>
+                    <div class="js-upload upload mb-1" uk-form-custom>
+                        <input name="item_imgs[]" multiple required type="file" id="itemgs" tabindex="0" onchange="displayUploadedImages(event)" hidden>
+                        <button class="cursor sbtn sbtn-txt" tabindex="0" type="button" onclick="document.querySelector('#itemgs').click()"> <i class="bi bi-images"></i>
+                            أختر صور</button>
+                    </div>
 
-                    <input name="swap_with" type="text" id="swap_with" placeholder="هتبدل حاجتك بأيه (ادخل X اذا لاتريد شيئ معين)" class="form-control mb-1" title="الاسم واضح" required>
+                    <input name="item_title" type="text" class="form-control mb-1" placeholder="الأسم" required>
+
+                    <input name="swap_with" type="text" id="swap_with" placeholder="هتبدل بأيه" class="form-control mb-1" title="الاسم واضح" required>
 
                     <textarea name="item_description" wrap="hard" class="form-control" rows="2" title="اختياري" placeholder="اوصف حاجتك"></textarea>
 
-                    <div class="location mb-1">
+                    {{-- <div class="location mb-1">
                         <button id="setLocation" type="button" class="btn text-muted cursor glow" tabindex="0" onclick="setItemLocation()">إضافة عنوان اخر</button>
                         <span id="resetLocation" class="hidden cursor glow " tabindex="0" onclick="resetItemLocation()"><i class="bi bi-x"></i></span>
                         <div id="addLocationBio" class="hidden">
@@ -243,14 +250,9 @@
                             <input name="item_location_area"  type="text" tabindex="0" class="form-control" placeholder="المنطقة"  disabled="true">
                             <input name="item_location_naighbor"  type="text" tabindex="0" class="form-control" placeholder="الحي"  disabled="true">
                         </div>
-                    </div>
+                    </div> --}}
 
-                    <div id="imgs_collection" hidden></div>
-                    <div class="js-upload upload mb-1" uk-form-custom>
-                        <input name="item_imgs[]" multiple required type="file" id="itemgs" tabindex="0" onchange="displayUploadedImages(event)" hidden>
-                        <button class="cursor sbtn sbtn-txt" tabindex="0" type="button" onclick="document.querySelector('#itemgs').click()"> <i class="bi bi-images"></i>
-                            أختر صور</button>
-                    </div>
+                    
                     <div class="text-center">
                         <button id="submit-form" type="submit" name="submit_btn" class="btn btn-outline-success w-100 mt-2">
                             <div class="spinner-border m-2 hidden" id="formLoading" style="height: 1rem;width:1rem"> 
