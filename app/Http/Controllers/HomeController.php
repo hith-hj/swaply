@@ -36,6 +36,8 @@ class HomeController extends Controller
 
     public function addItem(Request $req)
     {
+        $dd = $req->all();
+        return view('about',compact('dd'));
         $directory = $this->getDirectory();
         $data = $req->all();        
         $collection = [];        
@@ -43,12 +45,14 @@ class HomeController extends Controller
             "item_title" => "string",
             "swap_with"=>"string",
             "item_description"=>"string",
-            "item_imgs"    => "required|array",
-            "item_imgs.*"  => "image|mimes:jpg,png|max:5000",
+            "amount"=>"integer|max:1000000|nullable",
+            "item_imgs"=> "required|array",
+            "item_imgs.*"=> "image|mimes:jpg,png|max:5000",
         ]);
-        if($vali->fails()){
-         return response()->json([
-             'status'=>'400',
+        if($vali->fails())
+        {
+            // dd($vali->getMessageBag());
+            return response()->json(['status'=>'400',
              'msg'=>'اما المعلومات المدخلة غير صحيحة او احجام الصور كبيرة او غير مناسبة']);
         }
         foreach($data['item_imgs'] as $key => $img){
@@ -79,6 +83,7 @@ class HomeController extends Controller
         $item->item_location = str_replace($toReplace,'',$location);
         $item->swap_with = $data['swap_with'] == 'x' ? 'اي شيء' : str_replace($toReplace,'',$data['swap_with']) ?? 'doonation';
         $item->collection = serialize($collection);
+        $item->amount = $data['amount'] ?? 0;
         $item->directory = $directory;
         $item->save();
         Indexs::store($item->id,$data['item_title']);

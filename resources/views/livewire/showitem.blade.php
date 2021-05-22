@@ -38,6 +38,9 @@
                                 <small class="card-subtitle text-muted m-0" title="بديل الغرض"><i class="mx-1 bi bi-arrow-down-up"></i><span>{{substr($feed->swap_with,0,strlen($feed->swap_with) < 30? strlen($feed->swap_with) : strlen($feed->swap_with)/3)}}</span></small>
                             @endif
                             <small class="card-subtitle text-muted m-0" title="تاريخ النشر"><i class="mx-1 bi bi-calendar-day"></i><span>{{$feed->created_at->diffForHumans()}}</span></small>
+                            @if($feed->amount > 0)
+                                <small class="card-subtitle text-muted m-0" title="الفرق"><i class="mx-1 bi bi-cash"></i><span>{{$feed->amount}}</span></small>
+                            @endif
                             <small class="card-subtitle text-muted m-0"> <i class="mx-1 bi bi-images"></i> {{ count($feed->collection)}} </small>
                         </div>
                     </div>  

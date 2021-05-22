@@ -207,7 +207,9 @@
 
                     <input name="swap_with" type="text" id="swap_with" placeholder="هتبدل بأيه" class="form-control mb-1" title="الاسم واضح" required>
 
-                    <textarea name="item_description" wrap="hard" class="form-control" rows="2" title="اختياري" placeholder="اوصف حاجتك"></textarea>
+                    <textarea name="item_description" wrap="hard" class="form-control mb-1" rows="2" title="اختياري" placeholder="اوصف حاجتك"></textarea>
+
+                    <input type="text" inputmode="numeric" name="amount" class="form-control" title="اختياري" placeholder="الفرق (اختياري)" >
 
                     {{-- <div class="location mb-1">
                         <button id="setLocation" type="button" class="btn text-muted cursor glow" tabindex="0" onclick="setItemLocation()">إضافة عنوان اخر</button>
