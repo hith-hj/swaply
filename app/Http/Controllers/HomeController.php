@@ -60,14 +60,15 @@ class HomeController extends Controller
             array_push($collection,$nameToStore);
         }
         
-        if($data['item_location_covernent'] == null || $data['item_location_area'] == null || $data['item_location_naighbor'] == null ){
-            $location = Auth::user()->location;
-        }else{
-            $location = $data['item_location_covernent'].'-'
-                        . $data['item_location_area'].'-'
-                        . $data['item_location_naighbor'];
-        }
-
+        // if($data['item_location_covernent'] == null || $data['item_location_area'] == null || $data['item_location_naighbor'] == null ){
+        //     $location = Auth::user()->location;
+        // }else{
+        //     $location = $data['item_location_covernent'].'-'
+        //                 . $data['item_location_area'].'-'
+        //                 . $data['item_location_naighbor'];
+        // }
+        
+        $location = Auth::user()->location;
         $toReplace = [0,1,2,3,4,5,6,7,8,9,'٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
        
         $item = new Item();
