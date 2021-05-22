@@ -96,7 +96,7 @@ class Body extends Component
     {
         $noti = [['تم اضافة معلومات ','g','حسنا'],['املئ الحقول المطلوبة','r','خطا'],['الرثم المدخل لايطابق الشروط','r','خطا'],];
         if(is_array($this->user_location) && count($this->user_location) >2 && isset($this->user_phone)){
-            preg_match('/(02)(01)[0145]\d{7}/',$this->user_phone,$mat);
+            preg_match('/(01)[0145]\d{8}/',$this->user_phone,$mat);
             if(count($mat) < 3)
             {
                 return $this->emit('notifi',$noti[2]);

@@ -113,7 +113,7 @@
                     </datalist>
                     <div class="mt-5px" >                                        
                         <label for=""><span>ادخل رقم الهاتف</span></label><br>
-                        <label for=""><small>(0201-01234567)</small></label>
+                        <label for=""><small>(01-01234567)</small></label>
                         <input class="form-control" type="text" inputmode="numeric" wire:model.defer="user_phone" required />
                     </div> 
                     <span class="bi bi-check icon-1 cursor btn btn-outline-success mt-1 mb-1 w-100" wire:loading.class="hidden" wire:click="setLocation">حفظ</span> 

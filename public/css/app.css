@@ -170,6 +170,10 @@ textarea::selection {
     color: red !important;
 }
 
+.cw {
+    color: #eee !important;
+}
+
 .fs-15 {
     font-size: 1.5rem;
 }
@@ -628,7 +632,8 @@ textarea::selection {
     position: fixed;
     top: 5%;
     display: grid;
-    border: 2px solid #aaa;
+    border: 2px solid #cccccc;
+    color: #eee;
     border-radius: 50px;
     left: 48%;
 }

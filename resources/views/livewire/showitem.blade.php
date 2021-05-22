@@ -49,11 +49,11 @@
                         <small class="card-text"><span>{{$feed->item_info}}</span></small><br>
                         <div id="carouselExampleControls" class="carousel slide text-center carousel-fade" data-bs-ride="carousel" >
                             <div class="carousel-inner" onclick="document.querySelector('#showItemImages').classList.toggle('hidden')">
-                                <div class="carousel-item px-2 py-1 active ani ani_fadeIn1 ani_slow">
+                                <div class="carousel-item px-1 py-1 active ani ani_fadeIn1 ani_slow">
                                     @if($feed->collection[0] != 'dark-logo.png')
-                                        <img class="glow px-1 " src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_title}}" >
+                                        <img class="glow" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_title}}" >
                                     @else 
-                                        <img class="glow px-1 " src="{{asset('assets/fto/'.$feed->collection[0])}}" alt="{{$feed->item_title}}" >
+                                        <img class="glow" src="{{asset('assets/fto/'.$feed->collection[0])}}" alt="{{$feed->item_title}}" >
                                     @endif
                                 </div>
                             </div>
@@ -136,7 +136,7 @@
                     </div>
                 </div>
 
-                <div id="showItemImages" class="hidden smodal ani ani_fadeIn text-center" style="background: #e1eee0;z-index:12; ">
+                <div id="showItemImages" class="hidden smodal ani ani_fadeIn text-center" style="background: #373736fa;z-index:12; ">
                     <div class="ani ani_fadeIn p-2 w-100">
                         <div id="showFullImage" class="carousel slide text-center carousel-fade" data-bs-ride="carousel" >
                             <i class="bi bi-x close-gallery cursor" onclick="document.querySelector('#showItemImages').classList.add('hidden')"></i>
@@ -159,11 +159,11 @@
                         @if(count($feed->collection) > 1)
                                <div class="text-center">
                                     <button class="sbtn sbtn-txt carousel-control-prevz mx-5" type="button" data-bs-target="#showFullImage" data-bs-slide="next">
-                                        <span aria-hidden="true"><i class="bi bi-chevron-right icon-2 cb"></i></span>
+                                        <span aria-hidden="true"><i class="bi bi-chevron-right fs-2 cw"></i></span>
                                         <span class="visually-hidden"></span>
                                     </button>
                                     <button class="sbtn sbtn-txt carousel-control-nextz mx-5" type="button" data-bs-target="#showFullImage" data-bs-slide="prev">
-                                        <span aria-hidden="true"><i class="bi bi-chevron-left icon-2 cb"></i></span>
+                                        <span aria-hidden="true"><i class="bi bi-chevron-left fs-2 cw"></i></span>
                                         <span class="visually-hidden"></span>
                                     </button>
                                 </div> 
