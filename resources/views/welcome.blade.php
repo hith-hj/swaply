@@ -21,7 +21,7 @@
     <div class="fullPage">
         
         <div id="centerz">
-            <div class="welcom">
+            <div class="welcom" style="overflow: hidden; overflow-x: hidden; padding:1rem 0">
                 <div class="svgs">
                     <svg id="logo" width="182" height="120" viewBox="0 0 67 53" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1.80411 21.8597C1.80411 30.6204 7.07572 30.4108 18.185 30.287V22.4038C12.5832 22.2633 9.96949 22.9128 9.96949 19.0677V15.4434C9.96949 10.2156 9.303 9.81951 16.5831 9.81951H56.0727L63.0493 1.85126H13.6608C1.04881 1.85126 1.80411 4.39614 1.80411 14.1772V21.8597Z" stroke="#81CB80" stroke-width="1.5"/>
@@ -41,7 +41,8 @@
                     </svg>
                     
                     <h1 id="slogan-header">سوابلي</h1>
-                    <p id="slogan">بدل الي مش محتاجه بدوسة</p>
+                    <p id="slogan">بدل الي مش محتاجه</p>
+                    <p id="slogan">علشان الكل يستفيد</p>
                 </div>     
     
                 @if (Route::has('login'))
