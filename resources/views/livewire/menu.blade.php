@@ -20,9 +20,9 @@
                                 <div class="col-8">
                                     <h5>{{$user->name}}</h5>
                                 </div>
-                                <div class="col-2 offset-1">
+                                {{-- <div class="col-2 offset-1">
                                     <span class="cursor icon-1 link-dark" onclick="document.querySelector('#editMyInfoModal').classList.toggle('hidden')"><i class="bi bi-pencil-square"></i></span>
-                                </div>
+                                </div> --}}
                             </div>
                             <hr>
                             <div class="card-body">
