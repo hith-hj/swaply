@@ -1,12 +1,9 @@
 <div>
     <nav class="mt-1 ">
-        <div class="w-100 btn-group bg-light mb-1" style="flex-wrapz: nowrap;font-size:12px">
+       {{-- <div class="w-100 btn-group bg-light mb-1" style="flex-wrapz: nowrap;font-size:12px">
             <button class="btn btn-outline-success" wire:click="$emitSelf('changeRequests','sentOffers')"  ><span>عروض مرسلة</span></button>
             <button class="btn btn-outline-success" wire:click="$emitSelf('changeRequests','sentOrders')"  ><span>الطلبات المرسلة</span></button>
         </div>
-        {{-- 
-            <button class="btn btn-outline-success" wire:click="$emitSelf('changeRequests','recivedOffers')"  ><span>عروض مستلمة</span></button>
-            <button class="btn btn-outline-success" wire:click="$emitSelf('changeRequests','recivedOrders')"  ><span>طلبات مستلمة</span></button>
         --}}
         <div class="tab-content">
                 @switch($view)
@@ -104,7 +101,9 @@
                                 </div>
                             </div>   
                         @empty
-                            <p>لايوجد اي طلبات مرسلة حاليا</p>
+                            <div class="alert alert-light" role="alert">
+                                <h5>لايوجد اي طلبات مرسلة حاليا</h5>
+                            </div>
                         @endforelse
                     @break
                     {{--@case('recivedOffers')

@@ -1,11 +1,6 @@
 @extends('layouts.sapp')
 
 @section('content')
-
-{{$dd}}
-
-{{var_dump(...$dd)}}
-
 <div class="px-4 py-5 my-5 text-center">
     <div>
         <svg id="logo" width="182" height="120" viewBox="0 0 67 53" fill="#81CB80" xmlns="http://www.w3.org/2000/svg">
