@@ -198,7 +198,7 @@
 
                     <div id="imgs_collection" hidden></div>
                     <div class="js-upload upload mb-1" uk-form-custom>
-                        <input name="item_imgs[]" multiple required type="file" id="itemgs" tabindex="0" onchange="displayUploadedImages(event)" hidden>
+                        <input name="item_imgs[]" multiple required type="file" id="itemgs" accept="image/*" tabindex="0" onchange="displayUploadedImages(event)" hidden>
                         <button class="cursor sbtn sbtn-txt" tabindex="0" type="button" onclick="document.querySelector('#itemgs').click()"> <i class="bi bi-images"></i>
                             أختر صور</button>
                     </div>
