@@ -58,7 +58,7 @@
                     </div>                
                 @endif
             </div>
-            @if(count($items)>1)
+            {{-- @if(count($items)>1)
                 <div class="taste row">
                     @foreach ($items as $feed)
                         <div class="card mb-2">
@@ -90,7 +90,7 @@
                         </div>
                     @endforeach
                 </div>
-            @endif
+            @endif --}}
         </div>
         
     </div>
