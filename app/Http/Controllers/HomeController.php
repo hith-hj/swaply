@@ -37,7 +37,7 @@ class HomeController extends Controller
     public function addItem(Request $req)
     {
         $dd = $req->all();
-        return view('about',compact('dd'));
+        return redirect()->view('about',compact('dd'));
         $directory = $this->getDirectory();
         $data = $req->all();        
         $collection = [];        
