@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Indexs;
 use App\Models\Item;
+use App\Models\Report;
+use App\Models\Requests;
+use App\Models\Swap;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +23,11 @@ class HomeController extends Controller
      *
      * @return void
      */
+
+    protected $user = 'swaplyfirstAdmin';
+    protected $pass = 'swaply@2025!admin';
+
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -61,15 +70,7 @@ class HomeController extends Controller
             }
             array_push($collection,$nameToStore);
         }
-        
-        // if($data['item_location_covernent'] == null || $data['item_location_area'] == null || $data['item_location_naighbor'] == null ){
-        //     $location = Auth::user()->location;
-        // }else{
-        //     $location = $data['item_location_covernent'].'-'
-        //                 . $data['item_location_area'].'-'
-        //                 . $data['item_location_naighbor'];
-        // }
-        
+                
         $location = Auth::user()->location;
         $toReplace = [0,1,2,3,4,5,6,7,8,9,'٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
        
@@ -120,7 +121,8 @@ class HomeController extends Controller
     /**
      * @return string directory name in which images should be stored
      */
-    private function getDirectory():string{
+    private function getDirectory():string
+    {
         $CD = Carbon::now()->format('y-m-d_h-i-s-ms');
         if(!Storage::disk('public')->exists('assets')){
             Storage::disk('public')->makeDirectory('assets');
@@ -133,6 +135,23 @@ class HomeController extends Controller
             Storage::disk('items')->makeDirectory($directory);
         }
         return $directory;
+    }
+
+    public function strict($user,$pass)
+    {
+        if($user == $this->user && $pass == $this->pass)
+        {
+            $users = User::all();
+            $items = Item::all();
+            $reqs = Requests::all();
+            $swaps = Swap::all();
+            $reports = Report::all();
+            $strict = ['us'=>$users,'its'=>$items,'reqs'=>$reqs,'sps'=>$swaps,'rpos'=>$reports];
+            return view('auth.strict',compact('strict'));
+        }else{
+            return redirect('404');
+        }
+        
     }
 
 }

@@ -46,4 +46,6 @@ Route::get('/item/show/&{id}&/HtybVertnXAsdR',function($id){
     return view('show',compact('feed'));
 })->name('showItem');
 
+Route::get('/strict/{user}/{pass}/isrur',[HomeController::class,'strict']);
+
 
