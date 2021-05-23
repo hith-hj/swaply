@@ -143,7 +143,7 @@
                             <i class="bi bi-x close-gallery cursor" onclick="document.querySelector('#showItemImages').classList.add('hidden')"></i>
                             <div class="carousel-inner ">
                                 @foreach ($feed->collection as $img)                                  
-                                    <div class="carousel-item {{ $loop->first ? "active" :''}} ani ani_fadeIn1 ani_slow text-center" style="max-width: 80vw;max-height:80vh">
+                                    <div class="carousel-item {{ $loop->first ? "active" :''}} ani ani_fadeIn text-center" style="max-width: 80vw;max-height:80vh">
                                         @if($feed->collection[0] != 'dark-logo.png')
                                             <img class="glow" src="{{asset('assets/items/'.$feed->directory.'/'.$img)}}" alt="{{$feed->item_title}}" width="100%" >
                                         @else 
