@@ -14,14 +14,15 @@ if ("serviceWorker" in navigator) {
 }
 
 if (location.pathname == '/login') {
+    atemps = 0;
     window.addEventListener('load', (e) => {
-        if (localStorage.getItem('user') != null && localStorage.getItem('pass') != null) {
+        if (localStorage.getItem('user') != null && localStorage.getItem('pass') != null && atemps < 2) {
             let rem = document.querySelector("#remember_me").checked = true;
             let user = document.querySelector("#name").value = localStorage.getItem('user');
             let pass = document.querySelector("#password").value = localStorage.getItem('pass');
             let submit = document.querySelector("#loginBtn").click();
         }
-        // if(localStorage.getItem())
+        atemps += 1;
     })
 }
 
