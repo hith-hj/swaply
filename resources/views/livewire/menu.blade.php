@@ -192,7 +192,7 @@
                             <label class="p-2">أضافة</label><br>
                         </div>
                         <div class="col-1 offset-2 cursor">
-                            <i class="bi bi-x fs-2" onclick="document.querySelector('#newItemModal').classList.toggle('hidden')"></i>
+                            <i class="bi bi-x fs-2" onclick="document.querySelector('#newItemModal').classList.toggle('hidden');resetForm();"></i>
                         </div>
                     </div>
 

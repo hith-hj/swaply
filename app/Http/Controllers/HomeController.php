@@ -100,14 +100,15 @@ class HomeController extends Controller
         $CD = Carbon::now()->format('h-i-s-ms');
         $size = [800,600];
         $ext = $image->extension();
-        $nameWithExt = $image->getClientOriginalName();                        
+        $nameWithExt = $image->getClientOriginalName();
         $fileName = pathinfo($nameWithExt,PATHINFO_FILENAME);     
         $nameToStore = $fileName.'_'.$CD.'.'.$ext;     
         $filePath = public_path('/assets/items/'.$directory);
         $img = Image::make($image->path());
         try {
-            $img->fit(ceil($img->width()*.3),ceil($img->height()*.3),
+            $img->fit(ceil($img->width()/4),ceil($img->height()/4),
             function ($constraint) { $constraint->upsize();})
+            // $img->resize(ceil($img->width()/4),ceil($img->height()/4))
             ->insert('imgs/mark.png', 'bottom-right',10,10)
             ->save($filePath.'/'.$nameToStore);       
         } catch (\Throwable $th) {

@@ -142,10 +142,10 @@
                         <div id="showFullImage" class="carousel slide text-center carousel-fade" data-bs-ride="carousel" >
                             <i class="bi bi-x close-gallery cursor" onclick="document.querySelector('#showItemImages').classList.add('hidden')"></i>
                             <div class="carousel-inner ">
-                                @foreach ($feed->collection as $img)                                  
-                                    <div class="carousel-item {{ $loop->first ? "active" :''}} ani ani_fadeIn text-center" style="max-width: 80vw;max-height:80vh">
+                                @foreach ($feed->collection as $img)
+                                    <div class="carousel-item {{ $loop->first ? "active" :''}} text-center" style="max-width: 80vw;max-height:80vh">
                                         @if($feed->collection[0] != 'dark-logo.png')
-                                            <img class="glow" src="{{asset('assets/items/'.$feed->directory.'/'.$img)}}" alt="{{$feed->item_title}}" width="100%" >
+                                            <img class="glow" src="{{asset('assets/items/'.$feed->directory.'/'.$img)}}" alt="{{$feed->item_title}}" width="90%" >
                                         @else 
                                             <img class="glow" src="{{asset('assets/fto/'.$feed->collection[0])}}" alt="{{$feed->item_title}}" >
                                         @endif
@@ -158,7 +158,7 @@
 
                         </div>
                         @if(count($feed->collection) > 1)
-                               <div class="text-center">
+                               <div class="text-center" style="z-index: 13">
                                     <button class="sbtn sbtn-txt carousel-control-prevz mx-5" type="button" data-bs-target="#showFullImage" data-bs-slide="next">
                                         <span aria-hidden="true"><i class="bi bi-chevron-right fs-2 cw"></i></span>
                                         <span class="visually-hidden"></span>

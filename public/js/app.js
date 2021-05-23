@@ -278,13 +278,14 @@ function displayUploadedImages(ev) {
             var itag = document.createElement('i');
             div.classList.add('d-inline-block', 'text-center', );
             img.setAttribute('src', window.URL.createObjectURL(files[i]));
-            img.setAttribute('class', 'uploaded-img animation-fade');
-            img.setAttribute('width', '70');
-            img.setAttribute('height', '70');
+            img.setAttribute('class', 'uploaded-img animation-fade mx-1');
+            img.setAttribute('width', '85');
+            img.setAttribute('height', '85');
             img.setAttribute('id', 'img_' + files[i].size);
-            itag.setAttribute('id', 'rem_' + files[i].size);
-            itag.setAttribute('class', 'bi bi-x');
-            itag.setAttribute('onclick', 'removeImageFromUploaded(' + files[i].size + ')');
+            img.setAttribute('name', i);
+            // itag.setAttribute('id', 'rem_' + files[i].size);
+            // itag.setAttribute('class', 'bi bi-x');
+            // itag.setAttribute('onclick', 'removeImageFromUploaded(' + files[i].size + ')');
             div.appendChild(img);
             div.appendChild(itag);
             gal.appendChild(div);
@@ -300,9 +301,13 @@ function removeImageFromUploaded(id) {
 
     del.parentNode.removeChild(del);
     rem.parentNode.removeChild(rem);
-    if (par.children.length == 1 || par.children.length == 2) {
+    if (par.children.length <= 1) {
         par.classList.add('hidden');
     }
+    let imgs = document.querySelector("input[name='item_imgs[]']")
+    delete imgs.files[del.name];
+
+    console.log(imgs.files, del.id, del.name, imgs.files[del.name]);
 }
 
 {
