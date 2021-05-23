@@ -236,7 +236,7 @@ textarea::selection {
     place-items: center;
     z-index: 7;
     position: fixed;
-    bottom: 25%;
+    bottom: 40%;
     animation: show 1s ease forwards;
 }
 
