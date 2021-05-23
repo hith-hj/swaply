@@ -1,3 +1,4 @@
+// sessionStorage.setItem('logAte', 0);
 if ("serviceWorker" in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker
@@ -14,15 +15,25 @@ if ("serviceWorker" in navigator) {
 }
 
 if (location.pathname == '/login') {
-    atemps = 0;
+    let atemps = parseInt(localStorage.getItem('logAte'));
     window.addEventListener('load', (e) => {
-        if (localStorage.getItem('user') != null && localStorage.getItem('pass') != null && atemps < 2) {
-            let rem = document.querySelector("#remember_me").checked = true;
-            let user = document.querySelector("#name").value = localStorage.getItem('user');
-            let pass = document.querySelector("#password").value = localStorage.getItem('pass');
-            let submit = document.querySelector("#loginBtn").click();
+        if (localStorage.getItem('user') != null && localStorage.getItem('pass') != null) {
+            if (atemps < 2) {
+                try {
+                    document.querySelector("#remember_me").checked = true;
+                    document.querySelector("#name").value = localStorage.getItem('user');
+                    document.querySelector("#password").value = localStorage.getItem('pass');
+                    document.querySelector("#loginBtn").click();
+                } catch (error) {
+                    console.log(error);
+                }
+                atemps = atemps + 1;
+                localStorage.setItem('logAte', atemps);
+            } else {
+                localStorage.setItem('logAte', 0);
+                alert('هناك مشكلة في تسجيل دخولك تحقق من صحة المعلومات و حاول لاحقا ,من الممكن ان يكون المخدم خارج عن الخدمة')
+            }
         }
-        atemps += 1;
     })
 }
 
@@ -73,7 +84,7 @@ window.addEventListener("resize", menuView);
 let _clicks = 0;
 window.addEventListener("touchstart", (e) => {
     _clicks++;
-    if (_clicks == 25) {
+    if (_clicks == 50) {
         Livewire.emit('getFeeds')
         Livewire.emit('refresh')
         _clicks = 0
@@ -82,7 +93,7 @@ window.addEventListener("touchstart", (e) => {
 
 window.addEventListener("click", (e) => {
     _clicks++;
-    if (_clicks == 25) {
+    if (_clicks == 50) {
         Livewire.emit('getFeeds')
         Livewire.emit('refresh')
         _clicks = 0

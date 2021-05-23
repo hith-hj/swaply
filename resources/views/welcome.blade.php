@@ -13,7 +13,7 @@
     <link href="css/welani.css" rel="stylesheet" />
 </head>
 
-<body>
+<body onload="localStorage.setItem('logAte',0)">
     <div id="welcome-canvas"></div>
     <div class="rowz">
         <a class="link-text top" href="{{route('about')}}"><small>سوابلي</small></a>

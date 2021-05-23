@@ -6,7 +6,12 @@
         <meta name="theme-color" content="#9decae">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">     
-        <meta name="description" content="a site for swaping items freely or almost">   
+        <meta name="description" content="a site for swaping items freely or almost"> 
+        @auth
+            <meta name="logged" content="{{Auth::user()->name}}">
+        @else
+            <meta name="logged" content="false">   
+        @endauth
         <link rel="shortcut icon" href="./imgs/new-logo.png" type="image/x-icon" />
         <link rel="apple-touch-icon" href="./imgs/new-logo.png" />
         <title>swaply | home</title>        

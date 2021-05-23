@@ -47,7 +47,7 @@
 
                         <div class="row text-small mt-5px">
                             <label for="remember_me" class="float-left col-sm sbtn-txt">
-                                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm" onclick="rememberMe()" name="remember">
+                                <input id="remember_me" type="checkbox" name="remember" class="rounded border-gray-300 text-indigo-600 shadow-sm" onclick="rememberMe()">
                                 <span class="ml-2 text-sm text-gray-600 cb">{{ __('تذكرني') }}</span>
                             </label>
 
