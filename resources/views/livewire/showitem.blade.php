@@ -137,16 +137,16 @@
                 </div>
 
                 <div id="showItemImages" class="hidden smodal ani ani_fadeIn text-center" style="background: #373736fa;z-index:12; ">
-                    <div class="ani ani_fadeIn p-2 w-100">
+                    <div class="ani ani_fadeIn p-1 w-100">
                         <div id="showFullImage" class="carousel slide text-center carousel-fade" data-bs-ride="carousel" >
                             <i class="bi bi-x close-gallery cursor" onclick="document.querySelector('#showItemImages').classList.add('hidden')"></i>
                             <div class="carousel-inner ">
                                 @foreach ($feed->collection as $img)                                  
-                                    <div class="carousel-item px-2 py-1 {{ $loop->first ? "active" :''}} ani ani_fadeIn1 ani_slow text-center">
+                                    <div class="carousel-item {{ $loop->first ? "active" :''}} ani ani_fadeIn1 ani_slow text-center" style="max-width: 80vw;max-height:80vh">
                                         @if($feed->collection[0] != 'dark-logo.png')
-                                            <img class="glow px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$img)}}" alt="{{$feed->item_title}}" >
+                                            <img class="glow" src="{{asset('assets/items/'.$feed->directory.'/'.$img)}}" alt="{{$feed->item_title}}" width="100%" >
                                         @else 
-                                            <img class="glow px-1" src="{{asset('assets/fto/'.$feed->collection[0])}}" alt="{{$feed->item_title}}" >
+                                            <img class="glow" src="{{asset('assets/fto/'.$feed->collection[0])}}" alt="{{$feed->item_title}}" >
                                         @endif
                                         <br>
                                         <br>

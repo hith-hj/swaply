@@ -98,7 +98,7 @@ class HomeController extends Controller
     private function imgResizer(object $image,string $directory):string
     {
         $CD = Carbon::now()->format('h-i-s-ms');
-        $size = [400,250];
+        $size = [800,600];
         $ext = $image->extension();
         $nameWithExt = $image->getClientOriginalName();                        
         $fileName = pathinfo($nameWithExt,PATHINFO_FILENAME);     
@@ -106,12 +106,14 @@ class HomeController extends Controller
         $filePath = public_path('/assets/items/'.$directory);
         $img = Image::make($image->path());
         try {
-            $img->resize($size[0],$size[1])
+            $img->fit(ceil($img->width()*.3),ceil($img->height()*.3),
+            function ($constraint) { $constraint->upsize();})
             ->insert('imgs/mark.png', 'bottom-right',10,10)
-            ->save($filePath.'/'.$nameToStore);
+            ->save($filePath.'/'.$nameToStore);       
         } catch (\Throwable $th) {
+            dd($th);
             $nameToStore = 'dark-logo.png';
-            $noti = ['حدث خطا ما اثناء رفع الصور','r','خطا'];
+            $noti = ['حدث خطا اثناء رفع الصور','r','خطا'];
             $this->emit('notifi',$noti);
         }finally{
             return $nameToStore;

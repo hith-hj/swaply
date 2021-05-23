@@ -25,7 +25,7 @@
                     <div wire:click="$emitTo('body','changeBody',['showitem','{{$feed->id}}'])" data-bs-toggle="tooltip" title="عرض المنشور">
                         <small class="card-text"><span>{{$feed->item_info}}</span></small><br>
                         @if($feed->collection[0] != 'dark-logo.png')
-                            <img class="glow px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" >
+                            <img class="glow px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" width="90%">
                         @else 
                             <img class="glow px-1" src="{{asset('assets/fto/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" >
                         @endif

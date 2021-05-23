@@ -43,9 +43,9 @@
                             {{substr($feed->item_info,0,strlen($feed->item_info) < 70 ? strlen($feed->item_info): strlen($feed->item_info)/2)}}...
                         </span></small><br>
                         
-                        <div class="d-flex justify-content-evenly mt-2" >
+                        <div class="d-flex justify-content-evenly mt-1" style="max-height: 18rem;">
                             @if($feed->collection[0] != 'dark-logo.png')
-                                <img class="d-block glow px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" >
+                                <img class="d-block glow px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" width="90%" >
                             @else 
                                 <img class="glow px-1" src="{{asset('assets/fto/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" >
                             @endif
