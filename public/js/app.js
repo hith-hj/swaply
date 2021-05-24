@@ -258,6 +258,7 @@ function menuView() {
 
 function displayUploadedImages(ev) {
     let gal = document.querySelector("#imgs_collection");
+    var itag = document.createElement('i');
     gal.removeAttribute('hidden');
     gal.classList.remove("hidden");
     if (gal.hasChildNodes) {
@@ -275,7 +276,7 @@ function displayUploadedImages(ev) {
             // console.log(files[i])
             var div = document.createElement('div');
             var img = document.createElement('img');
-            var itag = document.createElement('i');
+            // var itag = document.createElement('i');
             div.classList.add('d-inline-block', 'text-center', );
             img.setAttribute('src', window.URL.createObjectURL(files[i]));
             img.setAttribute('class', 'uploaded-img animation-fade mx-1');
@@ -283,15 +284,33 @@ function displayUploadedImages(ev) {
             img.setAttribute('height', '85');
             img.setAttribute('id', 'img_' + files[i].size);
             img.setAttribute('name', i);
-            // itag.setAttribute('id', 'rem_' + files[i].size);
             // itag.setAttribute('class', 'bi bi-x');
+            // itag.setAttribute('id', 'rem_' + files[i].size);
             // itag.setAttribute('onclick', 'removeImageFromUploaded(' + files[i].size + ')');
+            // div.appendChild(itag);            
             div.appendChild(img);
-            div.appendChild(itag);
             gal.appendChild(div);
-            gal.classList.add('mb-1', 'border-dashed', 'rounded', 'p-1');
         }
+        itag.setAttribute('class', 'bi bi-arrow-clockwise');
+        itag.setAttribute('onclick', 'clearFilesInput()');
+        gal.appendChild(itag);
+        gal.classList.add('mb-1', 'border-dashed', 'rounded', 'p-1');
     }
+}
+
+function clearFilesInput() {
+    let imgs = document.querySelector("input[name='item_imgs[]']")
+    imgs.value = null;
+    imgs.files = null;
+    // console.log(imgs, imgs.files);
+    let gal = document.querySelector("#imgs_collection");
+    if (gal.hasChildNodes) {
+        while (gal.lastChild) {
+            gal.removeChild(gal.lastChild);
+        }
+    } else {
+        gal.classList.add('hidden')
+    };
 }
 
 function removeImageFromUploaded(id) {
@@ -304,10 +323,6 @@ function removeImageFromUploaded(id) {
     if (par.children.length <= 1) {
         par.classList.add('hidden');
     }
-    let imgs = document.querySelector("input[name='item_imgs[]']")
-    delete imgs.files[del.name];
-
-    console.log(imgs.files, del.id, del.name, imgs.files[del.name]);
 }
 
 {

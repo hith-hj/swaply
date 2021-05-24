@@ -82,24 +82,17 @@
             </div>           
     @endswitch
 
-    @if(Auth::user()->location == 'not-set' && Auth::user()->phone == 'not-set')
+    @if(Auth::user()->location == 'not-set' && Auth::user()->phone == 'not-set' || 1==1)
         <div class="smodal ">
             <div class="card shadow show ani ani_fadeIn p-1 min-wid-300 w-100" >
                 <div class="location p-2">
-                    <label for=""><span>ادخل الموقع</span></label>               
-                    <table>
-                        <tr>
-                            <td class="px-2 px-sm-1" ><small>المحافظة</small></td>
-                            <td class="px-3 px-sm-4" ><small>المنطقة</small></td>
-                            <td class="px-2 px-sm-1" ><small>الحي</small></td>
-                        </tr>
-                    </table>                
+                    <label for=""><span>ادخل الموقع</span></label>              
                     <div class="input-group">
-                        <input type="text" aria-label="governent" list="covernent-list" class="form-control" wire:model.defer="user_location.covernent">
+                        <input type="text" aria-label="governent" list="covernent-list" class="form-control" wire:model.defer="user_location.covernent" placeholder="محافظة">
                         
-                        <input type="text" aria-label="area"  class="form-control" wire:model.defer="user_location.area">
+                        <input type="text" aria-label="area"  class="form-control" wire:model.defer="user_location.area" placeholder="منطقة">
                         
-                        <input type="text" aria-label="nighborhood"  class="form-control" wire:model.defer="user_location.naighbor">
+                        <input type="text" aria-label="nighborhood"  class="form-control" wire:model.defer="user_location.naighbor" placeholder="الحي">
                     </div>
                     <datalist id="covernent-list">
                         <option value="القاهرة">

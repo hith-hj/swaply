@@ -1,15 +1,10 @@
 <div>
     <div id="navMenu" class="ver-menu" onload="menuView()">
-        <ul id="navList" class="ver-list">
-            {{-- <li class="cursor ver-li" title="الرئيسية" wire:click="$emitTo('body','changeBody','feeds')">
-                <span class="ver-link">
-                    <i class="bi bi-house"></i>
-                </span>
-            </li> --}}
+        <ul id="navList" class="ver-list">            
             <li class="cursor ver-li " title="معلوماتي" >
                 <div class="dropend">
-                    <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-60,5" aria-expanded="false">
-                        <i class="bi bi-person "></i>
+                    <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-25,6" aria-expanded="false">
+                        <i class="bi bi-person-square "></i>
                         @if($user->location == 'not-set') 
                             <span class="bi bi-exclamation-circle red-alert icon-sm ani ani_flash ani_loop"></span>
                         @endif
@@ -43,7 +38,7 @@
             </li>
             <li class="cursor ver-li" title="أغراضي">
                 <div class="dropend">
-                    <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-50,5" aria-expanded="false" >
+                    <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-25,6" aria-expanded="false" >
                         <i class="bi bi-collection "></i>
                     </span>
                     <div class="dropdown-menu min-wid-300 px-1" >
@@ -84,10 +79,44 @@
                     </span>               
                 </div>
             </li> 
+            <li class="cursor ver-li" title="اشعارات" >
+                <div class="dropend">
+                    <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-25,6" aria-expanded="false" >
+                        <i class="bi bi-chat-square-quote "></i>
+                        @if(count($user->notification) >0 )
+                            <span class="bi bi-exclamation-circle red-alert icon-sm"></span>
+                        @endif
+                    </span>
+                    <div class="dropdown-menu min-wid-300 px-2">
+                        <span class="link-dark text-left py-1" wire:click="removeNotis()"> 
+                            <small>
+                                <i class="bi bi-x"></i>
+                                <span>إزالة الكل</span>
+                            </small>
+                            <small class="badge bg-green">{{count($user->notification)}}</small>
+                        </span>
+                        <div class="list-group mt-1 ">
+                            @forelse($user->notification as $noti)
+                                <span class="list-group-item list-group-item-action " wire:click="$emit('changeBody',['showitem','{{$noti->on_id}}'])" aria-current="true" >
+                                    <div class="d-flex w-100 justify-content-between" wire:click.prefetch="clearNotification('{{$noti->id}}')">
+                                        <h6 class="mb-1">{{$noti->data}}</h6>
+                                        <small class="text-muted">{{$noti->created_at->diffForHumans()}}</small>
+                                    </div>
+                                    <small >{{$noti->item->item_title}}</small>
+                                </span>
+                            @empty 
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">لايوجد اشعارات جديدة</h6>
+                                </div>
+                            @endforelse
+                        </div>
+                    </div>
+                </div>
+            </li>
             <li class="cursor ver-li" title="صفحات">
                 <div class="dropend">
-                    <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-50,6" aria-expanded="false">
-                        <i class="bi bi-files "></i>
+                    <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-25,6" aria-expanded="false">
+                        <i class="bi bi-grid-3x3-gap"></i>
                     </span>
                     <div class="dropdown-menu px-1">
                         <div class="card">
@@ -126,62 +155,9 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
-                    
+                    </div>                    
                 </div>
             </li>
-            <li class="cursor ver-li" title="اشعارات" >
-                <div class="dropend">
-                    <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-15,10" aria-expanded="false" >
-                        <i class="bi bi-bell "></i>
-                        @if(count($user->notification) >0 )
-                            <span class="bi bi-exclamation-circle red-alert icon-sm"></span>
-                        @endif
-                    </span>
-                    <div class="dropdown-menu min-wid-300 px-2">
-                        <span class="link-dark text-left py-1" wire:click="removeNotis()"> 
-                            <small>
-                                <i class="bi bi-x"></i>
-                                <span>إزالة الكل</span>
-                            </small>
-                            <small class="badge bg-green">{{count($user->notification)}}</small>
-                        </span>
-                        <div class="list-group mt-1 ">
-                            @forelse($user->notification as $noti)
-                                <span class="list-group-item list-group-item-action " wire:click="$emit('changeBody',['showitem','{{$noti->on_id}}'])" aria-current="true" >
-                                    <div class="d-flex w-100 justify-content-between" wire:click.prefetch="clearNotification('{{$noti->id}}')">
-                                        <h6 class="mb-1">{{$noti->data}}</h6>
-                                        <small class="text-muted">{{$noti->created_at->diffForHumans()}}</small>
-                                    </div>
-                                    <small >{{$noti->item->item_title}}</small>
-                                </span>
-                            @empty 
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h6 class="mb-1">لايوجد اشعارات جديدة</h6>
-                                </div>
-                            @endforelse
-                        </div>
-                    </div>
-                </div>
-            </li>
-            {{-- <li class="cursor ver-li" title="خروج (خليك معنا)">
-                <div class="dropend">
-                    <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-chevron-left "></i>
-                    </span>                    
-                    <div class="dropdown-menu px-1">
-                        <div class="card">
-                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                        document.querySelector('#logout-form').submit();">
-                                <i class="bi bi-door-open cr"></i><span>طلعني برا </span>
-                            </a>
-                        </div>
-                    </div>                        
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
-                </div>
-            </li> --}}
         </ul>
 
         <div id="newItemModal" class="hidden smodal ">
@@ -271,71 +247,69 @@
 
         <div id="editMyInfoModal" class="hidden smodal">
             <div class="card shadow show ani ani_fadeIn p-2 w-100">
-                    <div class="row">
-                        <div class="col-8">
-                            <label class="form-label" >تعديل معلوماتي</label>
-                        </div>
-                        <div class="col-1 offset-2">
-                            <i class="bi bi-x icon-15" onclick="document.querySelector('#editMyInfoModal').classList.toggle('hidden')"></i>
-                        </div>
-                    </div> 
-                    <div class="location">
-                        <label for=""><span>ادخل الموقع</span></label>               
-                        <table>
-                            <tr>
-                                <td class="px-2 px-sm-1" ><small>المحافظة</small></td>
-                                <td class="px-3 px-sm-4" ><small>المنطقة</small></td>
-                                <td class="px-2 px-sm-1" ><small>الحي</small></td>
-                            </tr>
-                        </table>                
-                        <div class="input-group">
-                            <input type="text" aria-label="governent" list="covernent-list" class="form-control" zwire:model.defer="user_location.covernent">
-                            
-                            <input type="text" aria-label="area"  class="form-control" zwire:model.defer="user_location.area">
-                            
-                            <input type="text" aria-label="nighborhood"  class="form-control" zwire:model.defer="user_location.naighbor">
-                        </div>
-                        <datalist id="covernent-list">
-                            <option value="القاهرة">
-                            <option value="الجيزة">
-                            <option value="القليوبية">
-                            <option value="الشرقية">
-                            <option value="المنوفية">
-                            <option value="الغربية">
-                            <option value="كفر الشيخ"> 
-                            <option value="الدقهلية">
-                            <option value="دمياط">
-                            <option value="البحيرة">
-                            <option value="الأسكندرية">
-                            <option value="مرسي مطروح"> 
-                            <option value="بور سعيد"> 
-                            <option value="الإسماعيلة">
-                            <option value="السويس">
-                            <option value="البحر الاحمر"> 
-                            <option value="شمال سيناء">                             
-                            <option value="جنوب سيناء"> 
-                            <option value="شرم الشيخ"> 
-                            <option value="الوادي الجديد"> 
-                            <option value="الفيوم">
-                            <option value="بني سويف"> 
-                            <option value="المنيا">
-                            <option value="أسيوط">
-                            <option value="سوهاج">
-                            <option value="قنا">
-                            <option value="الأقصر">                            
-                            <option value="أسوان"> 
-                        </datalist>
-                        <div class="mt-5px" >                                        
-                            <label for=""><span>ادخل رقم الهاتف</span></label><br>
-                            <label for=""><small>(0201-01234567)</small></label>
-                            <input class="form-control" type="text" inputmode="numeric" zwire:model.defer="user_phone" required />
-                        </div> 
-                        <span class="bi bi-check icon-1 cursor btn btn-outline-success mt-1 mb-1 w-100" zwire:click="setLocation">حفظ</span>                                
+                <div class="row">
+                    <div class="col-8">
+                        <label class="form-label" >تعديل معلوماتي</label>
                     </div>
+                    <div class="col-1 offset-2">
+                        <i class="bi bi-x icon-15" onclick="document.querySelector('#editMyInfoModal').classList.toggle('hidden')"></i>
+                    </div>
+                </div> 
+                <div class="location">
+                    <label for=""><span>ادخل الموقع</span></label>               
+                    <table>
+                        <tr>
+                            <td class="px-2 px-sm-1" ><small>المحافظة</small></td>
+                            <td class="px-3 px-sm-4" ><small>المنطقة</small></td>
+                            <td class="px-2 px-sm-1" ><small>الحي</small></td>
+                        </tr>
+                    </table>                
+                    <div class="input-group">
+                        <input type="text" aria-label="governent" list="covernent-list" class="form-control" zwire:model.defer="user_location.covernent">
+                        
+                        <input type="text" aria-label="area"  class="form-control" zwire:model.defer="user_location.area">
+                        
+                        <input type="text" aria-label="nighborhood"  class="form-control" zwire:model.defer="user_location.naighbor">
+                    </div>
+                    <datalist id="covernent-list">
+                        <option value="القاهرة">
+                        <option value="الجيزة">
+                        <option value="القليوبية">
+                        <option value="الشرقية">
+                        <option value="المنوفية">
+                        <option value="الغربية">
+                        <option value="كفر الشيخ"> 
+                        <option value="الدقهلية">
+                        <option value="دمياط">
+                        <option value="البحيرة">
+                        <option value="الأسكندرية">
+                        <option value="مرسي مطروح"> 
+                        <option value="بور سعيد"> 
+                        <option value="الإسماعيلة">
+                        <option value="السويس">
+                        <option value="البحر الاحمر"> 
+                        <option value="شمال سيناء">                             
+                        <option value="جنوب سيناء"> 
+                        <option value="شرم الشيخ"> 
+                        <option value="الوادي الجديد"> 
+                        <option value="الفيوم">
+                        <option value="بني سويف"> 
+                        <option value="المنيا">
+                        <option value="أسيوط">
+                        <option value="سوهاج">
+                        <option value="قنا">
+                        <option value="الأقصر">                            
+                        <option value="أسوان"> 
+                    </datalist>
+                    <div class="mt-5px" >                                        
+                        <label for=""><span>ادخل رقم الهاتف</span></label><br>
+                        <label for=""><small>(0201-01234567)</small></label>
+                        <input class="form-control" type="text" inputmode="numeric" zwire:model.defer="user_phone" required />
+                    </div> 
+                    <span class="bi bi-check icon-1 cursor btn btn-outline-success mt-1 mb-1 w-100" zwire:click="setLocation">حفظ</span>                                
+                </div>
             </div>
-        </div>
-        
-        
+        </div>       
     </div>
 
     <span  id="cir-icon" class="cursor" >
