@@ -50,6 +50,7 @@ class HomeController extends Controller
         $directory = $this->getDirectory();
         $data = $req->all();        
         $collection = [];
+        dd('reach here');
         $vali = Validator::make($req->all(), [
             "item_title" => "string",
             "swap_with"=>"string",
@@ -65,7 +66,7 @@ class HomeController extends Controller
             dd($msg);
             return response()->json(['status'=>'400','msg'=>$msg]);
         }
-        dd('reach here');
+        
         foreach($data['item_imgs'] as $key => $img){
             if($img->isFile()){
                 $nameToStore = $this->imgResizer($img,$directory);
