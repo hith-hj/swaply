@@ -50,7 +50,6 @@ class HomeController extends Controller
         $directory = $this->getDirectory();
         $data = $req->all();        
         $collection = [];
-        dd('reach here');
         $vali = Validator::make($req->all(), [
             "item_title" => "string",
             "swap_with"=>"string",
@@ -61,8 +60,8 @@ class HomeController extends Controller
         ]);
         if($vali->fails())
         {
-            // $msg =  'اما المعلومات المدخلة غير صحيحة او احجام الصور كبيرة او غير مناسبة';
-            $msg = var_dump($vali->getMessageBag());
+            $ara =  'اما المعلومات المدخلة غير صحيحة او احجام الصور كبيرة او غير مناسبة';
+            $msg = var_dump($vali->getMessageBag()) ?? $ara;
             dd($msg);
             return response()->json(['status'=>'400','msg'=>$msg]);
         }
@@ -89,7 +88,6 @@ class HomeController extends Controller
         $item->save();
         $data = str_replace($toReplace,'',$data['item_title']);
         Indexs::store($item->id,$data);
-        // dd($data,$item,$collection);
         return response()->json([
             'msg'=>'done',
             'status'=>200

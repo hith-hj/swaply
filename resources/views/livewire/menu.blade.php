@@ -162,7 +162,7 @@
 
         <div id="newItemModal" class="hidden smodal ">
             <div id="dataForm" class="itemCard shadow show ani ani_fadeIn p-2" >
-                <form id="add-item-form" class="width-auto" onsubmizzt="AddItem(event)" action="{{route('addItem')}}" method="POST" enctype="multipart/form-data">
+                <form id="add-item-form" class="width-auto" onsubmit="AddItem(event)" actionz="{{route('addItem')}}" method="POST" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-8 ">
                             <label class="p-2">أضافة</label><br>
