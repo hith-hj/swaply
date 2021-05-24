@@ -82,7 +82,7 @@
             </div>           
     @endswitch
 
-    @if(Auth::user()->location == 'not-set' && Auth::user()->phone == 'not-set' || 1==1)
+    @if(Auth::user()->location == 'not-set' && Auth::user()->phone == 'not-set')
         <div class="smodal ">
             <div class="card shadow show ani ani_fadeIn p-1 min-wid-300 w-100" >
                 <div class="location p-2">
