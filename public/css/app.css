@@ -362,7 +362,7 @@ textarea::selection {
         display: grid;
     }
     .width-auto {
-        min-width: 18rem !important;
+        min-width: 22rem !important;
     }
 }
 
@@ -375,9 +375,6 @@ textarea::selection {
     }
     .cir-perant {
         display: block !important;
-    }
-    .width-auto {
-        min-width: 18rem !important;
     }
 }
 
