@@ -44,12 +44,15 @@
                         </span></small><br>
                         
                         <div class="d-flex justify-content-evenly mt-1" style="max-height: 18rem;">
-                            @if($feed->collection[0] != 'dark-logo.png')
+                            @if($feed->collection[0] != 'dark-logo.png' && file_exists('assets/items/'.$feed->directory.'/'.$feed->collection[0]) )
                                 <img class="d-block glow px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" width="90%" >
                             @else 
-                                <img class="glow px-1" src="{{asset('assets/fto/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" >
+                                <img class="glow px-1" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$feed->item_type}}" >
                             @endif
-                        </div>
+                        </div> 
+                        <div class="py-1 {{ file_exists('assets/items/'.$feed->directory.'/'.$feed->collection[0]) == true ? 'hidden' : ''}}">
+                            <small>عذرا عزيزي المشترك ,لايوجد صور صالحة لهذا المنشور</small>
+                        </div>                    
                     </div>
                     <hr>
                     <div class="row">

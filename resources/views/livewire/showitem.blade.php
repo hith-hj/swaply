@@ -48,17 +48,24 @@
                     <div title="معرض الصور">
                         <small class="card-text"><span>{{$feed->item_info}}</span></small><br>
                         <div id="carouselExampleControls" class="carousel slide text-center carousel-fade" data-bs-ride="carousel" >
-                            <div class="carousel-inner" onclick="document.querySelector('#showItemImages').classList.toggle('hidden')">
-                                <div class="carousel-item px-1 py-1 active ani ani_fadeIn1 ani_slow">
-                                    @if($feed->collection[0] != 'dark-logo.png')
-                                        <img class="glow" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_title}}" >
-                                    @else 
-                                        <img class="glow" src="{{asset('assets/fto/'.$feed->collection[0])}}" alt="{{$feed->item_title}}" >
-                                    @endif
+                            @if(file_exists('assets/items/'.$feed->directory.'/'.$feed->collection[0]) == true )
+                                <div class="carousel-inner" onclick="document.querySelector('#showItemImages').classList.toggle('hidden')">
+                            @else 
+                                <div class="carousel-inner">
+                            @endif
+                                    <div class="carousel-item px-1 py-1 active ani ani_fadeIn1 ani_slow">
+                                        @if($feed->collection[0] != 'dark-logo.png' && file_exists('assets/items/'.$feed->directory.'/'.$feed->collection[0]))
+                                            <img class="glow" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_title}}" >
+                                        @else 
+                                            <img class="glow" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$feed->item_title}}" >
+                                        @endif
+                                    </div>                                
+                                </div>
+                                <div class="py-1 {{ file_exists('assets/items/'.$feed->directory.'/'.$feed->collection[0]) == true ? 'hidden' : ''}}">
+                                    <small>عذرا عزيزي المشترك ,لايوجد صور صالحة لهذا المنشور</small>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     <hr>
                     <div class="row">
                         <div class="col">

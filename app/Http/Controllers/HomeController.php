@@ -50,7 +50,7 @@ class HomeController extends Controller
         $collection = [];        
         $vali = Validator::make($req->all(), [
             "item_title" => "string",
-            "swap_with"=>"string",
+            "swap_with"=>"string|max:30",
             "item_description"=>"string",
             "amount"=>"integer|max:1000000|nullable",
             "item_imgs"=> "required|array",
