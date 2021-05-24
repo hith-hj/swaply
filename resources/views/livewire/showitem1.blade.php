@@ -273,7 +273,6 @@
                                             <div class="modal-body">
                                                 <label for="" class="form-label">اختر غرضك للتبديل</label>
                                                 <select class="form-select bg-gray" wire:model.defer="req_item">
-                                                    <option value="null">اختر</option>
                                                     @foreach ($feed->user_items as $myitem)
                                                         <option value="{{$myitem->id}}" >{{$myitem->item_title}}</option>
                                                     @endforeach
