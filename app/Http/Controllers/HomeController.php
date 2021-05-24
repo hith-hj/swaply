@@ -45,6 +45,8 @@ class HomeController extends Controller
 
     public function addItem(Request $req)
     {
+        $location = Auth::user()->location;
+        $toReplace = [0,1,2,3,4,5,6,7,8,9,'٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
         $directory = $this->getDirectory();
         $data = $req->all();        
         $collection = [];
@@ -61,8 +63,7 @@ class HomeController extends Controller
             // $msg =  'اما المعلومات المدخلة غير صحيحة او احجام الصور كبيرة او غير مناسبة';
             $msg = var_dump($vali->getMessageBag());
             dd($msg);
-            return response()->json(['status'=>'400',
-             'msg'=>$msg]);
+            return response()->json(['status'=>'400','msg'=>$msg]);
         }
         foreach($data['item_imgs'] as $key => $img){
             if($img->isFile()){
@@ -72,10 +73,7 @@ class HomeController extends Controller
             }
             array_push($collection,$nameToStore);
         }
-                
-        $location = Auth::user()->location;
-        $toReplace = [0,1,2,3,4,5,6,7,8,9,'٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
-       
+        unset($data['submit_btn']);
         $item = new Item();
         $item->user_id = Auth::id();
         $item->item_type = $data['item_type']  ?? 1;
@@ -89,6 +87,7 @@ class HomeController extends Controller
         $item->save();
         $data = str_replace($toReplace,'',$data['item_title']);
         Indexs::store($item->id,$data);
+        // dd($data,$item,$collection);
         return response()->json([
             'msg'=>'done',
             'status'=>200
@@ -103,7 +102,7 @@ class HomeController extends Controller
         $CD = Carbon::now()->format('h-i-s-ms');
         $size = [800,600];
         $ext = $image->extension();
-        $nameWithExt = $image->getClientOriginalName();
+        $nameWithExt = str_replace(' ','_',$image->getClientOriginalName());
         $fileName = pathinfo($nameWithExt,PATHINFO_FILENAME);     
         $nameToStore = $fileName.'_'.$CD.'.'.$ext;     
         $filePath = public_path('/assets/items/'.$directory);
