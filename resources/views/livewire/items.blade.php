@@ -54,6 +54,19 @@
                             <small class="mx-1">شوهد : <span>{{$feed->views}}</span></small>
                         </div>
                     </div>
+                </div>
+                <div class="hidden px-1" id="delete{{$feed->id}}">
+                    <hr>
+                    <div class="modal-dialog ani ani_fadeIn mx-auto mb-1 mt-1" >
+                        <div class="modal-content">
+                            <div class="modal-footer justify-content-center">
+                                <div class="btn-group" >
+                                    <button type="button" class="btn btn-outline-danger " wire:click="deleteItem({{$feed->id}})"><i class="bi bi-trash mx-2"></i><small>حذف</small></button> 
+                                    <button type="button" class="btn btn-outline-dark " onclick="document.querySelector('#delete{{$feed->id}}').classList.toggle('hidden')"><i class="bi bi-x mx-2"></i><small>أغلاق</small></button>   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>           
             </div>
         </div>
