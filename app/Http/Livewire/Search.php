@@ -25,6 +25,7 @@ class Search extends Component
                 if ($post !== null)
                 {
                     $res->info  = $post;
+                    $res->info->collection = unserialize($res->info->collection);
                 }else{
                     $res->info = 'deleted';
                 }

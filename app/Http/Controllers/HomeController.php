@@ -85,7 +85,7 @@ class HomeController extends Controller
         $item->amount = $data['amount'] ?? 0;
         $item->directory = $directory;
         $item->save();
-        Indexs::store($item->id,$data['item_title']);
+        Indexs::store($item->id,str_replace($toReplace,'',$data['item_title']));
         return response()->json([
             'msg'=>'done',
             'status'=>200

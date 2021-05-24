@@ -1,4 +1,4 @@
-<nav class="navbar navbar-light bg-light h-20 shadow container " >
+<nav class="navbar navbar-light bg-light h-20 shadow container ">
     <input class="form-control-light" type="search" placeholder="بحث" aria-label="بحث" wire:model.debounce.250ms="query">
     @if(strlen($query) > 0)
         <ol class="search-list w-100 ">
@@ -7,7 +7,18 @@
             <div class="search-divider"></div>
             @forelse ($result as $res)
             <li class="search-underline cursor glow" wire:click="$emit('changeBody',['showitem','{{$res->item_id}}'])">
-                {{markWords($res->data,$query)}}   
+                <div class="row">
+                    <div class="col">
+                        <small>
+                            @if($res->info->collection[0] != 'dark-logo.png')
+                                <img class="d-block glow px-1" src="{{asset('assets/items/'.$res->info->directory.'/'.$res->info->collection[0])}}" alt="{{$res->info->item_type}}" width="10%" >
+                            @else 
+                                <img class="glow px-1" src="{{asset('assets/fto/'.$res->info->collection[0])}}" alt="{{$res->info->item_type}}" width="8%" >
+                            @endif
+                        </small>
+                        <small>{{markWords($res->data,$query)}} </small>                       
+                    </div>
+                </div>  
             </li>                
             @empty
                 <small>اكتب شي لندورلك عليه</small>
