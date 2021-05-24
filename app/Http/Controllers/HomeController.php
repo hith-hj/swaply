@@ -65,6 +65,7 @@ class HomeController extends Controller
             dd($msg);
             return response()->json(['status'=>'400','msg'=>$msg]);
         }
+        dd('reach here');
         foreach($data['item_imgs'] as $key => $img){
             if($img->isFile()){
                 $nameToStore = $this->imgResizer($img,$directory);
