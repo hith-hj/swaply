@@ -240,7 +240,7 @@ class Showitem extends Component
         } catch (\Throwable $th) {
             $this->emit('notifi',$this->notis[1]);
         }finally{
-            $this->emit('changeBody','feeds');
+            $this->emit('changeBody','items');
         }
     }
 

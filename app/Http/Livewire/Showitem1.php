@@ -240,7 +240,7 @@ class Showitem1 extends Component
         } catch (\Throwable $th) {
             $this->emit('notifi',$this->notis[1]);
         }finally{
-            $this->emit('changeBody','feeds');
+            $this->emit('changeBody','items');
         }
     }
     public function report($post_id,$user_id):void

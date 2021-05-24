@@ -22,6 +22,21 @@ class Items extends Component
         });
     }
 
+    public function deleteItem($item_id)
+    {
+        
+        try {
+            $ite = Item::find($item_id);
+            $ite->status = 'soft_deleted';
+            $ite->save();
+            $this->emit('notifi',$this->notis[9]);
+        } catch (\Throwable $th) {
+            $this->emit('notifi',$this->notis[1]);
+        }finally{
+            $this->emit('changeBody','items');
+        }
+    }
+
     public function render()
     {
         $this->getItems();

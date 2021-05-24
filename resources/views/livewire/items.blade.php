@@ -8,6 +8,17 @@
                         <div class="col-10 ">
                             <h5 class="card-title m-0"> <span>{{$feed->item_title}}</span> </h5>
                         </div>
+                        <div class="col-1">
+                            <div class="d-inline ">
+                                <span class="icon-1 link-dark cursor" id="options" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-three-dots-vertical"></i>
+                                </span>
+                                <ul class="dropdown-menu" aria-labelledby="options">
+                                    <li class="cursor dropdown-item" wire:click="$emit('copyUrl',['{{$feed->id}}'])"><i class="bi bi-clipboard-plus"></i> <span>نسخ الرابط</span></li>
+                                    <li class="cursor dropdown-item" onclick="document.querySelector('#delete{{$feed->id}}').classList.toggle('hidden')" ><i class="bi bi-trash cr"></i> <small>حذف المنشور</small></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div> 
                     <div class="row">
                         <div class="col">
