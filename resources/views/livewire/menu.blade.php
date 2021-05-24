@@ -82,7 +82,7 @@
             <li class="cursor ver-li" title="اشعارات" >
                 <div class="dropend">
                     <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-25,6" aria-expanded="false" >
-                        <i class="bi bi-chat-square-quote "></i>
+                        <i class="bi bi-bell "></i>
                         @if(count($user->notification) >0 )
                             <span class="bi bi-exclamation-circle red-alert icon-sm"></span>
                         @endif
@@ -179,7 +179,7 @@
                             أختر صور</button>
                     </div>
 
-                    <input name="item_title" type="text" class="form-control mb-1" placeholder="الأسم" required>
+                    <input name="item_title" type="text" class="form-control mb-1" placeholder="اسم الشيئ" required>
 
                     <input name="swap_with" type="text" id="swap_with" placeholder="هتبدل بأيه" class="form-control mb-1" title="الاسم واضح" required>
 
