@@ -13,6 +13,13 @@ use App\Models\Requests;
 class Items extends Component
 {
     protected $feeds;
+    protected $notis = [
+        ['تم حفظ المنشور','b','حسنا',],
+        ['حدث خطا ما','r','للاسف',],
+        ['تم حذف المنشور','r','للاسف'],
+        ['','',''],
+        ['','',''],
+    ];
     
     public function getItems()
     {
@@ -29,7 +36,7 @@ class Items extends Component
             $ite = Item::find($item_id);
             $ite->status = 'soft_deleted';
             $ite->save();
-            $this->emit('notifi',$this->notis[9]);
+            $this->emit('notifi',$this->notis[2]);
         } catch (\Throwable $th) {
             $this->emit('notifi',$this->notis[1]);
         }finally{
