@@ -51,7 +51,7 @@
                             @endif
                         </div> 
                         <div class="py-1 {{ file_exists('assets/items/'.$feed->directory.'/'.$feed->collection[0]) == true ? 'hidden' : ''}}">
-                            <small>عذرا عزيزي المشترك ,لايوجد صور صالحة لهذا المنشور</small>
+                            <small style="border-bottom: 2px solid #80cb81">عذرا عزيزي المشترك ,لايوجد صور صالحة لهذا المنشور</small>
                         </div>                    
                     </div>
                     <hr>
