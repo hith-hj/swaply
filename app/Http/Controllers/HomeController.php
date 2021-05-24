@@ -54,12 +54,12 @@ class HomeController extends Controller
             "item_description"=>"string",
             "amount"=>"integer|max:1000000|nullable",
             "item_imgs"=> "required|array",
-            "item_imgs.*"=> "image|mimes:jpg,png|max:5000",
+            "item_imgs.*"=> "image|max:5000",
         ]);
         if($vali->fails())
         {
             // $msg =  'اما المعلومات المدخلة غير صحيحة او احجام الصور كبيرة او غير مناسبة';
-            $msg = $vali->getMessageBag();
+            $msg = var_dump($vali->getMessageBag());
             return response()->json(['status'=>'400',
              'msg'=>$msg]);
         }
