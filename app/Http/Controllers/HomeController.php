@@ -47,7 +47,7 @@ class HomeController extends Controller
     {
         $directory = $this->getDirectory();
         $data = $req->all();        
-        $collection = [];        
+        $collection = [];
         $vali = Validator::make($req->all(), [
             "item_title" => "string",
             "swap_with"=>"string",
@@ -60,6 +60,7 @@ class HomeController extends Controller
         {
             // $msg =  'اما المعلومات المدخلة غير صحيحة او احجام الصور كبيرة او غير مناسبة';
             $msg = var_dump($vali->getMessageBag());
+            dd($msg);
             return response()->json(['status'=>'400',
              'msg'=>$msg]);
         }
