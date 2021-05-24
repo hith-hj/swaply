@@ -58,8 +58,9 @@ class HomeController extends Controller
         ]);
         if($vali->fails())
         {
+            // $vali->getMessageBag() 'اما المعلومات المدخلة غير صحيحة او احجام الصور كبيرة او غير مناسبة'
             return response()->json(['status'=>'400',
-             'msg'=>'اما المعلومات المدخلة غير صحيحة او احجام الصور كبيرة او غير مناسبة']);
+             'msg'=>$vali->getMessageBag()]);
         }
         foreach($data['item_imgs'] as $key => $img){
             if($img->isFile()){
