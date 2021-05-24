@@ -109,9 +109,9 @@ class HomeController extends Controller
         $filePath = public_path('/assets/items/'.$directory);
         $img = Image::make($image->path());
         try {
-            $img->fit(ceil($img->width()/4),ceil($img->height()/4),
-            function ($constraint) { $constraint->upsize();})
-            // $img->resize(ceil($img->width()/4),ceil($img->height()/4))
+            // $img->fit(ceil($img->width()/4),ceil($img->height()/4),
+            // function ($constraint) { $constraint->upsize();})
+            $img->resize(ceil($img->width()/4),ceil($img->height()/4))
             ->insert('imgs/mark.png', 'bottom-right',10,10)
             ->save($filePath.'/'.$nameToStore);       
         } catch (\Throwable $th) {
