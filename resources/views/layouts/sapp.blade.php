@@ -12,8 +12,8 @@
         @else
             <meta name="logged" content="false">   
         @endauth
-        <link rel="shortcut icon" href="./imgs/new-logo.png" type="image/x-icon" />
-        <link rel="apple-touch-icon" href="./imgs/new-logo.png" />
+        <link rel="shortcut icon" href="{{asset('imgs/new-logo.png')}}" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="{{asset('imgs/new-logo.png')}}" />
         <title>swaply | home</title>        
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
         <link rel="stylesheet" href="{{asset('css/lib.css')}}" > 
