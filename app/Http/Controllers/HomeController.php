@@ -45,6 +45,93 @@ class HomeController extends Controller
 
     public function addItem(Request $req)
     {
+        
+        $location = Auth::user()->location;
+        $toReplace = [0,1,2,3,4,5,6,7,8,9,'٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+        $directory = $this->getDirectory();
+        $data = $req->all();        
+        $collection = [];
+        $vali = Validator::make($req->all(), [
+            "item_title" => "string",
+            "swap_with" => "string",
+            "item_description" => "string",
+            "amount" => "integer|max:1000000|nullable",
+            "item_img" => "required|array",
+            "item_img.*" => "max:5000000",
+        ]);
+        if($vali->fails())
+        {
+            $ara =  'اما المعلومات المدخلة غير صحيحة او احجام الصور كبيرة او غير مناسبة';
+            $msg = var_dump($vali->getMessageBag()) ?? $ara;
+            dd($msg);
+            return response()->json(['status'=>'400','msg'=>$msg]);
+        }
+
+        foreach($data['item_img'] as $key => $img){
+            $img = $this->base64ToImage($img);
+            if(gettype($img) == 'object'){
+                $nameToStore = $this->imgResizer($img,$directory);
+            }else{
+                $nameToStore = 'dark-logo.png';
+            }
+            array_push($collection,$nameToStore);
+        }
+        $item = new Item();
+        $item->user_id = Auth::id();
+        $item->item_type = $data['item_type']  ?? 1;
+        $item->item_title = str_replace($toReplace,'',$data['item_title']);
+        $item->item_info = str_replace($toReplace,'',$data['item_description']);
+        $item->item_location = str_replace($toReplace,'',$location);
+        $item->swap_with = $data['swap_with'] == 'x' ? 'اي شيء' : str_replace($toReplace,'',$data['swap_with']) ?? 'doonation';
+        $item->collection = serialize($collection);
+        $item->amount = $data['amount'] ?? 0;
+        $item->directory = $directory;
+        $item->save();
+        Indexs::store($item->id,str_replace($toReplace,'',$data['item_title']));
+        return response()->json([
+            'msg'=>'done',
+            'status'=>200
+        ]);
+    }
+
+    private function base64ToImage($b64){
+        if(!Storage::disk('public')->exists('temps')){
+            Storage::disk('public')->makeDirectory('temps');
+        }
+        $name = 'sw_'.Auth::user()->name.'_'.rand(1,99999).'.jpg';
+        $file = fopen('temps/'.$name, "wb");  
+        $data = explode(',', $b64);
+        fwrite($file, base64_decode($data[1]));
+        fclose($file);
+        $img = Image::make('temps/'.$name);
+        unlink('temps/'.$name);
+        return $img;        
+    }
+
+    private function imgResizer(object $img,string $directory):string
+    {
+        $CD = Carbon::now()->format('h-i-s-ms');
+        $ext = $img->extension;
+        $nameWithExt = str_replace(' ','_',$img->basename);
+        $fileName = pathinfo($nameWithExt,PATHINFO_FILENAME);     
+        $nameToStore = $fileName.'_'.$CD.'.'.$ext;     
+        $filePath = public_path('/assets/items/'.$directory);
+        try {
+            $img->insert('imgs/mark.png', 'bottom-right',10,10)
+            ->save($filePath.'/'.$nameToStore);       
+        } catch (\Throwable $th) {
+            dd($th);
+            $nameToStore = 'dark-logo.png';
+            $noti = ['حدث خطا اثناء رفع الصور','r','خطا'];
+            $this->emit('notifi',$noti);
+        }finally{
+            return $nameToStore;
+        }        
+    }
+
+    public function addItem2(Request $req)
+    {
+        dd($req->all());
         $location = Auth::user()->location;
         $toReplace = [0,1,2,3,4,5,6,7,8,9,'٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
         $directory = $this->getDirectory();
@@ -97,7 +184,7 @@ class HomeController extends Controller
     /**
      * @return string image name to store it  
      */
-    private function imgResizer(object $image,string $directory):string
+    private function imgResizer2(object $image,string $directory):string
     {
         $CD = Carbon::now()->format('h-i-s-ms');
         $size = [800,600];
@@ -128,7 +215,7 @@ class HomeController extends Controller
      */
     private function getDirectory():string
     {
-        $CD = Carbon::now()->format('y-m-d_h-i-s-ms');
+        $CD = Carbon::now()->format('y-m-d_h');
         if(!Storage::disk('public')->exists('assets')){
             Storage::disk('public')->makeDirectory('assets');
         }

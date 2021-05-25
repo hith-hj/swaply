@@ -273,10 +273,8 @@ function displayUploadedImages(ev) {
         notify("max 5 images", 'r', 'hold');
     } else {
         for (let i = 0; i < files.length; i++) {
-            // console.log(files[i])
             var div = document.createElement('div');
             var img = document.createElement('img');
-            // var itag = document.createElement('i');
             div.classList.add('d-inline-block', 'text-center', );
             img.setAttribute('src', window.URL.createObjectURL(files[i]));
             img.setAttribute('class', 'uploaded-img animation-fade mx-1');
@@ -284,10 +282,6 @@ function displayUploadedImages(ev) {
             img.setAttribute('height', '85');
             img.setAttribute('id', 'img_' + files[i].size);
             img.setAttribute('name', i);
-            // itag.setAttribute('class', 'bi bi-x');
-            // itag.setAttribute('id', 'rem_' + files[i].size);
-            // itag.setAttribute('onclick', 'removeImageFromUploaded(' + files[i].size + ')');
-            // div.appendChild(itag);            
             div.appendChild(img);
             gal.appendChild(div);
         }
@@ -356,9 +350,9 @@ function removeImageFromUploaded(id) {
                 continue;
             }
             if (form[i].name == 'item_imgs[]') {
-                for (var j = 0; j < form[i].files.length; j++) {
-                    data.append(form[i].name, form[i].files[j])
-                }
+                // for (var j = 0; j < form[i].files.length; j++) {
+                //     data.append(form[i].name, form[i].files[j])
+                // }
                 continue;
             }
             data.append(form[i].name, form[i].value);
@@ -460,4 +454,115 @@ function rememberMe() {
 
     localStorage.setItem('user', user)
     localStorage.setItem('pass', pass)
+}
+
+{
+    // var max_width = fileinput.getAttribute('data-maxwidth');
+    // var max_height = fileinput.getAttribute('data-maxheight');
+    var max_width = 1200;
+    var max_height = 800;
+    var preview = document.querySelector("#imgs_collection");
+    var form = document.getElementById('add-item-form');
+
+    function image_resizer(e) {
+        if (!(window.File && window.FileReader && window.FileList && window.Blob)) {
+            alert('The File APIs are not fully supported in this browser.');
+            return false;
+        }
+
+        readfiles(e.target.files);
+    }
+
+    function readfiles(files) {
+
+        // remove the existing canvases and hidden inputs if user re-selects new pics
+        var existinginputs = document.getElementsByName('item_img[]');
+        var existingcanvases = document.getElementsByTagName('canvas');
+        while (existinginputs.length > 0 && existingcanvases > 0) { // it's a live list so removing the first element each time
+            // DOMNode.prototype.remove = function() {this.parentNode.removeChild(this);}
+            form.removeChild(existinginputs[0]);
+            preview.removeChild(existingcanvases[0]);
+        }
+
+        if (files.length > 5) {
+            return notify("max 5 images", 'r', 'hold');
+        } else {
+            for (var i = 0; i < files.length; i++) {
+                processfile(files[i]); // process each file at once
+            }
+            files.value = "";
+        } //remove the original files from fileinput
+        // TODO remove the previous hidden inputs if user selects other files
+    }
+
+    function processfile(file) {
+
+        if (!(/image/i).test(file.type)) {
+            alert("File " + file.name + " is not an image.");
+            return false;
+        }
+
+        // read the files
+        var reader = new FileReader();
+        reader.readAsArrayBuffer(file);
+
+        reader.onload = function(event) {
+            // blob stuff
+            var blob = new Blob([event.target.result]); // create blob...
+            window.URL = window.URL || window.webkitURL;
+            var blobURL = window.URL.createObjectURL(blob); // and get it's URL
+
+            // helper Image object
+            var image = new Image();
+            image.src = blobURL;
+            //preview.appendChild(image); // preview commented out, I am using the canvas instead
+            image.onload = function() {
+                // have to wait till it's loaded
+                var resized = resizeMe(image); // send it to canvas
+                var newinput = document.createElement("input");
+                newinput.type = 'hidden';
+                newinput.name = 'item_img[]';
+                newinput.value = resized; // put result from canvas into new hidden input
+                form.appendChild(newinput);
+            }
+        };
+    }
+
+    // === RESIZE ====
+
+    function resizeMe(img) {
+
+        var canvas = document.createElement('canvas');
+
+        var width = img.width;
+        var height = img.height;
+
+        // calculate the width and height, constraining the proportions
+        if (width > height) {
+            if (width > max_width) {
+                //height *= max_width / width;
+                height = Math.round(height *= max_width / width);
+                width = max_width;
+            }
+        } else {
+            if (height > max_height) {
+                //width *= max_height / height;
+                width = Math.round(width *= max_height / height);
+                height = max_height;
+            }
+        }
+
+        // resize the canvas and draw the image data into it
+        canvas.width = width;
+        canvas.height = height;
+        canvas.classList.add('uploaded-img');
+        canvas.style = "max-width:100px;max-height:100px;margin:.2rem;"
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+        preview.classList.remove('hidden')
+        preview.appendChild(canvas); // do the actual resized preview
+        console.log();
+        return canvas.toDataURL("image/jpeg", 0.7); // get the data from canvas as 70% JPG (can be also PNG, etc.)
+
+    }
 }

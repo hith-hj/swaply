@@ -56,9 +56,9 @@
                             @endif
                                     <div class="carousel-item px-1 py-1 active ani ani_fadeIn1 ani_slow">
                                         @if($feed->collection[0] != 'dark-logo.png' && file_exists('assets/items/'.$feed->directory.'/'.$feed->collection[0]))
-                                            <img class="glow" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_title}}" >
+                                            <img class="glow" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_title}}" width="100%">
                                         @else 
-                                            <img class="glow" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$feed->item_title}}" >
+                                            <img class="glow" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$feed->item_title}}" width="100%">
                                         @endif
                                     </div>                                
                                 </div>
