@@ -86,7 +86,7 @@
                 @if(Auth::user()->id != $feed->user_id)
                     @if($feed->item_type == 1)
                         <div class="card-footer text-center ">    
-                            <button class="btn btn-outline-success bg-white w-50 mb-1 mt-1 py-1" onclick="document.querySelector('#offer{{$feed->id}}').classList.toggle('hidden')"><span>ارسل عرض</span></button>
+                            <button class="btn btn-outline-success bg-white w-50 mb-1 mt-1 py-2" style="font-size: 16px" onclick="document.querySelector('#offer{{$feed->id}}').classList.toggle('hidden')"><span>ارسل عرض</span></button>
                             <div class="modal-dialog hidden mx-auto mb-1 mt-0 ani ani_fadeIn" id="offer{{$feed->id}}">
                                 <div class="modal-content">
                                     <div class="modal-header">
