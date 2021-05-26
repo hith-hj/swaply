@@ -1,5 +1,5 @@
 <nav class="navbar navbar-light bg-light h-20 shadow container">
-    <input class="form-control-light" type="search" placeholder=" &#128269; بحث" aria-label="بحث" wire:model.debounce.250ms="query">
+    <input class="form-control-light &##128269;" type="search" placeholder=" 🔍 بحث" aria-label="بحث" wire:model.debounce.250ms="query">
     @if(strlen($query) > 0)
         <ol class="search-list w-100 ">
             <div class="search-underline cursor" wire:click="$emit('changeBody','feeds')">$ الرئيسية</div>
