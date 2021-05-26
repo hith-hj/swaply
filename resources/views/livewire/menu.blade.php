@@ -133,10 +133,10 @@
                                         @if($user->recommends > 0)
                                             <span class="bi bi-dot red-alert icon-15"></span>
                                         @endif
-                                        <i class="bi bi-bookmark-plus"></i> <span>مقترحات</span> </span>
+                                        <i class="bi bi-bookmark-plus"></i> <span>تطابقات</span> </span>
                                 </li>
                                 <li class="cursor" wire:click="$emitTo('body','changeBody','requests')">
-                                    <span class="dropdown-item" > <i class="bi bi-arrow-bar-up"></i> <span> العروض المرسلة</span> </span>
+                                    <span class="dropdown-item" > <i class="bi bi-arrow-bar-up"></i> <span>العروض المرسلة</span> </span>
                                 </li>
                                 <li class="cursor" wire:click="$emitTo('body','changeBody','termsOfUse')">
                                     <span class="dropdown-item" > <i class="bi bi-ui-checks"></i> <span>شروط الاستخدام</span> </span>

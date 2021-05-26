@@ -372,7 +372,7 @@ function removeImageFromUploaded(id) {
                 Livewire.emitTo('feeds', 'getFeeds');
                 sbtn.disabled = false;
                 spiner.classList.add('hidden');
-                return notify("تم اضافة غرضك", 'g', 'حسنا');
+                return notify("تم اضافة غرضك, تحقق من صفحة التطابقات", 'g', 'حسنا');
             } else {
                 notify(res.msg, 'r', ' حدث خطا ما');
                 sbtn.disabled = false;
