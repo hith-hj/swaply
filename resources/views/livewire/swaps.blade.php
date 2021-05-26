@@ -18,8 +18,8 @@
                                     {{-- {{$swap->user_item->item_info}} --}}
                                     {{substr($swap->user_item->item_info,0,strlen($swap->user_item->item_info) < 20 ? strlen($swap->user_item->item_info): strlen($swap->user_item->item_info)/2)}}...
                                 </span></small><hr>
-                                <div class="d-flex justify-content-evenly mt-5px" wire:loading.grid >
-                                    <img class=" glow" src="{{asset('assets/items/'.$swap->user_item->directory.'/'.$swap->user_item->collection[0])}}" width="180" alt="{{$swap->item_type}}" >
+                                <div class="d-flex justify-content-evenly mt-5px">
+                                    <img class=" glow" src="{{asset('assets/items/'.$swap->user_item->directory.'/'.$swap->user_item->collection[0])}}" width="50%" height="50%" alt="{{$swap->item_type}}" >
                                 </div><hr>
                                 <div class="row">
                                     <div class="col">
@@ -38,8 +38,8 @@
                                     {{-- {{$swap->sender_item->item_info}} --}}                                    
                                     {{substr($swap->sender_item->item_info,0,strlen($swap->sender_item->item_info) < 20 ? strlen($swap->sender_item->item_info): strlen($swap->sender_item->item_info)/2)}}...
                                 </span></small><hr>
-                                <div class="d-flex justify-content-evenly mt-5px" wire:loading.grid >
-                                    <img class=" glow" src="{{asset('assets/items/'.$swap->sender_item->directory.'/'.$swap->sender_item->collection[0])}}" width="180" alt="{{$swap->sender_item->item_type}}" >
+                                <div class="d-flex justify-content-evenly mt-5px">
+                                    <img class=" glow" src="{{asset('assets/items/'.$swap->sender_item->directory.'/'.$swap->sender_item->collection[0])}}" width="50%" height="50%" alt="{{$swap->sender_item->item_type}}" >
                                 </div><hr>
                                 <div class="row">
                                     <div class="col">
@@ -57,7 +57,7 @@
                         <div class="row">
                             <div class="col " >
                                 <small> عملية التبادل ناجحة</small>
-                                <p>شكرا لك لأستخدامك سوابلي في تبديل غرضك /_ ^_^ _\  😍 💚</p>
+                                <p>شكرا لك لأستخدامك سوابلي في تبديل غرضك /_ (^_^) _\  😍 💚</p>
                             </div>
                         </div>
                     </div>

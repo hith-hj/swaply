@@ -20,8 +20,8 @@ class CreateSwapsTable extends Migration
             $table->string('sender_id');
             $table->string('item_id');
             $table->string('sender_item');
-            $table->string('user_item_rate');
-            $table->string('sender_item_rate');
+            $table->string('user_item_rate')->default(0);
+            $table->string('sender_item_rate')->default(0);
             $table->timestamps();
         });
     }

@@ -13,10 +13,17 @@
     </div>
     <h1 class="display-5 fw-bold" style="color:#81CB80;">سوابلي</h1>
     <div class="col-lg-6 mx-auto">
-      <p class="lead mb-4 fs-20">
-        الموقع دا عشان اي حد فينا عندو اي حاجة ركنها على جنب و زهقان منها , فيروح عامل ايه , منزلها هنا ممكن يكون حد تاني عاوزها
-        و يكون عندو حاجة انته عاوزها , يعني ببساطة الموقع لتبدل الغرض الي مش عاوزو بغرض عاوزو او غرض تاني احسن منو
+      <p class="lead mb-4 fs-20" style="font-size: 25px">
+        الموقع دا علشان اي حد فينا عندو اي حاجة ركنها على جنب و زهقان منها , فيروح عامل ايه , منزلها هنا ممكن يكون حد تاني عاوزها
+        و يكون عندو حاجة انته عاوزها , يعني ببساطة الموقع لتبدل الغرض الي مش عاوزه بغرض عاوزه او غرض تاني احسن منه
       </p>
+      <h4>راسلنا على البريد الألكتروني <br><a href="mailto:swaply.co@gmail.com">ارسال بريد</a></h4>      
+      
+
+
+      <h5> يسرنا سماعك على الهاتف اتصل بنا <br><a href="tel:+201006879055">اتصل</a></h5>
+      
+
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-4">
         <a class="link-text" href="{{ route('login') }}">
             <button type="button" class="btn btn-outline-success btn-lg px-1 me-sm-2">تسجيل دخول</button>
