@@ -652,3 +652,7 @@ textarea::selection {
 .width-auto {
     min-width: 30rem;
 }
+
+.green_underline {
+    border-bottom: 2px solid #80cb81 !important;
+}

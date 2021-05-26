@@ -22,14 +22,14 @@
                     </div> 
                     <div class="row">
                         <div class="col">
-                            <small class="card-subtitle text-muted m-0" title="نوع المنشور"><i class="mx-1 bi bi-distribute-horizontal"></i><span>{{$feed->item_type}}</span></small>
-                            @if($feed->item_type != 'تبرع')
-                                <small class="card-subtitle text-muted m-0" title="بديل الغرض"><i class="mx-1 bi bi-arrow-down-up"></i><span>{{substr($feed->swap_with,0,strlen($feed->swap_with) < 30? strlen($feed->swap_with) : strlen($feed->swap_with)/3)}}</span></small>
-                            @endif
-                            <small class="card-subtitle text-muted m-0" title="تاريخ النشر"><i class="mx-1 bi bi-calendar-day"></i><span>{{$feed->created_at->diffForHumans()}}</span></small>
                             @if($feed->status ==1)
-                            <small class="card-subtitle text-muted mx-2 "><strong>تم التبديل</strong></small>
+                                <small class="card-subtitle text-muted mx-1 green_underline"><strong>تم التبديل</strong></small>
                             @endif
+                            <small class="card-subtitle text-muted green_underline" title="نوع المنشور"><i class="mx-1 bi bi-distribute-horizontal"></i><span>{{$feed->item_type == 1 ? 'مبادلة' : 'تبرع'}}</span></small>
+                            @if($feed->item_type != 'تبرع')
+                                <small class="card-subtitle text-muted " title="بديل الغرض"><i class="mx-1 bi bi-arrow-down-up"></i><span>{{substr($feed->swap_with,0,strlen($feed->swap_with) < 30? strlen($feed->swap_with) : strlen($feed->swap_with)/3)}}</span></small>
+                            @endif
+                            <small class="card-subtitle text-muted " title="تاريخ النشر"><i class="mx-1 bi bi-calendar-day"></i><span>{{$feed->created_at->diffForHumans()}}</span></small>
                         </div>
                     </div>  
                     <hr>
@@ -37,13 +37,13 @@
                         <small class="card-text"><span>{{$feed->item_info}}</span></small><br>
                         <div style="display: grid;place-items: center">
                             @if($feed->collection[0] != 'dark-logo.png' && file_exists('assets/items/'.$feed->directory.'/'.$feed->collection[0]))
-                                <img class="glow px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" width="90%">
+                                <img class="glow px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" width="100%">
                             @else 
                                 <img class="glow px-1" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$feed->item_type}}" >
                             @endif
                         </div>
                         <div class="py-1 {{ file_exists('assets/items/'.$feed->directory.'/'.$feed->collection[0]) == true ? 'hidden' : ''}}">
-                            <small style="border-bottom: 2px solid #80cb81">عذرا عزيزي المشترك ,لايوجد صور صالحة لهذا المنشور</small>
+                            <small class="green_underline">عذرا عزيزي المشترك ,لايوجد صور صالحة لهذا المنشور</small>
                         </div>
                     </div>
                     <hr>

@@ -26,15 +26,15 @@
                     </div> 
                     <div class="row">
                         <div class="col">
-                            <small class="card-subtitle text-muted m-0" title="نوع المنشور"><i class="mx-1 bi bi-distribute-horizontal"></i><span>{{$feed->item_type == 1 ? 'مبادلة' : 'تبرع'}}</span></small>
+                            <small class="card-subtitle text-muted  green_underline" title="نوع المنشور"><i class="mx-1 bi bi-distribute-horizontal"></i><span>{{$feed->item_type == 1 ? 'مبادلة' : 'تبرع'}}</span></small>
                             @if($feed->item_type != 2)
-                                <small class="card-subtitle text-muted m-0" title="بديل الغرض"><i class="mx-1 bi bi-arrow-down-up"></i><span>{{substr($feed->swap_with,0,strlen($feed->swap_with) < 30? strlen($feed->swap_with) : strlen($feed->swap_with)/3)}}</span></small>
+                                <small class="card-subtitle text-muted " title="بديل الغرض"><i class="mx-1 bi bi-arrow-down-up"></i><span>{{substr($feed->swap_with,0,strlen($feed->swap_with) < 30? strlen($feed->swap_with) : strlen($feed->swap_with)/3)}}</span></small>
                             @endif
-                            <small class="card-subtitle text-muted m-0" title="تاريخ النشر"><i class="mx-1 bi bi-calendar-day"></i><span>{{$feed->created_at->diffForHumans()}}</span></small>
+                            <small class="card-subtitle text-muted " title="تاريخ النشر"><i class="mx-1 bi bi-calendar-day"></i><span>{{$feed->created_at->diffForHumans()}}</span></small>
                             @if($feed->amount > 0)
-                                <small class="card-subtitle text-muted m-0" title="الفرق"><i class="mx-1 bi bi-cash"></i><span>{{$feed->amount}}</span></small>
+                                <small class="card-subtitle text-muted " title="الفرق"><i class="mx-1 bi bi-cash"></i><span>{{$feed->amount}}</span></small>
                             @endif
-                            <small class="card-subtitle text-muted m-0"> <i class=" mx-1 bi bi-images"></i> {{ count($feed->collection)}} </small>
+                            <small class="card-subtitle text-muted "> <i class=" mx-1 bi bi-images"></i> {{ count($feed->collection)}} </small>
                         </div>
                     </div>   
                     <hr>
@@ -45,13 +45,13 @@
                         
                         <div class="d-flex justify-content-evenly mt-1" style="max-height: 18rem;">
                             @if($feed->collection[0] != 'dark-logo.png' && file_exists('assets/items/'.$feed->directory.'/'.$feed->collection[0]) )
-                                <img class="d-block glow px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" width="100%" >
+                                <img class=" px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" width="100%" >
                             @else 
                                 <img class="glow px-1" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$feed->item_type}}" width="30%" >
                             @endif
                         </div> 
                         <div class="py-1 {{ file_exists('assets/items/'.$feed->directory.'/'.$feed->collection[0]) == true ? 'hidden' : ''}}">
-                            <small style="border-bottom: 2px solid #80cb81">عذرا عزيزي المشترك ,لايوجد صور صالحة لهذا المنشور</small>
+                            <small class="green_underline" >عذرا عزيزي المشترك ,لايوجد صور صالحة لهذا المنشور</small>
                         </div>                    
                     </div>
                     <hr>
@@ -86,7 +86,7 @@
                 @if(Auth::user()->id != $feed->user_id)
                     @if($feed->item_type == 1)
                         <div class="card-footer text-center ">    
-                            <button class="btn btn-outline-success bg-white w-50 mb-1 mt-1 py-2" style="font-size: 16px" onclick="document.querySelector('#offer{{$feed->id}}').classList.toggle('hidden')"><span>ارسل عرض</span></button>
+                            <button class="btn btn-outline-success bg-white w-50 mb-1 mt-1 py-2" style="font-size: 14px" onclick="document.querySelector('#offer{{$feed->id}}').classList.toggle('hidden')"><span>ارسل عرض</span></button>
                             <div class="modal-dialog hidden mx-auto mb-1 mt-0 ani ani_fadeIn" id="offer{{$feed->id}}">
                                 <div class="modal-content">
                                     <div class="modal-header">
