@@ -15,7 +15,7 @@
 
 body {
     font-family: 'Cairo' !important;
-    box-shadow: inset 1px 0px 20px 8px #eaee0f6c;
+    box-shadow: inset 1px 0px 20px 8px #eaee0f48;
     padding: 1rem 2rem;
     min-height: 100vh;
 }
@@ -180,7 +180,14 @@ body {
 }
 
 .top {
-    font-size: 1rem;
+    font-size: 1.5rem;
+    padding: 0;
+    line-height: 1.5;
+    background: 0 0;
+    color: #81CB80;
+    position: absolute;
+    text-decoration: none;
+    padding: 0 .8rem;
 }
 
 .taste {
