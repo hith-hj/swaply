@@ -15,9 +15,10 @@
 
 body {
     font-family: 'Cairo' !important;
-    box-shadow: inset 1px 0px 20px 8px #eaee0f48;
+    /* box-shadow: inset 1px 0px 20px 8px # inset; */
+    box-shadow: 12px 0 15px -4px #eaee0f48 inset, -12px 0 15px -4px #eaee0f48 inset;
     padding: 1rem 2rem;
-    min-height: 98vh;
+    min-height: 100vh;
 }
 
 #welcome-canvas {

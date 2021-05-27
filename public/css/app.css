@@ -40,8 +40,8 @@ html {
 
 #canvas {
     background-color: #bcceb799;
-    background: -webkit-gradient(linear, left top, right top, from(#daf63cc9), color-stop(#ebf8e1), to(#48a63fc9));
-    background: linear-gradient(0.25turn, #daf63cc9, #ebf8e1, #48a63fc9);
+    background: -webkit-gradient(linear, left top, right top, from(#48a63fc9), color-stop(#ebf8e1), to(#daf63cc9));
+    background: linear-gradient(0.25turn, #48a63fc9, #ebf8e1, #daf63cc9);
     /* background-color: rgba(251, 255, 0, 0.295); */
     /* background-image: url('../imgs/new-logo2.png'); */
     /* background-size: 30% 30%; */
@@ -52,8 +52,8 @@ html {
     min-height: 100vh;
     min-width: 100%;
     position: fixed;
-    -webkit-filter: blur(10px);
-    filter: blur(10px);
+    /* -webkit-filter: blur(10px); */
+    /* filter: blur(10px); */
     opacity: .7;
 }
 
