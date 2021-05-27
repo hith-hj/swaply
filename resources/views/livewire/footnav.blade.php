@@ -1,4 +1,4 @@
-<footer class="footer mt-0 py-1 bg-light float text-center ani ani_slideInUp">
+<footer class="footer mt-0 py-1 bg-light float text-center ani ani_slideInUp ani_faster">
     <div class="container">
         
         <div class="">
