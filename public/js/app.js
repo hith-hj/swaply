@@ -165,8 +165,8 @@ inbox.addEventListener('touchmove', e => {
     if (document.scrollingElement.scrollTop === 0 && y > _startY &&
         !document.body.classList.contains('refreshing')) {
         Livewire.emit('getFeeds');
-        Livewire.emit('changeBody', 'feeds');
         Livewire.emit('refresh');
+        Livewire.emit('changeBody', 'feeds');
         console.log('erre');
     }
 }, { passive: true });
@@ -562,7 +562,7 @@ function rememberMe() {
         preview.classList.remove('hidden')
         preview.appendChild(canvas); // do the actual resized preview
         console.log();
-        return canvas.toDataURL("image/jpeg", 0.7); // get the data from canvas as 70% JPG (can be also PNG, etc.)
+        return canvas.toDataURL("image/jpeg", 0.8); // get the data from canvas as 70% JPG (can be also PNG, etc.)
 
     }
 }
