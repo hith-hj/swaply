@@ -35,7 +35,10 @@ class Body extends Component
         $last = [$to,$cid];
         array_push($this->visted,$last);     
         $this->body = $to;
-        $this->body == 'feeds' ? $this->emitTo('menu','refresh') : '' ;
+        if($this->body == 'feeds'){            
+            $this->emit('getFeeds');
+            $this->emitTo('menu','refresh');
+        } 
     }
 
     public function goBack()
