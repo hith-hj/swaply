@@ -1,6 +1,6 @@
-<div id="feedsBody" style="min-height: 90vh">
+<div id="feedsBody">
     @forelse ($feeds as $feed)
-        <div class="col mt-5px ani ani_slideInUp ani_faster" >
+        <div class="col mt-5px ani ani_fadeIn ani_faster" >
             <div class="card shadow">
                 <div class="card-body" >
                     <div class="row">
