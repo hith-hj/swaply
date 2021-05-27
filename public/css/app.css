@@ -433,6 +433,9 @@ textarea::selection {
     .cir-perant {
         display: block !important;
     }
+    .width-auto {
+        min-width: 17rem !important;
+    }
 }
 
 @media screen and (max-width: 21.875rem) {
