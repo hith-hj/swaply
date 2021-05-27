@@ -15,6 +15,9 @@
 
 body {
     font-family: 'Cairo' !important;
+    box-shadow: inset 1px 0px 20px 8px #eaee0f6c;
+    padding: 1rem 2rem;
+    min-height: 100vh;
 }
 
 #welcome-canvas {
@@ -65,20 +68,20 @@ body {
 }
 
 #logo path:nth-child(1) {
-    stroke-dasharray: 183.01213;
-    stroke-dashoffset: 183.01213;
+    stroke-dasharray: 578.444091796875;
+    stroke-dashoffset: 578.444091796875;
     animation: logo-anim 2s ease forwards;
 }
 
 #logo path:nth-child(2) {
-    stroke-dasharray: 183.01213;
-    stroke-dashoffset: 183.01213;
+    stroke-dasharray: 578.444091796875;
+    stroke-dashoffset: 578.444091796875;
     animation: logo-anim 2s ease forwards;
 }
 
 #logo path:nth-child(3) {
-    stroke-dasharray: 105.40281;
-    stroke-dashoffset: 105.40281;
+    stroke-dasharray: 254.28018188476562;
+    stroke-dashoffset: 254.28018188476562;
     animation: logo-anim 2.5s ease forwards;
 }
 

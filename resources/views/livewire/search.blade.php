@@ -1,4 +1,4 @@
-<nav class="navbar navbar-light bg-light h-20 shadow container">
+<nav class="navbar navbar-light bg-light h-20 shadow container ani ani_slideInDown">
     <input class="form-control-light &##128269;" type="search" placeholder=" 🔍 بحث" aria-label="بحث" wire:model.debounce.250ms="query">
     @if(strlen($query) > 0)
         <ol class="search-list w-100 ">

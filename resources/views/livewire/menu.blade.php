@@ -1,6 +1,6 @@
 <div>
-    <div id="navMenu" class="ver-menu" onload="menuView()">
-        <ul id="navList" class="ver-list">            
+    <div id="navMenu" class="ver-menu ani ani_slideInRight" onload="menuView()">
+        <ul id="navList" class="ver-list ">            
             <li class="cursor ver-li " title="معلوماتي" >
                 <div class="dropend">
                     <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-25,6" aria-expanded="false">
@@ -158,159 +158,159 @@
                     </div>                    
                 </div>
             </li>
-        </ul>
+        </ul>      
+    </div>
 
-        <div id="newItemModal" class="hidden smodal ">
-            <div id="dataForm" class="itemCard shadow show ani ani_fadeIn p-2" >
-                <form id="add-item-form" class="width-auto" onsubmit="AddItem(event)" stoppedAction="{{route('addItem')}}" method="POST" enctype="multipart/form-data">
-                    <div class="row">
-                        <div class="col-8 ">
-                            <label class="p-2">أضافة</label><br>
-                        </div>
-                        <div class="col-1 offset-2 cursor">
-                            <i class="bi bi-x fs-2" onclick="document.querySelector('#newItemModal').classList.toggle('hidden');resetForm();"></i>
-                        </div>
+    <div id="newItemModal" class="hidden smodal ">
+        <div id="dataForm" class="itemCard shadow show ani ani_fadeIn p-2" >
+            <form id="add-item-form" class="width-auto" onsubmit="AddItem(event)" stoppedAction="{{route('addItem')}}" method="POST" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-8 ">
+                        <label class="p-2">أضافة</label><br>
                     </div>
-
-                    <div id="imgs_collection" class="hidden"></div>
-                    <div class="js-upload upload mb-1" uk-form-custom>
-                        <input name="item_imgs[]" multiple required type="file" id="itemgs" accept="image/*" tabindex="0" onchange="image_resizer(event)" onchangezz="displayUploadedImages(event)" hidden>
-                        <button class="cursor sbtn sbtn-txt" tabindex="0" type="button" onclick="document.querySelector('#itemgs').click()"> <i class="bi bi-images"></i>
-                            أختر صور</button>
+                    <div class="col-1 offset-2 cursor">
+                        <i class="bi bi-x fs-2" onclick="document.querySelector('#newItemModal').classList.toggle('hidden');resetForm();"></i>
                     </div>
+                </div>
 
-                    <input name="item_title" type="text" class="form-control mb-1" placeholder="اسم الشيئ" required>
+                <div id="imgs_collection" class="hidden"></div>
+                <div class="js-upload upload mb-1" uk-form-custom>
+                    <input name="item_imgs[]" multiple required type="file" id="itemgs" accept="image/*" tabindex="0" onchange="image_resizer(event)" onchangezz="displayUploadedImages(event)" hidden>
+                    <button class="cursor sbtn sbtn-txt" tabindex="0" type="button" onclick="document.querySelector('#itemgs').click()"> <i class="bi bi-images"></i>
+                        أختر صور</button>
+                </div>
 
-                    <input name="swap_with" type="text" id="swap_with" placeholder="هتبدل بأيه" class="form-control mb-1" title="الاسم واضح" required>
+                <input name="item_title" type="text" class="form-control mb-1" placeholder="اسم الشيئ" required>
 
-                    <textarea name="item_description" wrap="hard" class="form-control mb-1" rows="2" title="اختياري" placeholder="اوصف حاجتك"></textarea>
+                <input name="swap_with" type="text" id="swap_with" placeholder="هتبدل بأيه" class="form-control mb-1" title="الاسم واضح" required>
 
-                    <input type="text" inputmode="numeric" name="amount" class="form-control" title="اختياري" placeholder="فرق السعر (اختياري)" >
+                <textarea name="item_description" wrap="hard" class="form-control mb-1" rows="2" title="اختياري" placeholder="اوصف حاجتك"></textarea>
 
-                    {{-- <div class="location mb-1">
-                        <button id="setLocation" type="button" class="btn text-muted cursor glow" tabindex="0" onclick="setItemLocation()">إضافة عنوان اخر</button>
-                        <span id="resetLocation" class="hidden cursor glow " tabindex="0" onclick="resetItemLocation()"><i class="bi bi-x"></i></span>
-                        <div id="addLocationBio" class="hidden">
-                            <small>اضف هذا العنوان في حال كان عنوانك يختلف عن عنوان الحاجة التي تنشرها</small>
+                <input type="text" inputmode="numeric" name="amount" class="form-control" title="اختياري" placeholder="فرق السعر (اختياري)" >
+
+                {{-- <div class="location mb-1">
+                    <button id="setLocation" type="button" class="btn text-muted cursor glow" tabindex="0" onclick="setItemLocation()">إضافة عنوان اخر</button>
+                    <span id="resetLocation" class="hidden cursor glow " tabindex="0" onclick="resetItemLocation()"><i class="bi bi-x"></i></span>
+                    <div id="addLocationBio" class="hidden">
+                        <small>اضف هذا العنوان في حال كان عنوانك يختلف عن عنوان الحاجة التي تنشرها</small>
+                    </div>
+                    <div id="location-group" class="input-group mb-1 hidden" title="محافظة-المنطقة او المركز-الحي او القرية">
+                        <select name="item_location_covernent" tabindex="0" class="form-select" disabled="true">
+                            <option selected>المحافظة</option>
+                            <option value="القاهرة"> <span>القاهرة</span> </option>
+                            <option value="الجيزة"> <span>الجيزة</span> </option>
+                            <option value="القليوبية"> <span>القليوبية</span> </option>
+                            <option value="الشرقية"> <span>الشرقية</span> </option>
+                            <option value="المنوفية"> <span>المنوفية</span> </option>
+                            <option value="الغربية"> <span>الغربية</span> </option>
+                            <option value="كفر الشيخ"> <span>كفر الشيخ</span> </option>
+                            <option value="الدقهلية"> <span>الدقهلية</span> </option>
+                            <option value="دمياط"> <span>دمياط</span> </option>
+                            <option value="البحيرة"> <span>البحيرة</span> </option>
+                            <option value="الأسكندرية"> <span>الأسكندرية</span> </option>
+                            <option value="مرسي مطروح"> <span>مرسي مطروح</span> </option>
+                            <option value="بور سعيد"> <span>بور سعيد</span> </option>
+                            <option value="الإسماعيلة"> <span>الإسماعيلة</span> </option>
+                            <option value="السويس"> <span>السويس</span> </option>
+                            <option value="البحر الاحمر"> <span>البحر الاحمر</span> </option>
+                            <option value="شمال سيناء"> <span>شمال سيناء</span> </option>                            
+                            <option value="جنوب سيناء"> <span>جنوب سيناء</span> </option>
+                            <option value="شرم الشيخ"> <span>شرم الشيخ</span> </option>
+                            <option value="الوادي الجديد"> <span>الوادي الجديد</span> </option>
+                            <option value="الفيوم"> <span>الفيوم</span> </option>
+                            <option value="بني سويف"> <span>بني سويف</span> </option>
+                            <option value="المنيا"> <span>المنيا</span> </option>
+                            <option value="أسيوط"> <span>أسيوط</span> </option>
+                            <option value="سوهاج"> <span>سوهاج</span> </option>
+                            <option value="قنا"> <span>قنا</span> </option>
+                            <option value="الأقصر"> <span>الأقصر</span> </option>                            
+                            <option value="أسوان"> <span>أسوان</span> </option>                      
+                        </select>
+                        <input name="item_location_area"  type="text" tabindex="0" class="form-control" placeholder="المنطقة"  disabled="true">
+                        <input name="item_location_naighbor"  type="text" tabindex="0" class="form-control" placeholder="الحي"  disabled="true">
+                    </div>
+                </div> --}}
+
+                
+                <div class="text-center">
+                    <button id="submit-form" type="submit" name="submit_btn" class="btn btn-outline-success w-100 mt-2">
+                        <div class="spinner-border m-2 hidden" id="formLoading" style="height: 1rem;width:1rem"> 
+                            <span class="visually-hidden"></span>
                         </div>
-                        <div id="location-group" class="input-group mb-1 hidden" title="محافظة-المنطقة او المركز-الحي او القرية">
-                            <select name="item_location_covernent" tabindex="0" class="form-select" disabled="true">
-                                <option selected>المحافظة</option>
-                                <option value="القاهرة"> <span>القاهرة</span> </option>
-                                <option value="الجيزة"> <span>الجيزة</span> </option>
-                                <option value="القليوبية"> <span>القليوبية</span> </option>
-                                <option value="الشرقية"> <span>الشرقية</span> </option>
-                                <option value="المنوفية"> <span>المنوفية</span> </option>
-                                <option value="الغربية"> <span>الغربية</span> </option>
-                                <option value="كفر الشيخ"> <span>كفر الشيخ</span> </option>
-                                <option value="الدقهلية"> <span>الدقهلية</span> </option>
-                                <option value="دمياط"> <span>دمياط</span> </option>
-                                <option value="البحيرة"> <span>البحيرة</span> </option>
-                                <option value="الأسكندرية"> <span>الأسكندرية</span> </option>
-                                <option value="مرسي مطروح"> <span>مرسي مطروح</span> </option>
-                                <option value="بور سعيد"> <span>بور سعيد</span> </option>
-                                <option value="الإسماعيلة"> <span>الإسماعيلة</span> </option>
-                                <option value="السويس"> <span>السويس</span> </option>
-                                <option value="البحر الاحمر"> <span>البحر الاحمر</span> </option>
-                                <option value="شمال سيناء"> <span>شمال سيناء</span> </option>                            
-                                <option value="جنوب سيناء"> <span>جنوب سيناء</span> </option>
-                                <option value="شرم الشيخ"> <span>شرم الشيخ</span> </option>
-                                <option value="الوادي الجديد"> <span>الوادي الجديد</span> </option>
-                                <option value="الفيوم"> <span>الفيوم</span> </option>
-                                <option value="بني سويف"> <span>بني سويف</span> </option>
-                                <option value="المنيا"> <span>المنيا</span> </option>
-                                <option value="أسيوط"> <span>أسيوط</span> </option>
-                                <option value="سوهاج"> <span>سوهاج</span> </option>
-                                <option value="قنا"> <span>قنا</span> </option>
-                                <option value="الأقصر"> <span>الأقصر</span> </option>                            
-                                <option value="أسوان"> <span>أسوان</span> </option>                      
-                            </select>
-                            <input name="item_location_area"  type="text" tabindex="0" class="form-control" placeholder="المنطقة"  disabled="true">
-                            <input name="item_location_naighbor"  type="text" tabindex="0" class="form-control" placeholder="الحي"  disabled="true">
-                        </div>
-                    </div> --}}
+                        <i class="bi bi-cloud-arrow-up fs-15"></i> رفع
+                    </button>
+                </div>
 
+                @csrf
+            </form>
+        </div>
+    </div>
+
+    <div id="editMyInfoModal" class="hidden smodal">
+        <div class="card shadow show ani ani_fadeIn p-2 w-100">
+            <div class="row">
+                <div class="col-8">
+                    <label class="form-label" >تعديل معلوماتي</label>
+                </div>
+                <div class="col-1 offset-2">
+                    <i class="bi bi-x icon-15" onclick="document.querySelector('#editMyInfoModal').classList.toggle('hidden')"></i>
+                </div>
+            </div> 
+            <div class="location">
+                <label for=""><span>ادخل الموقع</span></label>               
+                <table>
+                    <tr>
+                        <td class="px-2 px-sm-1" ><small>المحافظة</small></td>
+                        <td class="px-3 px-sm-4" ><small>المنطقة</small></td>
+                        <td class="px-2 px-sm-1" ><small>الحي</small></td>
+                    </tr>
+                </table>                
+                <div class="input-group">
+                    <input type="text" aria-label="governent" list="covernent-list" class="form-control" zwire:model.defer="user_location.covernent">
                     
-                    <div class="text-center">
-                        <button id="submit-form" type="submit" name="submit_btn" class="btn btn-outline-success w-100 mt-2">
-                            <div class="spinner-border m-2 hidden" id="formLoading" style="height: 1rem;width:1rem"> 
-                                <span class="visually-hidden"></span>
-                            </div>
-                            <i class="bi bi-cloud-arrow-up fs-15"></i> رفع
-                        </button>
-                    </div>
-
-                    @csrf
-                </form>
+                    <input type="text" aria-label="area"  class="form-control" zwire:model.defer="user_location.area">
+                    
+                    <input type="text" aria-label="nighborhood"  class="form-control" zwire:model.defer="user_location.naighbor">
+                </div>
+                <datalist id="covernent-list">
+                    <option value="القاهرة">
+                    <option value="الجيزة">
+                    <option value="القليوبية">
+                    <option value="الشرقية">
+                    <option value="المنوفية">
+                    <option value="الغربية">
+                    <option value="كفر الشيخ"> 
+                    <option value="الدقهلية">
+                    <option value="دمياط">
+                    <option value="البحيرة">
+                    <option value="الأسكندرية">
+                    <option value="مرسي مطروح"> 
+                    <option value="بور سعيد"> 
+                    <option value="الإسماعيلة">
+                    <option value="السويس">
+                    <option value="البحر الاحمر"> 
+                    <option value="شمال سيناء">                             
+                    <option value="جنوب سيناء"> 
+                    <option value="شرم الشيخ"> 
+                    <option value="الوادي الجديد"> 
+                    <option value="الفيوم">
+                    <option value="بني سويف"> 
+                    <option value="المنيا">
+                    <option value="أسيوط">
+                    <option value="سوهاج">
+                    <option value="قنا">
+                    <option value="الأقصر">                            
+                    <option value="أسوان"> 
+                </datalist>
+                <div class="mt-5px" >                                        
+                    <label for=""><span>ادخل رقم الهاتف</span></label><br>
+                    <label for=""><small>(0201-01234567)</small></label>
+                    <input class="form-control" type="text" inputmode="numeric" zwire:model.defer="user_phone" required />
+                </div> 
+                <span class="bi bi-check icon-1 cursor btn btn-outline-success mt-1 mb-1 w-100" zwire:click="setLocation">حفظ</span>                                
             </div>
         </div>
-
-        <div id="editMyInfoModal" class="hidden smodal">
-            <div class="card shadow show ani ani_fadeIn p-2 w-100">
-                <div class="row">
-                    <div class="col-8">
-                        <label class="form-label" >تعديل معلوماتي</label>
-                    </div>
-                    <div class="col-1 offset-2">
-                        <i class="bi bi-x icon-15" onclick="document.querySelector('#editMyInfoModal').classList.toggle('hidden')"></i>
-                    </div>
-                </div> 
-                <div class="location">
-                    <label for=""><span>ادخل الموقع</span></label>               
-                    <table>
-                        <tr>
-                            <td class="px-2 px-sm-1" ><small>المحافظة</small></td>
-                            <td class="px-3 px-sm-4" ><small>المنطقة</small></td>
-                            <td class="px-2 px-sm-1" ><small>الحي</small></td>
-                        </tr>
-                    </table>                
-                    <div class="input-group">
-                        <input type="text" aria-label="governent" list="covernent-list" class="form-control" zwire:model.defer="user_location.covernent">
-                        
-                        <input type="text" aria-label="area"  class="form-control" zwire:model.defer="user_location.area">
-                        
-                        <input type="text" aria-label="nighborhood"  class="form-control" zwire:model.defer="user_location.naighbor">
-                    </div>
-                    <datalist id="covernent-list">
-                        <option value="القاهرة">
-                        <option value="الجيزة">
-                        <option value="القليوبية">
-                        <option value="الشرقية">
-                        <option value="المنوفية">
-                        <option value="الغربية">
-                        <option value="كفر الشيخ"> 
-                        <option value="الدقهلية">
-                        <option value="دمياط">
-                        <option value="البحيرة">
-                        <option value="الأسكندرية">
-                        <option value="مرسي مطروح"> 
-                        <option value="بور سعيد"> 
-                        <option value="الإسماعيلة">
-                        <option value="السويس">
-                        <option value="البحر الاحمر"> 
-                        <option value="شمال سيناء">                             
-                        <option value="جنوب سيناء"> 
-                        <option value="شرم الشيخ"> 
-                        <option value="الوادي الجديد"> 
-                        <option value="الفيوم">
-                        <option value="بني سويف"> 
-                        <option value="المنيا">
-                        <option value="أسيوط">
-                        <option value="سوهاج">
-                        <option value="قنا">
-                        <option value="الأقصر">                            
-                        <option value="أسوان"> 
-                    </datalist>
-                    <div class="mt-5px" >                                        
-                        <label for=""><span>ادخل رقم الهاتف</span></label><br>
-                        <label for=""><small>(0201-01234567)</small></label>
-                        <input class="form-control" type="text" inputmode="numeric" zwire:model.defer="user_phone" required />
-                    </div> 
-                    <span class="bi bi-check icon-1 cursor btn btn-outline-success mt-1 mb-1 w-100" zwire:click="setLocation">حفظ</span>                                
-                </div>
-            </div>
-        </div>       
-    </div>
+    </div> 
 
     <span  id="cir-icon" class="cursor" >
         <i class="bi bi-list" role="button" tabindex="0">

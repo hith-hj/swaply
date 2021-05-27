@@ -7,6 +7,7 @@ html {
     -ms-overflow-style: none;
     scrollbar-width: none;
     overscroll-behavior-y: none;
+    font-size: 1.1rem;
 }
 
 ::-webkit-scrollbar {
@@ -29,12 +30,19 @@ html {
 
 #canvas {
     background-color: #bcceb799;
+    background: linear-gradient(0.25turn, #daf63c, #ebf8e1, #48a63f);
+    /* background-color: rgba(251, 255, 0, 0.295); */
+    /* background-image: url('../imgs/new-logo2.png'); */
+    /* background-size: 30% 30%; */
+    /* background-repeat: space; */
     z-index: -100;
     top: 0;
     left: 0;
     min-height: 100vh;
     min-width: 100%;
     position: fixed;
+    filter: blur(10px);
+    opacity: .7;
 }
 
 .fullPage {
@@ -99,6 +107,7 @@ html {
 .glow:focus,
 .glow:hover {
     color: #57c56f !important;
+    /* color: #eff14a !important; */
     filter: drop-shadow(0 0 0.3rem #8cf1a2);
     transition: 0.2s ease-out;
 }
@@ -217,7 +226,7 @@ textarea::selection {
 }
 
 .ver-link>i {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
 }
 
 .ver-link:focus,
@@ -254,7 +263,7 @@ textarea::selection {
     place-content: center;
     margin: 0 0.4rem;
     position: fixed;
-    bottom: 1.5%;
+    bottom: 2%;
     right: 4%;
     z-index: 5;
     transform: scale(3);
@@ -616,7 +625,7 @@ textarea::selection {
     background-color: #7e9571c9;
     border: 0.0625rem solid #d3d5d1ed;
     border-radius: 0.25rem;
-    z-index: 5;
+    z-index: 7;
 }
 
 .min-wh {

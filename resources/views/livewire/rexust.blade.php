@@ -1,4 +1,4 @@
-<div>
+<div class="ani ani_slideInRight">
     <nav class="mt-1 ">
        {{-- <div class="w-100 btn-group bg-light mb-1" style="flex-wrapz: nowrap;font-size:12px">
             <button class="btn btn-outline-success" wire:click="$emitSelf('changeRequests','sentOffers')"  ><span>عروض مرسلة</span></button>
