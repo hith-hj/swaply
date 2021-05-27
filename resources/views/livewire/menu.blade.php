@@ -9,7 +9,7 @@
                             <span class="bi bi-exclamation-circle red-alert icon-sm ani ani_flash ani_loop"></span>
                         @endif
                     </span>
-                    <div class="dropdown-menu ani ani_fadeIn min-wid-300 px-1 {{$user->location == 'not-set' ? 'show ani ani_pulse ani_repeat-3' :''}}">
+                    <div class="dropdown-menu ani ani_fadeIn ani_faster min-wid-300 px-1 {{$user->location == 'not-set' ? 'show ani ani_pulse ani_repeat-3' :''}}">
                         <div class="card shadow-sm position-relative p-1">
                             <div class="card-header row px-1">
                                 <div class="col-8">
@@ -41,7 +41,7 @@
                     <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-25,6" aria-expanded="false" >
                         <i class="bi bi-collection "></i>
                     </span>
-                    <div class="dropdown-menu ani ani_fadeIn min-wid-300 px-1" >
+                    <div class="dropdown-menu ani ani_fadeIn ani_faster min-wid-300 px-1" >
                         <small wire:click="$emitTo('body','changeBody','items')" class="p-2 cursor glow"> <i class="bi bi-card-list"></i> عرض الكل <span class="badge bg-green">{{count($user->items)}}</span></small>
                         @forelse($user->items as $item)
                             <div class="list-group mt-1 {{$item->status ==1 ? 'br-success' : ''}}" wire:click="$emit('changeBody',['showitem','{{$item->id}}'])">
@@ -87,7 +87,7 @@
                             <span class="bi bi-exclamation-circle red-alert icon-sm"></span>
                         @endif
                     </span>
-                    <div class="dropdown-menu ani ani_fadeIn min-wid-300 px-2">
+                    <div class="dropdown-menu ani ani_fadeIn ani_faster min-wid-300 px-2">
                         <span class="link-dark text-left py-1" wire:click="removeNotis()"> 
                             <small>
                                 <i class="bi bi-x"></i>
@@ -118,7 +118,7 @@
                     <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-50,6" aria-expanded="false">
                         <i class="bi bi-grid-3x3-gap"></i>
                     </span>
-                    <div class="dropdown-menu ani ani_fadeIn px-1">
+                    <div class="dropdown-menu ani ani_fadeIn ani_faster px-1">
                         <div class="card">
                             <ul class="" style="list-style: none;padding:0;">
                                 

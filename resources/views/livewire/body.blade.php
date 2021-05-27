@@ -1,4 +1,4 @@
-<div class="body">
+<div class="body ani ani_fadeIn">
     @switch($body)
         @case('feeds')
             @livewire('feeds')

@@ -1,6 +1,6 @@
 <div>
     @forelse($items as $item)
-        <div class="col mt-5px ani ani_slideInRight ani_faster">
+        <div class="col mt-5px ani ani_slideInRight ani_faster ani_faster">
             <div class="card shadow">
                 <div class="card-body" > 
                     <h5>{{$item->item_title}}</h5>                    

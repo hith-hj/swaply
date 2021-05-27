@@ -1,6 +1,6 @@
 <div>
     @forelse ($saves as $save)
-        <div class="alert alert-light mt-5px ani ani_slideInUp" role="alert">
+        <div class="alert alert-light mt-5px ani ani_slideInUp ani_faster" role="alert">
             <div class="row cursor" wire:click="$emit('changeBody',['showitem','{{$save->item->id}}'])">
                 <div class="col-8">
                     <h6 class="m-0 glow">{{$save->item->item_title}}</h6>
