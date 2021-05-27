@@ -21,7 +21,7 @@
                                     @if(file_exists('assets/items/'.$swap->user_item->directory.'/'.$swap->user_item->collection[0]) )
                                         <img class="px-1" src="{{asset('assets/items/'.$swap->user_item->directory.'/'.$swap->user_item->collection[0])}}" alt="{{$swap->item_title}}" width="240" height="160">
                                     @else 
-                                        <img class="glow px-1" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$fswap->item_title}}" width="30%" >
+                                        <img class="glow px-1" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$swap->item_title}}" width="30%" >
                                     @endif
                                 </div><hr>
                                 <div class="row">
@@ -44,7 +44,7 @@
                                     @if(file_exists('assets/items/'.$swap->sender_item->directory.'/'.$swap->sender_item->collection[0]) )
                                         <img class="px-1" src="{{asset('assets/items/'.$swap->sender_item->directory.'/'.$swap->sender_item->collection[0])}}" alt="{{$swap->item_title}}" width="240" height="160">
                                     @else 
-                                        <img class="glow px-1" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$fswap->item_title}}" width="30%" >
+                                        <img class="glow px-1" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$swap->item_title}}" width="30%" >
                                     @endif
                                 </div><hr>
                                 <div class="row">
