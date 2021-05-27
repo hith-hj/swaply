@@ -1,6 +1,6 @@
 <div id="feedsBody">
     @forelse ($feeds as $feed)
-        <div class="col mt-5px ani ani_slideInUp " >
+        <div class="col mt-5px ani ani_slideInUp ani_delay-{{$loop->index}}" >
             <div class="card shadow">
                 <div class="card-body" >
                     <div class="row">

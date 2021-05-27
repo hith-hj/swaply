@@ -1,6 +1,6 @@
 <div>
-    <div id="navMenu" class="ver-menu ani ani_slideInRight" onload="menuView()">
-        <ul id="navList" class="ver-list ">            
+    <div id="navMenu" class="ver-menu " onload="menuView()">
+        <ul id="navList" class="ver-list ani ani_slideInRight">            
             <li class="cursor ver-li " title="معلوماتي" >
                 <div class="dropend">
                     <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-25,6" aria-expanded="false">

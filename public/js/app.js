@@ -55,19 +55,19 @@ Livewire.on('resizer', (e) => {
 
 // listener
 
-window.addEventListener('touchmove', (e) => {
-    // console.log(e.target.classList);
-    if (e.target.classList.contains('bi')) {
-        e.target.classList.add('ani', 'ani_pulse')
-    }
-})
+// window.addEventListener('touchmove', (e) => {
+//     // console.log(e.target.classList);
+//     if (e.target.classList.contains('bi')) {
+//         e.target.classList.add('ani', 'ani_pulse')
+//     }
+// })
 
-window.addEventListener('touchend', (e) => {
-    // console.log(e.target.classList);
-    if (e.target.classList.contains('bi') && e.target.classList.contains('ani')) {
-        e.target.classList.remove('ani', 'ani_pulse')
-    }
-})
+// window.addEventListener('touchend', (e) => {
+//     // console.log(e.target.classList);
+//     if (e.target.classList.contains('bi') && e.target.classList.contains('ani')) {
+//         e.target.classList.remove('ani', 'ani_pulse')
+//     }
+// })
 
 
 

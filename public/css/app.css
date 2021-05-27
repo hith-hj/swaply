@@ -2,6 +2,7 @@ html {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     margin: 0;
     padding: 0;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     overflow: hidden !important;
     -ms-overflow-style: none;
@@ -17,20 +18,30 @@ html {
 * {
     margin: 0;
     padding: 0;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    -webkit-margin-before: 0;
     margin-block-start: 0;
+    -webkit-margin-after: 0;
     margin-block-end: 0;
+    -webkit-margin-start: 0;
     margin-inline-start: 0;
+    -webkit-margin-end: 0;
     margin-inline-end: 0;
+    -webkit-padding-before: 0;
     padding-block-start: 0;
+    -webkit-padding-start: 0;
     padding-inline-start: 0;
+    -webkit-padding-end: 0;
     padding-inline-end: 0;
+    -webkit-padding-after: 0;
     padding-block-end: 0;
 }
 
 #canvas {
     background-color: #bcceb799;
-    background: linear-gradient(0.25turn, #daf63c, #ebf8e1, #48a63f);
+    background: -webkit-gradient(linear, left top, right top, from(#daf63cc9), color-stop(#ebf8e1), to(#48a63fc9));
+    background: linear-gradient(0.25turn, #daf63cc9, #ebf8e1, #48a63fc9);
     /* background-color: rgba(251, 255, 0, 0.295); */
     /* background-image: url('../imgs/new-logo2.png'); */
     /* background-size: 30% 30%; */
@@ -41,12 +52,18 @@ html {
     min-height: 100vh;
     min-width: 100%;
     position: fixed;
+    -webkit-filter: blur(10px);
     filter: blur(10px);
     opacity: .7;
 }
 
 .fullPage {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     overflow: hidden;
     overflow-x: hidden;
@@ -108,7 +125,9 @@ html {
 .glow:hover {
     color: #57c56f !important;
     /* color: #eff14a !important; */
+    -webkit-filter: drop-shadow(0 0 0.3rem #8cf1a2);
     filter: drop-shadow(0 0 0.3rem #8cf1a2);
+    -webkit-transition: 0.2s ease-out;
     transition: 0.2s ease-out;
 }
 
@@ -155,6 +174,11 @@ html {
 }
 
 .min-wid-300 textarea:active,
+textarea::-moz-selection {
+    border: 0.125rem dashed #57c56f;
+}
+
+.min-wid-300 textarea:active,
 textarea::selection {
     border: 0.125rem dashed #57c56f;
 }
@@ -198,11 +222,13 @@ textarea::selection {
     right: 6%;
     border-radius: 0.25rem;
     background-color: #fff;
+    -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
 }
 
 .ver-menu:focus,
 .ver-menu:hover {
+    -webkit-box-shadow: 0 0 0.25rem 0.125rem #57c56f;
     box-shadow: 0 0 0.25rem 0.125rem #57c56f;
 }
 
@@ -220,7 +246,9 @@ textarea::selection {
 
 .ver-link {
     place-content: center;
+    display: -ms-grid;
     display: grid;
+    -webkit-transition: 0.4s ease-in;
     transition: 0.4s ease-in;
     color: #5c5c5c;
 }
@@ -232,7 +260,9 @@ textarea::selection {
 .ver-link:focus,
 .ver-link:hover {
     color: #57c56f;
+    -webkit-filter: drop-shadow(0 0 3rem #57c56f);
     filter: drop-shadow(0 0 3rem #57c56f);
+    -webkit-transition: 0.2s ease-out;
     transition: 0.2s ease-out;
 }
 
@@ -241,11 +271,13 @@ textarea::selection {
     border-radius: 0.27rem;
     cursor: pointer;
     color: #555;
+    display: -ms-grid;
     display: grid;
     place-items: center;
     z-index: 7;
     position: fixed;
     bottom: 40%;
+    -webkit-animation: show 1s ease forwards;
     animation: show 1s ease forwards;
 }
 
@@ -254,10 +286,12 @@ textarea::selection {
 }
 
 .rotate {
+    -webkit-transform: scale(3) rotate(90deg) scale(-1) !important;
     transform: scale(3) rotate(90deg) scale(-1) !important;
 }
 
 #cir-icon {
+    -webkit-transition: all .1s ease;
     transition: all .1s ease;
     display: none;
     place-content: center;
@@ -266,6 +300,7 @@ textarea::selection {
     bottom: 2%;
     right: 4%;
     z-index: 5;
+    -webkit-transform: scale(3);
     transform: scale(3);
 }
 
@@ -278,6 +313,18 @@ textarea::selection {
     border-radius: 0.2rem;
 }
 
+@-webkit-keyframes show {
+    0% {
+        right: -5%;
+    }
+    50% {
+        right: 0%;
+    }
+    100% {
+        right: 2%;
+    }
+}
+
 @keyframes show {
     0% {
         right: -5%;
@@ -286,7 +333,7 @@ textarea::selection {
         right: 0%;
     }
     100% {
-        right: 8%;
+        right: 2%;
     }
 }
 
@@ -368,6 +415,7 @@ textarea::selection {
         display: block !important;
     }
     #cir-icon {
+        display: -ms-grid;
         display: grid;
     }
     .width-auto {
@@ -393,11 +441,12 @@ textarea::selection {
         max-width: 15.9375rem !important;
     }
     .width-auto {
-        min-width: 18rem !important;
+        min-width: 17rem !important;
     }
 }
 
 .hidden {
+    -webkit-transition: all 2s ease-out !important;
     transition: all 2s ease-out !important;
     display: none !important;
 }
@@ -411,24 +460,29 @@ textarea::selection {
 }
 
 .icon-1 {
+    -webkit-transform: scale(1) !important;
     transform: scale(1) !important;
 }
 
 .icon-15 {
+    -webkit-transform: scale(1.5) !important;
     transform: scale(1.5) !important;
 }
 
 .icon-2 {
+    -webkit-transform: scale(2) !important;
     transform: scale(2) !important;
     padding: 0.5rem;
 }
 
 .icon-25 {
+    -webkit-transform: scale(2.5) !important;
     transform: scale(2.5) !important;
 }
 
 .icon-sm {
-    transform: scale(.5);
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
 }
 
 .sbtn {
@@ -441,6 +495,7 @@ textarea::selection {
     -webkit-appearance: none;
     border-radius: 0;
     display: inline-block;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     padding: 0 30px;
     vertical-align: middle;
@@ -449,7 +504,9 @@ textarea::selection {
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
+    -webkit-transition: 0.1s ease-in-out;
     transition: 0.1s ease-in-out;
+    -webkit-transition-property: color, background-color, border-color;
     transition-property: color, background-color, border-color;
 }
 
@@ -468,6 +525,7 @@ textarea::selection {
     right: 0;
     left: 100%;
     border-bottom: 1px solid #333;
+    -webkit-transition: left 0.3s ease-out;
     transition: left 0.3s ease-out;
 }
 
@@ -487,6 +545,21 @@ textarea::selection {
 
 .sbtn-txt:disabled::before {
     display: none;
+}
+
+@-webkit-keyframes fade {
+    25% {
+        opacity: 0.25;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    75% {
+        opacity: 0.75;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 @keyframes fade {
@@ -606,12 +679,14 @@ textarea::selection {
     position: absolute;
     top: 50%;
     right: 40%;
+    -webkit-transform: translate(0, -50%);
     transform: translate(0, -50%);
     opacity: .5;
     color: green;
 }
 
 .smodal {
+    display: -ms-grid;
     display: grid;
     place-items: center;
     place-content: center;
@@ -639,6 +714,7 @@ textarea::selection {
     top: 5%;
     left: 48%;
     z-index: 15;
+    display: -ms-grid;
     display: grid;
     border: 2px solid #cccccc;
     color: #eee;
@@ -647,7 +723,12 @@ textarea::selection {
 
 .itemCard {
     position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     word-wrap: break-word;
     width: auto;
@@ -665,3 +746,6 @@ textarea::selection {
 .green_underline {
     border-bottom: 2px solid #80cb81 !important;
 }
+
+
+/*# sourceMappingURL=app.css.map */
