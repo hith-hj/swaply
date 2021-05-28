@@ -18,6 +18,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
     toggleTheme(theme, 'off')
 });
 
+
 if (location.pathname == '/login') {
 
     let atemps = parseInt(localStorage.getItem('logAte'));

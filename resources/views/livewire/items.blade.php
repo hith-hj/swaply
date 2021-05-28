@@ -1,7 +1,10 @@
-
 <div>
+    <div class="alert alert-light mt-5px ani ani_slideInDown" role="alert">
+        <h3>منشوراتي</h3>
+        <p> الأغراض التي قمت بنشرها </p>
+    </div>
     @forelse ($feeds as $feed)
-        <div class="col mt-5px ani ani_slideInUp ani_faster {{$feed->status == 1 ? 'br-success' : ''}}" >
+        <div class="col mt-5px ani ani_fadeIn ani_faster {{$feed->status == 1 ? 'br-success' : ''}}" >
             <div class="card shadow">
                 <div class="card-body" >
                     <div class="row">

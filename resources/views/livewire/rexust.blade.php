@@ -1,4 +1,8 @@
-<div class="ani ani_slideInRight ani_faster">
+<div class="ani ani_fadeIn ani_faster">
+    <div class="alert alert-light mt-5px ani ani_slideInDown" role="alert">
+        <h3>الطلبات</h3>
+        <p>العروض و الطلبات المرسلة</p>
+    </div>
     <nav class="mt-1 ">
        {{-- <div class="w-100 btn-group bg-light mb-1" style="flex-wrapz: nowrap;font-size:12px">
             <button class="btn btn-outline-success" wire:click="$emitSelf('changeRequests','sentOffers')"  ><span>عروض مرسلة</span></button>
@@ -52,7 +56,7 @@
                                     </div>
                                 </div>    
                             @empty
-                            <div class="alert alert-light" role="alert">
+                            <div class="alert alert-light ani ani_slideInUp" role="alert">
                                 <h5>لايوجد اي عروض مرسلة حاليا</h5>
                             </div>
                             @endforelse
@@ -101,7 +105,7 @@
                                 </div>
                             </div>   
                         @empty
-                            <div class="alert alert-light" role="alert">
+                            <div class="alert alert-light ani ani_slideInUp" role="alert">
                                 <h5>لايوجد اي طلبات مرسلة حاليا</h5>
                             </div>
                         @endforelse

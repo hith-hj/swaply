@@ -32,9 +32,9 @@
                             </div>
                             <hr>
                             <div class="card-body">
-                                <div class="mb-0 text-muted"> <i class="bi bi-geo-alt"></i> {{$user->location}}</div>                                
+                                <div class="mb-0 text-muted"> <i class="bi bi-envelope"></i> {{$user->email}}</div>                                
                                 <div class="mb-0 text-muted"> <i class="bi bi-phone"></i> {{$user->phone}}</div>
-                                <div class="mb-0 text-muted"> <i class="bi bi-envelope"></i> {{$user->email}}</div>
+                                <div class="mb-0 text-muted"> <i class="bi bi-geo-alt"></i> {{$user->location}}</div>  
                                 <div class="row">
                                     <div class="col">
                                         <small title="مبادلاتي" class="glow mx-1"> <i class="bi bi-arrow-down-up"></i> {{$user->swaps}}</small>
@@ -187,7 +187,7 @@
                 <div id="imgs_collection" class="hidden"></div>
                 <div class="js-upload upload mb-1" uk-form-custom>
                     <input name="item_imgs[]" multiple required type="file" id="itemgs" accept="image/*" tabindex="0" onchange="image_resizer(event)" onchangezz="displayUploadedImages(event)" hidden>
-                    <button class="cursor sbtn sbtn-txt" tabindex="0" type="button" onclick="document.querySelector('#itemgs').click()"> <i class="bi bi-images"></i>
+                    <button class="cursor sbtn sbtn-txt dark" tabindex="0" type="button" onclick="document.querySelector('#itemgs').click()"> <i class="bi bi-images"></i>
                         أختر صور</button>
                 </div>
 

@@ -732,5 +732,5 @@ textarea::selection {
 
 .bi {
     color: #59ac51;
-    filter: drop-shadow(1px 1px 1px #59ac51);
+    filter: drop-shadow(0px 1px 1px #59ac51);
 }

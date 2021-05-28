@@ -1,6 +1,10 @@
 <div>
+    <div class="alert alert-light mt-5px ani ani_slideInDown" role="alert">
+        <h3>المطابقات</h3>
+        <p>المطابقات المقترحة من قبل الموقع على منشوراتك للتبادل</p>
+    </div>
     @forelse($items as $item)
-        <div class="col mt-5px ani ani_slideInRight ani_faster ani_faster">
+        <div class="col mt-5px ani ani_fadeIn ani_faster">
             <div class="card shadow">
                 <div class="card-body" > 
                     <h5>{{$item->item_title}}</h5>                    
@@ -47,7 +51,7 @@
     @empty
         <div class="alert alert-light mt-5px ani ani_slideInUp" role="alert">
             <h3>عذرا عزيزي المشترك</h3>
-            <p>لايوجد مقترحات للتبادل مع اغراضك في الوقت الحالي ,الرجاء المحاولة لاحقا. </p>
+            <p>لايوجد مقترحات للتبادل مع اغراضك في الوقت الحالي  </p>
         </div>
     @endforelse
 </div>

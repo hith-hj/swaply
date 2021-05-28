@@ -1,6 +1,10 @@
 <div>
+    <div class="alert alert-light mt-5px ani ani_slideInDown" role="alert">
+        <h3>مبادلاتي</h3>
+        <p>عمليات التبادل الناجحة</p>
+    </div>
     @forelse ($swaps as $swap)
-        <div class="col mt-5px ani ani_slideInLeft ani_faster">
+        <div class="col mt-5px ani ani_fadeIn ani_faster">
             <div class="card shadow">
                 <div class="card-body" > 
                     <div class="row">
@@ -63,7 +67,7 @@
                         <div class="row">
                             <div class="col " >
                                 <small> عملية التبادل ناجحة</small>
-                                <p>شكرا لك لأستخدامك سوابلي في تبديل غرضك <br>/_ (^_^) _\ <br>💚 💚</p>
+                                <p>شكرا لك لأستخدامك سوابلي في تبديل غرضك <br>💚/_ (^_^) _\💚</p>
                             </div>
                         </div>
                     </div>
