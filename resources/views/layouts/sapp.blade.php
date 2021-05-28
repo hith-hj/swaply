@@ -31,7 +31,7 @@
         </main>
         <div id="notification" class="notification bottom hidden"></div>
         
-        <div id="app_install" class="notification top ani ani_slideInUp"  hidden>            
+        <div id="app_install" class="notification top ani ani_slideInUp" hidden>            
             <div class="noti noti-bob my-1 ani ani_fadeIn cursor text-center" >
                 <div onclick="document.querySelector('#app_install').hidden = true">
                     <i class="bi bi-x noti-close m-1 icon-15 cursor" ></i>

@@ -96,38 +96,37 @@
                     </div>
                     <datalist id="covernent-list">
                         <option value="القاهرة">
-                            <option value="الجيزة">
-                            <option value="القليوبية">
-                            <option value="الشرقية">
-                            <option value="المنوفية">
-                            <option value="الغربية">
-                            <option value="كفر الشيخ"> 
-                            <option value="الدقهلية">
-                            <option value="دمياط">
-                            <option value="البحيرة">
-                            <option value="الأسكندرية">
-                            <option value="مرسي مطروح"> 
-                            <option value="بور سعيد"> 
-                            <option value="الإسماعيلة">
-                            <option value="السويس">
-                            <option value="البحر الاحمر"> 
-                            <option value="شمال سيناء">                             
-                            <option value="جنوب سيناء"> 
-                            <option value="شرم الشيخ"> 
-                            <option value="الوادي الجديد"> 
-                            <option value="الفيوم">
-                            <option value="بني سويف"> 
-                            <option value="المنيا">
-                            <option value="أسيوط">
-                            <option value="سوهاج">
-                            <option value="قنا">
-                            <option value="الأقصر">                            
-                            <option value="أسوان">
+                        <option value="الجيزة">
+                        <option value="القليوبية">
+                        <option value="الشرقية">
+                        <option value="المنوفية">
+                        <option value="الغربية">
+                        <option value="كفر الشيخ"> 
+                        <option value="الدقهلية">
+                        <option value="دمياط">
+                        <option value="البحيرة">
+                        <option value="الأسكندرية">
+                        <option value="مرسي مطروح"> 
+                        <option value="بور سعيد"> 
+                        <option value="الإسماعيلية">
+                        <option value="السويس">
+                        <option value="البحر الاحمر"> 
+                        <option value="شمال سيناء">
+                        <option value="جنوب سيناء"> 
+                        <option value="شرم الشيخ"> 
+                        <option value="الوادي الجديد">
+                        <option value="الفيوم">
+                        <option value="بني سويف"> 
+                        <option value="المنيا">
+                        <option value="أسيوط">
+                        <option value="سوهاج">
+                        <option value="قنا">
+                        <option value="الأقصر">
+                        <option value="أسوان">
                     </datalist>
                     <div class="mt-5px" >                                        
                         <label for=""><span>ادخل رقم الهاتف</span></label><br>
-                        <label for=""><small>(01-01234567)</small></label>
-                        <input class="form-control" type="text" inputmode="numeric" wire:model.defer="user_phone" required />
+                        <input class="form-control" type="text" inputmode="numeric" wire:model.defer="user_phone" placeholder="01-012345678" required />
                     </div> 
                     <span class="bi bi-check icon-1 cursor btn btn-outline-success mt-1 mb-1 w-100" wire:loading.class="hidden" wire:click="setLocation">حفظ</span> 
                     <div class="col text-center mspinner" wire:loading >

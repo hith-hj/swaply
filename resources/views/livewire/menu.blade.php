@@ -15,18 +15,15 @@
                                 <div class="col-8">
                                     <h5>{{$user->name}}</h5>
                                 </div>
-                                {{-- <div class="col-2 offset-1">
-                                    <span class="cursor icon-1 link-dark" onclick="document.querySelector('#editMyInfoModal').classList.toggle('hidden')"><i class="bi bi-pencil-square"></i></span>
-                                </div> --}}
-                                <div class="col-2 offset-1">  
-
+                                <div class="col-3 offset-1">
+                                    {{-- <span class="cursor icon-1 link-dark" onclick="document.querySelector('#editMyInfoModal').classList.toggle('hidden')"><i class="bi bi-pencil-square"></i></span> --}}
                                     <span id="darkTheme" class="m-1 cursor icon-1 link-dark {{$theme == 'dark' ? 'hidden' : '' }}" onclick="
                                         document.querySelector('#darkTheme').classList.add('hidden');
                                         document.querySelector('#lightTheme').classList.remove('hidden');
                                         toggleTheme('dark');" title="Night Mode"><i class="bi bi-lightbulb-off"></i>
                                     </span>
 
-                                    <span id="lightTheme" class="m-1 cursor icon-1 link-dark {{$theme == 'light' ? 'hidden' : '' }}" onclick="
+                                    <span id="lightTheme" class="m-1 cursor icon-1 link-dark {{$theme == 'light' || $theme == null? 'hidden' : '' }} " onclick="
                                         document.querySelector('#lightTheme').classList.add('hidden');
                                         document.querySelector('#darkTheme').classList.remove('hidden');
                                         toggleTheme('light');" title="Day Mode" style="color: #eee"><i class="bi bi-lightbulb"></i>
@@ -35,9 +32,9 @@
                             </div>
                             <hr>
                             <div class="card-body">
-                                <div class="mb-0 text-muted"> <i class="bi bi-geo-alt"></i> {{$user->location}}</div>
-                                <div class="mb-0 text-muted"> <i class="bi bi-envelope"></i> {{$user->email}}</div>
+                                <div class="mb-0 text-muted"> <i class="bi bi-geo-alt"></i> {{$user->location}}</div>                                
                                 <div class="mb-0 text-muted"> <i class="bi bi-phone"></i> {{$user->phone}}</div>
+                                <div class="mb-0 text-muted"> <i class="bi bi-envelope"></i> {{$user->email}}</div>
                                 <div class="row">
                                     <div class="col">
                                         <small title="مبادلاتي" class="glow mx-1"> <i class="bi bi-arrow-down-up"></i> {{$user->swaps}}</small>
@@ -56,7 +53,7 @@
                         <i class="bi bi-collection "></i>
                     </span>
                     <div class="dropdown-menu ani ani_fadeIn ani_faster min-wid-300 px-1" >
-                        <small wire:click="$emitTo('body','changeBody','items')" class="p-2 cursor glow"> <i class="bi bi-card-list"></i> عرض الكل <span class="badge bg-green">{{count($user->items)}}</span></small>
+                        <small wire:click="$emitTo('body','changeBody','items')" class="p-2 cursor "> <i class="bi bi-card-list"></i> عرض الكل <span class="badge bg-green">{{count($user->items)}}</span></small>
                         @forelse($user->items as $item)
                             <div class="list-group mt-1 {{$item->status ==1 ? 'br-success' : ''}}" wire:click="$emit('changeBody',['showitem','{{$item->id}}'])">
                                 <span class="list-group-item list-group-item-action" aria-current="true">
@@ -262,7 +259,7 @@
 
     <div id="editMyInfoModal" class="hidden smodal">
         <div class="card shadow show ani ani_fadeIn p-2 w-100">
-            <div class="row">
+            <div class="row py-1">
                 <div class="col-8">
                     <label class="form-label" >تعديل معلوماتي</label>
                 </div>
@@ -272,19 +269,12 @@
             </div> 
             <div class="location">
                 <label for=""><span>ادخل الموقع</span></label>               
-                <table>
-                    <tr>
-                        <td class="px-2 px-sm-1" ><small>المحافظة</small></td>
-                        <td class="px-3 px-sm-4" ><small>المنطقة</small></td>
-                        <td class="px-2 px-sm-1" ><small>الحي</small></td>
-                    </tr>
-                </table>                
                 <div class="input-group">
-                    <input type="text" aria-label="governent" list="covernent-list" class="form-control" zwire:model.defer="user_location.covernent">
+                    <input type="text" aria-label="governent" list="covernent-list" class="form-control" placeholder="{{explode('-',Auth::user()->location)[0]}}" wire:model.defer="userInfo.location.covernent">
                     
-                    <input type="text" aria-label="area"  class="form-control" zwire:model.defer="user_location.area">
+                    <input type="text" aria-label="area"  class="form-control" placeholder="{{explode('-',Auth::user()->location)[1]}}" wire:model.defer="userInfo.location.area">
                     
-                    <input type="text" aria-label="nighborhood"  class="form-control" zwire:model.defer="user_location.naighbor">
+                    <input type="text" aria-label="nighborhood"  class="form-control" placeholder="{{explode('-',Auth::user()->location)[2]}}" wire:model.defer="userInfo.location.naighbor">
                 </div>
                 <datalist id="covernent-list">
                     <option value="القاهرة">
@@ -300,7 +290,7 @@
                     <option value="الأسكندرية">
                     <option value="مرسي مطروح"> 
                     <option value="بور سعيد"> 
-                    <option value="الإسماعيلة">
+                    <option value="الإسماعيلية">
                     <option value="السويس">
                     <option value="البحر الاحمر"> 
                     <option value="شمال سيناء">                             
@@ -318,10 +308,9 @@
                 </datalist>
                 <div class="mt-5px" >                                        
                     <label for=""><span>ادخل رقم الهاتف</span></label><br>
-                    <label for=""><small>(0201-01234567)</small></label>
-                    <input class="form-control" type="text" inputmode="numeric" zwire:model.defer="user_phone" required />
+                    <input class="form-control" type="text" inputmode="numeric" wire:model.defer="userInfo.phone" placeholder="{{Auth::user()->phone}}" required />
                 </div> 
-                <span class="bi bi-check icon-1 cursor btn btn-outline-success mt-1 mb-1 w-100" zwire:click="setLocation">حفظ</span>                                
+                <span class="bi bi-check icon-1 cursor btn btn-outline-success mt-2 mb-1 w-100" wire:click="updateInfo">حفظ</span>                                
             </div>
         </div>
     </div> 

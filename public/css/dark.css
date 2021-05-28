@@ -7,7 +7,7 @@
 }
 
 #canvas {
-    background: #111 !important;
+    background: #011e29 !important;
     opacity: 1 !important;
 }
 
@@ -160,4 +160,8 @@ a {
     background-color: #5d9068 !important;
     color: #eee !important;
     border-color: #d6d606 !important;
+}
+
+.spinner-border {
+    color: #d6d606 !important;
 }

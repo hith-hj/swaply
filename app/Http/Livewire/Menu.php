@@ -12,8 +12,7 @@ use App\Models\User;
 
 class Menu extends Component
 {
-    public $user_location;
-    public $user_phone;
+    public $userInfo;
     public $theme;
     public $post_type = 'حاجتك';
     protected $listeners = ['refresh','changeTheme'];
@@ -101,6 +100,27 @@ class Menu extends Component
            $not->status = 1;
            $not->save();
         }
+    }
+
+    public function updateInfo()
+    {
+        dd($this->userInfo);
+        $noti = [['تم اضافة معلومات ','g','حسنا'],['املئ الحقول المطلوبة','r','خطا'],['الرقم المدخل لايطابق الشروط','r','خطا'],];
+        if( (is_array($this->userInfo->location) && count($this->userInfo->location) == 2 ) || isset($this->userInfo->phone)){
+            preg_match('/(01)[0125]\d{8}/',$this->user_phone,$mat);
+            if(count($mat) < 2)
+            {
+                return $this->emit('notifi',$noti[2]);
+            }
+            $this->user = User::find(Auth::user()->id);
+            $this->user->location = $this->user_location['covernent'].'-'.$this->user_location['area'].'-'.$this->user_location['naighbor'];
+            $this->user->phone = $this->user_phone;
+            $this->user->save();
+            $this->emit('notifi',$noti[0]);
+        }else{
+            $this->emit('notifi',$noti[1]);
+        }
+        $this->emit('changeBody','feeds');
     }
 
     public function render()

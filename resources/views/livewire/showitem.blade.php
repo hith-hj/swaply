@@ -152,31 +152,32 @@
                             <i class="bi bi-x close-gallery cursor" onclick="document.querySelector('#showItemImages').classList.add('hidden')"></i>
                             <div class="carousel-inner ">
                                 @foreach ($feed->collection as $img)                                  
-                                    <div class="carousel-item {{ $loop->first ? "active" :''}} text-center" style="max-width:90vw; max-height:90vh">
+                                    <div class="carousel-item {{ $loop->first ? "active" :''}} text-center" style="max-width:75vw; max-height:75vh">
                                         @if($feed->collection[0] != 'dark-logo.png')
                                             <img class="glow" src="{{asset('assets/items/'.$feed->directory.'/'.$img)}}" alt="{{$feed->item_title}}" width="100%" >
                                         @else 
                                             <img class="glow" src="{{asset('assets/fto/'.$feed->collection[0])}}" alt="{{$feed->item_title}}" >
                                         @endif
                                         <br>
-                                        <br>
-                                        <span class="h4 text-muted ani ani_fadeIn">{{$loop->index + 1}}</span>
+                                        <span class="h4 text-muted ani ani_fadeIn" style="position: fixed;top: 15%;left: 50%;">{{$loop->index + 1}}</span>
                                     </div>                                                                                                                                     
                                 @endforeach
                             </div>
 
                         </div>
                         @if(count($feed->collection) > 1)
-                               <div class="text-center" style="z-index: 13">
-                                    <button class="sbtn sbtn-txt carousel-control-prevz mx-5" type="button" data-bs-target="#showFullImage" data-bs-slide="next">
-                                        <span aria-hidden="true"><i class="bi bi-chevron-right fs-2 cw"></i></span>
-                                        <span class="visually-hidden"></span>
-                                    </button>
-                                    <button class="sbtn sbtn-txt carousel-control-nextz mx-5" type="button" data-bs-target="#showFullImage" data-bs-slide="prev">
-                                        <span aria-hidden="true"><i class="bi bi-chevron-left fs-2 cw"></i></span>
-                                        <span class="visually-hidden"></span>
-                                    </button>
-                                </div> 
+                            <div class="text-center" style="z-index: 13">
+                                <button class="sbtn sbtn-txt carousel-control-prevz mx-5" type="button" data-bs-target="#showFullImage" data-bs-slide="next"
+                                    style="position: fixed; top: 25%; right: 8%; z-index: 1; height: 50%; width:2rem;">
+                                    <span aria-hidden="true"><i class="bi bi-chevron-right fs-2 cw"></i></span>
+                                    <span class="visually-hidden"></span>
+                                </button>
+                                <button class="sbtn sbtn-txt carousel-control-nextz mx-5" type="button" data-bs-target="#showFullImage" data-bs-slide="prev"
+                                    style="position: fixed; top: 25%; left: 8%; z-index: 1; height: 50%; width:2rem;">
+                                    <span aria-hidden="true"><i class="bi bi-chevron-left fs-2 cw"></i></span>
+                                    <span class="visually-hidden"></span>
+                                </button>
+                            </div>
                         @endif
                     </div>
                 </div>

@@ -1,4 +1,3 @@
-// sessionStorage.setItem('logAte', 0);
 if ("serviceWorker" in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker
@@ -14,11 +13,13 @@ if ("serviceWorker" in navigator) {
     console.log('wtf');
 }
 
+window.addEventListener("DOMContentLoaded", (e) => {
+    let theme = localStorage.getItem('theme')
+    toggleTheme(theme, 'off')
+});
+
 if (location.pathname == '/login') {
-    window.addEventListener("DOMContentLoaded", (e) => {
-        let theme = localStorage.getItem('theme')
-        toggleTheme(theme)
-    })
+
     let atemps = parseInt(localStorage.getItem('logAte'));
     window.addEventListener('load', (e) => {
         if (localStorage.getItem('user') != null && localStorage.getItem('pass') != null) {
@@ -59,25 +60,6 @@ Livewire.on('resizer', (e) => {
 
 // listener
 
-// window.addEventListener('touchmove', (e) => {
-//     // console.log(e.target.classList);
-//     if (e.target.classList.contains('bi')) {
-//         e.target.classList.add('ani', 'ani_pulse')
-//     }
-// })
-
-// window.addEventListener('touchend', (e) => {
-//     // console.log(e.target.classList);
-//     if (e.target.classList.contains('bi') && e.target.classList.contains('ani')) {
-//         e.target.classList.remove('ani', 'ani_pulse')
-//     }
-// })
-
-window.addEventListener("DOMContentLoaded", (e) => {
-    let theme = localStorage.getItem('theme')
-    toggleTheme(theme)
-})
-
 document.querySelector(".fullPage").addEventListener('click', (e) => {
     let sub = document.querySelector("#dataForm")
     if (sub.classList.contains('show') === true) {
@@ -100,19 +82,10 @@ window.addEventListener('hide.bs.dropdown', function(e) {
     }
 })
 
-// setInterval(() => { Livewire.emitTo('menu', 'refresh') }, 120 * 1000)
 
 window.addEventListener("load", menuView);
 window.addEventListener("resize", menuView);
 let _clicks = 0;
-window.addEventListener("touchstart", (e) => {
-    _clicks++;
-    if (_clicks == 50) {
-        Livewire.emit('getFeeds')
-        Livewire.emit('refresh')
-        _clicks = 0
-    }
-});
 
 window.addEventListener("click", (e) => {
     _clicks++;
@@ -133,9 +106,7 @@ const installButton = document.getElementById("install_btn");
 
 window.addEventListener("beforeinstallprompt", e => {
     console.log("beforeinstallprompt fired");
-    // Prevent Chrome 76 and earlier from automatically showing a prompt
     e.preventDefault();
-    // Stash the event so it can be triggered later.
     if (deferredPrompt == 'rejected') {
         appInstall.hidden = true;
         installButton.hidden = true;
@@ -145,15 +116,12 @@ window.addEventListener("beforeinstallprompt", e => {
         installButton.hidden = false;
         installButton.addEventListener("click", installApp);
     }
-    // Show the install button
 });
 
 function installApp() {
-    // Show the prompt
     deferredPrompt.prompt();
     installButton.disabled = true;
 
-    // Wait for the user to respond to the prompt
     deferredPrompt.userChoice.then(choiceResult => {
         if (choiceResult.outcome === "accepted") {
             console.log("PWA setup accepted");
@@ -366,16 +334,7 @@ function removeImageFromUploaded(id) {
     function getData(form) {
         let data = new FormData();
         for (let i = 0; i < form.length; i++) {
-            // if (form[i].value == '') {
-            //     return data = 'isEmpty'
-            // }
-            if (form[i].name == 'submit_btn') {
-                continue;
-            }
-            if (form[i].name == 'item_imgs[]') {
-                // for (var j = 0; j < form[i].files.length; j++) {
-                //     data.append(form[i].name, form[i].files[j])
-                // }
+            if (form[i].name == 'submit_btn' || form[i].name == 'item_imgs[]') {
                 continue;
             }
             data.append(form[i].name, form[i].value);
@@ -480,8 +439,6 @@ function rememberMe() {
 }
 
 {
-    // var max_width = fileinput.getAttribute('data-maxwidth');
-    // var max_height = fileinput.getAttribute('data-maxheight');
     var max_width = 1200;
     var max_height = 800;
     var preview = document.querySelector("#imgs_collection");
@@ -498,11 +455,9 @@ function rememberMe() {
 
     function readfiles(files) {
 
-        // remove the existing canvases and hidden inputs if user re-selects new pics
         var existinginputs = document.getElementsByName('item_img[]');
         var existingcanvases = document.getElementsByTagName('canvas');
-        while (existinginputs.length > 0 && existingcanvases > 0) { // it's a live list so removing the first element each time
-            // DOMNode.prototype.remove = function() {this.parentNode.removeChild(this);}
+        while (existinginputs.length > 0 && existingcanvases > 0) {
             form.removeChild(existinginputs[0]);
             preview.removeChild(existingcanvases[0]);
         }
@@ -511,11 +466,10 @@ function rememberMe() {
             return notify("max 5 images", 'r', 'hold');
         } else {
             for (var i = 0; i < files.length; i++) {
-                processfile(files[i]); // process each file at once
+                processfile(files[i]);
             }
             files.value = "";
-        } //remove the original files from fileinput
-        // TODO remove the previous hidden inputs if user selects other files
+        }
     }
 
     function processfile(file) {
@@ -525,27 +479,23 @@ function rememberMe() {
             return false;
         }
 
-        // read the files
         var reader = new FileReader();
         reader.readAsArrayBuffer(file);
 
         reader.onload = function(event) {
             // blob stuff
-            var blob = new Blob([event.target.result]); // create blob...
+            var blob = new Blob([event.target.result]);
             window.URL = window.URL || window.webkitURL;
-            var blobURL = window.URL.createObjectURL(blob); // and get it's URL
+            var blobURL = window.URL.createObjectURL(blob);
 
-            // helper Image object
             var image = new Image();
             image.src = blobURL;
-            //preview.appendChild(image); // preview commented out, I am using the canvas instead
             image.onload = function() {
-                // have to wait till it's loaded
-                var resized = resizeMe(image); // send it to canvas
+                var resized = resizeMe(image);
                 var newinput = document.createElement("input");
                 newinput.type = 'hidden';
                 newinput.name = 'item_img[]';
-                newinput.value = resized; // put result from canvas into new hidden input
+                newinput.value = resized;
                 form.appendChild(newinput);
             }
         };
@@ -560,7 +510,6 @@ function rememberMe() {
         var width = img.width;
         var height = img.height;
 
-        // calculate the width and height, constraining the proportions
         if (width > height) {
             if (width > max_width) {
                 //height *= max_width / width;
@@ -583,14 +532,15 @@ function rememberMe() {
         var ctx = canvas.getContext("2d");
         ctx.drawImage(img, 0, 0, width, height);
         preview.classList.remove('hidden')
-        preview.appendChild(canvas); // do the actual resized preview
+        preview.appendChild(canvas);
         console.log();
         return canvas.toDataURL("image/jpeg", 0.8); // get the data from canvas as 70% JPG (can be also PNG, etc.)
 
     }
 }
 
-function toggleTheme(theme) {
+function toggleTheme(theme, stat = 'on') {
+    console.log(stat);
     if (theme == 'dark') {
         let head = document.querySelector('head')
         if (head.querySelector("#darkThemeStyle") == null) {
@@ -600,14 +550,20 @@ function toggleTheme(theme) {
             link.setAttribute('id', 'darkThemeStyle')
             head.appendChild(link)
         }
+        if (stat == 'on') {
+            notify('تم تفعيل الوضع الليلي', 'b', 'حسنا')
+        }
         localStorage.setItem('theme', theme)
-        notify('تم تفعيل الوضع الليلي', 'b', 'حسنا')
+
     } else if (theme != null && theme == 'light') {
         let head = document.querySelector('head')
         let link = document.querySelector("#darkThemeStyle")
         if (link != null) head.removeChild(link)
         localStorage.setItem('theme', theme)
-        notify('تم الغاء الوضع الليلي', 'b', 'حسنا')
+        if (stat == 'on') {
+            notify('تم الغاء الوضع الليلي', 'b', 'حسنا')
+        }
+
     }
 
     if (theme != null) {
