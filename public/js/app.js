@@ -15,6 +15,10 @@ if ("serviceWorker" in navigator) {
 }
 
 if (location.pathname == '/login') {
+    window.addEventListener("DOMContentLoaded", (e) => {
+        let theme = localStorage.getItem('theme')
+        toggleTheme(theme)
+    })
     let atemps = parseInt(localStorage.getItem('logAte'));
     window.addEventListener('load', (e) => {
         if (localStorage.getItem('user') != null && localStorage.getItem('pass') != null) {
@@ -69,7 +73,10 @@ Livewire.on('resizer', (e) => {
 //     }
 // })
 
-
+window.addEventListener("DOMContentLoaded", (e) => {
+    let theme = localStorage.getItem('theme')
+    toggleTheme(theme)
+})
 
 document.querySelector(".fullPage").addEventListener('click', (e) => {
     let sub = document.querySelector("#dataForm")
@@ -580,5 +587,26 @@ function rememberMe() {
         console.log();
         return canvas.toDataURL("image/jpeg", 0.8); // get the data from canvas as 70% JPG (can be also PNG, etc.)
 
+    }
+}
+
+function toggleTheme(theme) {
+    if (theme == 'dark') {
+        document.querySelector("#darkTheme").classList.add('hidden')
+        document.querySelector("#lightTheme").classList.remove('hidden')
+        let head = document.querySelector('head')
+        let link = document.createElement('link')
+        link.setAttribute('href', 'css/dark.css')
+        link.setAttribute('rel', 'stylesheet')
+        link.setAttribute('id', 'darkThemeStyle')
+        head.appendChild(link)
+        localStorage.setItem('theme', theme)
+    } else if (theme != null && theme == 'light') {
+        document.querySelector("#darkTheme").classList.remove('hidden')
+        document.querySelector("#lightTheme").classList.add('hidden')
+        let head = document.querySelector('head')
+        let link = document.querySelector("#darkThemeStyle")
+        if (link != null) head.removeChild(link)
+        localStorage.setItem('theme', theme)
     }
 }

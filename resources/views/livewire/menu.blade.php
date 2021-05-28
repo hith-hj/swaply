@@ -18,6 +18,10 @@
                                 {{-- <div class="col-2 offset-1">
                                     <span class="cursor icon-1 link-dark" onclick="document.querySelector('#editMyInfoModal').classList.toggle('hidden')"><i class="bi bi-pencil-square"></i></span>
                                 </div> --}}
+                                <div class="col-2 offset-1">
+                                    <span id="darkTheme" class="m-1 cursor icon-1 link-dark" onclick="toggleTheme('dark')" title="Night Mode"><i class="bi bi-lightbulb-off"></i></span>
+                                    <span id="lightTheme" class="m-1 cursor icon-1 link-dark hidden" onclick="toggleTheme('light')" title="Day Mode" style="color: #eee"><i class="bi bi-lightbulb"></i></span>
+                                </div>
                             </div>
                             <hr>
                             <div class="card-body">
