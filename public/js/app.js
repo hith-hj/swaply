@@ -601,12 +601,16 @@ function toggleTheme(theme) {
             head.appendChild(link)
         }
         localStorage.setItem('theme', theme)
+        notify('تم تفعيل الوضع الليلي', 'b', 'حسنا')
     } else if (theme != null && theme == 'light') {
         let head = document.querySelector('head')
         let link = document.querySelector("#darkThemeStyle")
         if (link != null) head.removeChild(link)
         localStorage.setItem('theme', theme)
+        notify('تم الغاء الوضع الليلي', 'b', 'حسنا')
     }
 
-    Livewire.emit('changeTheme', theme)
+    if (theme != null) {
+        Livewire.emit('changeTheme', theme)
+    }
 }

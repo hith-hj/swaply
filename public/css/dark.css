@@ -7,8 +7,8 @@
 }
 
 #canvas {
-    background: #222 !important;
-    opacity: .8 !important;
+    background: #111 !important;
+    opacity: 1 !important;
 }
 
 .text-muted {
@@ -154,4 +154,10 @@ textarea {
 
 a {
     color: #eee !important;
+}
+
+.notification {
+    background-color: #5d9068 !important;
+    color: #eee !important;
+    border-color: #d6d606 !important;
 }
