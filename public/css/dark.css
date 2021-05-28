@@ -28,6 +28,10 @@
     background-color: #7bd79c !important;
 }
 
+.form-group {
+    color: #eee !important;
+}
+
 .upload {
     background-color: #7bd79c !important;
 }
@@ -60,6 +64,14 @@
     filter: drop-shadow(2px 2px 2px #d6d606) !important;
 }
 
+.cir-perant {
+    background: #447b58 !important;
+}
+
+.cir-list {
+    border: none;
+}
+
 .green_underline {
     border-bottom: 2px solid #d6d606 !important;
 }
@@ -69,7 +81,7 @@
 }
 
 .itemCard {
-    background-color: #447b58;
+    background-color: #447b58 !important;
     color: #eee !important;
 }
 
@@ -80,8 +92,9 @@
 
 .btn-outline-success:hover,
 .btn-outline-success:focus {
-    color: #447b58 !important;
-    background-color: #ccc !important;
+    color: #d6d606 !important;
+    border-color: #d6d606 !important;
+    background: transparent;
 }
 
 .bi {
@@ -96,6 +109,11 @@
 
 .dropdown-item {
     color: #eee !important;
+}
+
+.dropdown-item:focus,
+.dropdown-item:hover {
+    color: #447b58 !important;
 }
 
 .list-group-item {
@@ -117,4 +135,22 @@ textarea {
     color: #eee;
     background-color: #447b58 !important;
     border-color: #eee;
+}
+
+.cb,
+.cr {
+    color: #d6d606 !important;
+}
+
+.modal-content {
+    background-color: #5d9068 !important;
+}
+
+.alert-success {
+    background-color: #5d9068 !important;
+    color: #eee !important;
+}
+
+a {
+    color: #eee !important;
 }

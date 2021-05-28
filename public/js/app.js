@@ -592,8 +592,6 @@ function rememberMe() {
 
 function toggleTheme(theme) {
     if (theme == 'dark') {
-        document.querySelector("#darkTheme").classList.add('hidden')
-        document.querySelector("#lightTheme").classList.remove('hidden')
         let head = document.querySelector('head')
         let link = document.createElement('link')
         link.setAttribute('href', 'css/dark.css')
@@ -602,8 +600,6 @@ function toggleTheme(theme) {
         head.appendChild(link)
         localStorage.setItem('theme', theme)
     } else if (theme != null && theme == 'light') {
-        document.querySelector("#darkTheme").classList.remove('hidden')
-        document.querySelector("#lightTheme").classList.add('hidden')
         let head = document.querySelector('head')
         let link = document.querySelector("#darkThemeStyle")
         if (link != null) head.removeChild(link)

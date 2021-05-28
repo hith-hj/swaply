@@ -49,7 +49,7 @@
                             </div>
 
                             <div class="uk-form-row uk-text-small mt-5px">
-                                <x-button class="w-50 bg-green">
+                                <x-button class="w-50">
                                     {{ __('اشتراك') }}
                                 </x-button>
                             </div>
