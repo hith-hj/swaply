@@ -593,11 +593,13 @@ function rememberMe() {
 function toggleTheme(theme) {
     if (theme == 'dark') {
         let head = document.querySelector('head')
-        let link = document.createElement('link')
-        link.setAttribute('href', 'css/dark.css')
-        link.setAttribute('rel', 'stylesheet')
-        link.setAttribute('id', 'darkThemeStyle')
-        head.appendChild(link)
+        if (head.querySelector("#darkThemeStyle") == null) {
+            let link = document.createElement('link')
+            link.setAttribute('href', 'css/dark.css')
+            link.setAttribute('rel', 'stylesheet')
+            link.setAttribute('id', 'darkThemeStyle')
+            head.appendChild(link)
+        }
         localStorage.setItem('theme', theme)
     } else if (theme != null && theme == 'light') {
         let head = document.querySelector('head')
@@ -605,4 +607,6 @@ function toggleTheme(theme) {
         if (link != null) head.removeChild(link)
         localStorage.setItem('theme', theme)
     }
+
+    Livewire.emit('changeTheme', theme)
 }

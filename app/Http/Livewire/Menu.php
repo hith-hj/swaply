@@ -14,8 +14,9 @@ class Menu extends Component
 {
     public $user_location;
     public $user_phone;
+    public $theme;
     public $post_type = 'حاجتك';
-    protected $listeners = ['refresh','post_menu'];
+    protected $listeners = ['refresh','changeTheme'];
     protected $user;
 
     public function mount(){
@@ -28,10 +29,8 @@ class Menu extends Component
         $this->emit('resizer');
     }
 
-    public function post_menu($type)
-    {
-        dd($type);
-        $this->post_type = $type;
+    public function changeTheme($theme){
+        $this->theme = $theme;
     }
 
     public function refresh()

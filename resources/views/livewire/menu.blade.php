@@ -18,15 +18,19 @@
                                 {{-- <div class="col-2 offset-1">
                                     <span class="cursor icon-1 link-dark" onclick="document.querySelector('#editMyInfoModal').classList.toggle('hidden')"><i class="bi bi-pencil-square"></i></span>
                                 </div> --}}
-                                <div class="col-2 offset-1">
-                                    <span id="darkTheme" class="m-1 cursor icon-1 link-dark" onclick="
-                                    document.querySelector('#darkTheme').classList.add('hidden');
-                                    document.querySelector('#lightTheme').classList.remove('hidden');
-                                    toggleTheme('dark')" title="Night Mode"><i class="bi bi-lightbulb-off"></i></span>
-                                    <span id="lightTheme" class="m-1 cursor icon-1 link-dark hidden" onclick="
-                                    document.querySelector('#lightTheme').classList.add('hidden');
-                                    document.querySelector('#darkTheme').classList.remove('hidden');
-                                    toggleTheme('light')" title="Day Mode" style="color: #eee"><i class="bi bi-lightbulb"></i></span>
+                                <div class="col-2 offset-1">  
+
+                                    <span id="darkTheme" class="m-1 cursor icon-1 link-dark {{$theme == 'dark' ? 'hidden' : '' }}" onclick="
+                                        document.querySelector('#darkTheme').classList.add('hidden');
+                                        document.querySelector('#lightTheme').classList.remove('hidden');
+                                        toggleTheme('dark');" title="Night Mode"><i class="bi bi-lightbulb-off"></i>
+                                    </span>
+
+                                    <span id="lightTheme" class="m-1 cursor icon-1 link-dark {{$theme == 'light' ? 'hidden' : '' }}" onclick="
+                                        document.querySelector('#lightTheme').classList.add('hidden');
+                                        document.querySelector('#darkTheme').classList.remove('hidden');
+                                        toggleTheme('light');" title="Day Mode" style="color: #eee"><i class="bi bi-lightbulb"></i>
+                                    </span>
                                 </div>
                             </div>
                             <hr>

@@ -66,6 +66,7 @@
 
 .cir-perant {
     background: #447b58 !important;
+    filter: drop-shadow(1px 1px 3px #d6d606) !important;
 }
 
 .cir-list {
