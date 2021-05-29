@@ -13,19 +13,18 @@
                 @switch($view)
                     @case('sentOffers')
                             @forelse ($requests as $req)
-                                <div class="card shadow">
+                                <div class="card shadow mb-2">
                                     <div class="card-body" >
                                         <h6 class="card-title m-0">
                                             <span wire:click="$emitTo('body','changeBody',['showitem','{{$req->sender_item->id}}'])"> ارسلت {{$req->sender_item->item_title}}</span>  &lArr;  
                                             <span class="cursor" wire:click="$emitTo('body','changeBody',['showitem','{{$req->item->id}}'])"> مقابل {{$req->item->item_title}}</span>
-                                        </h6>
-                                            
+                                        </h6>                                            
                                         <div class="row">
                                             <div class="col">
                                                 <small class="mx-1"><span> <i class="bi bi-clock"></i></span> {{$req->created_at->diffForHumans()}}</small>
                                                 <small class="mx-1"><span> المكان :</span> {{$req->item->item_location}}</small>
                                                 <small class="mx-1 cursor" onclick="document.querySelector('#delete{{$req->id}}').classList.toggle('hidden')" ><i class="me-auto bi bi-trash"></i>حذف الطلب</small>
-                                                @if($req->status == 0)
+                                                @if($req->status != 0)
                                                     <small class="hidden cr cursor glow" id="delete{{$req->id}}" wire:click="deleteRequest({{$req->id}})">حذف</small>
                                                 @endif
                                             </div>
@@ -49,11 +48,9 @@
                                                     <small> <i class="bi bi-person"></i><span> {{$req->user->name}} </span> </small> <br>   
                                                     <small> <a href="tel:+2{{$req->user->phone}}"><i class="bi bi-phone"></i><span> {{$req->user->phone}}</span></a></small> <br>
                                                     <small><a href="whatsapp://send?phone=+{{$req->user->phone}}&text=Swaply"><i class="bi bi-whatsapp mx-2" > Whatsapp</i></a></small><br>
-                                                
                                                 </div>
                                                 @break
-                                            @default
-                                                
+                                            @default                                                
                                         @endswitch
                                     </div>
                                 </div>    
