@@ -183,7 +183,7 @@ a {
 }
 
 .notification {
-    background-color: #5d9068 !important;
+    background-color: #396749 !important;
     color: #fff !important;
     border-color: #d6d606 !important;
 }
@@ -212,4 +212,11 @@ a {
     border: 2px solid #666;
     padding: .5rem;
     border-radius: 10px;
+}
+
+.install-btn {
+    color: #fff!important;
+    padding: .27rem!important;
+    border-radius: .27rem!important;
+    background: #011e29b5;
 }
