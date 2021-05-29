@@ -81,7 +81,7 @@ class Rexust extends Component
                 $req->sender_item = Item::find($req->sender_item);
             }        
         }
-        return $this->requests;
+        return $this->requests->sortByDesc('created_at');
     }
 
     public function deleteRequest($id)

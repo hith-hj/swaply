@@ -19,7 +19,7 @@ class Swaps extends Component
 
     public function getSwaps()
     {
-        $this->swaps = Swap::where('user_id','=',Auth::id())->orWhere('sender_id','=',Auth::id())->get();
+        $this->swaps = Swap::where('user_id','=',Auth::id())->orWhere('sender_id','=',Auth::id())->get()->sortByDesc('created_at');
         foreach($this->swaps as $sw)
         {
             $sw->user = User::find($sw->user_id);

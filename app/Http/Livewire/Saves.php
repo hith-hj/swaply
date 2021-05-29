@@ -17,7 +17,7 @@ class Saves extends Component
 
     public function getSaves()
     {
-        $this->saves = Save::all()->where('user_id',Auth::id());
+        $this->saves = Save::all()->where('user_id',Auth::id())->sortByDesc('created_at');
         foreach($this->saves as $sv)
         {
             $sv->item = Item::find($sv->post_id);
