@@ -159,7 +159,7 @@
                                             <img class="glow" src="{{asset('assets/fto/'.$feed->collection[0])}}" alt="{{$feed->item_title}}" >
                                         @endif
                                         <br>
-                                        <span class="h4 text-muted ani ani_fadeIn" style="position: fixed;top: 15%;left: 50%;">{{$loop->index + 1}}</span>
+                                        <span class="h4 text-muted ani ani_fadeIn" style="position: fixed;top: 15%;left: 50%;transform:translate(-50%)">{{$loop->index + 1}}</span>
                                     </div>                                                                                                                                     
                                 @endforeach
                             </div>

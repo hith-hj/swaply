@@ -32,7 +32,7 @@
                             @endif
                             <small class="card-subtitle text-muted " title="تاريخ النشر"><i class="mx-1 bi bi-calendar-day"></i><span>{{$feed->created_at->diffForHumans()}}</span></small>
                             @if($feed->amount > 0)
-                                <small class="card-subtitle text-muted " title="الفرق"><i class="mx-1 bi bi-cash"></i><span>{{$feed->amount}}</span></small>
+                                <small class="card-subtitle text-muted mt-1" title="الفرق"><i class="mx-1 bi bi-cash"></i><span>{{$feed->amount}}</span></small>
                             @endif
                             <small class="card-subtitle text-muted "> <i class=" mx-1 bi bi-images"></i> {{ count($feed->collection)}} </small>
                         </div>
@@ -43,11 +43,11 @@
                             {{substr($feed->item_info,0,strlen($feed->item_info) < 70 ? strlen($feed->item_info): strlen($feed->item_info)/2)}}...
                         </span></small><br>
                         
-                        <div class="d-flex justify-content-evenly mt-1" style="max-height: 18rem;">
+                        <div class="d-flex justify-content-evenly mt-1" style="max-height:20rem">
                             @if($feed->collection[0] != 'dark-logo.png' && file_exists('assets/items/'.$feed->directory.'/'.$feed->collection[0]) )
-                                <img class=" px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" width="100%" >
+                                <img class=" dark-border px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" width="70%" >
                             @else 
-                                <img class="glow px-1" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$feed->item_type}}" width="30%" >
+                                <img class="glow px-1" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$feed->item_type}}" width="40%" >
                             @endif
                         </div> 
                         <div class="py-1 {{ file_exists('assets/items/'.$feed->directory.'/'.$feed->collection[0]) == true ? 'hidden' : ''}}">

@@ -126,7 +126,7 @@
             </li>
             <li class="cursor ver-li" title="صفحات">
                 <div class="dropend">
-                    <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-50,6" aria-expanded="false">
+                    <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-100,6" aria-expanded="false">
                         <i class="bi bi-grid-3x3-gap"></i>
                     </span>
                     <div class="dropdown-menu ani ani_fadeIn ani_faster px-1">
@@ -187,7 +187,7 @@
                 <div id="imgs_collection" class="hidden"></div>
                 <div class="js-upload upload mb-1" uk-form-custom>
                     <input name="item_imgs[]" multiple required type="file" id="itemgs" accept="image/*" tabindex="0" onchange="image_resizer(event)" onchangezz="displayUploadedImages(event)" hidden>
-                    <button class="cursor sbtn sbtn-txt dark" tabindex="0" type="button" onclick="document.querySelector('#itemgs').click()"> <i class="bi bi-images"></i>
+                    <button class="cursor sbtn sbtn-txt light" tabindex="0" type="button" onclick="document.querySelector('#itemgs').click()"> <i class="bi bi-images"></i>
                         أختر صور</button>
                 </div>
 
@@ -315,7 +315,7 @@
         </div>
     </div> 
 
-    <span  id="cir-icon" class="cursor" >
+    <span id="cir-icon" class="cursor" >
         <i class="bi bi-list" role="button" tabindex="0">
         @if(count($user->notification) > 0)
             <span class="bi bi-dot red-alert icon-15" ></span>

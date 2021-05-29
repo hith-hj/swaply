@@ -56,7 +56,7 @@
             </div>
             @break
         @case('termsOfUse')
-            <div class="card">
+            <div class="card mt-1">
                 <div class="card-body">
                     <div class="alert alert-success" role="alert">
                         <h3>شروط الاستخدام</h3>
