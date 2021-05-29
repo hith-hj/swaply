@@ -32,8 +32,8 @@
             </div>
             @break
         @case('reportProblem')
-            <hr>
-            <div class="alert alert-light ani ani_flash" role="alert">
+            <h4 class="text-center mb-2 mt-2">نأمل ان يكون اقتراح</h4>
+            <div class="alert alert-light ani ani_pulse" role="alert">
                 <div class="w-95 mx-auto mt-0 z-100">
                     <div class="modal-header">
                         <h5 class="modal-title m-0"><i class="bi bi-flag cr"></i> اقتراح او تبليغ مشكلة</h5>

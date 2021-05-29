@@ -23,8 +23,8 @@
                                             <div class="col">
                                                 <small class="mx-1"><span> <i class="bi bi-clock"></i></span> {{$req->created_at->diffForHumans()}}</small>
                                                 <small class="mx-1"><span> المكان :</span> {{$req->item->item_location}}</small>
-                                                <small class="mx-1 cursor" onclick="document.querySelector('#delete{{$req->id}}').classList.toggle('hidden')" ><i class="me-auto bi bi-trash"></i>حذف الطلب</small>
-                                                @if($req->status != 0)
+                                                @if($req->status == 0)
+                                                    <small class="mx-1 cursor" onclick="document.querySelector('#delete{{$req->id}}').classList.toggle('hidden')" ><i class="me-auto bi bi-trash"></i>حذف الطلب</small>
                                                     <small class="hidden cr cursor glow" id="delete{{$req->id}}" wire:click="deleteRequest({{$req->id}})">حذف</small>
                                                 @endif
                                             </div>
