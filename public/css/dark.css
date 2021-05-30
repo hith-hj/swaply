@@ -22,7 +22,11 @@
     color: #fff !important;
     box-shadow: 0px 0px 6px 6px #2c4f38 inset !important;
     padding: .5rem !important;
-    border-radius: 10px;
+    border-radius: 10px !important;
+}
+
+.text-muted {
+    color: #fff !important;
 }
 
 .form-control-light {
@@ -41,7 +45,7 @@
 
 .upload {
     background-color: #457b58 !important;
-    border-radius: 5px;
+    border-radius: 5px !important;
 }
 
 .bg-light {
@@ -62,8 +66,8 @@
 
 .ver-menu:focus,
 .ver-menu:hover {
-    -webkit-box-shadow: 0 0 0.25rem 0.125rem #d6d606;
-    box-shadow: 0 0 0.25rem 0.125rem #d6d606;
+    -webkit-box-shadow: 0 0 0.25rem 0.125rem #d6d606 !important;
+    box-shadow: 0 0 0.25rem 0.125rem #d6d606 !important;
 }
 
 .ver-link {
@@ -76,16 +80,16 @@
 
 .cir-perant {
     /* background: #2c4f38 !important;
-    border-radius: 10px; */
+    border-radius: 10px !important; */
     background: #011e29 !important;
-    border-radius: 10px;
+    border-radius: 10px !important;
     box-shadow: 0px 0px 4px 4px #2c4f38 inset !important;
 }
 
 .cir-list {
     border: none;
     /* border: 2px solid #d6d60696; */
-    border-radius: 10px;
+    border-radius: 10px !important;
 }
 
 .green_underline {
@@ -99,7 +103,7 @@
 .itemCard {
     background-color: #2c4f38 !important;
     color: #fff !important;
-    border-radius: 10px;
+    border-radius: 10px !important;
 }
 
 .btn-outline-success {
@@ -111,12 +115,12 @@
 .btn-outline-success:focus {
     color: #d6d606 !important;
     border-color: #d6d606 !important;
-    background: transparent;
+    background: transparent !important;
 }
 
 .btn-outline-dark {
     color: rgb(138, 138, 138) !important;
-    border: 1px solid #ffffff;
+    border: 1px solid #ffffff !important;
 }
 
 .btn-outline-dark:hover {
@@ -131,7 +135,7 @@
     background: #011e29 !important;
     border: .0625rem solid #696969ed !important;
     color: #fff !important;
-    border-radius: 10px;
+    border-radius: 10px !important;
 }
 
 .dropdown-item {
@@ -157,9 +161,9 @@
 }
 
 .alert-light {
-    color: #fff;
+    color: #fff !important;
     background-color: #2c4f38 !important;
-    border-color: #adb5bd;
+    border-color: #adb5bd !important;
 }
 
 .cb,
@@ -205,18 +209,18 @@ a {
 }
 
 .navbar {
-    border-radius: 10px;
+    border-radius: 10px !important;
 }
 
 .dark-border {
-    border: 2px solid #666;
-    padding: .5rem;
-    border-radius: 10px;
+    border: 2px solid #666 !important;
+    padding: .5rem !important;
+    border-radius: 10px !important;
 }
 
 .install-btn {
     color: #fff!important;
     padding: .27rem!important;
     border-radius: .27rem!important;
-    background: #011e29b5;
+    background: #011e29b5 !important;
 }

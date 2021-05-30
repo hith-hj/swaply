@@ -18,7 +18,6 @@ window.addEventListener("DOMContentLoaded", (e) => {
     toggleTheme(theme, 'off')
 });
 
-
 if (location.pathname == '/login') {
 
     let atemps = parseInt(localStorage.getItem('logAte'));
@@ -541,7 +540,6 @@ function rememberMe() {
 }
 
 function toggleTheme(theme, stat = 'on') {
-    console.log(stat);
     if (theme == 'dark') {
         let head = document.querySelector('head')
         if (head.querySelector("#darkThemeStyle") == null) {

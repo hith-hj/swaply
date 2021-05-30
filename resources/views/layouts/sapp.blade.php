@@ -12,14 +12,31 @@
             <meta name="logged" content="{{Auth::user()->name}}">
         @else
             <meta name="logged" content="false">   
-        @endauth
+        @endauth 
+
+        <script>
+            let theme = localStorage.getItem('theme')
+            if (theme == 'dark') {
+                let head = document.querySelector('head')
+                if (head.querySelector("#darkThemeStyle") == null) {
+                    let link = document.createElement('link')
+                    link.setAttribute('href', 'css/dark.css')
+                    link.setAttribute('rel', 'stylesheet')
+                    link.setAttribute('id', 'darkThemeStyle')
+                    head.appendChild(link)
+                }
+                localStorage.setItem('theme', theme)
+            }           
+        </script>
+
         <link rel="shortcut icon" href="{{asset('imgs/new-logo.png')}}" type="image/x-icon" />
         <link rel="apple-touch-icon" href="{{asset('imgs/new-logo.png')}}" />
         <title>swaply | home</title>        
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
-        <link rel="stylesheet" href="{{asset('css/lib.css')}}" > 
+        <link rel="stylesheet" href="{{asset('css/lib.css')}}"> 
         <link rel="stylesheet" href="{{asset('css/bs-icons.css')}}" >
         <link rel="stylesheet" href="{{asset('css/animation.css')}}" >
+        
         @livewireStyles
         
     </head>
@@ -45,7 +62,7 @@
         
     </body>
     @livewireScripts
-    <script src="{{asset('js/app.js')}}" ></script>
+    <script src="{{asset('js/app.js')}}"></script>
     <script src="{{asset('js/popper.min.js')}}" defer></script> 
     <script src="{{asset('js/bootstrap.min.js')}}" defer></script>
     
