@@ -85,9 +85,6 @@
                                     @else 
                                         <img class="glow px-1" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$feed->item_type}}" width="40%" >
                                     @endif
-                                </div> 
-                                <div class="py-1 {{ file_exists('assets/items/'.$feed->directory.'/'.$feed->collection[0]) == true ? 'hidden' : ''}}">
-                                    <small class="green_underline" >عذرا عزيزي المشترك ,لايوجد صور صالحة لهذا المنشور</small>
                                 </div>                    
                             </div>
                         </div>
@@ -119,6 +116,9 @@
                                 </span>
                             </small> 
                         </div>
+                        <div class="py-1 {{ file_exists('assets/items/'.$feed->directory.'/'.$feed->collection[0]) == true ? 'hidden' : ''}}">
+                            <small class="green_underline" >عذرا عزيزي المشترك ,لايوجد صور صالحة لهذا المنشور</small>
+                        </div> 
                     </div>
                     <hr>
                     <div class="row">
