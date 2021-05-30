@@ -73,7 +73,7 @@
                     <hr>
                     <div class="row">
                         <div class="col">
-                            <small class="mx-1"><span> المكان :</span> {{$feed->item_location}}</small>|
+                            <small class="mx-1"><span> <i class="bi bi-geo-alt"></i> </span> {{$feed->item_location}}</small>|
                             @if($feed->status != 1)
                                 <small class="mx-1"><span> عروض :</span> {{$feed->requestsCount}}</small>|
                             @endif

@@ -3,7 +3,7 @@
         <ul id="navList" class="ver-list ani ani_slideInRight ani_faster">            
             <li class="cursor ver-li " title="معلوماتي" >
                 <div class="dropend">
-                    <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-25,6" aria-expanded="false">
+                    <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-25,1" aria-expanded="false">
                         <i class="bi bi-person-square "></i>
                         @if($user->location == 'not-set') 
                             <span class="bi bi-exclamation-circle red-alert icon-sm ani ani_flash ani_loop"></span>
@@ -49,7 +49,7 @@
             </li>
             <li class="cursor ver-li" title="أغراضي">
                 <div class="dropend">
-                    <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-25,6" aria-expanded="false" >
+                    <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-25,1" aria-expanded="false" >
                         <i class="bi bi-collection "></i>
                     </span>
                     <div class="dropdown-menu ani ani_fadeIn ani_faster min-wid-300 px-1" >
@@ -92,7 +92,7 @@
             </li> 
             <li class="cursor ver-li" title="اشعارات" >
                 <div class="dropend">
-                    <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-25,6" aria-expanded="false" >
+                    <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-25,1" aria-expanded="false" >
                         <i class="bi bi-bell "></i>
                         @if(count($user->notification) >0 )
                             <span class="bi bi-exclamation-circle red-alert icon-sm"></span>
@@ -126,7 +126,7 @@
             </li>
             <li class="cursor ver-li" title="صفحات">
                 <div class="dropend">
-                    <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-100,6" aria-expanded="false">
+                    <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-100,1" aria-expanded="false">
                         <i class="bi bi-grid-3x3-gap"></i>
                     </span>
                     <div class="dropdown-menu ani ani_fadeIn ani_faster px-1">

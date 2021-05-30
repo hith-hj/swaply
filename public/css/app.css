@@ -143,8 +143,8 @@ html {
 }
 
 .min-wid-300 {
-    min-width: 18.75rem!important;
-    max-width: 18.75rem!important;
+    min-width: 16.75rem!important;
+    max-width: 16.75rem!important;
     padding: .4rem .2rem;
     max-height: 20rem;
     overflow-y: auto
@@ -222,7 +222,7 @@ textarea::selection {
 }
 
 .ver-li {
-    margin: 1rem .3rem
+    margin: 1rem .1rem
 }
 
 .ver-link {

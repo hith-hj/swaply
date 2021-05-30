@@ -43,6 +43,11 @@
     color: #fff !important;
 }
 
+input,
+textarea {
+    color: #eee !important;
+}
+
 .upload {
     background-color: #457b58 !important;
     border-radius: 5px !important;
@@ -87,8 +92,8 @@
 }
 
 .cir-list {
-    border: none;
-    /* border: 2px solid #d6d60696; */
+    /* border: 2px solid #d6d60696 !important; */
+    border: none !important;
     border-radius: 10px !important;
 }
 
@@ -209,7 +214,7 @@ a {
 }
 
 .navbar {
-    border-radius: 10px !important;
+    border-radius: 5px !important;
 }
 
 .dark-border {
@@ -223,4 +228,9 @@ a {
     padding: .27rem!important;
     border-radius: .27rem!important;
     background: #011e29b5 !important;
+}
+
+.br-success {
+    border: 2px solid #90ee90!important;
+    border-radius: 10px !important;
 }
