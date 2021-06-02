@@ -161,19 +161,19 @@
                                         <i data-bs-dismiss="modal" aria-label="Close" class="bi bi-x" onclick="document.querySelector('#offer{{$feed->id}}').classList.toggle('hidden')"></i>
                                     </div>
                                     <div class="modal-body">
-                                        @if(count($feed->user_item) > 0)
+                                        @if(count($feed->user_items) > 0)
                                         <label for="" class="form-label">اختر غرضك للتبديل</label>
                                         <select class="form-select bg-gray" wire:model.defer="req_item">
-                                            <option value="null">اختر</option>
-                                            @foreach ($feed->user_item as $myitem)
+                                            <option value="{{$feed->user_items[0]->id}}">اختر</option>
+                                            @foreach ($feed->user_items as $myitem)
                                                 <option value="{{$myitem->id}}" >{{$myitem->item_title}}</option>
                                             @endforeach
                                         </select>
                                         @else 
-                                            <label for="" class="form-label">الرجاء اضافة غرض قبل ارسال الطلب</label>
+                                            <label for="" class="form-label">الرجاء اضافة غرض  قبل ارسال الطلب</label>
                                         @endif
                                     </div>
-                                    <div class="modal-footer justify-content-center {{count($feed->user_item) <= 0 ? 'hidden' : ''}}">
+                                    <div class="modal-footer justify-content-center {{count($feed->user_items) <= 0 ? 'hidden' : ''}}">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-outline-success " wire:click="sendOffer('{{$feed->id}}','{{$feed->user_id}}','{{$feed->item_type}}')"><i class="bi bi-cloud-upload mx-2"></i><small>ارسال</small></button> 
                                             <button type="button" class="btn btn-outline-dark " onclick="document.querySelector('#offer{{$feed->id}}').classList.toggle('hidden')"><i class="bi bi-x mx-2"></i><small>أغلاق</small></button>

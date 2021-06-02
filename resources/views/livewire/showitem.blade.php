@@ -36,7 +36,7 @@
                             @if($feed->status ==1)
                                 <small class="card-subtitle text-muted mx-1 green_underline"><strong>تم التبديل</strong></small>
                             @endif
-                            <small class="card-subtitle text-muted green_underline " title="نوع المنشور"><i class="mx-1 bi bi-distribute-horizontal"></i><span>{{$feed->item_type == 1 ? 'مبادلة'  :'تبرع' }}</span></small>
+                            <small class="card-subtitle text-muted green_underline" title="نوع المنشور"><i class="mx-1 bi bi-distribute-horizontal"></i><span>{{$feed->item_type == 1 ? 'مبادلة'  :'تبرع' }}</span></small>
                             @if($feed->item_type == 1)
                                 <small class="card-subtitle text-muted " title="بديل الغرض"><i class="mx-1 bi bi-arrow-down-up"></i><span>{{substr($feed->swap_with,0,strlen($feed->swap_with) < 30? strlen($feed->swap_with) : strlen($feed->swap_with)/3)}}</span></small>
                             @endif
@@ -60,7 +60,7 @@
                                         @if($feed->collection[0] != 'dark-logo.png' && file_exists('assets/items/'.$feed->directory.'/'.$feed->collection[0]))
                                             <img class="glow" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_title}}" width="100%">
                                         @else 
-                                            <img class="glow" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$feed->item_title}}" width="100%" >
+                                            <img class="glow" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$feed->item_title}}" width="100%">
                                         @endif
                                     </div>                                
                                 </div>
@@ -151,7 +151,7 @@
                         <div id="showFullImage" class="carousel slide text-center carousel-fade" data-bs-ride="carousel" >
                             <i class="bi bi-x close-gallery cursor" onclick="document.querySelector('#showItemImages').classList.add('hidden')"></i>
                             <div class="carousel-inner ">
-                                @foreach ($feed->collection as $img)                                  
+                                @foreach ($feed->collection as $img)
                                     <div class="carousel-item {{ $loop->first ? "active" :''}} text-center" style="max-width:75vw; max-height:75vh">
                                         @if($feed->collection[0] != 'dark-logo.png')
                                             <img class="glow" src="{{asset('assets/items/'.$feed->directory.'/'.$img)}}" alt="{{$feed->item_title}}" width="100%" >
@@ -283,7 +283,7 @@
                                             <div class="modal-body">
                                                 <label for="" class="form-label">اختر غرضك للتبديل</label>
                                                 <select class="form-select bg-gray" wire:model.defer="req_item">
-                                                    <option value="null">اختر</option>
+                                                    <option value="{{$feed->user_items[0]->id}}">اختر</option>
                                                     @foreach ($feed->user_items as $myitem)
                                                         <option value="{{$myitem->id}}" >{{$myitem->item_title}}</option>
                                                     @endforeach

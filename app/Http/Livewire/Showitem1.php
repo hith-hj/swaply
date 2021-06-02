@@ -59,7 +59,7 @@ class Showitem1 extends Component
             $this->item->user = User::find($this->item->user_id);
             $this->item->requestsCount = $this->item->requests;
             $this->item->collection = unserialize($this->item->collection);
-            $this->item->user_items = Item::all()->where('status','=',0)->where("user_id",Auth::id());
+            $this->item->user_items = Item::where([['user_id','=',Auth::id()],['status','=',0]])->get();
             $this->item->requests = Requests::where('item_id',$id)->orWhere('sender_item',$id)->get();
             if($this->item->status == 1)
             {
@@ -149,7 +149,7 @@ class Showitem1 extends Component
     public function sendOffer($item_id,$user_id,$item_type)
     {
         $off = false;
-        if($this->req_item != null){
+        if($this->req_item != null && $this->req_item !=''){
             $off = Requests::create([
                 'user_id'=>$user_id,
                 'item_id'=>$item_id,            
@@ -161,7 +161,6 @@ class Showitem1 extends Component
             Notifyer::store(Auth::id(),$user_id,'تم استلام عرض جديد',$item_id);
         }
         $off == true ? $this->emit('notifi',$this->notis[5]) : $this->emit('notifi',$this->notis[4]);
-        $this->emit('changeBody','feeds');
         $this->resetOffer();
     }
     

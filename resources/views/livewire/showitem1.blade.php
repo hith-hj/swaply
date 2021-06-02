@@ -167,18 +167,18 @@
 
                         </div>
                         @if(count($feed->collection) > 1)
-                               <div class="text-center" style="z-index: 13">
-                                    <button class="sbtn sbtn-txt carousel-control-prevz mx-5" type="button" data-bs-target="#showFullImage" data-bs-slide="next"
-                                        style="position: fixed; top: 25%; right: 8%; z-index: 1; height: 50%; width:2rem;">
-                                        <span aria-hidden="true"><i class="bi bi-chevron-right fs-2 cw"></i></span>
-                                        <span class="visually-hidden"></span>
-                                    </button>
-                                    <button class="sbtn sbtn-txt carousel-control-nextz mx-5" type="button" data-bs-target="#showFullImage" data-bs-slide="prev"
-                                        style="position: fixed; top: 25%; left: 8%; z-index: 1; height: 50%; width:2rem;">
-                                        <span aria-hidden="true"><i class="bi bi-chevron-left fs-2 cw"></i></span>
-                                        <span class="visually-hidden"></span>
-                                    </button>
-                                </div> 
+                            <div class="text-center" style="z-index: 13">
+                                <button class="sbtn sbtn-txt carousel-control-prevz mx-5" type="button" data-bs-target="#showFullImage" data-bs-slide="next"
+                                    style="position: fixed; top: 25%; right: 8%; z-index: 1; height: 50%; width:2rem;">
+                                    <span aria-hidden="true"><i class="bi bi-chevron-right fs-2 cw"></i></span>
+                                    <span class="visually-hidden"></span>
+                                </button>
+                                <button class="sbtn sbtn-txt carousel-control-nextz mx-5" type="button" data-bs-target="#showFullImage" data-bs-slide="prev"
+                                    style="position: fixed; top: 25%; left: 8%; z-index: 1; height: 50%; width:2rem;">
+                                    <span aria-hidden="true"><i class="bi bi-chevron-left fs-2 cw"></i></span>
+                                    <span class="visually-hidden"></span>
+                                </button>
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -284,7 +284,7 @@
                                             <div class="modal-body">
                                                 <label for="" class="form-label">اختر غرضك للتبديل</label>
                                                 <select class="form-select bg-gray" wire:model.defer="req_item">
-                                                    <option value="null">اختر</option>
+                                                    <option value="{{$feed->user_items[0]->id}}">اختر</option>
                                                     @foreach ($feed->user_items as $myitem)
                                                         <option value="{{$myitem->id}}" >{{$myitem->item_title}}</option>
                                                     @endforeach

@@ -234,3 +234,7 @@ a {
     border: 2px solid #90ee90!important;
     border-radius: 10px !important;
 }
+
+.lead {
+    color: #fff !important;
+}
