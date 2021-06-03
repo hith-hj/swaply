@@ -53,13 +53,13 @@ class Showitem1 extends Component
         $item = Item::find($id);
         $stat = $item != null ? true : false;
         if($stat == true && $item->status != 'soft_deleted'){            
-            $this->item = Item::find($id);
-            $this->item->views += 1;
-            $this->item->save();
+            Item::incViews($id);
+            $this->item = $item;
             $this->item->user = User::find($this->item->user_id);
             $this->item->requestsCount = $this->item->requests;
             $this->item->collection = unserialize($this->item->collection);
-            $this->item->user_items = Item::where([['user_id','=',Auth::id()],['status','=',0]])->get();
+            $this->item->user_items = Item::where([['user_id','=',Auth::id()],['status','=','0'],])->get();
+            dd($this->item->user_items);
             $this->item->requests = Requests::where('item_id',$id)->orWhere('sender_item',$id)->get();
             if($this->item->status == 1)
             {
@@ -150,6 +150,9 @@ class Showitem1 extends Component
     {
         $off = false;
         if($this->req_item != null && $this->req_item !=''){
+            if(Item::find($item_id)->status != 0){
+                return $this->emit('notifi',$this->notis[5]);
+            }
             $off = Requests::create([
                 'user_id'=>$user_id,
                 'item_id'=>$item_id,            
@@ -160,8 +163,14 @@ class Showitem1 extends Component
             Item::incRequests($item_id);
             Notifyer::store(Auth::id(),$user_id,'تم استلام عرض جديد',$item_id);
         }
-        $off == true ? $this->emit('notifi',$this->notis[5]) : $this->emit('notifi',$this->notis[4]);
         $this->resetOffer();
+        if($off == true){ 
+            $this->emit('notifi',$this->notis[5]);
+            $this->emit('changeBody','feeds');
+        }else{
+            $this->emit('notifi',$this->notis[4]);
+            $this->getItem($this->item_id);
+        }
     }
     
     public function resetOffer()
@@ -206,7 +215,7 @@ class Showitem1 extends Component
             return $it->save();
         });
         
-        Notifyer::store(Auth::id(),$user_id,'تم قبول العرض',$item_id);
+        Notifyer::store(Auth::id(),$sender_id,'تم قبول العرض',$item_id);
         $this->emit('notifi',$this->notis[5]);
         $this->emitTo('body','changeBody','swaps');
     }

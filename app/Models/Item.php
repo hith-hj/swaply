@@ -21,5 +21,13 @@ class Item extends Model
         $it->requests +=1;
         $it->save();
         return $it == true ? true : false;
-    }                        
+    }
+    
+    public static function incViews(String $id):bool
+    {
+        $it = self::find($id);
+        $it->views +=1;
+        $it->save();
+        return $it == true ? true : false;
+    }
 }

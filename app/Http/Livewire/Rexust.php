@@ -54,19 +54,19 @@ class Rexust extends Component
 
     private function getSentOffers()
     {
-        return $this->requests = Requests::where([['sender_id','=',Auth::id()],['item_type','=',1]])->get();
+        return $this->requests = Requests::where([['sender_id','=',Auth::id()],['item_type','=','1']])->get()->sortByDesc('created_at');
     }
     private function getRecivedOffers()
     {
-        return $this->requests = Requests::where([['user_id','=',Auth::id()],['item_type','=',1]])->get();
+        return $this->requests = Requests::where([['user_id','=',Auth::id()],['item_type','=','1']])->get();
     }
     private function getSentOrders()
     {
-        return $this->requests = Requests::where([['sender_id','=',Auth::id()],['item_type','=',2]])->get();
+        return $this->requests = Requests::where([['sender_id','=',Auth::id()],['item_type','=','2']])->get()->sortByDesc('created_at');
     }
     private function getRecivedOrders()
     {
-        return $this->requests = Requests::where([['user_id','=',Auth::id()],['item_type','=',2]])->get();
+        return $this->requests = Requests::where([['user_id','=',Auth::id()],['item_type','=','2']])->get();
     }
     
     private function getITems()
@@ -81,7 +81,7 @@ class Rexust extends Component
                 $req->sender_item = Item::find($req->sender_item);
             }        
         }
-        return $this->requests->sortByDesc('created_at');
+        
     }
 
     public function deleteRequest($id)

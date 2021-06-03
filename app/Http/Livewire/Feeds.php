@@ -27,6 +27,7 @@ class Feeds extends Component
         ['لم يتم ارسال البلاغ,الرجاء ملئ الحقول','r','للاسف',],
         ['لم يتم ارسال العرض,الرجاء اختيار الغرض و المحاولة مرة اخرى','r','للاسف',],
         ['تم تقديم العرض بنجاح','g','حسنا',],
+        ['لا يمكنك ارسال عرض المنشور تم تبديلة ','r','للأسف',],
     ];
 
     public function mount()
@@ -38,7 +39,7 @@ class Feeds extends Component
     {
         // $requests = Requests::where('sender_id','=',Auth::user()->id)->get();
         $requests = Requests::where('sender_id','=',Auth::user()->id)->orWhere('user_id','=',Auth::user()->id)->get();
-        $this->feeds = Item::all()->where('status','=',0)->take(15)->sortByDesc('updated_at');
+        $this->feeds = Item::all()->where('status','=',0)->sortByDesc('updated_at');
         $requests = count($requests) > 0  ? $requests : false ;
         foreach($this->feeds as $key=>$feed)
         {
@@ -58,7 +59,7 @@ class Feeds extends Component
             $feed->collection = unserialize($feed->collection);
             $feed->user_items = Item::where([
                 ['user_id','=',Auth::id()],
-                ['status','=',0]
+                ['status','=','0'],
                 ])->get();
         });
     }
@@ -107,6 +108,9 @@ class Feeds extends Component
     {
         $off = false;
         if($this->req_item != null && $this->req_item != ''){
+            if(Item::find($item_id)->status != 0){
+                return $this->emit('notifi',$this->notis[5]);
+            }
             $off = Requests::create([
                 'user_id'=>$user_id,
                 'item_id'=>$item_id,            

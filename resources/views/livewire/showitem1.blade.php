@@ -232,7 +232,10 @@
                                                                 <small><span>{{$req->created_at->diffForHumans()}}</span></small>
                                                                 <p class="text-muted m-0"><span>{{$req->sender_item->item_info}}</span></p>
                                                             </div>
-                                                            <small class="btn btn-outline-success w-100 mt-1" wire:click="acceptRequest('{{$req->id}}','{{$req->user_id}}','{{$req->sender_id}}','{{$req->item_id}}','{{$req->sender_item->id}}')"> <i class="bi bi-check"></i> قبول</small>  
+                                                            <small class="btn btn-outline-success w-100 mt-1" 
+                                                                wire:click="acceptRequest('{{$req->id}}','{{$req->user_id}}','{{$req->sender_id}}','{{$req->item_id}}','{{$req->sender_item->id}}')">
+                                                                <i class="bi bi-check"></i> قبول
+                                                            </small>  
                                                         </div>
                                                         <div class="col-4 text-center">
                                                             <img src="{{asset('assets/items/'.$req->sender_item->directory.'/'.$req->sender_item->collection[0])}}" alt="" width="55" height1="60" class="glow">
