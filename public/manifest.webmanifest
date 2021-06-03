@@ -14,14 +14,14 @@
             "name": "Items",
             "short_name": "items",
             "description": "View my items",
-            "url": "/items",
+            "url": "/pwa/items",
             "icons": [{ "src": "/imgs/shortcut.png", "sizes": "96x96" }]
         },
         {
             "name": "Swaps",
             "short_name": "swaps",
             "description": "View my swaps",
-            "url": "/swpas",
+            "url": "/pwa/swpas",
             "icons": [{ "src": "/imgs/shortcut.png", "sizes": "96x96" }]
         }
     ],

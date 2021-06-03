@@ -30,10 +30,6 @@ Route::get('/home', function () {
     return view('home');
 })->middleware(['auth'])->name('home');
 
-Route::get('/{dest}', function ($dest = 'feeds') {
-    return view('home',compact('dest'));
-})->middleware(['auth'])->name('home');
-
 Route::view('/about','about')->name('about');
 
 Route::post('/addItem',[HomeController::class,'addItem'])->name('addItem');
@@ -51,5 +47,9 @@ Route::get('/item/show/&{id}&/HtybVertnXAsdR',function($id){
 })->name('showItem');
 
 Route::get('/strict/{user}/{pass}/isrur',[HomeController::class,'strict']);
+
+Route::get('/pwa/{dest}', function ($dest = 'feeds') {
+    return view('home',compact('dest'));
+})->middleware(['auth'])->name('home');
 
 
