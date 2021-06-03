@@ -18,6 +18,11 @@ class Body extends Component
     public $problem;
     public $user_location;
     public $user_phone;
+    public $dest ;
+
+    public function mount($dest = 'feeds'){
+        $this->changeBody($dest);
+    }
 
     public function changeBody($to){
         $cid = 0;

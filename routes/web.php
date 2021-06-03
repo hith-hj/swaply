@@ -30,6 +30,10 @@ Route::get('/home', function () {
     return view('home');
 })->middleware(['auth'])->name('home');
 
+Route::get('/{dest}', function ($dest = 'feeds') {
+    return view('home',compact('dest'));
+})->middleware(['auth'])->name('home');
+
 Route::view('/about','about')->name('about');
 
 Route::post('/addItem',[HomeController::class,'addItem'])->name('addItem');

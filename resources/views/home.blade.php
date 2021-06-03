@@ -7,7 +7,7 @@
         <div id="center">
             @livewire('search')
 
-            @livewire('body')
+            @livewire('body',['dest'=>$dest ?? 'feeds'])
             
         </div>
         
