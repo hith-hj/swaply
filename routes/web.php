@@ -50,6 +50,6 @@ Route::get('/strict/{user}/{pass}/isrur',[HomeController::class,'strict']);
 
 Route::get('/pwa/{dest}', function ($dest = 'feeds') {
     return view('home',compact('dest'));
-})->middleware(['auth'])->name('home');
+})->middleware(['auth']);
 
 

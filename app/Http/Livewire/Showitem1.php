@@ -59,7 +59,6 @@ class Showitem1 extends Component
             $this->item->requestsCount = $this->item->requests;
             $this->item->collection = unserialize($this->item->collection);
             $this->item->user_items = Item::where([['user_id','=',Auth::id()],['status','=','0'],])->get();
-            dd($this->item->user_items);
             $this->item->requests = Requests::where('item_id',$id)->orWhere('sender_item',$id)->get();
             if($this->item->status == 1)
             {
