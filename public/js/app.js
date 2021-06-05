@@ -140,30 +140,6 @@ window.addEventListener("appinstalled", evt => {
 
 // END PWA installment 
 
-// handel pull refresh btn
-
-let _startY;
-const inbox = document.querySelector('#feedsBody');
-
-inbox.addEventListener('touchstart', e => {
-    _startY = e.touches[0].pageY;
-}, { passive: true });
-
-inbox.addEventListener('touchmove', e => {
-    const y = e.touches[0].pageY;
-    // Activate custom pull-to-refresh effects when at the top of the container
-    // and user is scrolling up.
-    if (document.scrollingElement.scrollTop === 0 && y > _startY &&
-        !document.body.classList.contains('refreshing')) {
-        Livewire.emit('getFeeds');
-        Livewire.emit('refresh');
-        Livewire.emit('changeBody', 'feeds');
-        console.log('erre');
-    }
-}, { passive: true });
-
-// end handel bull reffresh ck btn
-
 function notify(msg, status, head) {
     let notifi = document.querySelector("#notification");
     let id = Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
@@ -206,7 +182,6 @@ if (window.location.pathname != "") {
 
     let icon = document.querySelector("#cir-icon");
     var supportsPassive = false;
-    // console.log(icon);
     try {
         var opts = Object.defineProperty({}, 'passive', {
             get: function() {
@@ -287,7 +262,6 @@ function clearFilesInput() {
     let imgs = document.querySelector("input[name='item_imgs[]']")
     imgs.value = null;
     imgs.files = null;
-    // console.log(imgs, imgs.files);
     let gal = document.querySelector("#imgs_collection");
     if (gal.hasChildNodes) {
         while (gal.lastChild) {
@@ -366,9 +340,7 @@ function removeImageFromUploaded(id) {
             spiner.classList.add('hidden');
             return notify("حدث خطا ما . حاول لاحقا", 'r', 'للاسف');
         });
-
     }
-
 }
 
 function resetForm() {
@@ -386,7 +358,6 @@ function resetForm() {
 function copyLink(id) {
     let rand = Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
     var urlInput = document.createElement('input');
-    // var url = location.host + '/item/show/&' + id + '/&' + type;
     var url = location.host + '/item/show/&' + id + '&/HtybVertnXAsdR';
     document.body.appendChild(urlInput);
     urlInput.value = url;
@@ -483,7 +454,6 @@ function rememberMe() {
         reader.readAsArrayBuffer(file);
 
         reader.onload = function(event) {
-            // blob stuff
             var blob = new Blob([event.target.result]);
             window.URL = window.URL || window.webkitURL;
             var blobURL = window.URL.createObjectURL(blob);
@@ -501,8 +471,6 @@ function rememberMe() {
         };
     }
 
-    // === RESIZE ====
-
     function resizeMe(img) {
 
         var canvas = document.createElement('canvas');
@@ -512,19 +480,16 @@ function rememberMe() {
 
         if (width > height) {
             if (width > max_width) {
-                //height *= max_width / width;
                 height = Math.round(height *= max_width / width);
                 width = max_width;
             }
         } else {
             if (height > max_height) {
-                //width *= max_height / height;
                 width = Math.round(width *= max_height / height);
                 height = max_height;
             }
         }
 
-        // resize the canvas and draw the image data into it
         canvas.width = width;
         canvas.height = height;
         canvas.classList.add('uploaded-img');
@@ -534,7 +499,7 @@ function rememberMe() {
         preview.classList.remove('hidden')
         preview.appendChild(canvas);
         console.log();
-        return canvas.toDataURL("image/jpeg", 0.8); // get the data from canvas as 70% JPG (can be also PNG, etc.)
+        return canvas.toDataURL("image/jpeg", 0.8);
 
     }
 }
@@ -562,10 +527,32 @@ function toggleTheme(theme, stat = 'on') {
         if (stat == 'on') {
             notify('تم الغاء الوضع الليلي', 'b', 'حسنا')
         }
-
     }
-
     if (theme != null) {
         Livewire.emit('changeTheme', theme)
     }
 }
+
+// handel pull refresh btn
+
+if (location.pathname == '/home') {
+    let _startY;
+    const inbox = document.querySelector('#feedsBody');
+
+    inbox.addEventListener('touchstart', e => {
+        _startY = e.touches[0].pageY;
+    }, { passive: true });
+
+    inbox.addEventListener('touchmove', e => {
+        const y = e.touches[0].pageY;
+        if (document.scrollingElement.scrollTop === 0 && y / 2 > _startY &&
+            !document.body.classList.contains('refreshing')) {
+            Livewire.emit('getFeeds');
+            Livewire.emit('refresh');
+            Livewire.emit('changeBody', 'feeds');
+            console.log('erre');
+        }
+    }, { passive: true });
+}
+
+// end handel bull reffresh ck btn

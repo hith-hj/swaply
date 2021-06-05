@@ -65,7 +65,7 @@
                 <div class="card-footer">
                     <div class="alert alert-success" role="alert">
                         <div class="row">
-                            <div class="col " >
+                            <div class="col">
                                 <small> عملية التبادل ناجحة</small>
                                 <p>شكرا لك لأستخدامك سوابلي في تبديل غرضك <br>💚/_ (^_^) _\💚</p>
                             </div>
