@@ -238,3 +238,13 @@ a {
 .lead {
     color: #fff !important;
 }
+
+.danger {
+    color: #d6d606 !important;
+}
+
+.rate,
+.email {
+    color: #eee !important;
+    font-weight: 200;
+}
