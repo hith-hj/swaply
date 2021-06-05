@@ -14,20 +14,24 @@
                         </div>
                         <div class="col-1 mr-1">
                             <div class="d-inline ">
-                                <span class="icon-1 link-dark cursor" id="options" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-three-dots-vertical"></i>
-                                </span>
-                                <ul class="dropdown-menu" aria-labelledby="options">
-                                    @if($feed->user_id != Auth::user()->id)
-                                        <li class="cursor dropdown-item" wire:click="savePost('{{$feed->id}}')"><i class="bi bi-save"></i> <span>حفظ</span></li>
-                                        <li class="cursor dropdown-item" wire:click="$emit('copyUrl',['{{$feed->id}}'])"><i class="bi bi-clipboard-plus"></i> <span>نسخ الرابط</span></li>
-                                        <li class="cursor dropdown-item" onclick="document.querySelector('#report{{$feed->id}}').classList.toggle('hidden')"><i class="bi bi-flag cr"></i> <span>تبليغ إساءة</span></li>
-                                    @else 
-                                        <li class="cursor dropdown-item" wire:click="$emit('copyUrl',['{{$feed->id}}'])"><i class="bi bi-clipboard-plus"></i> <span>نسخ الرابط</span></li>
-                                        <li class="cursor dropdown-item" onclick="document.querySelector('#edit{{$feed->id}}').classList.toggle('hidden')" ><i class="bi bi-pencil-square"></i> <small> تعديل المنشور</small></li>
-                                        <li class="cursor dropdown-item" onclick="document.querySelector('#delete{{$feed->id}}').classList.toggle('hidden')" ><i class="bi bi-trash cr"></i> <small>حذف المنشور</small></li>
-                                    @endif
-                                </ul>
+                                @if($feed->status == 0)
+                                    <span class="icon-1 link-dark cursor" id="options" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-three-dots-vertical"></i>
+                                    </span>
+                                    <ul class="dropdown-menu" aria-labelledby="options">
+                                        @if($feed->user_id != Auth::user()->id)
+                                            <li class="cursor dropdown-item" wire:click="savePost('{{$feed->id}}')"><i class="bi bi-save"></i> <span>حفظ</span></li>
+                                            <li class="cursor dropdown-item" wire:click="$emit('copyUrl',['{{$feed->id}}'])"><i class="bi bi-clipboard-plus"></i> <span>نسخ الرابط</span></li>
+                                            <li class="cursor dropdown-item" onclick="document.querySelector('#report{{$feed->id}}').classList.toggle('hidden')"><i class="bi bi-flag cr"></i> <span>تبليغ إساءة</span></li>
+                                        @else 
+                                            <li class="cursor dropdown-item" wire:click="$emit('copyUrl',['{{$feed->id}}'])"><i class="bi bi-clipboard-plus"></i> <span>نسخ الرابط</span></li>
+                                            @if($feed->status == 0)
+                                                <li class="cursor dropdown-item" onclick="document.querySelector('#edit{{$feed->id}}').classList.toggle('hidden')" ><i class="bi bi-pencil-square"></i> <small> تعديل المنشور</small></li>
+                                                <li class="cursor dropdown-item" onclick="document.querySelector('#delete{{$feed->id}}').classList.toggle('hidden')" ><i class="bi bi-trash cr"></i> <small>حذف المنشور</small></li>
+                                            @endif
+                                        @endif
+                                    </ul>
+                                @endif
                             </div>
                         </div>
                     </div> 
@@ -284,6 +288,7 @@
                                                 <i data-bs-dismiss="modal" aria-label="Close" class="bi bi-x" onclick="document.querySelector('#offer{{$feed->id}}').classList.toggle('hidden')"></i>
                                             </div>
                                             <div class="modal-body">
+                                                @if(count($feed->user_items) > 0)
                                                 <label for="" class="form-label">اختر غرضك للتبديل</label>
                                                 <select class="form-select bg-gray" wire:model.defer="req_item">
                                                     <option value="{{$feed->user_items[0]->id}}">اختر</option>
@@ -291,8 +296,11 @@
                                                         <option value="{{$myitem->id}}" >{{$myitem->item_title}}</option>
                                                     @endforeach
                                                 </select>
+                                                @else 
+                                                    <label for="" class="form-label">الرجاء اضافة غرض  قبل ارسال الطلب</label>
+                                                @endif
                                             </div>
-                                            <div class="modal-footer justify-content-center">
+                                            <div class="modal-footer justify-content-center {{count($feed->user_items) <= 0 ? 'hidden' : ''}}">
                                                 <div class="btn-group" >
                                                     <button type="button" class="btn btn-outline-success " wire:click="sendOffer({{$feed->id}},'{{$feed->user_id}}','{{$feed->item_type}}')"><i class="bi bi-cloud-upload mx-2"></i><small>ارسال</small></button> 
                                                     <button type="button" class="btn btn-outline-dark " onclick="document.querySelector('#offer{{$feed->id}}').classList.toggle('hidden')"><i class="bi bi-x mx-2"></i><small>أغلاق</small></button>   

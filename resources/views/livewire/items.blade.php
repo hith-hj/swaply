@@ -18,7 +18,9 @@
                                 </span>
                                 <ul class="dropdown-menu" aria-labelledby="options">
                                     <li class="cursor dropdown-item" wire:click="$emit('copyUrl',['{{$feed->id}}'])"><i class="bi bi-clipboard-plus"></i> <span>نسخ الرابط</span></li>
-                                    <li class="cursor dropdown-item" onclick="document.querySelector('#delete{{$feed->id}}').classList.toggle('hidden')" ><i class="bi bi-trash cr"></i> <small>حذف المنشور</small></li>
+                                    @if($feed->status == 0)
+                                        <li class="cursor dropdown-item" onclick="document.querySelector('#delete{{$feed->id}}').classList.toggle('hidden')" ><i class="bi bi-trash cr"></i> <small>حذف المنشور</small></li>
+                                    @endif
                                 </ul>
                             </div>
                         </div>

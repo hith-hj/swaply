@@ -1,5 +1,5 @@
 <div>
-    <div id="navMenu" class="ver-menu " onload="menuView()">
+    <div id="navMenu" class="ver-menu" onload="menuView()">
         <ul id="navList" class="ver-list ani ani_slideInRight ani_faster">            
             <li class="cursor ver-li " title="معلوماتي" >
                 <div class="dropend">
@@ -139,18 +139,21 @@
                                 <li class="cursor" wire:click="$emitTo('body','changeBody','saves')">
                                     <span class="dropdown-item" > <i class="bi bi-save"></i> <span>محفوظات</span> </span>
                                 </li>
-                                <li class="cursor" wire:click="$emitTo('body','changeBody','recommends')">
+                                {{-- <li class="cursor" wire:click="$emitTo('body','changeBody','recommends')">
                                     <span class="dropdown-item" > 
                                         @if($user->recommends > 0)
                                             <span class="bi bi-dot red-alert icon-15"></span>
                                         @endif
                                         <i class="bi bi-bookmark-plus"></i> <span>تطابقات</span> </span>
-                                </li>
+                                </li> --}}
                                 <li class="cursor" wire:click="$emitTo('body','changeBody','requests')">
                                     <span class="dropdown-item" > <i class="bi bi-arrow-bar-up"></i> <span>العروض المرسلة</span> </span>
                                 </li>
                                 <li class="cursor" wire:click="$emitTo('body','changeBody','termsOfUse')">
                                     <span class="dropdown-item" > <i class="bi bi-ui-checks"></i> <span>شروط الاستخدام</span> </span>
+                                </li>
+                                <li class="cursor">
+                                    <a href="{{route('about')}}" class="dropdown-item"> <i class="bi bi-exclamation-circle"></i> <span>حول سوابلي</span> </a>
                                 </li>
                                 <li class="cursor" wire:click="$emitTo('body','changeBody','reportProblem')">
                                     <span class="dropdown-item" > <i class="bi bi-flag cr"></i> <span>اقتراحات و مشاكل</span> </span>
@@ -172,7 +175,7 @@
         </ul>      
     </div>
 
-    <div id="newItemModal" class="hidden smodal ">
+    <div id="newItemModal" class="hidden smodal">
         <div id="dataForm" class="itemCard shadow show ani ani_fadeIn p-2" >
             <form id="add-item-form" class="width-auto" onsubmit="AddItem(event)" stoppedAction="{{route('addItem')}}" method="POST" enctype="multipart/form-data">
                 <div class="row">
@@ -257,63 +260,65 @@
         </div>
     </div>
 
-    <div id="editMyInfoModal" class="hidden smodal">
-        <div class="card shadow show ani ani_fadeIn p-2 w-100">
-            <div class="row py-1">
-                <div class="col-8">
-                    <label class="form-label" >تعديل معلوماتي</label>
+    @if(Auth::user()->location != 'not-set' && Auth::user()->phone != 'not-set')
+        <div id="editMyInfoModal" class="hidden smodal">
+            <div class="card shadow show ani ani_fadeIn p-2 w-100">
+                <div class="row py-1">
+                    <div class="col-8">
+                        <label class="form-label" >تعديل معلوماتي</label>
+                    </div>
+                    <div class="col-1 offset-2">
+                        <i class="bi bi-x icon-15" onclick="document.querySelector('#editMyInfoModal').classList.toggle('hidden')"></i>
+                    </div>
                 </div>
-                <div class="col-1 offset-2">
-                    <i class="bi bi-x icon-15" onclick="document.querySelector('#editMyInfoModal').classList.toggle('hidden')"></i>
-                </div>
-            </div> 
-            <div class="location">
-                <label for=""><span>ادخل الموقع</span></label>               
-                <div class="input-group">
-                    <input type="text" aria-label="governent" list="covernent-list" class="form-control" placeholder="{{explode('-',Auth::user()->location)[0]}}" wire:model.defer="userInfo.location.covernent">
+                <div class="location">
+                    <label for=""><span>ادخل الموقع</span></label>
+                    <div class="input-group">
+                        <input type="text" aria-label="governent" list="covernent-list" class="form-control" placeholder="{{explode('-',Auth::user()->location)[0]}}" wire:model.defer="userInfo.location.covernent">
                     
-                    <input type="text" aria-label="area"  class="form-control" placeholder="{{explode('-',Auth::user()->location)[1]}}" wire:model.defer="userInfo.location.area">
+                        <input type="text" aria-label="area"  class="form-control" placeholder="{{explode('-',Auth::user()->location)[1]}}" wire:model.defer="userInfo.location.area">
                     
-                    <input type="text" aria-label="nighborhood"  class="form-control" placeholder="{{explode('-',Auth::user()->location)[2]}}" wire:model.defer="userInfo.location.naighbor">
+                        <input type="text" aria-label="nighborhood"  class="form-control" placeholder="{{explode('-',Auth::user()->location)[2]}}" wire:model.defer="userInfo.location.naighbor">
+                    </div>
+                    <datalist id="covernent-list">
+                        <option value="القاهرة">
+                        <option value="الجيزة">
+                        <option value="القليوبية">
+                        <option value="الشرقية">
+                        <option value="المنوفية">
+                        <option value="الغربية">
+                        <option value="كفر الشيخ"> 
+                        <option value="الدقهلية">
+                        <option value="دمياط">
+                        <option value="البحيرة">
+                        <option value="الأسكندرية">
+                        <option value="مرسي مطروح"> 
+                        <option value="بور سعيد"> 
+                        <option value="الإسماعيلية">
+                        <option value="السويس">
+                        <option value="البحر الاحمر"> 
+                        <option value="شمال سيناء">
+                        <option value="جنوب سيناء"> 
+                        <option value="شرم الشيخ"> 
+                        <option value="الوادي الجديد"> 
+                        <option value="الفيوم">
+                        <option value="بني سويف"> 
+                        <option value="المنيا">
+                        <option value="أسيوط">
+                        <option value="سوهاج">
+                        <option value="قنا">
+                        <option value="الأقصر">                            
+                        <option value="أسوان"> 
+                    </datalist>
+                    <div class="mt-5px" >                                        
+                        <label for=""><span>ادخل رقم الهاتف</span></label><br>
+                        <input class="form-control" type="text" inputmode="numeric" wire:model.defer="userInfo.phone" placeholder="{{Auth::user()->phone}}" required />
+                    </div> 
+                    <span class="bi bi-check icon-1 cursor btn btn-outline-success mt-2 mb-1 w-100" wire:click="updateInfo">حفظ</span>                                
                 </div>
-                <datalist id="covernent-list">
-                    <option value="القاهرة">
-                    <option value="الجيزة">
-                    <option value="القليوبية">
-                    <option value="الشرقية">
-                    <option value="المنوفية">
-                    <option value="الغربية">
-                    <option value="كفر الشيخ"> 
-                    <option value="الدقهلية">
-                    <option value="دمياط">
-                    <option value="البحيرة">
-                    <option value="الأسكندرية">
-                    <option value="مرسي مطروح"> 
-                    <option value="بور سعيد"> 
-                    <option value="الإسماعيلية">
-                    <option value="السويس">
-                    <option value="البحر الاحمر"> 
-                    <option value="شمال سيناء">                             
-                    <option value="جنوب سيناء"> 
-                    <option value="شرم الشيخ"> 
-                    <option value="الوادي الجديد"> 
-                    <option value="الفيوم">
-                    <option value="بني سويف"> 
-                    <option value="المنيا">
-                    <option value="أسيوط">
-                    <option value="سوهاج">
-                    <option value="قنا">
-                    <option value="الأقصر">                            
-                    <option value="أسوان"> 
-                </datalist>
-                <div class="mt-5px" >                                        
-                    <label for=""><span>ادخل رقم الهاتف</span></label><br>
-                    <input class="form-control" type="text" inputmode="numeric" wire:model.defer="userInfo.phone" placeholder="{{Auth::user()->phone}}" required />
-                </div> 
-                <span class="bi bi-check icon-1 cursor btn btn-outline-success mt-2 mb-1 w-100" wire:click="updateInfo">حفظ</span>                                
             </div>
         </div>
-    </div> 
+    @endif
 
     <span id="cir-icon" class="cursor" >
         <i class="bi bi-list" role="button" tabindex="0">
