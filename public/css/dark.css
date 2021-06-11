@@ -248,3 +248,9 @@ a {
     color: #eee !important;
     font-weight: 200;
 }
+
+.new {
+    border: 2px solid #dcd643;
+    border-radius: .4rem;
+    padding: .4rem !important;
+}

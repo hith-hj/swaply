@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB as DB;
 class Feeds extends Component
 {
     protected $feeds;
-    protected $listeners = ['getFeeds'];
+    protected $listeners = ['getFeeds','refresh'];
     private $g_id = null;
     public $repo;
     public $req_item;
@@ -25,9 +25,6 @@ class Feeds extends Component
         ['تم حفظ المنشور','b','حسنا',],
         ['استلمنا بلاغك سوف نتابع الموضوع ,شكرا لتعاونك','b','حسنا',],
         ['لم يتم ارسال البلاغ,الرجاء ملئ الحقول','r','للاسف',],
-        ['لم يتم ارسال العرض,الرجاء اختيار الغرض و المحاولة مرة اخرى','r','للاسف',],
-        ['تم تقديم العرض بنجاح','g','حسنا',],
-        ['لا يمكنك ارسال عرض المنشور تم تبديلة ','r','للأسف',],
     ];
 
     public function mount()
@@ -35,11 +32,20 @@ class Feeds extends Component
         $this->getFeeds();
     }
 
+    public function hydrate()
+    {
+        $this->getFeeds();
+    }
+
+    public function refresh()
+    {
+        $this->getFeeds();
+    }
+
     public function getFeeds()
     {
-        // $requests = Requests::where('sender_id','=',Auth::user()->id)->get();
         $requests = Requests::where('sender_id','=',Auth::user()->id)->orWhere('user_id','=',Auth::user()->id)->get();
-        $this->feeds = Item::all()->where('status','=','0')->sortByDesc('updated_at');
+        $this->feeds = Item::all()->where('status','=','0')->sortBy('views',0,true);
         $requests = count($requests) > 0  ? $requests : false ;
         foreach($this->feeds as $key=>$feed)
         {
@@ -53,33 +59,29 @@ class Feeds extends Component
                 }
             }
         }
-        
         $this->feeds->each(function($feed){
             $feed->user = User::find($feed->user_id);
             $feed->collection = unserialize($feed->collection);
             $feed->user_items = Item::where([
                 ['user_id','=',Auth::id()],
                 ['status','=','0'],
+                ['item_type','!=','3'],
                 ])->get();
         });
     }
 
     public function savePost($postId,$user_id)
     {
-        // dd($user_id);
         $res = Notifyer::store(Auth::id(),$user_id,'تم حفظ المنشور ',$postId);
         $sa = new Save();
         $sa->user_id = Auth::id();
         $sa->post_id = $postId;
         $sa->save();
-        
         $this->emit('notifi',$this->notis[0]);
-        
     }
 
     public function report($post_id,$user_id):void
     {
-        // dd($this->repo);
         $res = false;
         if($this->repo != null && count($this->repo) == 2)
         {
@@ -104,36 +106,8 @@ class Feeds extends Component
         $this->report_info = '';
     }
 
-    public function sendOffer($item_id,$user_id,$item_type)
-    {
-        $off = false;
-        if($this->req_item != null && $this->req_item != ''){
-            if(Item::find($item_id)->status != 0){
-                return $this->emit('notifi',$this->notis[5]);
-            }
-            $off = Requests::create([
-                'user_id'=>$user_id,
-                'item_id'=>$item_id,            
-                'item_type'=>$item_type,
-                'sender_id'=> Auth::user()->id,
-                'sender_item'=>$this->req_item,
-            ]);
-            Item::incRequests($item_id);
-            Notifyer::store(Auth::id(),$user_id,'تم استلام عرض جديد',$item_id);
-        }
-        $off == true ? $this->emit('notifi',$this->notis[4]) : $this->emit('notifi',$this->notis[3]);
-        $this->resetOffer();
-    }
-
-    public function resetOffer()
-    {
-        $this->req_info = '';
-        $this->req_item = '';
-    }
-
     public function render()
     {
-        $this->getFeeds($this->g_id);
         return view('livewire.feeds',['feeds'=>$this->feeds]);
     }
 }

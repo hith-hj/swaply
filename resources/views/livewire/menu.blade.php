@@ -63,7 +63,7 @@
                                     <div class="row">
                                         <div class="col text-muted">
                                             <small class="card-subtitle m-0">
-                                                <span> <i class="bi bi-distribute-horizontal"></i> {{$item->item_type == 1? 'مبادلة':'تبرع'}} |</span>
+                                                <span> <i class="bi bi-distribute-horizontal"></i> {{$item->item_type == 1 ? 'مبادلة' : ($item->item_type == 2 ? 'بيع' : 'تبرع')}} |</span>
                                             </small>
                                             <small class=" {{$item->item_type == 2 ? 'hidden' : ''}}"><i class="mx-1 bi bi-arrow-down-up"></i> {{$item->swap_with}} |</small>
                                             <small class=""> شوهد : {{$item->views}}</small> 
@@ -126,19 +126,12 @@
             </li>
             <li class="cursor ver-li" title="صفحات">
                 <div class="dropend">
-                    <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-100,1" aria-expanded="false">
+                    <span class="ver-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="-120,1" aria-expanded="false">
                         <i class="bi bi-grid-3x3-gap"></i>
                     </span>
                     <div class="dropdown-menu ani ani_fadeIn ani_faster px-1">
                         <div class="card">
                             <ul class="" style="list-style: none;padding:0;">
-                                
-                                <li class="cursor" wire:click="$emitTo('body','changeBody','swaps')">
-                                    <span class="dropdown-item" > <i class="bi bi-arrow-down-up"></i> <span>مبادلات</span> </span>
-                                </li>
-                                <li class="cursor" wire:click="$emitTo('body','changeBody','saves')">
-                                    <span class="dropdown-item" > <i class="bi bi-save"></i> <span>محفوظات</span> </span>
-                                </li>
                                 {{-- <li class="cursor" wire:click="$emitTo('body','changeBody','recommends')">
                                     <span class="dropdown-item" > 
                                         @if($user->recommends > 0)
@@ -146,14 +139,20 @@
                                         @endif
                                         <i class="bi bi-bookmark-plus"></i> <span>تطابقات</span> </span>
                                 </li> --}}
-                                <li class="cursor" wire:click="$emitTo('body','changeBody','requests')">
-                                    <span class="dropdown-item" > <i class="bi bi-arrow-bar-up"></i> <span>العروض المرسلة</span> </span>
+                                <li class="cursor" wire:click="$emitTo('body','changeBody','swaps')">
+                                    <span class="dropdown-item" > <i class="bi bi-arrow-down-up"></i> <span>مبادلات</span> </span>
                                 </li>
-                                <li class="cursor" wire:click="$emitTo('body','changeBody','termsOfUse')">
-                                    <span class="dropdown-item" > <i class="bi bi-ui-checks"></i> <span>شروط الاستخدام</span> </span>
+                                <li class="cursor" wire:click="$emitTo('body','changeBody','requests')">
+                                    <span class="dropdown-item" > <i class="bi bi-arrow-bar-up"></i> <span>مرسلات</span> </span>
+                                </li>
+                                <li class="cursor" wire:click="$emitTo('body','changeBody','saves')">
+                                    <span class="dropdown-item" > <i class="bi bi-save"></i> <span>محفوظات</span> </span>
                                 </li>
                                 <li class="cursor">
                                     <a href="{{route('about')}}" class="dropdown-item"> <i class="bi bi-exclamation-circle"></i> <span>حول سوابلي</span> </a>
+                                </li>
+                                <li class="cursor" wire:click="$emitTo('body','changeBody','termsOfUse')">
+                                    <span class="dropdown-item" > <i class="bi bi-ui-checks"></i> <span>شروط الاستخدام</span> </span>
                                 </li>
                                 <li class="cursor" wire:click="$emitTo('body','changeBody','reportProblem')">
                                     <span class="dropdown-item" > <i class="bi bi-flag cr"></i> <span>اقتراحات و مشاكل</span> </span>
@@ -161,7 +160,7 @@
                                 <li class="cursor">
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                 document.querySelector('#logout-form').submit();">
-                                        <i class="bi bi-door-open cr"></i><small >تسجيل خروج</small>
+                                        <i class="bi bi-door-open cr "></i><small class="mx-1">خروج</small>
                                     </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
@@ -189,19 +188,73 @@
 
                 <div id="imgs_collection" class="hidden"></div>
                 <div class="js-upload upload mb-1" uk-form-custom>
-                    <input name="item_imgs[]" multiple required type="file" id="itemgs" accept="image/*" tabindex="0" onchange="image_resizer(event)" onchangezz="displayUploadedImages(event)" hidden>
-                    <button class="cursor sbtn sbtn-txt light" tabindex="0" type="button" onclick="document.querySelector('#itemgs').click()"> <i class="bi bi-images"></i>
-                        أختر صور</button>
+                    <input name="item_imgs[]" multiple required type="file" id="itemgs" accept="image/*" tabindex="0" onchange="image_resizer(event)" hidden>
+                    <button class="cursor sbtn sbtn-txt light ani ani_flash" required tabindex="0" type="button" onclick="document.querySelector('#itemgs').click()">
+                        <i class="bi bi-images mx-2"></i>أختر صور
+                    </button>
                 </div>
 
-                <input name="item_title" type="text" class="form-control mb-1" placeholder="اسم الشيئ" required>
+                <select name="item_type" id="item_type" class="form-control mb-1 ani ani_flash" style="font-family: cairo" required onchange="
+                        let swap =  document.querySelector('#swap_with');
+                        let price = document.querySelector('#item_price');
+                        let note = document.querySelector('#swaply_percent');
+                        if(this.value == 1){
+                            swap.classList.remove('hidden');
+                            swap.value = '';
+                            price.placeholder = 'فرق السعر (اختياري)';
+                            price.hidden = false;
+                            note.hidden = true;
+                        }else if(this.value == 2){
+                            swap.classList.add('hidden');
+                            swap.value = 'trade';
+                            price.placeholder = 'سعر الغرض';
+                            price.hidden = false;
+                            note.hidden = false;  
+                            let oldperc = document.querySelector('#percent')
+                            if(oldperc != null) swaply_percent.removeChild(oldperc);                          
+                        }else{
+                            swap.classList.add('hidden');
+                            swap.value = 'donation';
+                            price.hidden = true;
+                            note.hidden = true;
+                        }">
+                        <option value="1">مبادلة</option>
+                        <option value="2">مبيع</option>
+                        <option value="3">تبرع</option>
+                </select>
 
-                <input name="swap_with" type="text" id="swap_with" placeholder="هتبدل بأيه" class="form-control mb-1" title="الاسم واضح" required>
+                <input name="item_title" type="text" class="form-control mb-1" placeholder="اسم الحاجة" required>
 
-                <textarea name="item_description" wrap="hard" class="form-control mb-1" rows="2" title="اختياري" placeholder="اوصف حاجتك"></textarea>
+                <input name="swap_with" type="text" id="swap_with" placeholder="هتبدل بأيه" class="form-control mb-1 ani ani_fadeIn" title="الاسم واضح" required>
 
-                <input type="text" inputmode="numeric" name="amount" class="form-control" title="اختياري" placeholder="فرق السعر (اختياري)" >
+                <textarea name="item_description" wrap="hard" class="form-control mb-1" rows="2" maxlength="250" title="اختياري" placeholder="اوصف حاجتك"></textarea>
 
+                <input id="item_price" type="text" inputmode="numeric" name="amount" class="form-control  ani ani_fadeIn" title="اختياري" placeholder="فرق السعر (اختياري)" 
+                onchange="
+                    setTimeout(()=>{
+                        let item_type = document.querySelector('#item_type');
+                        let swaply_precent = document.querySelector('#swaply_percent')
+                        if(item_type.value == 2 && this.value.length > 0)
+                        {
+                            if(!isNaN(parseInt(this.value))){
+                                let percent = Math.ceil(parseInt(this.value) + parseInt(this.value) * 0.05)
+                                let oldperc = document.querySelector('#percent')
+                                if(oldperc != null) swaply_percent.removeChild(oldperc);
+                                let span = document.createElement('span');
+                                span.setAttribute('id','percent');
+                                span.textContent =` ( السعر بعد الإضافة ${percent} ) `;
+                                swaply_percent.appendChild(span);
+                            }else{
+                                let strong = document.createElement('strong');
+                                strong.setAttribute('id','percent');
+                                strong.textContent =` القيمة المدخلة خاطئة`;
+                                swaply_percent.appendChild(strong);
+                            }
+                        }
+                    },300);
+                ">
+                <small id="swaply_percent" style="font-size: 10px" class=" ani ani_fadeIn" hidden> سوابلي سوف يضيف 5% على سعر الغرض</small>
+                
                 {{-- <div class="location mb-1">
                     <button id="setLocation" type="button" class="btn text-muted cursor glow" tabindex="0" onclick="setItemLocation()">إضافة عنوان اخر</button>
                     <span id="resetLocation" class="hidden cursor glow " tabindex="0" onclick="resetItemLocation()"><i class="bi bi-x"></i></span>
@@ -245,7 +298,6 @@
                     </div>
                 </div> --}}
 
-                
                 <div class="text-center">
                     <button id="submit-form" type="submit" name="submit_btn" class="btn btn-outline-success w-100 mt-2">
                         <div class="spinner-border m-2 hidden" id="formLoading" style="height: 1rem;width:1rem"> 

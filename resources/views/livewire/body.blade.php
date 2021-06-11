@@ -10,7 +10,7 @@
             @livewire('showitem',['g_id' => $g_id])
             @break
         @case('showitem1')
-            @livewire('showitem1',['g_id' => $g_id])
+            @livewire('showitem',['g_id' => $g_id])
             @break    
         @case('swaps')
             @livewire('swaps')

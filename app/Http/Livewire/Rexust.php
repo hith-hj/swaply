@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Item;
 use App\Models\Requests;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -35,14 +36,11 @@ class Rexust extends Component
             case 'sentOffers':
                 $this->getSentOffers();
                 break;
-            case 'recivedOffers':
-                $this->getRecivedOffers();
+            case 'sentTrades':
+                $this->getSentTrades();
                 break;
             case 'sentOrders':
                 $this->getSentOrders();
-                break;
-            case 'recivedOrders':
-                $this->getRecivedOrders();
                 break;
             default:
                 $this->getSentOffers();
@@ -56,13 +54,17 @@ class Rexust extends Component
     {
         return $this->requests = Requests::where([['sender_id','=',Auth::id()],['item_type','=','1']])->get()->sortByDesc('created_at');
     }
-    private function getRecivedOffers()
+    private function getSentTrades()
     {
-        return $this->requests = Requests::where([['user_id','=',Auth::id()],['item_type','=','1']])->get();
+        return $this->requests = Requests::where([['sender_id','=',Auth::id()],['item_type','=','2']])->get()->sortByDesc('created_at');
     }
     private function getSentOrders()
     {
-        return $this->requests = Requests::where([['sender_id','=',Auth::id()],['item_type','=','2']])->get()->sortByDesc('created_at');
+        return $this->requests = Requests::where([['sender_id','=',Auth::id()],['item_type','=','3']])->get()->sortByDesc('created_at');
+    }
+    private function getRecivedOffers()
+    {
+        return $this->requests = Requests::where([['user_id','=',Auth::id()],['item_type','=','1']])->get();
     }
     private function getRecivedOrders()
     {
@@ -71,15 +73,21 @@ class Rexust extends Component
     
     private function getITems()
     {
-        foreach($this->requests as $req)
+        foreach($this->requests as $key=>$req)
         {
+            if($req->status == 1 && $req->created_at->add(3, 'day')->lessThan(Carbon::now())){
+                $this->requests->forget($key);
+            }
             $req->user = User::find($req->user_id);
             $req->sender = User::find($req->sender_id);
             $req->item = Item::find($req->item_id);
             $req->item->collection = unserialize($req->item->collection);
             if($req->item_type == 1){
                 $req->sender_item = Item::find($req->sender_item);
-            }        
+            }
+            if($req->item_type == 2 && $req->sender_item != 'trade'){
+                $req->sender_item = Item::find($req->sender_item);
+            }
         }
         
     }

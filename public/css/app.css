@@ -35,13 +35,14 @@ html {
     -webkit-padding-end: 0;
     padding-inline-end: 0;
     -webkit-padding-after: 0;
-    padding-block-end: 0
+    padding-block-end: 0;
+    transition: .1s;
 }
 
 #canvas {
-    background-color: #bcceb799;
-    background: -webkit-gradient(linear, left top, right top, from(#48a63fc9), color-stop(#ebf8e1), to(#daf63cc9));
-    background: linear-gradient(.25turn, #48a63fc9, #ebf8e1, #daf63cc9);
+    background-color: #a1b79bf0;
+    /* background: -webkit-gradient(linear, left top, right top, from(#48a63fc9), color-stop(#ebf8e1), to(#daf63cc9));
+    background: linear-gradient(.25turn, #48a63fc9, #ebf8e1, #daf63cc9); */
     z-index: -100;
     top: 0;
     left: 0;
@@ -106,8 +107,8 @@ html {
 .glow:focus,
 .glow:hover {
     color: #57c56f!important;
-    -webkit-filter: drop-shadow(0 0 .3rem #8cf1a2);
-    filter: drop-shadow(0 0 .3rem #8cf1a2);
+    -webkit-filter: drop-shadow(0 0 .1rem #8cf1a2);
+    filter: drop-shadow(0 0 .1rem #8cf1a2);
     -webkit-transition: .2s ease-out;
     transition: .2s ease-out
 }
@@ -181,7 +182,7 @@ textarea::selection {
 }
 
 .cr {
-    color: red!important
+    color: red
 }
 
 .cw {
@@ -733,5 +734,11 @@ textarea::selection {
 
 .bi {
     color: #59ac51;
-    filter: drop-shadow(0 1px 1px #59ac51)
+    /* filter: drop-shadow(0 1px 1px #59ac51) */
+}
+
+.new {
+    border: 2px solid #59ac51;
+    padding: .5rem;
+    border-radius: .4rem;
 }

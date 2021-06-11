@@ -22,13 +22,12 @@ class Showitem extends Component
     public $req_item;
     public $req_info;
     public $editedFeed;
+    protected $listeners = ['refresh'];
     protected $notis = [
         ['تم حفظ المنشور','b','حسنا',],
         ['حدث خطا ما','r','للاسف',],
         ['استلمنا بلاغك سوف نتابع الموضوع ,شكرا لتعاونك','b','حسنا',],
         ['لم يتم ارسال البلاغ,الرجاء المحاولة لاحقا','r','للاسف',],
-        ['لم يتم ارسال العرض,الرجاء المحاولة لاحقا','r','للاسف',],
-        ['تم تقديم العرض بنجاح','g','حسنا',],
         ['تم قبول العرض سوف يتم حذف باقي العروض المستلمة على هذا المنشور','g','حسنا',],
         ['تم تعديل المنشور','g','حسنا'],
         ['املأ الحقول المطلوبة','r','خطا'],
@@ -48,59 +47,20 @@ class Showitem extends Component
         $this->getItem($this->item_id);
     }
 
+    public function refresh()
+    {
+        $this->getItem($this->item_id);
+    }
+
     public function getItem($id)
     {
         $item = Item::find($id);
         $stat = $item != null ? true : false;
-        if($stat == true && $item->status != 'soft_deleted'){ 
+        if($stat == true && $item->status != 'soft_deleted'){
+            $this->itemEditInfo($item);
             Item::incViews($id);
-            $this->item = $item;
-            $this->item->user = User::find($this->item->user_id);
-            $this->item->requestsCount = $this->item->requests;
-            $this->item->collection = unserialize($this->item->collection);
-            $this->item->user_items = Item::where([['user_id','=',Auth::id()],['status','=','0']])->get();
-            $this->item->requests = Requests::where('item_id',$id)->orWhere('sender_item',$id)->get();
-            if($this->item->status == 1)
-            {
-                $this->item->requests->filter(function($req){
-                    if($req->status == 1)
-                    {
-                        if($req->user_id == Auth::id()){
-                            $uid = $req->sender_id;
-                            $uitem = $req->sender_item;
-                        }else{
-                            $uid = $req->user_id;
-                            $uitem = $req->item_id;
-                        }
-                        $this->item->sender = User::find($uid);
-                        $this->item->sender_item = Item::find($uitem);
-                        return $req;
-                    }
-                });
-            }else{
-                foreach($this->item->requests as $req){
-                    if(Auth::id() == $req->user_id)
-                    {
-                        $req->sender = User::find($req->sender_id);
-                        if($req->item_type == 1){
-                            $req->sender_item = Item::find($req->sender_item);
-                            $req->sender_item->collection = unserialize($req->sender_item->collection);
-                        }
-                    }else{
-                        $req->sender = User::find($req->user_id);
-                        if($req->item_type == 1){
-                            $req->sender_item = Item::find($req->item_id);
-                            $req->sender_item->collection = unserialize($req->sender_item->collection);
-                        }
-                    }
-
-                }
-            }
-            $this->editedFeed['item_title'] = $this->item->item_title;
-            $this->editedFeed['item_info'] = $this->item->item_info;
-            $this->editedFeed['item_location'] = $this->item->item_location;
-            $this->editedFeed['swap_with'] = $this->item->swap_with; 
-            
+            $this->item = $this->getItemData($item,$id);
+            $this->item = $this->checkItemStatus($this->item);           
             if($this->item->user_id != Auth::id()){
                 $this->item = $this->checkIfRequested($this->item);
                 $this->item = $this->checkIfRecived($this->item);
@@ -110,9 +70,99 @@ class Showitem extends Component
         }
     }
 
-    /**
-     * @return object if requested by the viewer
-     */
+    public function getItemData($item,$id)
+    {
+        $item->user = User::find($item->user_id);
+        $item->requestsCount = $item->requests;
+        $item->collection = unserialize($item->collection);
+        $item->user_items = Item::where([['user_id','=',Auth::id()],['status','=','0'],['item_type','!=','3'],])->get();
+        $item->requests = Requests::where('item_id',$id)->get();
+        return $item;
+    }
+
+    public function checkItemStatus($item)
+    {
+        if($item->user_id == Auth::id())
+            {
+                if($item->status == '1'){
+                    $item->requests->filter(function($req) use ($item){
+                        if($req->status == '1'){
+                            $item->sender_id = User::find($req->sender_id);
+                            switch ($item->item_type) {
+                                case '1':
+                                    $item->sender_item == Item::find($req->sender_item);
+                                    break;
+                                case '2':
+                                    if($req->sender_item != 'trade')
+                                    {
+                                        $item->sender_item == Item::find($req->sender_item);
+                                    }else{
+                                        $item->sender_item == 'trade';
+                                    }
+                                    break;                                
+                                default:
+                                    # code...
+                                    break;
+                            }
+                            return $req;
+                        }
+                    });
+                }else{
+                    foreach ($item->requests as $key => $req) {
+                        $item->sender = User::find($req->sender_id);
+                        if($item->item_type != '3' && $req->sender_item != 'trade'){
+                            $req->sender_item = Item::find($req->sender_item);
+                            $req->sender_item->collection = unserialize($req->sender_item->collection);
+                        }
+                    }
+                }
+            }
+        return $item;
+        // if($this->item->user_id == Auth::id())
+        // {
+        //     if($this->item->status == '1'){
+        //         $this->item->requests->filter(function($req){
+        //             if($req->status == '1'){
+        //                 $this->item->sender_id = User::find($req->sender_id);
+        //                 switch ($this->item->item_type) {
+        //                     case '1':
+        //                         $this->item->sender_item == Item::find($req->sender_item);
+        //                         break;
+        //                     case '2':
+        //                         if($req->sender_item != 'trade')
+        //                         {
+        //                             $this->item->sender_item == Item::find($req->sender_item);
+        //                         }else{
+        //                             $this->item->sender_item == 'trade';
+        //                         }
+        //                         break;                                
+        //                     default:
+        //                         # code...
+        //                         break;
+        //                 }
+        //                 return $req;
+        //             }
+        //         });
+        //     }else{
+        //         foreach ($this->item->requests as $key => $req) {
+        //             $this->item->sender = User::find($req->sender_id);
+        //             if($this->item->item_type != '3' && $req->sender_item != 'trade'){
+        //                 $req->sender_item = Item::find($req->sender_item);
+        //                 $req->sender_item->collection = unserialize($req->sender_item->collection);
+        //             }
+        //         }
+        //     }
+        // } 
+    }
+
+    public function itemEditInfo($item)
+    {
+        $this->editedFeed['item_title'] = $item->item_title;
+        $this->editedFeed['item_info'] = $item->item_info;
+        $this->editedFeed['item_location'] = $item->item_location;
+        $this->editedFeed['swap_with'] = $item->swap_with;
+    }
+
     public function checkIfRequested($item):object
     {
         $item->requested = Requests::where([
@@ -145,37 +195,18 @@ class Showitem extends Component
         
     }
 
-    public function sendOffer($item_id,$user_id,$item_type)
+    public function setRequestViewed($request_id)
     {
-        $off = false;
-        if($this->req_item != null && $this->req_item !=''){
-            if(Item::find($item_id)->status != 0){
-                return $this->emit('notifi',$this->notis[5]);
-            }
-            $off = Requests::create([
-                'user_id'=>$user_id,
-                'item_id'=>$item_id,            
-                'item_type'=>$item_type,
-                'sender_id'=> Auth::user()->id,
-                'sender_item'=>$this->req_item,
-            ]);
-            Item::incRequests($item_id);
-            Notifyer::store(Auth::id(),$user_id,'تم استلام عرض جديد',$item_id);
+        $req = Requests::find($request_id);
+        if($req == true && $req != null)
+        {
+            if($req->viewed == '0')
+            {
+                $req->viewed += 1;
+                $req->save();
+            }            
+            $this->emitSelf('refresh');
         }
-        $this->resetOffer();
-        if($off == true){ 
-            $this->emit('notifi',$this->notis[5]);
-            $this->emit('changeBody','feeds');
-        }else{
-            $this->emit('notifi',$this->notis[4]);
-            $this->getItem($this->item_id);
-        }
-    }
-    
-    public function resetOffer()
-    {
-        $this->req_info = '';
-        $this->req_item = '';
     }
 
     public function acceptRequest($request_id,$user_id,$sender_id,$item_id,$sender_item)
@@ -274,7 +305,6 @@ class Showitem extends Component
 
     public function report($post_id,$user_id):void
     {
-        // dd($this->repo);
         $res = false;
         if($this->repo != null && count($this->repo) == 2)
         {

@@ -324,11 +324,11 @@ function removeImageFromUploaded(id) {
         }).then(res => res.json()).then((res) => {
             resetForm();
             if (res.status == 200 || res.statusText == "OK") {
-                Livewire.emit('changeBody', 'feeds');
+                Livewire.emit('changeBody', 'items');
                 Livewire.emitTo('feeds', 'getFeeds');
                 sbtn.disabled = false;
                 spiner.classList.add('hidden');
-                return notify("تم اضافة غرضك, تحقق من صفحة التطابقات", 'g', 'حسنا');
+                return notify("تم اضافة غرضك بنجاح", 'g', 'حسنا');
             } else {
                 notify(res.msg, 'r', ' حدث خطا ما');
                 sbtn.disabled = false;

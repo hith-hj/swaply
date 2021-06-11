@@ -30,7 +30,9 @@
                             @if($feed->status ==1)
                                 <small class="card-subtitle text-muted mx-1 green_underline"><strong>تم التبديل</strong></small>
                             @endif
-                            <small class="card-subtitle text-muted green_underline" title="نوع المنشور"><i class="mx-1 bi bi-distribute-horizontal"></i><span>{{$feed->item_type == 1 ? 'مبادلة' : 'تبرع'}}</span></small>
+                            <small class="card-subtitle text-muted green_underline" title="نوع المنشور">
+                                <i class="mx-1 bi bi-distribute-horizontal"></i>
+                                <span>{{$feed->item_type == 1 ? 'مبادلة' : ($feed->item_type == 2 ? 'بيع' : 'تبرع')}}</span></small>
                             @if($feed->item_type != 'تبرع')
                                 <small class="card-subtitle text-muted " title="بديل الغرض"><i class="mx-1 bi bi-arrow-down-up"></i><span>{{substr($feed->swap_with,0,strlen($feed->swap_with) < 30? strlen($feed->swap_with) : strlen($feed->swap_with)/3)}}</span></small>
                             @endif

@@ -125,7 +125,7 @@ class Menu extends Component
 
     public function render()
     {
-        $this->getUser();
+        // $this->getUser();
         return view('livewire.menu',['user'=>$this->user]);
     }
 }

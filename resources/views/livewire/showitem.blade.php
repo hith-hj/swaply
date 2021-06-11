@@ -40,7 +40,9 @@
                             @if($feed->status ==1)
                                 <small class="card-subtitle text-muted mx-1 green_underline"><strong>تم التبديل</strong></small>
                             @endif
-                            <small class="card-subtitle text-muted green_underline" title="نوع المنشور"><i class="mx-1 bi bi-distribute-horizontal"></i><span>{{$feed->item_type == 1 ? 'مبادلة'  :'تبرع' }}</span></small>
+                            <small class="card-subtitle text-muted green_underline" title="نوع المنشور">
+                                <i class="mx-1 bi bi-distribute-horizontal"></i>
+                                <span>{{$feed->item_type == 1 ? 'مبادلة' : ($feed->item_type == 2 ? 'بيع' : 'تبرع')}}</span></small>
                             @if($feed->item_type == 1)
                                 <small class="card-subtitle text-muted " title="بديل الغرض"><i class="mx-1 bi bi-arrow-down-up"></i><span>{{substr($feed->swap_with,0,strlen($feed->swap_with) < 30? strlen($feed->swap_with) : strlen($feed->swap_with)/3)}}</span></small>
                             @endif
@@ -101,10 +103,12 @@
                                     <label class="form-label">مكان الغرض</label>
                                     <input wire:model.defer="editedFeed.item_location" class="form-control" type="text" placeholder="{{$feed->item_location}}">
                                 </div>
-                                <div class="col-6">                                    
-                                    <label class="form-label">هتبدلو بايه</label>
-                                    <input wire:model.defer="editedFeed.swap_with" class="form-control" type="text" placeholder="{{$feed->swap_with}}">
-                                </div>                          
+                                @if($feed->item_type == 1)
+                                    <div class="col-6">                                    
+                                        <label class="form-label">هتبدلو بايه</label>
+                                        <input wire:model.defer="editedFeed.swap_with" class="form-control" type="text" placeholder="{{$feed->swap_with}}">
+                                    </div>
+                                @endif                         
                             </div>
                             <div class="modal-footer justify-content-center">
                                 <div class="btn-group" >
@@ -167,7 +171,6 @@
                                     </div>                                                                                                                                     
                                 @endforeach
                             </div>
-
                         </div>
                         @if(count($feed->collection) > 1)
                             <div class="text-center" style="z-index: 13">
@@ -185,135 +188,228 @@
                         @endif
                     </div>
                 </div>
-
-                @if($feed->status == 1 )
-                    @if($feed->user_id == Auth::id() && count($feed->requests) > 0)
-                        <div class="card-footer text-centerz">
-                            <div class="alert alert-success" role="alert">
-                                <div class="row">
-                                    <div class="col " >
-                                        <small> عملية التبادل ناجحة</small>
-                                        <small class="p-1">البديل
-                                            <strong class="cursor" wire:click="$emit('changeBody',['showitem','{{$feed->sender_item->id}}'])">{{$feed->sender_item->item_title}}</strong>
-                                        </small>
+                @if($feed->user_id == Auth::id())
+                    @if($feed->status == '1')
+                        @switch($feed->item_type)
+                            @case('1')
+                                <div class="card-footer text-centerz">
+                                    <div class="alert alert-success" role="alert">
+                                        <div class="row">
+                                            <div class="col " >
+                                                <small> عملية التبادل ناجحة</small>
+                                                <small class="p-1">البديل
+                                                    <strong class="cursor" wire:click="$emit('changeBody',['showitem','{{$feed->sender_item->id}}'])">{{$feed->sender_item->item_title}}</strong>
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <small> <span>معلومات التواصل</span></small>
+                                        <small> <i class="bi bi-person"></i><span> {{$feed->sender->name}} </span> </small> <br>   
+                                        <small> <a href="tel:+2{{$feed->sender->phone}}"><i class="bi bi-phone"></i><span> {{$feed->sender->phone}}</span></a></small> <br>
+                                        <small><a href="whatsapp://send?phone=+{{$feed->sender->phone}}&text=Swaply"><i class="bi bi-whatsapp mx-2" > Whatsapp</i></a></small><br>
                                     </div>
                                 </div>
-                                <small> <span>معلومات التواصل</span></small>
-                                <small> <i class="bi bi-person"></i><span> {{$feed->sender->name}} </span> </small> <br>   
-                                <small> <a href="tel:+2{{$feed->sender->phone}}"><i class="bi bi-phone"></i><span> {{$feed->sender->phone}}</span></a></small> <br>
-                                <small><a href="whatsapp://send?phone=+{{$feed->sender->phone}}&text=Swaply"><i class="bi bi-whatsapp mx-2" > Whatsapp</i></a></small><br>
-                            </div>
-                        </div>
+                                @break
+                            @case('2')
+                                <div class="card-footer text-centerz">
+                                    <div class="alert alert-success" role="alert">
+                                        <div class="row">
+                                            <div class="col">
+                                                @if($feed->sender_item != 'trade')
+                                                    <small>عملية البيع تمت كعملية مبادلة ناجحة</small>
+                                                    <small class="p-1">البديل
+                                                        <strong class="cursor" wire:click="$emit('changeBody',['showitem','{{$feed->sender_item->id}}'])">{{$feed->sender_item->item_title}}</strong>
+                                                    </small>
+                                                @else 
+                                                    <small> عملية البيع ناجحة</small>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <small> <span>معلومات التواصل</span></small>
+                                        <small> <i class="bi bi-person"></i><span> {{$feed->sender->name}} </span> </small> <br>   
+                                        <small> <a href="tel:+2{{$feed->sender->phone}}"><i class="bi bi-phone"></i><span> {{$feed->sender->phone}}</span></a></small> <br>
+                                        <small> <a href="whatsapp://send?phone=+{{$feed->sender->phone}}&text=Swaply"><i class="bi bi-whatsapp mx-2" > Whatsapp</i></a></small><br>
+                                    </div>
+                                </div>
+                                @break
+                            @case('3')
+                                <div class="card-footer text-centerz">
+                                    <div class="alert alert-success" role="alert">
+                                        <div class="row">
+                                            <div class="col " >
+                                                <small> عملية تبرع ناجحة</small>
+                                            </div>
+                                        </div>
+                                        <small> <span>معلومات التواصل</span></small>
+                                        <small> <i class="bi bi-person"></i><span> {{$feed->sender->name}} </span> </small> <br>   
+                                        <small> <a href="tel:+2{{$feed->sender->phone}}"><i class="bi bi-phone"></i><span> {{$feed->sender->phone}}</span></a></small> <br>
+                                        <small><a href="whatsapp://send?phone=+{{$feed->sender->phone}}&text=Swaply"><i class="bi bi-whatsapp mx-2" > Whatsapp</i></a></small><br>
+                                    </div>
+                                </div>
+                                @break                    
+                        @endswitch
                     @else 
+                        @if(count($feed->requests) > 0)
                         <div class="card-footer text-centerz">
-                            <div class="alert alert-info" role="alert">
-                                <p>لقد تم تبديل هذا المنشور و سوف تتم ازالته بالوقت القريب</p>         
-                            </div> 
-                        </div>
-                    @endif
-                @else
-                    @if($feed->user_id == Auth::id())
-                        @if(count($feed->requests) > 0 )
-                            <div class="card-footer text-centerz">
-                                <div class="modal-dialog ani ani_fadeIn mx-auto mb-1 mt-1">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            @if ($feed->item_type == 2)
+                            <div class="modal-dialog ani ani_fadeIn mx-auto mb-1 mt-1">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        @switch($feed->item_type)
+                                            @case('1')
                                                 @foreach ($feed->requests as $req)
-                                                    <div class="order">
-                                                        <h6 class="m-0">{{$req->sender_item}}</h6>
-                                                        <small class="card-subtitle text-muted m-0">{{$req->created_at->diffForHumans()}}</small><br>
-                                                        <button type="button" class="btn btn-outline-success w-100" title="قبول الطلب"><i class="bi bi-check ml-1"></i><span>قبول</span></button>
-                                                    </div>                      
-                                                @endforeach
-                                            @else
-                                                @foreach ($feed->requests as $req)
-                                                    <div class="row">    
+                                                    <div class="row {{$req->viewed == 0 ? 'new' : ''}}" wire:click.prefetch="setRequestViewed('{{$req->id}}')">    
                                                         <div class="col-8">
                                                             <div class="cursor" wire:click="$emit('changeBody',['showitem',{{$req->sender_item->id}}])" title="عرض المنشور">
                                                                 <p ><strong>{{$req->sender_item->item_title}}</strong></p>
                                                                 <small><span>{{$req->created_at->diffForHumans()}}</span></small>
                                                                 <p class="text-muted m-0"><span>{{$req->sender_item->item_info}}</span></p>
                                                             </div>
-                                                            <small class="btn btn-outline-success w-100 mt-1" 
-                                                                wire:click="acceptRequest('{{$req->id}}','{{$req->user_id}}','{{$req->sender_id}}','{{$req->item_id}}','{{$req->sender_item->id}}')">
+                                                            <small class="btn btn-outline-success w-100 mt-1" wire:click="acceptRequest('{{$req->id}}')">
                                                                 <i class="bi bi-check"></i> قبول
                                                             </small>  
                                                         </div>
                                                         <div class="col-4 text-center">
-                                                            <img src="{{asset('assets/items/'.$req->sender_item->directory.'/'.$req->sender_item->collection[0])}}" alt="" width="55" height1="60" class="glow">
+                                                            <img src="{{asset('assets/items/'.$req->sender_item->directory.'/'.$req->sender_item->collection[0])}}" alt="" width="100%" class="glow">
                                                         </div>                                          
                                                     </div>
                                                 @endforeach
-                                            @endif
-                                        </div>
+                                                @break
+                                            @case('2')
+                                                @foreach ($feed->requests as $req)
+                                                    <div class="row {{$req->viewed == 0 ? 'new' : ''}}" wire:click.prefetch="setRequestViewed('{{$req->id}}')">
+                                                        @if($req->sender_item != 'trade')    
+                                                            <div class="col-8">
+                                                                <div class="cursor" wire:click="$emit('changeBody',['showitem',{{$req->sender_item->id}}])" title="عرض المنشور">
+                                                                    <p ><strong>{{$req->sender_item->item_title}}</strong></p>
+                                                                    <small><span>{{$req->created_at->diffForHumans()}}</span></small>
+                                                                    <p class="text-muted m-0"><span>{{$req->sender_item->item_info}}</span></p>
+                                                                </div>
+                                                                
+                                                                <small class="btn btn-outline-success w-100 mt-1" 
+                                                                    wire:click="acceptRequest('{{$req->id}}')"> <i class="bi bi-check"></i> قبول
+                                                                </small>  
+                                                            </div>
+                                                            <div class="col-4 text-center">
+                                                                <img src="{{asset('assets/items/'.$req->sender_item->directory.'/'.$req->sender_item->collection[0])}}" alt="" width="100%" class="glow">
+                                                                <br>
+                                                                <small class="cr">طلب تبديل</small>
+                                                            </div>                                                        
+                                                        @else 
+                                                            <div class="col-12">
+                                                                <div class="cursor">
+                                                                    <p ><strong>طلب شراء</strong></p>
+                                                                    <small><span>{{$req->created_at->diffForHumans()}}</span></small>
+                                                                </div>
+                                                                <small class="btn btn-outline-success w-100 mt-1" 
+                                                                    wire:click="acceptRequest('{{$req->id}}')"> <i class="bi bi-check"></i> قبول
+                                                                </small> 
+                                                            </div>
+                                                        @endif                                                        
+                                                    </div>
+                                                @endforeach
+                                                @break
+                                            @case('3')
+                                                @foreach ($feed->requests as $req)
+                                                    <div class="order {{$req->viewed == 0 ? 'new' : ''}}" wire:click.prefetch="setRequestViewed('{{$req->id}}')">
+                                                        <h6 class="m-0">{{$req->sender_item}}</h6>
+                                                        <small class="card-subtitle text-muted m-0">{{$req->created_at->diffForHumans()}}</small><br>
+                                                        <small class="btn btn-outline-success w-100 mt-1" 
+                                                                wire:click="acceptRequest('{{$req->id}}')"> <i class="bi bi-check"></i> قبول
+                                                        </small>
+                                                    </div>                      
+                                                @endforeach
+                                                @break 
+                                        @endswitch
                                     </div>
                                 </div>
                             </div>
-                        @else  
+                        </div>
+                        @else 
                             <div class="card-footer text-center">
                                 <p>لايوجد عروض الى الأن</p>
                             </div>
                         @endif
+                    @endif
+                @else 
+                    @if($feed->status == '1')
+                        <div class="card-footer text-centerz">
+                            <div class="alert alert-info" role="alert">
+                                <p>لقد تم تبديل هذا المنشور و سوف تتم ازالته بالوقت القريب</p>         
+                            </div> 
+                        </div>
                     @else
                         @if($feed->requested == true)
                             <div class="card-footer text-centerz">
                                 <div class="alert alert-info" role="alert">
-                                    <p>{{$feed->itme_type == 1 ? 'ارسلت عرض لهذا الغرض' : 'ارسلت طلب لهذا المنشور'}}</p>
+                                    <p>ارسلت طلب لهذا المنشور</p>
                                 </div> 
                             </div>
                         @elseif($feed->recived == true)
                             <div class="card-footer text-centerz">
                                 <div class="alert alert-info" role="alert">
-                                    <p>استلمت عرض لهذا الغرض</p>
+                                    <p>استلمت طلب من هذا المنشور</p>
                                 </div> 
                             </div>
                         @else
-                            <div class="card-footer text-center">
-                                <button class="sbtn sbtn-txt bg-white w-50 p-1" onclick="document.querySelector('#offer{{$feed->id}}').classList.toggle('hidden')"><span>ارسل <i class="bi bi-cloud-upload"></i></span></button>  
-                                <div class="modal-dialog ani ani_fadeIn hidden mx-auto mb-1 mt-1" id="offer{{$feed->id}}">
-                                    @if($feed->item_type == 2)
-                                        <div class="modal-content">
-                                            <div class="modal-footer justify-content-center">
-                                                <div class="btn-group" >
-                                                    <button type="button" class="btn btn-outline-success " wire:click="sendOffer({{$feed->id}},'{{$feed->user_id}}')"><i class="bi bi-cloud-upload mx-2"></i><small>ارسال</small></button> 
-                                                    <button type="button" class="btn btn-outline-dark " onclick="document.querySelector('#offer{{$feed->id}}').classList.toggle('hidden')"><i class="bi bi-x mx-2"></i><small>أغلاق</small></button>   
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @else 
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title"> <i class="bi bi-box "></i> <span> تقديم عرض</span></h5>
-                                                <i data-bs-dismiss="modal" aria-label="Close" class="bi bi-x" onclick="document.querySelector('#offer{{$feed->id}}').classList.toggle('hidden')"></i>
-                                            </div>
-                                            <div class="modal-body">
-                                                @if(count($feed->user_items) > 0)
-                                                <label for="" class="form-label">اختر غرضك للتبديل</label>
-                                                <select class="form-select bg-gray" wire:model.defer="req_item">
-                                                    <option value="{{$feed->user_items[0]->id}}">اختر</option>
-                                                    @foreach ($feed->user_items as $myitem)
-                                                        <option value="{{$myitem->id}}" >{{$myitem->item_title}}</option>
-                                                    @endforeach
-                                                </select>
-                                                @else 
-                                                    <label for="" class="form-label">الرجاء اضافة غرض  قبل ارسال الطلب</label>
-                                                @endif
-                                            </div>
-                                            <div class="modal-footer justify-content-center {{count($feed->user_items) <= 0 ? 'hidden' : ''}}">
-                                                <div class="btn-group" >
-                                                    <button type="button" class="btn btn-outline-success " wire:click="sendOffer({{$feed->id}},'{{$feed->user_id}}','{{$feed->item_type}}')"><i class="bi bi-cloud-upload mx-2"></i><small>ارسال</small></button> 
-                                                    <button type="button" class="btn btn-outline-dark " onclick="document.querySelector('#offer{{$feed->id}}').classList.toggle('hidden')"><i class="bi bi-x mx-2"></i><small>أغلاق</small></button>   
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-                        @endif
+                            @switch($feed->item_type)
+                                @case('1')
+                                        @livewire('reqs.swap', ['feed' => $feed], key($feed->id))
+                                    @break
+                                @case('2')
+                                        @livewire('reqs.trade', ['feed' => $feed], key($feed->id))
+                                    @break
+                                @case('3')
+                                        @livewire('reqs.donate', ['feed' => $feed], key($feed->id))
+                                    @break                    
+                            @endswitch 
+                        @endif                    
                     @endif
                 @endif
+
             </div>
         </div>
     @endif
 </div>
+
+ {{-- 
+    <div class="card-footer text-center">
+        <button class="sbtn sbtn-txt bg-white w-50 p-1" onclick="document.querySelector('#offer{{$feed->id}}').classList.toggle('hidden')"><span>ارسل <i class="bi bi-cloud-upload"></i></span></button>  
+        <div class="modal-dialog ani ani_fadeIn hidden mx-auto mb-1 mt-1" id="offer{{$feed->id}}">
+            @if($feed->item_type == 2)
+                <div class="modal-content">
+                    <div class="modal-footer justify-content-center">
+                        <div class="btn-group" >
+                            <button type="button" class="btn btn-outline-success " wire:click="sendOffer({{$feed->id}},'{{$feed->user_id}}')"><i class="bi bi-cloud-upload mx-2"></i><small>ارسال</small></button> 
+                            <button type="button" class="btn btn-outline-dark " onclick="document.querySelector('#offer{{$feed->id}}').classList.toggle('hidden')"><i class="bi bi-x mx-2"></i><small>أغلاق</small></button>   
+                        </div>
+                    </div>
+                </div>
+            @else 
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"> <i class="bi bi-box "></i> <span> تقديم عرض</span></h5>
+                        <i data-bs-dismiss="modal" aria-label="Close" class="bi bi-x" onclick="document.querySelector('#offer{{$feed->id}}').classList.toggle('hidden')"></i>
+                    </div>
+                    <div class="modal-body">
+                        @if(count($feed->user_items) > 0)
+                        <label for="" class="form-label">اختر غرضك للتبديل</label>
+                        <select class="form-select bg-gray" wire:model.defer="req_item">
+                            <option value="{{$feed->user_items[0]->id}}">اختر</option>
+                            @foreach ($feed->user_items as $myitem)
+                                <option value="{{$myitem->id}}" >{{$myitem->item_title}}</option>
+                            @endforeach
+                        </select>
+                        @else 
+                            <label for="" class="form-label">الرجاء اضافة غرض  قبل ارسال الطلب</label>
+                        @endif
+                    </div>
+                    <div class="modal-footer justify-content-center {{count($feed->user_items) <= 0 ? 'hidden' : ''}}">
+                        <div class="btn-group" >
+                            <button type="button" class="btn btn-outline-success " wire:click="sendOffer({{$feed->id}},'{{$feed->user_id}}','{{$feed->item_type}}')"><i class="bi bi-cloud-upload mx-2"></i><small>ارسال</small></button> 
+                            <button type="button" class="btn btn-outline-dark " onclick="document.querySelector('#offer{{$feed->id}}').classList.toggle('hidden')"><i class="bi bi-x mx-2"></i><small>أغلاق</small></button>   
+                        </div>
+                    </div>
+                </div>
+            @endif
+        </div>
+    </div> 
+--}}
