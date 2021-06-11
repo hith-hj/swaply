@@ -11,5 +11,5 @@ class Requests extends Model
     protected $table ='requests';
     protected $primarykey='id';
     public $timestamp='true';
-    protected $fillable=['user_id','item_id','item_type','sender_id','sender_item','status','viewed',];
+    protected $fillable=['user_id','item_id','request_type','sender_id','sender_item','status','viewed',];
 }

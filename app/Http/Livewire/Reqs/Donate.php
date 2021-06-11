@@ -34,7 +34,7 @@ class Donate extends Component
             $off = Requests::create([
                 'user_id'=>$user_id,
                 'item_id'=>$item_id,            
-                'item_type'=>$item_type,
+                'request_type'=>$item_type,
                 'sender_id'=> Auth::user()->id,
                 'sender_item'=>$this->req_why,
             ]);

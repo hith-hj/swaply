@@ -52,23 +52,23 @@ class Rexust extends Component
 
     private function getSentOffers()
     {
-        return $this->requests = Requests::where([['sender_id','=',Auth::id()],['item_type','=','1']])->get()->sortByDesc('created_at');
+        return $this->requests = Requests::where([['sender_id','=',Auth::id()],['request_type','=','1']])->get()->sortByDesc('created_at');
     }
     private function getSentTrades()
     {
-        return $this->requests = Requests::where([['sender_id','=',Auth::id()],['item_type','=','2']])->get()->sortByDesc('created_at');
+        return $this->requests = Requests::where([['sender_id','=',Auth::id()],['request_type','=','2']])->get()->sortByDesc('created_at');
     }
     private function getSentOrders()
     {
-        return $this->requests = Requests::where([['sender_id','=',Auth::id()],['item_type','=','3']])->get()->sortByDesc('created_at');
+        return $this->requests = Requests::where([['sender_id','=',Auth::id()],['request_type','=','3']])->get()->sortByDesc('created_at');
     }
     private function getRecivedOffers()
     {
-        return $this->requests = Requests::where([['user_id','=',Auth::id()],['item_type','=','1']])->get();
+        return $this->requests = Requests::where([['user_id','=',Auth::id()],['request_type','=','1']])->get();
     }
     private function getRecivedOrders()
     {
-        return $this->requests = Requests::where([['user_id','=',Auth::id()],['item_type','=','2']])->get();
+        return $this->requests = Requests::where([['user_id','=',Auth::id()],['request_type','=','2']])->get();
     }
     
     private function getITems()
@@ -82,10 +82,10 @@ class Rexust extends Component
             $req->sender = User::find($req->sender_id);
             $req->item = Item::find($req->item_id);
             $req->item->collection = unserialize($req->item->collection);
-            if($req->item_type == 1){
+            if($req->request_type == 1){
                 $req->sender_item = Item::find($req->sender_item);
             }
-            if($req->item_type == 2 && $req->sender_item != 'trade'){
+            if($req->request_type == 2 && $req->sender_item != 'trade'){
                 $req->sender_item = Item::find($req->sender_item);
             }
         }

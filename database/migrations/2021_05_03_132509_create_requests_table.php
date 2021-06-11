@@ -19,7 +19,7 @@ class CreateRequestsTable extends Migration
             $table->string('item_id');
             $table->string('sender_id');
             $table->string('sender_item');
-            $table->string('item_type')->default('swap');
+            $table->string('request_type')->default('swap');
             $table->string('status')->default(0);
             $table->string('viewed')->default(0);
             $table->string('user_paid')->default('not-yet');
