@@ -24,15 +24,14 @@ class Showitem extends Component
     public $editedFeed;
     protected $listeners = ['refresh'];
     protected $notis = [
+        ['تم قبول العرض','g','حسنا',],
+        ['تم تعديل المنشور','g','حسنا'],        
         ['تم حفظ المنشور','b','حسنا',],
-        ['حدث خطا ما','r','للاسف',],
-        ['استلمنا بلاغك سوف نتابع الموضوع ,شكرا لتعاونك','b','حسنا',],
+        ['استلمنا بلاغك سوف نتابع الموضوع ,شكرا لتعاونك','b','حسنا',],        
         ['لم يتم ارسال البلاغ,الرجاء المحاولة لاحقا','r','للاسف',],
-        ['تم قبول العرض سوف يتم حذف باقي العروض المستلمة على هذا المنشور','g','حسنا',],
-        ['تم تعديل المنشور','g','حسنا'],
         ['املأ الحقول المطلوبة','r','خطا'],
         ['تم حذف المنشور','r','للاسف'],
-        ['','',''],
+        ['حدث خطا ما','r','للاسف',],
         ['','',''],
     ];
 
@@ -101,7 +100,7 @@ class Showitem extends Component
                                     }
                                     break;                                
                                 default:
-                                    # code...
+                                    # do nothing for now
                                     break;
                             }
                             return $req;
@@ -153,9 +152,9 @@ class Showitem extends Component
             $sa->user_id = Auth::id();
             $sa->post_id = $postId;
             $sa->save(); 
-            $this->emit('notifi',$this->notis[0]);
+            $this->emit('notifi',$this->notis[2]);
         } catch (\Throwable $th) {
-            $this->emit('notifi',$this->notis[1]);
+            $this->emit('notifi',$this->notis[7]);
         }
         
     }
@@ -225,10 +224,10 @@ class Showitem extends Component
             $item->item_location = str_replace($toReplace,'',$this->editedFeed['item_location']);
             $item->swap_with = str_replace($toReplace,'',$this->editedFeed['swap_with']);
             $item->save();
-            $this->emit('notifi',$this->notis[7]);
+            $this->emit('notifi',$this->notis[1]);
             $this->emit('changeBody',['showitem',$item_id]);
         } catch (\Throwable $th) {
-            $this->emit('notifi',$this->notis[8]);
+            $this->emit('notifi',$this->notis[5]);
         }
     }
 
@@ -239,9 +238,9 @@ class Showitem extends Component
             $ite = Item::find($item_id);
             $ite->status = 'soft_deleted';
             $ite->save();
-            $this->emit('notifi',$this->notis[9]);
+            $this->emit('notifi',$this->notis[6]);
         } catch (\Throwable $th) {
-            $this->emit('notifi',$this->notis[1]);
+            $this->emit('notifi',$this->notis[7]);
         }finally{
             $this->emit('changeBody','items');
         }
@@ -283,8 +282,8 @@ class Showitem extends Component
             $res = Notifyer::store(Auth::id(),$user_id,'تم تبليغ عن منشورك,الرجاء تعديل او ازالة المنشور',$post_id);
         }
         $res == true 
-        ? $this->emit('notifi',$this->notis[2]) 
-        : $this->emit('notifi',$this->notis[3]);
+        ? $this->emit('notifi',$this->notis[3]) 
+        : $this->emit('notifi',$this->notis[4]);
     }
 
     public function resetReport()
