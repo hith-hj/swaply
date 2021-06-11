@@ -118,41 +118,6 @@ class Showitem extends Component
                 }
             }
         return $item;
-        // if($this->item->user_id == Auth::id())
-        // {
-        //     if($this->item->status == '1'){
-        //         $this->item->requests->filter(function($req){
-        //             if($req->status == '1'){
-        //                 $this->item->sender_id = User::find($req->sender_id);
-        //                 switch ($this->item->item_type) {
-        //                     case '1':
-        //                         $this->item->sender_item == Item::find($req->sender_item);
-        //                         break;
-        //                     case '2':
-        //                         if($req->sender_item != 'trade')
-        //                         {
-        //                             $this->item->sender_item == Item::find($req->sender_item);
-        //                         }else{
-        //                             $this->item->sender_item == 'trade';
-        //                         }
-        //                         break;                                
-        //                     default:
-        //                         # code...
-        //                         break;
-        //                 }
-        //                 return $req;
-        //             }
-        //         });
-        //     }else{
-        //         foreach ($this->item->requests as $key => $req) {
-        //             $this->item->sender = User::find($req->sender_id);
-        //             if($this->item->item_type != '3' && $req->sender_item != 'trade'){
-        //                 $req->sender_item = Item::find($req->sender_item);
-        //                 $req->sender_item->collection = unserialize($req->sender_item->collection);
-        //             }
-        //         }
-        //     }
-        // } 
     }
 
     public function itemEditInfo($item)
