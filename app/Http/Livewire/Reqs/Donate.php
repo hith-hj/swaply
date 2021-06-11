@@ -44,10 +44,10 @@ class Donate extends Component
         $this->emitUp('refresh');
         $this->resetOffer();
         if($off == true){ 
-            $this->emit('notifi',$this->notis[1]);
+            $this->emit('notifi',$this->notis[0]);
             return $this->emit('changeBody','feeds');
         }else{
-            $this->emit('notifi',$this->notis[0]);
+            $this->emit('notifi',$this->notis[1]);
             return $this->getItem($this->item_id);
         } 
     }
