@@ -62,14 +62,6 @@ class Rexust extends Component
     {
         return $this->requests = Requests::where([['sender_id','=',Auth::id()],['request_type','=','3']])->get()->sortByDesc('created_at');
     }
-    private function getRecivedOffers()
-    {
-        return $this->requests = Requests::where([['user_id','=',Auth::id()],['request_type','=','1']])->get();
-    }
-    private function getRecivedOrders()
-    {
-        return $this->requests = Requests::where([['user_id','=',Auth::id()],['request_type','=','2']])->get();
-    }
     
     private function getITems()
     {
