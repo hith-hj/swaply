@@ -73,7 +73,7 @@
                             <small class="card-subtitle text-muted"> <i class="bi bi-check2-all"></i> <span> {{$feed->views}}</span></small> |
                             <small class="card-subtitle text-muted"><span> <i class="bi bi-cart-plus"></i></span> {{$feed->requests}}</small>                         
                             @if($feed->amount > 0)
-                                <small class="card-subtitle text-muted mt-1" title="الفرق"><i class="bi bi-cash"></i> <span>{{$feed->amount}}</span></small> |
+                                | <small class="card-subtitle text-muted mt-1" title="الفرق"><i class="bi bi-cash"></i> <span>{{$feed->amount}}</span></small>
                             @endif
                             @if($feed->rates > 0 )
                                 | <small class="card-subtitle text-muted"> <i class="bi bi-stars"></i> <span> {{$feed->rates > 10 ? round($feed->rates/5) : $feed->rates}}</span></small>
