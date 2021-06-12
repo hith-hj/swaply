@@ -533,6 +533,21 @@ function toggleTheme(theme, stat = 'on') {
     }
 }
 
+function rateFeed(event, id) {
+    let star = event.target.id;
+    let val = star.split("_")
+    for (let i = 1; i <= 5; i++) {
+        document.querySelector("#star_" + i + "_" + id).classList.remove('bi-star-fill');
+        document.querySelector("#star_" + i + "_" + id).classList.add('bi-star');
+    }
+
+    if (val[1] > 0) {
+        for (let i = 1; i <= val[1]; i++) {
+            document.querySelector("#star_" + i + "_" + id).classList.remove('bi-star');
+            document.querySelector("#star_" + i + "_" + id).classList.add('bi-star-fill');
+        }
+    }
+}
 // handel pull refresh btn
 
 if (location.pathname == '/home') {

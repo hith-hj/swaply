@@ -5,21 +5,19 @@
                 <div class="card-body" >
                     <div class="row mb-2">
                         <div class="col">
-                            <small class="card-subtitle text-muted  green_underline" title="نوع المنشور">
-                                <i class="mx-1 bi bi-distribute-horizontal"></i>
+                            <small class="green_underline" title="نوع المنشور">
+                                <i class="bi bi-distribute-horizontal"></i>
                                 <span>{{$feed->item_type == 1 ? 'مبادلة' : ($feed->item_type == 2 ? 'بيع' : 'تبرع')}}</span>
-                            </small>
+                            </small> |
                             @if($feed->item_type == 1)
-                                <small class="card-subtitle text-muted " title="بديل الغرض">
-                                    <i class="mx-1 bi bi-arrow-down-up"></i>
+                                <small class="" title="بديل الغرض">
+                                    <i class="bi bi-arrow-down-up"></i>
                                     <span>{{substr($feed->swap_with,0,strlen($feed->swap_with) < 30? strlen($feed->swap_with) : strlen($feed->swap_with)/3)}}</span>
-                                </small>
+                                </small> |
                             @endif
-                            <small class="card-subtitle text-muted " title="تاريخ النشر"><i class="mx-1 bi bi-calendar-day"></i><span>{{$feed->created_at->diffForHumans()}}</span></small>
-                            @if($feed->amount > 0)
-                                <small class="card-subtitle text-muted mt-1" title="الفرق"><i class="mx-1 bi bi-cash"></i><span>{{$feed->amount}}</span></small>
-                            @endif
-                            <small class="card-subtitle text-muted "> <i class=" mx-1 bi bi-images"></i> {{ count($feed->collection)}} </small>
+                            <small class="" title="تاريخ النشر"><i class="bi bi-calendar-day"></i>
+                                <span>{{$feed->created_at->diffForHumans()}}</span>
+                            </small> 
                         </div>
                     </div>
                     <div class="row">
@@ -27,9 +25,9 @@
                             <div class="cursor" wire:click="$emitTo('body','changeBody',['showitem','{{$feed->id}}'])" title="عرض المنشور">                                
                                 <div class="d-flex justify-content-evenly mt-1" style="max-height:5.2rem">
                                     @if($feed->collection[0] != 'dark-logo.png' && file_exists('assets/items/'.$feed->directory.'/'.$feed->collection[0]) )
-                                        <img class=" dark-border px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" width="100%" >
+                                        <img class=" dark-border px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" width="100%" height="64px">
                                     @else 
-                                        <img class="glow px-1" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$feed->item_type}}" width="100%" >
+                                        <img class="glow px-1" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$feed->item_type}}" width="100%" height="64px" >
                                     @endif
                                 </div>                    
                             </div>
@@ -60,7 +58,10 @@
                                 <span>
                                     {{substr($feed->item_info,0,strlen($feed->item_info) < 70 ? strlen($feed->item_info): strlen($feed->item_info)/2)}}...
                                 </span>
-                            </small> 
+                            </small>
+                            <br>
+                            <small class=""><span> <i class="bi bi-geo-alt"></i></span> {{$feed->item_location}}</small> |
+                            <small class="card-subtitle text-muted"> <i class="bi bi-images"></i> {{ count($feed->collection)}} </small>
                         </div>
                         <div class="py-1 {{ file_exists('assets/items/'.$feed->directory.'/'.$feed->collection[0]) == true ? 'hidden' : ''}}">
                             <small class="green_underline" >عذرا عزيزي المشترك ,لايوجد صور صالحة لهذا المنشور</small>
@@ -68,13 +69,34 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col">
-                                <small class="mx-1"><span> <i class="bi bi-geo-alt"></i></span> {{$feed->item_location}}</small>|
-                                <small class="mx-1"><span> <i class="bi bi-cart-plus"></i></span> {{$feed->requests}}</small>|
-                                <small class="mx-1"> <i class="bi bi-check2-all mx-1"></i> <span> {{$feed->views}}</span></small>
+                        <div class="col"> 
+                            <small class="card-subtitle text-muted"> <i class="bi bi-check2-all"></i> <span> {{$feed->views}}</span></small> |
+                            <small class="card-subtitle text-muted"><span> <i class="bi bi-cart-plus"></i></span> {{$feed->requests}}</small>                         
+                            @if($feed->amount > 0)
+                                <small class="card-subtitle text-muted mt-1" title="الفرق"><i class="bi bi-cash"></i> <span>{{$feed->amount}}</span></small> |
+                            @endif
+                            @if($feed->rates > 0 )
+                                | <small class="card-subtitle text-muted"> <i class="bi bi-stars"></i> <span> {{$feed->rates > 10 ? round($feed->rates/5) : $feed->rates}}</span></small>
+                            @endif
+                            @if($feed->user_id != Auth::id() && $feed->rated == false)
+                                | <small onclick="document.querySelector('#rate{{$feed->id}}').classList.toggle('hidden')" class="card-subtitle text-muted cursor">
+                                    <i class="bi bi-star "></i> قيم</small>
+                                <small id="rate{{$feed->id}}" class="hidden ani ani_fadeIn">
+                                    <input wire:model.defer="feed_rate" id="rate1" type="checkbox" value="1" hidden>
+                                    <label onclick="rateFeed(event,{{$feed->id}})" for="rate1"> <i id="star_1_{{$feed->id}}" class="bi bi-star"></i></label>
+                                    <input wire:model.defer="feed_rate" id="rate2" type="checkbox" value="2" hidden>
+                                    <label onclick="rateFeed(event,{{$feed->id}})" for="rate2"> <i id="star_2_{{$feed->id}}" class="bi bi-star"></i></label>
+                                    <input wire:model.defer="feed_rate" id="rate3" type="checkbox" value="3" hidden>
+                                    <label onclick="rateFeed(event,{{$feed->id}})" for="rate3"> <i id="star_3_{{$feed->id}}" class="bi bi-star"></i></label>
+                                    <input wire:model.defer="feed_rate" id="rate4" type="checkbox" value="4" hidden>
+                                    <label onclick="rateFeed(event,{{$feed->id}})" for="rate4"> <i id="star_4_{{$feed->id}}" class="bi bi-star"></i></label>
+                                    <input wire:model.defer="feed_rate" id="rate5" type="checkbox" value="5" hidden>
+                                    <label onclick="rateFeed(event,{{$feed->id}})" for="rate5"> <i id="star_5_{{$feed->id}}" class="bi bi-star"></i></label>
+                                    <small wire:click="rateFeed('{{$feed->id}}')" class="btn btn-outline-success"><i class="bi bi-check"></i></small>
+                                </small>
+                            @endif
                         </div>
                     </div>
-
                 </div>
                 <div id="report_modal{{$feed->id}}" class="hidden w-95 mx-auto mt-0 z-100">
                     <hr>

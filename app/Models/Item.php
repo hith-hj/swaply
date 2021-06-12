@@ -13,7 +13,7 @@ class Item extends Model
     protected $primarykey='id';
     public $timestamp='true';
     protected $fillable=['user_id','item_type','item_title','item_info','collection',
-                        'item_location','views','offers','status','swap_with','directory',];
+                        'item_location','views','offers','status','swap_with','directory','rates'];
 
     public static function incRequests(String $id):bool
     {

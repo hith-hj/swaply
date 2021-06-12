@@ -21,6 +21,12 @@ Route::get('/', function () {
 });
 
 Route::get('/home', function () {
+    return view('home');
+})->middleware(['auth'])->name('home');
+
+Route::view('/about','about')->name('about');
+
+Route::get('/peek', function () {
     if(!Auth::check()){
         $feeds = Item::all()->where('status','=','0')->sortBy('views',0,true);
         $feeds->each(function($feed){
@@ -28,14 +34,7 @@ Route::get('/home', function () {
         });
         return view('home',compact('feeds'));
     }
-    return view('home');
-})->name('home');
-
-// Route::get('/home', function () {
-//     return view('home');
-// })->middleware(['auth'])->name('home');
-
-Route::view('/about','about')->name('about');
+})->name('peek');
 
 Route::post('/addItem',[HomeController::class,'addItem'])->middleware(['auth'])->name('addItem');
 

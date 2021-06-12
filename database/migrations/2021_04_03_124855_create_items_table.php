@@ -27,6 +27,7 @@ class CreateItemsTable extends Migration
             $table->string('views')->default(0);
             $table->string('requests')->default(0);
             $table->string('status')->default(0);
+            $table->string('rates')->default(0);
             $table->string('category')->default('not-yet');
             $table->timestamps();
         });

@@ -10,16 +10,17 @@ use App\Models\Save;
 use App\Models\Report;
 use App\Models\Notifyer;
 use App\Models\Requests;
+use App\Models\Rate;
 use Illuminate\Support\Facades\DB as DB;
 
 class Feeds extends Component
 {
     protected $feeds;
     protected $listeners = ['getFeeds','refresh'];
-    private $g_id = null;
     public $repo;
     public $req_item;
     public $req_info;
+    public $feed_rate;
 
     protected $notis = [
         ['تم حفظ المنشور','b','حسنا',],
@@ -58,6 +59,7 @@ class Feeds extends Component
                     }
                 }
             }
+            $feed->rated = Rate::where('item_id','=',$feed->id)->where('user_id','=',Auth::id())->exists();
         }
         $this->feeds->each(function($feed){
             $feed->user = User::find($feed->user_id);
@@ -68,6 +70,7 @@ class Feeds extends Component
                 ['item_type','!=','3'],
                 ])->get();
         });
+        // dd($this->feeds);
     }
 
     public function savePost($postId,$user_id)
@@ -78,6 +81,22 @@ class Feeds extends Component
         $sa->post_id = $postId;
         $sa->save();
         $this->emit('notifi',$this->notis[0]);
+    }
+
+    public function rateFeed($item_id)
+    {
+        $item = Item::find($item_id);
+        if($item && $this->feed_rate > 0){
+            $item->rates += $this->feed_rate;
+            $item->save();
+            $rate = new Rate();
+            $rate->item_id = $item_id;
+            $rate->user_id = Auth::id();
+            $rate->rate = $this->feed_rate;
+            $rate->save();
+        }
+        $this->feed_rate = 0;
+        $this->emitSelf('refresh');        
     }
 
     public function report($post_id,$user_id):void

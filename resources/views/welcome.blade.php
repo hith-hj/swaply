@@ -58,7 +58,7 @@
     
                 @guest
                     <div class="row">
-                        <a class="link-text" href="{{ url('/home') }}">إطلاع</a><br>
+                        <a class="link-text" href="{{ url('/peek') }}">إطلاع</a><br>
                     
                         <a class="link-text" href="{{ route('login') }}">تسجيل دخول</a>
 
