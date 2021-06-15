@@ -8,12 +8,14 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Item;
 use App\Models\Requests;
 use App\Models\Notifyer;
+use App\Models\Payment;
 use App\Models\Report;
 use App\Models\User;
 use App\Models\Save;
 use App\Models\Swap;
-
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+
 class Showitem extends Component
 {
     protected $item;
@@ -71,51 +73,14 @@ class Showitem extends Component
 
     public function getItemData($item,$id)
     {
-        $item->user = User::find($item->user_id);
+        // $item->user = User::find($item->user_id);
         $item->requestsCount = $item->requests;
         $item->collection = unserialize($item->collection);
-        $item->user_items = Item::where([['user_id','=',Auth::id()],['status','=','0'],['item_type','!=','3'],])->get();
-        $item->requests = Requests::where('item_id',$id)->get();
-        return $item;
-    }
-
-    public function checkItemStatus($item)
-    {
-        if($item->user_id == Auth::id())
-            {
-                if($item->status == '1'){
-                    $item->requests->filter(function($req) use ($item){
-                        if($req->status == '1'){
-                            $item->sender_id = User::find($req->sender_id);
-                            switch ($item->item_type) {
-                                case '1':
-                                    $item->sender_item == Item::find($req->sender_item);
-                                    break;
-                                case '2':
-                                    if($req->sender_item != 'trade')
-                                    {
-                                        $item->sender_item == Item::find($req->sender_item);
-                                    }else{
-                                        $item->sender_item == 'trade';
-                                    }
-                                    break;                                
-                                default:
-                                    # do nothing for now
-                                    break;
-                            }
-                            return $req;
-                        }
-                    });
-                }else{
-                    foreach ($item->requests as $key => $req) {
-                        $item->sender = User::find($req->sender_id);
-                        if($item->item_type != '3' && $req->sender_item != 'trade'){
-                            $req->sender_item = Item::find($req->sender_item);
-                            $req->sender_item->collection = unserialize($req->sender_item->collection);
-                        }
-                    }
-                }
-            }
+        $item->user_items = Item::where([['user_id','=',Auth::id()],
+        ['status','=','0'],
+        ['item_type','!=','3'],
+        ])->get();
+        $item->requests = Requests::where([['item_id','=',$id],['status','!=','-1'],])->get();
         return $item;
     }
 
@@ -145,45 +110,167 @@ class Showitem extends Component
         return $item;
     }
 
-    public function savePost($postId)
+    public function checkItemStatus($item)
     {
-        try {
-            $sa = new Save();
-            $sa->user_id = Auth::id();
-            $sa->post_id = $postId;
-            $sa->save(); 
-            $this->emit('notifi',$this->notis[2]);
-        } catch (\Throwable $th) {
+        if($item->user_id == Auth::id())
+        {
+            if($item->status == '1'){
+                $item->requests->filter(function($req) use ($item){
+                    if($req->status == '1'){
+                        $item->sender = User::find($req->sender_id);
+                        switch ($item->item_type) {
+                            case '1':
+                                $item->sender_item = Item::find($req->sender_item);
+                                break;
+                            case '2':
+                                if($req->sender_item == 'trade')
+                                {
+                                    $item->sender_item = 'trade';
+                                }else{
+                                    $item->sender_item = Item::find($req->sender_item);
+                                }
+                                break;
+                            default:
+                                # do nothing for now
+                                break;
+                        }
+                        return $req;
+                    }
+                });
+            }else{
+                $payment = Payment::where('item_id','=',$item->id);
+                if($payment->exists())  {
+                    $payment = $payment->first();
+                    $item->payment = $payment;  
+                    if($payment->payment_status != 'paid') {
+                        if(Carbon::now()->greaterThan(Carbon::create($payment->payment_expire_date))) {
+                            $request = Requests::find($payment->request_id);
+                            $request->status = -1;
+                            $request->save();
+                            $payment->delete();
+                            $itm = Item::find($item->id);
+                            $itm->status = 0;
+                            $itm->save();
+                        }else{
+                            $item->paid = false;
+                        }                  
+                    }else{
+                        $item->paid = true;
+                        $request = Requests::where('id','=',$payment->request_id)->first();
+                        $this->accept($item,$request);
+                    }
+                }else{
+                    $item->payment = false;              
+                    foreach ($item->requests as $key => $req) {
+                        $item->sender = User::find($req->sender_id);
+                        if($item->item_type != '3' && $req->sender_item != 'trade'){
+                            $req->sender_item = Item::find($req->sender_item);
+                            $req->sender_item->collection = 
+                            unserialize($req->sender_item->collection);
+                        }
+                    }
+                }                
+            }
+        }
+        return $item;
+    }
+
+    public function acceptRequest($item_id,$request_id)
+    {
+        $item = Item::find($item_id);
+        $item->status = 0.5;
+        $item->save();
+        $request = Requests::find($request_id);
+        $request->status = 'payment';
+        $request->save();
+        if($item->item_type == '3') {
+            $item->payment = true;
+            return $this->accept($item,$request);
+        }elseif($item->item_type == '2' && $request->sender_item == 'trade'){
+            $this->setPayment($item,$request,'.05');
+        }else{
+            $this->setPayment($item,$request);
+        }
+        $this->emit('refresh');
+    }
+
+    public function setPayment($item,$request, float $percent= 20){
+        $amount = $percent == '20' 
+        ? $percent 
+        : round($item->amount - $item->amount * 0.9525);
+        $pay = new Payment();
+        $pay->request_id = $request->id;
+        $pay->item_id = $item->id;
+        $pay->payer_id = Auth::id();
+        $pay->merchantCode = rand(1000000,9999999999);
+        $pay->payment_amount = $amount;
+        // $pay->payment_expire_date = Carbon::now()->add('24','hour');
+        $pay->payment_expire_date = Carbon::now()->add('2','minute');
+
+        $pay->save();
+        $this->emitSelf('refresh');
+    }
+
+    public function accept($item,$request)
+    {
+        // dd($item,$request);
+        if($request!=null && $item->payment==true){
+            if($request != true || $item != true){
+                return $this->emit('notifi',$this->notis[7]);
+            }            
+
+            if($item->item_type == '3'){
+                $sender_item = 'donate';
+            }elseif($item->item_type == '2' && $request->sender_item == 'trade'){
+                $sender_item = 'trade';
+            }else{
+                $sender_item = Item::find($request->sender_item);
+                $sender_item->status = 1;
+                $sender_item->save();
+            }           
+            // dd('here');
+            $reqs = Requests::where([
+                ['item_id','=',$item->id],
+                ['status','=',0],
+                ]);
+            $reqs->each(function($req){
+                $req->status = -1;
+                $req->save();
+            });            
+
+            $swaps = Swap::create([
+                'request_id'=>$request->id,
+                'user_id'=>Auth::id(),
+                'sender_id'=>$request->sender_id,
+                'item_id'=>$item->id,
+                'sender_item'=>$sender_item,
+            ]);
+            if($swaps != true){
+                return $this->emit('notifi',$this->notis[7]);
+            }
+            $request->status = 1;        
+            $request->save();
+            $itm = Item::find($item->id);
+            $itm->status = 1;
+            $itm->save();
+        }else{
             $this->emit('notifi',$this->notis[7]);
         }
-        
+        // dd('done');
     }
 
-    public function setRequestViewed($request_id)
+    public function acceptRequestzz($request_id,$sender_id,$item_id,$sender_item)
     {
-        $req = Requests::find($request_id);
-        if($req == true && $req != null)
-        {
-            if($req->viewed == '0')
-            {
-                $req->viewed += 1;
-                $req->save();
-            }            
-            $this->emitSelf('refresh');
-        }
-    }
-
-    public function acceptRequest($request_id,$user_id,$sender_id,$item_id,$sender_item)
-    {
+        $req = Requests::where([['id','=',$request_id],
+        ['sender_id','=',$sender_id]])->get();
         $swaps = Swap::create([
             'request_id'=>$request_id,
-            'user_id'=>$user_id,
+            'user_id'=>Auth::id(),
             'sender_id'=>$sender_id,
             'item_id'=>$item_id,
             'sender_item'=>$sender_item,
         ]);
-        if($swaps != true)
-        {
+        if($swaps != true){
             return $this->emit('notifi',$this->notis[2]);
         }
 
@@ -191,8 +278,7 @@ class Showitem extends Component
         $request->status = 1;        
         $request->save();
 
-        if($request != true)
-        {
+        if($request != true){
             return $this->emit('notifi',$this->notis[2]);
         }
         $reqs = Requests::where([
@@ -214,15 +300,46 @@ class Showitem extends Component
         $this->emitTo('body','changeBody','swaps');
     }
 
+    public function savePost($postId)
+    {
+        try {
+            $sa = new Save();
+            $sa->user_id = Auth::id();
+            $sa->post_id = $postId;
+            $sa->save(); 
+            $this->emit('notifi',$this->notis[2]);
+        } catch (\Throwable $th) {
+            $this->emit('notifi',$this->notis[7]);
+        }
+        
+    }
+
+    public function setRequestViewed($request_id)
+    {
+        $req = Requests::find($request_id);
+        if($req == true && $req != null){
+            if($req->viewed == '0'){
+                $req->viewed += 1;
+                $req->save();
+            }            
+            $this->emitSelf('refresh');
+        }
+    }
+
     public function editItem($item_id)
     {
         $toReplace = [0,1,2,3,4,5,6,7,8,9,'٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
         try {
             $item = Item::find($item_id);
-            $item->item_title = str_replace($toReplace,'',$this->editedFeed['item_title']);
-            $item->item_info = str_replace($toReplace,'',$this->editedFeed['item_info']);
-            $item->item_location = str_replace($toReplace,'',$this->editedFeed['item_location']);
-            $item->swap_with = str_replace($toReplace,'',$this->editedFeed['swap_with']);
+            $item->item_title = 
+            str_replace($toReplace,'',$this->editedFeed['item_title']);
+            $item->item_info = 
+            str_replace($toReplace,'',$this->editedFeed['item_info']);
+            $item->item_location = 
+            str_replace($toReplace,'',$this->editedFeed['item_location']);
+            $item->swap_with = 
+            str_replace($toReplace,'',$this->editedFeed['swap_with']);
+
             $item->save();
             $this->emit('notifi',$this->notis[1]);
             $this->emit('changeBody',['showitem',$item_id]);
@@ -250,7 +367,9 @@ class Showitem extends Component
     {
         
         try {
-            $reqs = DB::table('requests')->where('item_id','=',$item_id)->orWhere('sender_item','=',$item_id);
+            $reqs = DB::table('requests')
+            ->where('item_id','=',$item_id)
+            ->orWhere('sender_item','=',$item_id);
             $reqs->delete();
             $noti = DB::table('notifications')->where('on_id','=',$item_id);
             $noti->delete();
@@ -270,8 +389,7 @@ class Showitem extends Component
     public function report($post_id,$user_id):void
     {
         $res = false;
-        if($this->repo != null && count($this->repo) == 2)
-        {
+        if($this->repo != null && count($this->repo) == 2){
             Report::create([
                 'user_id'=>$user_id,
                 'maker_id'=>Auth::user()->id,
@@ -279,7 +397,10 @@ class Showitem extends Component
                 'report_type'=>$this->repo['type'],
                 'report_info'=>$this->repo['info'],
             ]);
-            $res = Notifyer::store(Auth::id(),$user_id,'تم تبليغ عن منشورك,الرجاء تعديل او ازالة المنشور',$post_id);
+            $res = Notifyer::store(
+                Auth::id(),$user_id,
+                'تم تبليغ عن منشورك,الرجاء تعديل او ازالة المنشور',
+                $post_id);
         }
         $res == true 
         ? $this->emit('notifi',$this->notis[3]) 

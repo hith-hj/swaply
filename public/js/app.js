@@ -345,6 +345,11 @@ function removeImageFromUploaded(id) {
 
 function resetForm() {
     document.querySelector("#add-item-form").reset();
+    let percent = document.querySelector("#percent");
+    if (percent != null) {
+        let parent = percent.parentNode;
+        parent.removeChild(percent);
+    }
     // resetItemLocation();
     let gal = document.querySelector("#imgs_collection");
     if (gal.hasChildNodes) {

@@ -81,8 +81,10 @@ class Body extends Component
     {
         $id='x00Swaply_officals00x';
         $prob='x00Swaply-Problem00x';
-        $notis = [['شكرا لك لمساعدتنا على تحسين الموقع تم استلام البلاغ و سنعمل عليه باسرع وقت','g','حسنا']
-                ,['لم يتم ارسال المشكلة , الرجاء ملئ الحقول و الإعادة مرة اخرى','r','خطا']];
+        $notis = [
+            ['تم استلام البلاغ و سنعمل عليه باسرع وقت شكرا لمساعدتك ','g','حسنا']
+            ,['لم يتم ارسال المشكلة , الرجاء ملئ الحقول و إعادة المحاولة','r','خطا']
+            ];
         $res = false;
         if($this->problem != null && count($this->problem) == 2)
         {
@@ -102,15 +104,20 @@ class Body extends Component
 
     public function setLocation()
     {
-        $noti = [['تم اضافة معلومات ','g','حسنا'],['املئ الحقول المطلوبة','r','خطا'],['الرقم المدخل لايطابق الشروط','r','خطا'],];
-        if(is_array($this->user_location) && count($this->user_location) >2 && isset($this->user_phone)){
+        $noti = [['تم اضافة معلومات ','g','حسنا'],
+            ['املئ الحقول المطلوبة','r','خطا'],
+            ['الرقم المدخل لايطابق الشروط','r','خطا'],
+        ];
+        if(is_array($this->user_location) &&count($this->user_location)>2 &&isset($this->user_phone)){
             preg_match('/(01)[0125]\d{8}/',$this->user_phone,$mat);
             if(count($mat) < 2)
             {
                 return $this->emit('notifi',$noti[2]);
             }
             $this->user = User::find(Auth::user()->id);
-            $this->user->location = $this->user_location['covernent'].'-'.$this->user_location['area'].'-'.$this->user_location['naighbor'];
+            $this->user->location = $this->user_location['covernent'].
+            '-'.$this->user_location['area'].
+            '-'.$this->user_location['naighbor'];
             $this->user->phone = $this->user_phone;
             $this->user->save();
             $this->emit('notifi',$noti[0]);

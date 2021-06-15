@@ -46,7 +46,6 @@ class Trade extends Component
             return $this->emit('changeBody','feeds');
         }else{
             $this->emit('notifi',$this->notis[0]);
-            return $this->getItem($this->item_id);
         }        
     }
 

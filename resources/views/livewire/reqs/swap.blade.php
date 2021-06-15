@@ -35,6 +35,7 @@
                     </div>
                 @else 
                     <label for="" class="form-label">الرجاء اضافة غرض  قبل ارسال الطلب</label>
+                    <small onclick="document.querySelector('#newItemModal').classList.toggle('hidden')" class="w-50 m-auto py-1 mt-2 mb-2 btn btn-outline-success"> <span>اضغط للإضافة</span></small>
                 @endif
             </div>
         </div>

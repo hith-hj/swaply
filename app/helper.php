@@ -1,4 +1,5 @@
 <?php 
+use Carbon\Carbon;
 if (! function_exists('markWords')) 
 {
     function markWords($string, $term){
@@ -13,3 +14,11 @@ if (! function_exists('markWords'))
         return str_replace($words, $highlighted, $string);
     }
 }
+
+if (! function_exists('timeRemain')) 
+{
+    function timeRemain($date){
+        return Carbon::create($date)->diffForHumans();
+    }
+}
+

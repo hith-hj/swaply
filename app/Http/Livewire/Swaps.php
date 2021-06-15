@@ -26,8 +26,10 @@ class Swaps extends Component
             $sw->sender = User::find($sw->sender_id);
             $sw->user_item = Item::find($sw->item_id);
             $sw->user_item->collection = unserialize($sw->user_item->collection);
-            $sw->sender_item = Item::find($sw->sender_item);
-            $sw->sender_item->collection = unserialize($sw->sender_item->collection);
+            if($sw->sender_item != 'trade' && $sw->sender_item != 'donate'){
+                $sw->sender_item = Item::find($sw->sender_item);
+                $sw->sender_item->collection = unserialize($sw->sender_item->collection);
+            }
         }
     }
 

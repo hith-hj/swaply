@@ -15,7 +15,6 @@ return [
 
     'failed' => 'المعلومات المدخلة خاطئة',
     'password' => 'كلمة المرور خاطئة',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-    'throttle' => 'محاولات عديدة لتسجيل الدخول .الرجاء الانتظار :seconds ثانية ثم المحاولة  ',
+    'throttle' => 'ثانية ثم المحاولة :seconds محاولات تسجيل دخول خاطئة الرجاء الأنتظار ',
 
 ];

@@ -6,68 +6,80 @@
     @forelse ($swaps as $swap)
         <div class="col mt-5px ani ani_fadeIn ani_faster">
             <div class="card shadow">
-                <div class="card-body" > 
-                    <div class="row">
-                        <div class="col">
-                            <small class="card-subtitle text-muted m-0" title="نوع المنشور"><i class="mx-1 bi bi-distribute-horizontal"></i><span>مبادلة</span></small>
-                            <small class="card-subtitle text-muted m-0" title="نوع المنشور"><i class="mx-1 bi bi-calendar-day"></i><span>{{$swap->created_at->diffForHumans()}}</span></small>
-                        </div>
-                    </div>   
-                    <hr>
-                    <div class="row">
-                        <div class="col">
-                            <div wire:click="$emitTo('body','changeBody',['showitem','{{$swap->user_item->id}}'])" title=" عرض {{$swap->user_item->item_title}}">
-                                <small class="text-muted"> <i class="bi bi-card-text mx-1"></i> {{$swap->user_item->item_title}} </small>
-                                <small class="text-muted"> <i class="bi bi-justify mx-1"></i> <span>
-                                    {{substr($swap->user_item->item_info,0,strlen($swap->user_item->item_info) < 20 ? strlen($swap->user_item->item_info): strlen($swap->user_item->item_info)/2)}}...
-                                </span></small><hr>
-                                <div class="d-flex justify-content-evenly mt-5px">
-                                    @if(file_exists('assets/items/'.$swap->user_item->directory.'/'.$swap->user_item->collection[0]) )
-                                        <img class="px-1" src="{{asset('assets/items/'.$swap->user_item->directory.'/'.$swap->user_item->collection[0])}}" alt="{{$swap->item_title}}" width="240" height="160">
-                                    @else 
-                                        <img class="glow px-1" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$swap->item_title}}" width="30%" >
-                                    @endif
-                                </div><hr>
+                <div class="card-body mx-2" > 
+                    
+                    @if($swap->sender_item != 'donate' && $swap->sender_item != 'trade')
+                        <div class="row">
+                            <div class="col-9">
                                 <div class="row">
-                                    <div class="col">
-                                        <small class="card-text"> <i class="bi bi-person"></i> {{$swap->user->name}}</small>
-                                        <small class="card-text"> <i class="bi bi-geo"></i> {{$swap->user->location }}</small><br>
-                                        <small class="card-text"> <i class="bi bi-phone"></i> {{$swap->user->phone }}</small>
-                                    </div>
+                                    <div class="col-12">
+                                        <h5 class="card-title m-0"> <span>{{$swap->sender_item->item_title}}</span> </h5>
+                                    </div>                            
+                                </div>
+                                <small class="card-text">
+                                    <span>
+                                        {{substr($swap->sender_item->item_info,0,strlen($swap->sender_item->item_info) < 70 ? strlen($swap->sender_item->item_info): strlen($swap->sender_item->item_info)/2)}}...
+                                    </span>
+                                </small>
+                                <br>
+                                <small class=""><span> <i class="bi bi-geo-alt"></i></span> {{$swap->sender_item->item_location}}</small>
+                            </div>
+                            <div class="col-3" style="padding-left:0;">
+                                <div class="cursor" wire:click="$emitTo('body','changeBody',['showitem','{{$swap->sender_item->id}}'])" title="عرض المنشور">                                
+                                    <div class="d-flex justify-content-evenly mt-1" style="max-height:5.2rem">
+                                        @if($swap->sender_item->collection[0] != 'dark-logo.png' && file_exists('assets/items/'.$swap->sender_item->directory.'/'.$swap->sender_item->collection[0]) )
+                                            <img class=" dark-border px-1" src="{{asset('assets/items/'.$swap->sender_item->directory.'/'.$swap->sender_item->collection[0])}}" alt="{{$swap->sender_item->item_type}}" width="100%" height="64px">
+                                        @else 
+                                            <img class="glow px-1" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$swap->sender_item->item_type}}" width="100%" height="64px" >
+                                        @endif
+                                    </div>                    
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="col">
-                            <div wire:click="$emitTo('body','changeBody',['showitem','{{$swap->sender_item->id}}'])" title=" عرض {{$swap->sender_item->item_title}}">
-                                <small class="text-muted"> <i class="bi bi-card-text mx-1"></i> {{$swap->sender_item->item_title}} </small>
-                                <small class="text-muted"> <i class="bi bi-justify mx-1"></i> <span>                                 
-                                    {{substr($swap->sender_item->item_info,0,strlen($swap->sender_item->item_info) < 20 ? strlen($swap->sender_item->item_info): strlen($swap->sender_item->item_info)/2)}}...
-                                </span></small><hr>
-                                <div class="d-flex justify-content-evenly mt-5px">
-                                    @if(file_exists('assets/items/'.$swap->sender_item->directory.'/'.$swap->sender_item->collection[0]) )
-                                        <img class="px-1" src="{{asset('assets/items/'.$swap->sender_item->directory.'/'.$swap->sender_item->collection[0])}}" alt="{{$swap->item_title}}" width="240" height="160">
-                                    @else 
-                                        <img class="glow px-1" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$swap->item_title}}" width="30%" >
-                                    @endif
-                                </div><hr>
-                                <div class="row">
-                                    <div class="col">
-                                        <small class="card-text"> <i class="bi bi-person"></i> {{$swap->sender->name}}</small>
-                                        <small class="card-text"> <i class="bi bi-geo"></i> {{$swap->sender->location }}</small><br>
-                                        <small class="card-text"> <i class="bi bi-phone"></i> {{$swap->sender->phone }}</small>
-                                    </div>
-                                </div>
+                    @else
+                        <div class="row">
+                            <div class="col-10 mx-2">
+                                <h5 class="card-title m-0"> <span>{{$swap->sender_item == 'trade' ? 'شراء':'طلب'}}</span> </h5>
                             </div>
+                        </div>
+                    @endif
+
+                    <div class="row">
+                        <div class="col-3" style="padding-lef:0;">
+                            <div class="cursor" wire:click="$emitTo('body','changeBody',['showitem','{{$swap->user_item->id}}'])" title="عرض المنشور">                                
+                                <div class="d-flex justify-content-evenly mt-1" style="max-height:5.2rem">
+                                    @if($swap->user_item->collection[0] != 'dark-logo.png' && file_exists('assets/items/'.$swap->user_item->directory.'/'.$swap->user_item->collection[0]) )
+                                        <img class=" dark-border px-1" src="{{asset('assets/items/'.$swap->user_item->directory.'/'.$swap->user_item->collection[0])}}" alt="{{$swap->user_item->item_type}}" width="100%" height="64px">
+                                    @else 
+                                        <img class="glow px-1" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$swap->user_item->item_type}}" width="100%" height="64px" >
+                                    @endif
+                                </div>                    
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h5 class="card-title m-0"> <span>{{$swap->user_item->item_title}}</span> </h5>
+                                </div>                            
+                            </div>
+                            <small class="card-text">
+                                <span>
+                                    {{substr($swap->user_item->item_info,0,strlen($swap->user_item->item_info) < 70 ? strlen($swap->user_item->item_info): strlen($swap->user_item->item_info)/2)}}...
+                                </span>
+                            </small>
+                            <br>
+                            <small class=""><span> <i class="bi bi-geo-alt"></i></span> {{$swap->user_item->item_location}}</small>
                         </div>
                     </div>
+
                 </div>
+
                 <div class="card-footer">
                     <div class="alert alert-success" role="alert">
                         <div class="row">
-                            <div class="col">
-                                <small> عملية التبادل ناجحة</small>
-                                <p>شكرا لك لأستخدامك سوابلي في تبديل غرضك <br>💚/_ (^_^) _\💚</p>
+                            <div class="col-12">
+                                <small> عملية ناجحة</small>
+                                <p>شكرا لك لأستخدامك سوابلي <br>💚/_ (^_^) _\💚</p>
                             </div>
                         </div>
                     </div>

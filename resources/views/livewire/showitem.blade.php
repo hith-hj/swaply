@@ -250,74 +250,89 @@
                                     @break                    
                             @endswitch
                         @else 
-                            @if(count($feed->requests) > 0)
+                            @if($feed->payment != false)
                                 <div class="card-footer text-centerz">
-                                    <div class="modal-dialog ani ani_fadeIn mx-auto mb-1 mt-1">
-                                        <div class="modal-content">
-                                            <div class="modal-body">
-                                                @foreach($feed->requests as $req)
-                                                    @if($req->viewed != '1')
-                                                        <div class="row {{$req->viewed == '0' ? 'new' : ''}}" wire:click.prefetch="setRequestViewed('{{$req->id}}')">
-                                                    @else 
-                                                        <div class="row {{$req->viewed == '0' ? 'new' : ''}}">
-                                                    @endif 
-                                                            @switch($feed->item_type)
-                                                                @case('1')
-                                                                    <div class="col-8">
-                                                                        <div class="cursor" wire:click="$emit('changeBody',['showitem',{{$req->sender_item->id}}])" title="عرض المنشور">
-                                                                            <p > غرض طلب المبادلة <strong>{{$req->sender_item->item_title}}</strong></p>
-                                                                            <small class="text-muted m-0"><span>{{$req->created_at->diffForHumans()}}</span></small>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-4 text-center">
-                                                                        <img src="{{asset('assets/items/'.$req->sender_item->directory.'/'.$req->sender_item->collection[0])}}" alt="" width="100%" class="glow">
-                                                                    </div> 
-                                                                    @break
-                                                                @case('2')
-                                                                    @if($req->sender_item != 'trade')    
+                                    <div class="alert alert-light" role="alert">
+                                        <p>{{$feed->paid == false ? "لم يتم الدفع": ""}}</p>
+                                        <small>يمكنك الدفع عن طريق قنوات فوري </small><br>
+                                        <small>القيمة : {{$feed->payment->payment_amount}} جنيه</small><br>
+                                        <p><span>رمز العملية</span> : {{$feed->payment->merchantCode}}</p>
+                                        <strong>الوقت المتبقي قبل الغاء العملية</strong><br>
+                                        <p> {{ timeRemain($feed->payment->payment_expire_date)}} </p>         
+                                    </div> 
+                                </div>
+                            @else
+                                @if(count($feed->requests) > 0)
+                                    <div class="card-footer text-centerz">
+                                        <div class="modal-dialog ani ani_fadeIn mx-auto mb-1 mt-1">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    @foreach($feed->requests as $req)
+                                                        @if($req->viewed != '1')
+                                                            <div class="row {{$req->viewed == '0' ? 'new' : ''}}" wire:click.prefetch="setRequestViewed('{{$req->id}}')">
+                                                        @else 
+                                                            <div class="row {{$req->viewed == '0' ? 'new' : ''}}">
+                                                        @endif 
+                                                                @switch($feed->item_type)
+                                                                    @case('1')
                                                                         <div class="col-8">
                                                                             <div class="cursor" wire:click="$emit('changeBody',['showitem',{{$req->sender_item->id}}])" title="عرض المنشور">
-                                                                                <p >غرض طلب التبديل <strong>{{$req->sender_item->item_title}}</strong> </p>
+                                                                                <p > غرض طلب المبادلة <strong>{{$req->sender_item->item_title}}</strong></p>
                                                                                 <small class="text-muted m-0"><span>{{$req->created_at->diffForHumans()}}</span></small>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-4 text-center">
-                                                                            <img src="{{asset('assets/items/'.$req->sender_item->directory.'/'.$req->sender_item->collection[0])}}" alt="" width="100%" class="glow">
-                                                                            <br>
-                                                                            <small class="cr">طلب تبديل</small>
-                                                                        </div>                                                        
-                                                                    @else 
-                                                                        <div class="col-12">
-                                                                            <div class="cursor">
-                                                                                <p ><strong>طلب شراء</strong></p>
-                                                                                <small><span>{{$req->created_at->diffForHumans()}}</span></small>
+                                                                            <img src="{{asset('assets/items/'.$req->sender_item->directory.'/'.$req->sender_item->collection[0])}}" alt="" width="50%" class="glow">
+                                                                        </div> 
+                                                                        @break
+                                                                    @case('2')
+                                                                        @if($req->sender_item != 'trade')    
+                                                                            <div class="col-8">
+                                                                                <div class="cursor" wire:click="$emit('changeBody',['showitem',{{$req->sender_item->id}}])" title="عرض المنشور">
+                                                                                    <small class="cr">طلب تبديل</small><br>
+                                                                                    <p>غرض طلب التبديل <strong>{{$req->sender_item->item_title}}</strong> </p>
+                                                                                    <small class="text-muted m-0"><span>{{$req->created_at->diffForHumans()}}</span></small>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                    @endif
-                                                                    @break
-                                                                @case('3')
-                                                                    <small>سبب الطلب</small>
-                                                                    <h6 class="m-0">{{$req->sender_item}}</h6>
-                                                                    <small class="card-subtitle text-muted m-0">{{$req->created_at->diffForHumans()}}</small><br>
-                                                                    @break
-                                                                @default                                                            
-                                                            @endswitch
-                                                            <small onclick="document.querySelector('#requestAcc{{$req->id}}').classList.toggle('hidden')" class="sbtn sbtn-txt w-100 mt-1">
-                                                                قبول
-                                                            </small>
-                                                            <small wire:click="acceptRequest('{{$req->id}}')" id="requestAcc{{$req->id}}" class="hidden btn btn-outline-success w-100 mt-1">
-                                                                <i class="bi bi-check"></i> نعم
-                                                            </small>
-                                                        </div>
-                                                @endforeach
+                                                                            <div class="col-4 text-center">
+                                                                                <img src="{{asset('assets/items/'.$req->sender_item->directory.'/'.$req->sender_item->collection[0])}}" alt="" width="50%" class="glow">
+                                                                            </div>                                                        
+                                                                        @else 
+                                                                            <div class="col-12">
+                                                                                <div class="cursor">
+                                                                                    <p ><strong>طلب شراء</strong></p>
+                                                                                    <small><span>{{$req->created_at->diffForHumans()}}</span></small>
+                                                                                </div>
+                                                                            </div>
+                                                                        @endif
+                                                                        @break
+                                                                    @case('3')
+                                                                        <small>سبب الطلب</small>
+                                                                        <h6 class="m-0">{{$req->sender_item}}</h6>
+                                                                        <small class="card-subtitle text-muted m-0">{{$req->created_at->diffForHumans()}}</small><br>
+                                                                        @break
+                                                                    @default                                                            
+                                                                @endswitch
+                                                                <small onclick="document.querySelector('#requestAcc{{$req->id}}').classList.toggle('hidden')" class="sbtn sbtn-txt w-100 mt-1">
+                                                                    قبول
+                                                                </small>
+                                                                <small wire:click="acceptRequest('{{$feed->id}}','{{$req->id}}')" id="requestAcc{{$req->id}}" class="hidden btn btn-outline-success w-100 mt-1">
+                                                                    <i class="bi bi-check"></i> نعم
+                                                                </small>
+                                                            </div>
+                                                            @if(!$loop->last)
+                                                            <hr class="mb-1 mt-1">
+                                                            @endif
+                                                    @endforeach
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            @else 
-                                <div class="card-footer text-center">
-                                    <p>لايوجد عروض الى الأن</p>
-                                </div>
+                                @else 
+                                    <div class="card-footer text-center">
+                                        <p>لايوجد عروض الى الأن</p>
+                                    </div>
+                                @endif
                             @endif
                         @endif
                     @else 

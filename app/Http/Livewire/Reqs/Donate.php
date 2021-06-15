@@ -48,7 +48,6 @@ class Donate extends Component
             return $this->emit('changeBody','feeds');
         }else{
             $this->emit('notifi',$this->notis[1]);
-            return $this->getItem($this->item_id);
         } 
     }
 

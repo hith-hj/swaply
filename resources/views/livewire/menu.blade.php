@@ -9,7 +9,7 @@
                             <span class="bi bi-exclamation-circle red-alert icon-sm ani ani_flash ani_loop"></span>
                         @endif
                     </span>
-                    <div class="dropdown-menu ani ani_fadeIn ani_faster min-wid-300 px-1 {{$user->location == 'not-set' ? 'show ani ani_pulse ani_repeat-3' :''}}">
+                    <div class="dropdown-menu ani ani_fadeIn ani_faster min-wid-300 px-1 {{$user->location == 'not-set' ? 'ani ani_pulse ani_repeat-3' :''}}">
                         <div class="card shadow-sm position-relative p-1">
                             <div class="card-header row px-1">
                                 <div class="col-8">
@@ -32,9 +32,20 @@
                             </div>
                             <hr>
                             <div class="card-body">
-                                <div class="mb-0 text-muted"> <i class="bi bi-envelope"></i> {{$user->email}}</div>                                
-                                <div class="mb-0 text-muted"> <i class="bi bi-phone"></i> {{$user->phone}}</div>
-                                <div class="mb-0 text-muted"> <i class="bi bi-geo-alt"></i> {{$user->location}}</div>  
+                                <div class="mb-0 text-muted row">
+                                    @if(strpos($user->email,"mail.com") != false)
+                                        <div class="col">
+                                            <small><i class="bi bi-envelope"></i> {{$user->email}}</small>
+                                            <small class="mx-1">
+                                                <i onclick="document.querySelector('#setEmailModal').classList.toggle('hidden')" class="bi bi-pencil-square"></i>
+                                            </small>
+                                        </div>
+                                    @else 
+                                        <small><i class="bi bi-envelope"></i> {{$user->email}}</small>
+                                    @endif                                    
+                                </div>                                
+                                <div class="mb-0 text-muted"><i class="bi bi-phone"></i> {{$user->phone}}</div>
+                                <div class="mb-0 text-muted"><i class="bi bi-geo-alt"></i> {{$user->location}}</div>  
                                 <div class="row">
                                     <div class="col">
                                         <small title="مبادلاتي" class="glow mx-1"> <i class="bi bi-arrow-down-up"></i> {{$user->swaps}}</small>
@@ -227,7 +238,7 @@
 
                 <input name="swap_with" type="text" id="swap_with" placeholder="هتبدل بأيه" class="form-control mb-1 ani ani_fadeIn" title="الاسم واضح" required>
 
-                <textarea name="item_description" wrap="hard" class="form-control mb-1" rows="2" maxlength="250" title="اختياري" placeholder="اوصف حاجتك"></textarea>
+                <textarea name="item_description" wrap="hard" class="form-control mb-1" rows="2" maxlength="250" title="اختياري" placeholder="اوصف حاجتك" required></textarea>
 
                 <input id="item_price" type="text" inputmode="numeric" name="amount" class="form-control  ani ani_fadeIn" title="اختياري" placeholder="فرق السعر (اختياري)" 
                 onchange="
@@ -309,6 +320,25 @@
 
                 @csrf
             </form>
+        </div>
+    </div>
+
+    <div id="setEmailModal" class="hidden smodal">
+        <div class="card shadow show ani ani_fadeIn p-3 w-100" >
+            <div class="row p-1">
+                <div class="col-9">
+                    <small class="form-label" >ادخل بريدك الألكتروني</small>
+                </div>
+                <div class="col-1 offset-1">
+                    <i class="bi bi-x" onclick="document.querySelector('#setEmailModal').classList.toggle('hidden')"></i>
+                </div>
+            </div>
+            <div class="location">
+                <div class="input-group">
+                    <input wire:model.defer="email" type="email" class="form-control text-right" placeholder="{{$user->email}}">
+                </div>
+                <span class="bi bi-check icon-1 cursor btn btn-outline-success mt-2 mb-1 w-100" wire:click="setUserEmail">حفظ</span>                                
+            </div>
         </div>
     </div>
 

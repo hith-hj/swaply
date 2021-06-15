@@ -13,6 +13,7 @@ use App\Models\User;
 class Menu extends Component
 {
     public $userInfo;
+    public $email;
     public $theme;
     public $post_type = 'حاجتك';
     protected $listeners = ['refresh','changeTheme'];
@@ -102,18 +103,41 @@ class Menu extends Component
         }
     }
 
+    public function setUserEmail()
+    {
+        if($this->email != null)
+        {
+            $rules = ['email'=>'string|email|max:255|unique:users'];
+            $val = $this->validate($rules);
+            $user = User::find(Auth::id());
+            $user->email = $this->email;
+            $user->save();
+            $noti=['تم حفظ البريد الألكتروني','b','حسنا'];
+            $this->emit('notifi',$noti);
+            $this->getUser();
+        }
+    }
+
     public function updateInfo()
     {
         dd($this->userInfo);
-        $noti = [['تم اضافة معلومات ','g','حسنا'],['املئ الحقول المطلوبة','r','خطا'],['الرقم المدخل لايطابق الشروط','r','خطا'],];
-        if( (is_array($this->userInfo->location) && count($this->userInfo->location) == 2 ) || isset($this->userInfo->phone)){
+        $noti = [['تم اضافة معلومات ','g','حسنا'],
+            ['املئ الحقول المطلوبة','r','خطا'],
+            ['الرقم المدخل لايطابق الشروط','r','خطا'],
+        ];
+        if( ( is_array($this->userInfo->location) && 
+        count($this->userInfo->location) == 2 ) || 
+        isset($this->userInfo->phone)
+        ){
             preg_match('/(01)[0125]\d{8}/',$this->user_phone,$mat);
             if(count($mat) < 2)
             {
                 return $this->emit('notifi',$noti[2]);
             }
             $this->user = User::find(Auth::user()->id);
-            $this->user->location = $this->user_location['covernent'].'-'.$this->user_location['area'].'-'.$this->user_location['naighbor'];
+            $this->user->location = $this->user_location['covernent']
+            .'-'.$this->user_location['area']
+            .'-'.$this->user_location['naighbor'];
             $this->user->phone = $this->user_phone;
             $this->user->save();
             $this->emit('notifi',$noti[0]);

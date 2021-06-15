@@ -19,7 +19,9 @@ class Recommends extends Component
     {
         $items = Item::where([['user_id','=',Auth::id()],['status','=','0']])->get();
         foreach($items as $ikey=>$item){
-            $item->recommends = Item::where([['user_id','!=',Auth::id()],['item_title','like','%' . $item->swap_with. '%'],['status','=','0']])->get();
+            $item->recommends = Item::where([['user_id','!=',Auth::id()],
+            ['item_title','like','%' . $item->swap_with. '%'],
+            ['status','=','0']])->get();
             foreach($item->recommends as $rkey=>$reco)
             {
                 $reco->collection = unserialize($reco->collection);
