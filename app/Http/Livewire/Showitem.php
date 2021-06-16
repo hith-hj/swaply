@@ -34,6 +34,7 @@ class Showitem extends Component
         ['املأ الحقول المطلوبة','r','خطا'],
         ['تم حذف المنشور','r','للاسف'],
         ['حدث خطا ما','r','للاسف',],
+        ['لايمكن اتمام هذة العملية البيانات غير متوافقة','r','للاسف '],
         ['','',''],
     ];
 
@@ -58,8 +59,10 @@ class Showitem extends Component
         $item = Item::find($id);
         $stat = $item != null ? true : false;
         if($stat == true && $item->status != 'soft_deleted'){
+            $item->views += 1;
+            $item->save();
             $this->itemEditInfo($item);
-            Item::incViews($id);
+            // Item::incViews($id);
             $this->item = $this->getItemData($item,$id);
             $this->item = $this->checkItemStatus($this->item);           
             if($this->item->user_id != Auth::id()){
@@ -178,6 +181,10 @@ class Showitem extends Component
     public function acceptRequest($item_id,$request_id)
     {
         $item = Item::find($item_id);
+        $item->payment = true;
+        return $this->accept($item,Requests::find($request_id));
+        dd('stop');
+        $item = Item::find($item_id);
         $item->status = 0.5;
         $item->save();
         $request = Requests::find($request_id);
@@ -204,20 +211,14 @@ class Showitem extends Component
         $pay->payer_id = Auth::id();
         $pay->merchantCode = rand(1000000,9999999999);
         $pay->payment_amount = $amount;
-        // $pay->payment_expire_date = Carbon::now()->add('24','hour');
-        $pay->payment_expire_date = Carbon::now()->add('2','minute');
-
+        $pay->payment_expire_date = Carbon::now()->add('24','hour');
         $pay->save();
         $this->emitSelf('refresh');
     }
 
     public function accept($item,$request)
     {
-        // dd($item,$request);
-        if($request!=null && $item->payment==true){
-            if($request != true || $item != true){
-                return $this->emit('notifi',$this->notis[7]);
-            }            
+        if($request!=null && $item->payment==true){           
 
             if($item->item_type == '3'){
                 $sender_item = 'donate';
@@ -227,8 +228,8 @@ class Showitem extends Component
                 $sender_item = Item::find($request->sender_item);
                 $sender_item->status = 1;
                 $sender_item->save();
-            }           
-            // dd('here');
+            }
+
             $reqs = Requests::where([
                 ['item_id','=',$item->id],
                 ['status','=',0],
@@ -246,58 +247,23 @@ class Showitem extends Component
                 'sender_item'=>$sender_item,
             ]);
             if($swaps != true){
-                return $this->emit('notifi',$this->notis[7]);
+                return $this->emit('notifi',$this->notis[8]);
             }
             $request->status = 1;        
             $request->save();
             $itm = Item::find($item->id);
             $itm->status = 1;
             $itm->save();
+            if($request != true || $item != true){
+                return $this->emit('notifi',$this->notis[8]);
+            } 
+            Notifyer::store(Auth::id(),$request->sender_id,'تم قبول الطلب',$item->id);
+            $this->emit('notifi',$this->notis[0]);
+            $this->emitTo('body','changeBody','swaps');
         }else{
             $this->emit('notifi',$this->notis[7]);
         }
         // dd('done');
-    }
-
-    public function acceptRequestzz($request_id,$sender_id,$item_id,$sender_item)
-    {
-        $req = Requests::where([['id','=',$request_id],
-        ['sender_id','=',$sender_id]])->get();
-        $swaps = Swap::create([
-            'request_id'=>$request_id,
-            'user_id'=>Auth::id(),
-            'sender_id'=>$sender_id,
-            'item_id'=>$item_id,
-            'sender_item'=>$sender_item,
-        ]);
-        if($swaps != true){
-            return $this->emit('notifi',$this->notis[2]);
-        }
-
-        $request = Requests::find($request_id);
-        $request->status = 1;        
-        $request->save();
-
-        if($request != true){
-            return $this->emit('notifi',$this->notis[2]);
-        }
-        $reqs = Requests::where([
-            ['item_id','=',$item_id],
-            ['status','=',0],
-            ]);
-        $reqs->each(function($req){
-            $req->status = -1;
-            return $req->save();
-        });
-        $item = Item::find([$item_id,$sender_item]);
-        $item->each(function($it){
-            $it->status = 1;
-            return $it->save();
-        });
-        
-        Notifyer::store(Auth::id(),$sender_id,'تم قبول العرض',$item_id);
-        $this->emit('notifi',$this->notis[5]);
-        $this->emitTo('body','changeBody','swaps');
     }
 
     public function savePost($postId)

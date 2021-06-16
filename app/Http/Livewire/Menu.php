@@ -15,7 +15,6 @@ class Menu extends Component
     public $userInfo;
     public $email;
     public $theme;
-    public $post_type = 'حاجتك';
     protected $listeners = ['refresh','changeTheme'];
     protected $user;
 

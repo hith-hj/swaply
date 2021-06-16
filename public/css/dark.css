@@ -254,3 +254,7 @@ a {
     border-radius: .4rem;
     padding: .4rem !important;
 }
+
+#item_type {
+    color: #ccc
+}

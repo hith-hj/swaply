@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB as DB;
 
 class Feeds extends Component
 {
+    public $user;
     protected $feeds;
     protected $listeners = ['getFeeds','refresh'];
     public $repo;
@@ -30,22 +31,25 @@ class Feeds extends Component
 
     public function mount()
     {
+        $this->user = Auth::user();
         $this->getFeeds();
     }
 
     public function hydrate()
     {
+        $this->user = Auth::user();
         $this->getFeeds();
     }
 
     public function refresh()
     {
+        $this->user = Auth::user();
         $this->getFeeds();
     }
 
     public function getFeeds()
     {
-        $requests = Requests::where('sender_id', '=', Auth::user()->id)->orWhere('user_id', '=', Auth::user()->id)->get();
+        $requests = Requests::where('sender_id', '=', $this->user->id)->orWhere('user_id', '=', $this->user->id)->get();
         $requests->filter(function($req,$key)use($requests){
             if ($req->status == '-1') {
                 return $requests->forget($key);
@@ -62,13 +66,13 @@ class Feeds extends Component
                 }
             }
             $feed->rated = Rate::where('item_id','=',$feed->id)
-            ->where('user_id','=',Auth::id())->exists();
+            ->where('user_id','=',$this->user->id)->exists();
         }
         $this->feeds->each(function ($feed){
             $feed->user = User::find($feed->user_id);
             $feed->collection = unserialize($feed->collection);
             $feed->user_items = Item::where([
-                ['user_id','=',Auth::id()],
+                ['user_id','=',$this->user->id],
                 ['status','=','0'],
                 ['item_type','!=','3'],
                 ])->get();
@@ -77,9 +81,9 @@ class Feeds extends Component
 
     public function savePost($postId,$user_id)
     {
-        $res = Notifyer::store(Auth::id(),$user_id,'تم حفظ المنشور ',$postId);
+        $res = Notifyer::store($this->user->id,$user_id,'تم حفظ المنشور ',$postId);
         $sa = new Save();
-        $sa->user_id = Auth::id();
+        $sa->user_id = $this->user->id;        ;
         $sa->post_id = $postId;
         $sa->save();
         $this->emit('notifi', $this->notis[0]);
@@ -93,7 +97,7 @@ class Feeds extends Component
             $item->save();
             $rate = new Rate();
             $rate->item_id = $item_id;
-            $rate->user_id = Auth::id();
+            $rate->user_id = $this->user->id;
             $rate->rate = $this->feed_rate;
             $rate->save();
         }
@@ -107,12 +111,12 @@ class Feeds extends Component
         if ($this->repo != null && count($this->repo) == 2) {
             Report::create( [
                 'user_id'=>$user_id,
-                'maker_id'=>Auth::user()->id,
+                'maker_id'=>$this->user->id,
                 'post_id'=>$post_id,
                 'report_type'=>$this->repo['type'],
                 'report_info'=>$this->repo['info'],
             ]);
-            $res = Notifyer::store(Auth::id(), $user_id, 'تم تبليغ منشورك,الرجاء ازالة المنشور', $post_id);
+            $res = Notifyer::store($this->user->id, $user_id, 'تم تبليغ منشورك,الرجاء ازالة المنشور', $post_id);
         }
         $res == true 
         ? $this->emit('notifi', $this->notis[1]) 
