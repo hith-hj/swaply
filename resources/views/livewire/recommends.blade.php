@@ -17,11 +17,12 @@
                     <hr>
                     <div wire:click="$emitTo('body','changeBody',['showitem','{{$item->id}}'])" title=" عرض {{$item->item_title}}">
                         <small class="card-text"><span>{{$item->item_info}}</span></small><br>
-                        {{-- <div class="d-flex justify-content-evenly mt-5px">
-                            <img class=" glow" src="{{asset('assets/items/'.$item->directory.'/'.$item->collection[0])}}" width="150" height="120" alt="{{$item->item_title}}" >
-                        </div> --}}
-                    </div>
-                    
+                        {{-- 
+                            <div class="d-flex justify-content-evenly mt-5px">
+                                <img class=" glow" src="{{asset('assets/items/'.$item->directory.'/'.$item->collection[0])}}" width="150" height="120" alt="{{$item->item_title}}" >
+                            </div> 
+                        --}}
+                    </div>                    
                 </div>
                 <div class="card-footer">
                     <small class="mx-4">مقترحات</small>
@@ -37,7 +38,7 @@
                                         </div>
                                         <div class="col">
                                             <div class="d-flex justify-content-evenly mt-5px">
-                                                <img class=" glow" src="{{asset('assets/items/'.$reco->directory.'/'.$reco->collection[0])}}" width="50" height="50" alt="{{$reco->item_title}}" >
+                                                <img class=" glow" src="{{asset('assets/items/'.$reco->directory.'/'.$reco->collection[0])}}" width="50%" height="64px" alt="{{$reco->item_title}}" >
                                             </div>
                                         </div>
                                     </div>                                
