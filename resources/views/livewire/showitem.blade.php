@@ -181,7 +181,11 @@
                                     @foreach ($feed->collection as $img)
                                         <div class="carousel-item {{ $loop->first ? "active" :''}} text-center" style="max-width:75vw; max-height:75vh">
                                             @if($feed->collection[0] != 'dark-logo.png')
-                                                <img class="glow" src="{{asset('assets/items/'.$feed->directory.'/'.$img)}}" alt="{{$feed->item_title}}" width="100%" >
+                                                @php
+                                                    $temp = getimagesize( 'assets/items/'.$feed->directory.'/'.$img );
+                                                    $height = $temp[1] > 700 ? '70%':'100%';
+                                                @endphp
+                                                <img class="glow" src="{{asset('assets/items/'.$feed->directory.'/'.$img)}}" alt="{{$feed->item_title}}" width="{{$height}}" >
                                             @else 
                                                 <img class="glow" src="{{asset('assets/fto/'.$feed->collection[0])}}" alt="{{$feed->item_title}}" >
                                             @endif
