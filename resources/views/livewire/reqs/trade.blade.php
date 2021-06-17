@@ -1,6 +1,6 @@
 <div>
     <div class="card-footer text-center ">    
-        <button class="btn btn-outline-success bg-white w-50 mb-1 mt-1 py-2" onclick="document.querySelector('#offer{{$feed->id}}').classList.toggle('hidden')">
+        <button class="btn btn-outline-success bg-white w-50 w-100 mb-1 mt-1 py-1" onclick="document.querySelector('#offer{{$feed->id}}').classList.toggle('hidden')">
             <span>طلب شراء</span>
         </button>  
         <div class="modal-dialog hidden mx-auto mb-1 mt-0 ani ani_fadeIn" id="offer{{$feed->id}}">

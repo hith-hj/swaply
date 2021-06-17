@@ -25,6 +25,7 @@ class Showitem extends Component
     public $req_item;
     public $req_info;
     public $editedFeed;
+    public $feed_rate;
     protected $listeners = ['refresh'];
     protected $notis = [
         ['تم قبول العرض','g','حسنا',],
@@ -42,6 +43,7 @@ class Showitem extends Component
     public function mount($g_id)
     {
         $this->item_id = $g_id;
+        Item::incViews($g_id);
         $this->getItem($g_id);
     }
 
@@ -60,10 +62,7 @@ class Showitem extends Component
         $item = Item::find($id);
         $stat = $item != null ? true : false;
         if($stat == true && $item->status != 'soft_deleted'){
-            $item->views += 1;
-            $item->save();
             $this->itemEditInfo($item);
-            // Item::incViews($id);
             $this->item = $this->getItemData($item,$id);
             $this->item = $this->checkItemStatus($this->item);           
             if($this->item->user_id != Auth::id()){
@@ -77,7 +76,6 @@ class Showitem extends Component
 
     public function getItemData($item,$id)
     {
-        // $item->user = User::find($item->user_id);
         $item->requestsCount = $item->requests;
         $item->collection = unserialize($item->collection);
         $item->user_items = Item::where([['user_id','=',Auth::id()],
@@ -85,6 +83,8 @@ class Showitem extends Component
         ['item_type','!=','3'],
         ])->get();
         $item->requests = Requests::where([['item_id','=',$id],['status','!=','-1'],])->get();
+        $item->rated = Rate::where('item_id','=',$item->id)
+            ->where('user_id','=',Auth::id())->exists();
         return $item;
     }
 
@@ -301,7 +301,7 @@ class Showitem extends Component
             $item->save();
             $rate = new Rate();
             $rate->item_id = $item_id;
-            $rate->user_id = $this->user->id;
+            $rate->user_id = Auth::id();
             $rate->rate = $this->feed_rate;
             $rate->save();
         }

@@ -1,25 +1,27 @@
 <div id="feedsBody">
     @forelse ($feeds as $feed)
-        <div class="col mt-5px ani ani_fadeIn ani_faster" wire:key="{{$feed->id}}" >
+        <div class="col mb-2 {{$loop->first ? 'mt-1':''}} ani ani_fadeIn ani_faster" wire:key="{{$feed->id}}" >
             <div class="card shadow">
                 <div class="card-body" >
                     <div class="row mb-2">
                         <div class="col">
-                            <small class="green_underline" title="نوع المنشور">
+                            <small class="green_underline mx-1" title="نوع المنشور">
                                 <i class="bi bi-distribute-horizontal"></i>
                                 <span>{{$feed->item_type == 1 ? 'مبادلة' : ($feed->item_type == 2 ? 'بيع' : 'تبرع')}}</span>
                             </small> |
                             @if($feed->item_type == 1)
-                                <small class="" title="بديل الغرض">
+                                <small class="mx-1" title="بديل الغرض">
                                     <i class="bi bi-arrow-down-up"></i>
-                                    <span>{{substr($feed->swap_with,0,strlen($feed->swap_with) < 30? strlen($feed->swap_with) : strlen($feed->swap_with)/3)}}</span>
+                                    <span>{{substr($feed->swap_with,0,strlen($feed->swap_with) < 30? strlen($feed->swap_with) : strlen($feed->swap_with)/3)}}</span> 
                                 </small> |
                             @endif
-                            <small class="" title="تاريخ النشر"><i class="bi bi-calendar-day"></i>
+                            <small class="mx-1" title="تاريخ النشر"><i class="bi bi-calendar-day"></i>
                                 <span>{{$feed->created_at->diffForHumans()}}</span>
                             </small> 
                         </div>
                     </div>
+                    <hr>
+
                     <div class="row">
                         <div class="col-3" style="padding-left:0;">
                             <div class="cursor" wire:click="$emitTo('body','changeBody',['showitem','{{$feed->id}}'])" title="عرض المنشور">                                
@@ -68,8 +70,9 @@
                         </div> 
                     </div>
                     <hr>
-                    <div class="row">
-                        <div class="col"> 
+
+                    <div class="row mx-1">
+                        <div class="col p-0"> 
                             <small class="card-subtitle text-muted"> <i class="bi bi-check2-all"></i> <span> {{$feed->views}}</span></small> |
                             <small class="card-subtitle text-muted"><span> <i class="bi bi-cart-plus"></i></span> {{$feed->requests}}</small>                         
                             @if($feed->amount > 0)

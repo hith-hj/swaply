@@ -1,6 +1,6 @@
 <div>
     <div class="card-footer text-center ">    
-        <button class="btn btn-outline-success bg-white w-50 mb-1 mt-1 py-2" style="font-size: 14px" 
+        <button class="btn btn-outline-success bg-white w-100 mb-1 mt-1 py-1" style="font-size: 14px" 
             onclick="document.querySelector('#offer{{$feed->id}}').classList.toggle('hidden')">
             <span>طلب تبديل</span>
         </button>
