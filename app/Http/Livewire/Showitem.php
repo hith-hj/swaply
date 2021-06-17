@@ -13,6 +13,7 @@ use App\Models\Report;
 use App\Models\User;
 use App\Models\Save;
 use App\Models\Swap;
+use App\Models\Rate;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -290,6 +291,22 @@ class Showitem extends Component
             }            
             $this->emitSelf('refresh');
         }
+    }
+
+    public function rateFeed($item_id)
+    {
+        $item = Item::find($item_id);
+        if ($item && $this->feed_rate > 0) {
+            $item->rates += $this->feed_rate;
+            $item->save();
+            $rate = new Rate();
+            $rate->item_id = $item_id;
+            $rate->user_id = $this->user->id;
+            $rate->rate = $this->feed_rate;
+            $rate->save();
+        }
+        $this->feed_rate = 0;
+        $this->emitSelf('refresh');        
     }
 
     public function editItem($item_id)

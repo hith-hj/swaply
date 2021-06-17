@@ -190,7 +190,7 @@
             <form id="add-item-form" class="width-auto" onsubmit="AddItem(event)" stoppedAction="{{route('addItem')}}" method="POST" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-8 ">
-                        <label class="p-2">أضافة</label><br>
+                        <label class="p-2">إضافة</label><br>
                     </div>
                     <div class="col-1 offset-2 cursor">
                         <i class="bi bi-x fs-2" onclick="document.querySelector('#newItemModal').classList.toggle('hidden');resetForm();"></i>
@@ -201,11 +201,11 @@
                 <div class="js-upload upload mb-1" uk-form-custom>
                     <input name="item_imgs[]" multiple required type="file" id="itemgs" accept="image/*" tabindex="0" onchange="image_resizer(event)" hidden>
                     <button class="cursor sbtn sbtn-txt light ani ani_flash" required tabindex="0" type="button" onclick="document.querySelector('#itemgs').click()">
-                        <i class="bi bi-images mx-2"></i>أختر صور
+                        <i class="bi bi-images mx-2"></i>إختر صور
                     </button>
                 </div>
 
-                <select name="item_type" id="item_type" class="form-control mb-1 ani ani_flash" style="font-family: cairo" required onchange="
+                <select required name="item_type" id="item_type" class="form-control mb-1 ani ani_flash" style="font-family: cairo" onchange="
                         let swap =  document.querySelector('#swap_with');
                         let price = document.querySelector('#item_price');
                         let note = document.querySelector('#swaply_percent');
@@ -229,18 +229,19 @@
                             price.hidden = true;
                             note.hidden = true;
                         }">
+                        <option value="">إختر نوع المنشور</option>
                         <option value="1">مبادلة</option>
                         <option value="2">مبيع</option>
                         <option value="3">تبرع</option>
                 </select>
 
-                <input name="item_title" type="text" class="form-control mb-1" placeholder="اسم الحاجة" required>
+                <input name="item_title" type="text" class="form-control mb-1" placeholder="اسم حاجتك" autocomplete="off" required>
 
-                <input name="swap_with" type="text" id="swap_with" placeholder="هتبدل بأيه" class="form-control mb-1 ani ani_fadeIn" title="الاسم واضح" required>
+                <textarea name="item_description" wrap="hard" class="form-control mb-1" rows="2" maxlength="250" title="اختياري" placeholder="وصف حاجتك"  autocomplete="off" required></textarea>
 
-                <textarea name="item_description" wrap="hard" class="form-control mb-1" rows="2" maxlength="250" title="اختياري" placeholder="اوصف حاجتك" required></textarea>
+                <input name="swap_with" type="text" id="swap_with" placeholder="هتبدل بأيه" class="form-control mb-1 ani ani_fadeIn" title="الاسم واضح"  autocomplete="off" required>
 
-                <input id="item_price" type="text" inputmode="numeric" name="amount" class="form-control  ani ani_fadeIn" title="اختياري" placeholder="فرق السعر (اختياري)" 
+                <input id="item_price" type="text" inputmode="numeric" name="amount" class="form-control  ani ani_fadeIn" title="اختياري" placeholder="فرق السعر (اختياري)"  autocomplete="off" 
                 onchange="
                     setTimeout(()=>{
                         let item_type = document.querySelector('#item_type');

@@ -59,6 +59,26 @@
                             <small class="mx-1"><span> <i class="bi bi-geo-alt"></i> </span> {{$feed->item_location}}</small>|
                             <small class="mx-1"><span> عروض :</span> {{$feed->requests}}</small>|
                             <small class="mx-1">شوهد : <span>{{$feed->views}}</span></small>
+                            @if($feed->rates > 0 )
+                                | <small class="card-subtitle text-muted"> <i class="bi bi-stars"></i> <span> {{$feed->rates > 10 ? round($feed->rates/5) : $feed->rates}}</span></small>
+                            @endif
+                            @if($feed->user_id != Auth::id() && $feed->rated == false)
+                                | <small onclick="document.querySelector('#rate{{$feed->id}}').classList.toggle('hidden')" class="card-subtitle text-muted cursor">
+                                    <i class="bi bi-star "></i> قيم</small>
+                                <small id="rate{{$feed->id}}" class="hidden ani ani_fadeIn">
+                                    <input wire:model.defer="feed_rate" id="rate1" type="checkbox" value="1" hidden>
+                                    <label onclick="rateFeed(event,{{$feed->id}})" for="rate1"> <i id="star_1_{{$feed->id}}" class="bi bi-star"></i></label>
+                                    <input wire:model.defer="feed_rate" id="rate2" type="checkbox" value="2" hidden>
+                                    <label onclick="rateFeed(event,{{$feed->id}})" for="rate2"> <i id="star_2_{{$feed->id}}" class="bi bi-star"></i></label>
+                                    <input wire:model.defer="feed_rate" id="rate3" type="checkbox" value="3" hidden>
+                                    <label onclick="rateFeed(event,{{$feed->id}})" for="rate3"> <i id="star_3_{{$feed->id}}" class="bi bi-star"></i></label>
+                                    <input wire:model.defer="feed_rate" id="rate4" type="checkbox" value="4" hidden>
+                                    <label onclick="rateFeed(event,{{$feed->id}})" for="rate4"> <i id="star_4_{{$feed->id}}" class="bi bi-star"></i></label>
+                                    <input wire:model.defer="feed_rate" id="rate5" type="checkbox" value="5" hidden>
+                                    <label onclick="rateFeed(event,{{$feed->id}})" for="rate5"> <i id="star_5_{{$feed->id}}" class="bi bi-star"></i></label>
+                                    <small wire:click="rateFeed('{{$feed->id}}')" class="btn btn-outline-success"><i class="bi bi-check"></i></small>
+                                </small>
+                            @endif
                         </div>
                     </div>
                 </div>
