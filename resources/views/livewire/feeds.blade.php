@@ -29,7 +29,7 @@
                                     @if($feed->collection[0] != 'dark-logo.png' && file_exists('assets/items/'.$feed->directory.'/'.$feed->collection[0]) )
                                         @php
                                             $temp = getimagesize( 'assets/items/'.$feed->directory.'/'.$feed->collection[0] );
-                                            $height = $temp[1] > 700 ? '45%':'100%';
+                                            $height = $temp[1] > 720 ? '45%':'100%';
                                         @endphp
                                         <img class=" dark-border px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" width="{{$height}}}" height="64px">
                                     @else 
