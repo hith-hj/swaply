@@ -742,3 +742,9 @@ textarea::selection {
     padding: .5rem;
     border-radius: .4rem;
 }
+
+.dark-border {
+    border: 2px solid #59ac51;
+    padding: .1rem;
+    border-radius: 2px;
+}

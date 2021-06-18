@@ -25,15 +25,15 @@
                     <div class="row">
                         <div class="col-3" style="padding-left:0;">
                             <div class="cursor" wire:click="$emitTo('body','changeBody',['showitem','{{$feed->id}}'])" title="عرض المنشور">                                
-                                <div class="d-flex justify-content-evenly mt-1" style="max-height:5.2rem">
+                                <div class="dark-border d-flex justify-content-evenly mt-1" style="max-height:5.2rem">
                                     @if($feed->collection[0] != 'dark-logo.png' && file_exists('assets/items/'.$feed->directory.'/'.$feed->collection[0]) )
                                         @php
                                             $temp = getimagesize( 'assets/items/'.$feed->directory.'/'.$feed->collection[0] );
                                             $height = $temp[1] > 720 ? '45%':'100%';
                                         @endphp
-                                        <img class=" dark-border px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" width="{{$height}}}" height="64px">
+                                        <img src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" width="{{$height}}}" height="64px">
                                     @else 
-                                        <img class="glow px-1" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$feed->item_type}}" width="100%" height="64px" >
+                                        <img class="glow" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$feed->item_type}}" width="100%" height="64px" >
                                     @endif
                                 </div>                    
                             </div>
