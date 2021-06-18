@@ -1,3 +1,6 @@
+window.addEventListener('offline', () => notify('لايوجد اتصال بالانترنت', 'r', 'عذرا'));
+window.addEventListener('online', () => notify('تم الأتصال', 'g', 'حسنا'));
+
 if ("serviceWorker" in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker
@@ -166,7 +169,7 @@ function notify(msg, status, head) {
     notifi.appendChild(div);
     setTimeout(() => {
         removeNoti(id)
-    }, 10000)
+    }, 7500)
 }
 
 function removeNoti(id) {
