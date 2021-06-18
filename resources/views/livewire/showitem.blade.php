@@ -179,11 +179,11 @@
                                 <i class="bi bi-x close-gallery cursor" onclick="document.querySelector('#showItemImages').classList.add('hidden')"></i>
                                 <div class="carousel-inner ">
                                     @foreach ($feed->collection as $img)
-                                        <div class="carousel-item {{ $loop->first ? "active" :''}} text-center" style="max-width:75vw; max-height:75vh">
+                                        <div class="carousel-item {{ $loop->first ? "active" :''}} text-center" style="max-width:75vw; max-height:80vh">
                                             @if($feed->collection[0] != 'dark-logo.png')
                                                 @php
                                                     $temp = getimagesize( 'assets/items/'.$feed->directory.'/'.$img );
-                                                    $height = $temp[1] > 700 ? '70%':'100%';
+                                                    $height = $temp[1] > 700 ? '65%':'100%';
                                                 @endphp
                                                 <img class="glow" src="{{asset('assets/items/'.$feed->directory.'/'.$img)}}" alt="{{$feed->item_title}}" width="{{$height}}" >
                                             @else 
