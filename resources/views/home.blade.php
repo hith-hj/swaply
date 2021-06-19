@@ -52,7 +52,11 @@
                                             <div class="cursor" title="عرض المنشور">                                
                                                 <div class="dark-border d-flex justify-content-evenly mt-1" style="max-height:5.2rem">
                                                     @if($feed->collection[0] != 'dark-logo.png' && file_exists('assets/items/'.$feed->directory.'/'.$feed->collection[0]) )
-                                                        <img class="" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" width="100%" >
+                                                        @php
+                                                            $temp = getimagesize( 'assets/items/'.$feed->directory.'/'.$feed->collection[0] );
+                                                            $height = $temp[1] > 720 ? '45%':'100%';
+                                                        @endphp
+                                                        <img class="" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" width="{{$height}}" >
                                                     @else 
                                                         <img class="glow px-1" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$feed->item_type}}" width="100%" >
                                                     @endif
