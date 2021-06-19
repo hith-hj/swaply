@@ -50,9 +50,9 @@
                                     <div class="row">
                                         <div class="col-3" style="padding-left:0;">
                                             <div class="cursor" title="عرض المنشور">                                
-                                                <div class="d-flex justify-content-evenly mt-1" style="max-height:5.2rem">
+                                                <div class="dark-border d-flex justify-content-evenly mt-1" style="max-height:5.2rem">
                                                     @if($feed->collection[0] != 'dark-logo.png' && file_exists('assets/items/'.$feed->directory.'/'.$feed->collection[0]) )
-                                                        <img class=" dark-border px-1" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" width="100%" >
+                                                        <img class="" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" width="100%" >
                                                     @else 
                                                         <img class="glow px-1" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$feed->item_type}}" width="100%" >
                                                     @endif

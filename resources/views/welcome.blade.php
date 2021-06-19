@@ -52,8 +52,7 @@
                 </div> 
                 <div style="margin-top: -20px">
                     <h1 id="slogan-header">سوابلي</h1>
-                    <p id="slogan">بدل اللي مش محتاجه</p>
-                    <p id="slogan">علشان الكل يستفيد</p>
+                    <p id="slogan">الكل بيستفيد</p>
                 </div>    
     
                 @guest

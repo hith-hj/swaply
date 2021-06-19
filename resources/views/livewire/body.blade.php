@@ -32,9 +32,11 @@
             </div>
             @break
         @case('reportProblem')
-            <h4 class="text-center mb-2 mt-2">نأمل ان يكون اقتراح</h4>
-            <div class="alert alert-light ani ani_pulse" role="alert">
-                <div class="w-95 mx-auto mt-0 z-100">
+            <div class="alert alert-light ani ani_slideInUp p-0 m-0 mt-1 mb-1">
+                <h4 class="text-center">نأمل ان يكون اقتراح</h4>
+            </div>
+            <div class="alert alert-light ani ani_pulse m-0" role="alert">
+                <div class="w-100 mx-auto mt-0">
                     <div class="modal-header">
                         <h5 class="modal-title m-0"><i class="bi bi-flag cr"></i> اقتراح او تبليغ مشكلة</h5>
                     </div>
@@ -149,8 +151,5 @@
         </div> 
     </div>
 </div>
-
-
-
 
 

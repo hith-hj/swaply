@@ -37,6 +37,7 @@ class Showitem extends Component
         ['تم حذف المنشور','r','للاسف'],
         ['حدث خطا ما','r','للاسف',],
         ['لايمكن اتمام هذة العملية البيانات غير متوافقة','r','للاسف '],
+        ['لايمكن اتمام هذة العملية تم تبديل غرض الطلب','r','للاسف '],
         ['','',''],
     ];
 
@@ -63,28 +64,24 @@ class Showitem extends Component
         $stat = $item != null ? true : false;
         if($stat == true && $item->status != 'soft_deleted'){
             $this->itemEditInfo($item);
-            $this->item = $this->getItemData($item,$id);
+            $this->item = $this->getItemData($item);
             $this->item = $this->checkItemStatus($this->item);           
             if($this->item->user_id != Auth::id()){
                 $this->item = $this->checkIfRequested($this->item);
                 $this->item = $this->checkIfRecived($this->item);
+                $this->item = $this->checkIfRated($this->item);
             }
         }else{
             return $this->item = [];
         }
     }
 
-    public function getItemData($item,$id)
+    public function getItemData($item)
     {
         $item->requestsCount = $item->requests;
         $item->collection = unserialize($item->collection);
-        $item->user_items = Item::where([['user_id','=',Auth::id()],
-        ['status','=','0'],
-        ['item_type','!=','3'],
-        ])->get();
-        $item->requests = Requests::where([['item_id','=',$id],['status','!=','-1'],])->get();
-        $item->rated = Rate::where('item_id','=',$item->id)
-            ->where('user_id','=',Auth::id())->exists();
+        $item->user_items = Item::where([['user_id','=',Auth::id()],['status','=','0'],['item_type','!=','3'],])->get();
+        $item->requests = Requests::where([['item_id','=',$item->id],['status','!=','-1'],])->orWhere('sender_item','=',$item->id)->get();
         return $item;
     }
 
@@ -114,32 +111,52 @@ class Showitem extends Component
         return $item;
     }
 
+    public function checkIfRated($item)
+    {
+        $item->rated = Rate::where('item_id','=',$item->id)
+            ->where('user_id','=',Auth::id())->exists();
+        return $item;
+    }
+
     public function checkItemStatus($item)
     {
         if($item->user_id == Auth::id())
         {
             if($item->status == '1'){
-                $item->requests->filter(function($req) use ($item){
+                $item->requests->filter ( function ($req) use ($item)
+                {
                     if($req->status == '1'){
-                        $item->sender = User::find($req->sender_id);
-                        switch ($item->item_type) {
-                            case '1':
-                                $item->sender_item = Item::find($req->sender_item);
-                                break;
-                            case '2':
-                                if($req->sender_item == 'trade')
-                                {
-                                    $item->sender_item = 'trade';
-                                }else{
-                                    $item->sender_item = Item::find($req->sender_item);
-                                }
-                                break;
-                            default:
-                                # do nothing for now
-                                break;
+                        if($req->sender_id == Auth::id()){   
+                            $item->sender = User::find($req->user_id);
+                            $itemToGet = $req->item_id;
+                        }else{
+                            $item->sender = User::find($req->sender_id);
+                            $itemToGet = $req->sender_item;
                         }
+                        if($item->item_type == '2' && $req->sender_item == 'trade'){
+                            $item->sender_item = 'trade';
+                        }else{
+                            $item->sender_item = Item::find($itemToGet);
+                        }
+                        // switch ($item->item_type) {
+                        //     case '1':
+                        //         $item->sender_item = Item::find($req->sender_item);
+                        //         break;
+                        //     case '2':
+                        //         if($req->sender_item == 'trade')
+                        //         {
+                        //             $item->sender_item = 'trade';
+                        //         }else{
+                        //             $item->sender_item = Item::find($req->sender_item);
+                        //         }
+                        //         break;
+                        //     default:
+                        //         # do nothing for now
+                        //         break;
+                        // }
                         return $req;
                     }
+                    
                 });
             }else{
                 $payment = Payment::where('item_id','=',$item->id);
@@ -219,16 +236,24 @@ class Showitem extends Component
 
     public function accept($item,$request)
     {
-        if($request!=null && $item->payment==true){           
+        if($request!=null && $item->payment==true){   
+            
+            if($item->status != '0'){
+                return $this->emit('notifi',$this->notis[8]);
+            }
 
             if($item->item_type == '3'){
                 $sender_item = 'donate';
             }elseif($item->item_type == '2' && $request->sender_item == 'trade'){
                 $sender_item = 'trade';
             }else{
-                $sender_item = Item::find($request->sender_item);
-                $sender_item->status = 1;
-                $sender_item->save();
+                $xitem = Item::find($request->sender_item);
+                if($xitem->status != '0'){
+                    return $this->emit('notifi',$this->notis[9]);
+                }
+                $xitem->status = 1;
+                $xitem->save();
+                $sender_item = $xitem->id;
             }
 
             $reqs = Requests::where([
@@ -247,9 +272,6 @@ class Showitem extends Component
                 'item_id'=>$item->id,
                 'sender_item'=>$sender_item,
             ]);
-            if($swaps != true){
-                return $this->emit('notifi',$this->notis[8]);
-            }
             $request->status = 1;        
             $request->save();
             $itm = Item::find($item->id);
@@ -264,7 +286,6 @@ class Showitem extends Component
         }else{
             $this->emit('notifi',$this->notis[7]);
         }
-        // dd('done');
     }
 
     public function savePost($postId)

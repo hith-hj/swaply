@@ -1,5 +1,5 @@
 <div class="ani ani_fadeIn ani_faster">
-    <div class="alert alert-light mt-5px ani ani_slideInDown" role="alert">
+    <div class="alert alert-light ani ani_slideInDown p-0 m-0 mt-1 mb-1" role="alert">
         <h3>الطلبات</h3>
         <small>يتم اخفاء الطلبات بعد مضي يوم على نجاحها</small><br>
         <small>بامكانك ايجاد الطلبات الناجحة في صفحة <strong wire:click="$emit('changeBody','swaps')" class="cursor">التبادلات</strong> </small>

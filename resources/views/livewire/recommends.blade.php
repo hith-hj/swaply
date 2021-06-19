@@ -1,5 +1,5 @@
 <div>
-    <div class="alert alert-light mt-5px ani ani_slideInDown" role="alert">
+    <div class="alert alert-light ani ani_slideInDown p-0 m-0 mt-1 mb-1" role="alert">
         <h3>المطابقات</h3>
         <p>المطابقات المقترحة من قبل الموقع على منشوراتك للتبادل</p>
     </div>

@@ -1,6 +1,6 @@
 <div>
     @if (empty($feed) && count($feed) <= 0 )
-        <div class="alert alert-light mt-5px ani ani_fadeIn" role="alert">
+        <div class="alert alert-light ani ani_fadeIn p-0 m-0 mt-1 mb-1" role="alert">
             <h3>عذرا عزيزي المشترك</h3>
             <p>من الممكن ان يكون قد تم حذف او ازالة المنشور </p><br>
         </div>
