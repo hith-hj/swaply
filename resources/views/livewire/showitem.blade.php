@@ -177,14 +177,14 @@
                     <div id="showItemImages" class="hidden smodal ani ani_fadeIn text-center" style="background: #373736fa;z-index:12; ">
                         <div class="ani ani_fadeIn p-1 w-100">
                             <div id="showFullImage" class="carousel slide text-center carousel-fade" data-bs-ride="carousel" >
-                                <i class="bi bi-x close-gallery cursor" onclick="document.querySelector('#showItemImages').classList.add('hidden')"></i>
+                                <i class="bi bi-x close-gallery fs-2 cursor" onclick="document.querySelector('#showItemImages').classList.add('hidden')"></i>
                                 <div class="carousel-inner ">
                                     @foreach ($feed->collection as $img)
                                         <div class="carousel-item {{ $loop->first ? "active" :''}} text-center" style="max-width:75vw; max-height:80vh">
                                             @if($feed->collection[0] != 'dark-logo.png')
                                                 @php
                                                     $temp = getimagesize( 'assets/items/'.$feed->directory.'/'.$img );
-                                                    $height = $temp[1] > 700 ? '65%':'100%';
+                                                    $height = $temp[1] > 700 ? '65%':'90%';
                                                 @endphp
                                                 <img class="glow" src="{{asset('assets/items/'.$feed->directory.'/'.$img)}}" alt="{{$feed->item_title}}" width="{{$height}}" >
                                             @else 
