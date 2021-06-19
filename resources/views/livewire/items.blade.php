@@ -24,15 +24,30 @@
                                 </ul>
                             </div>
                         </div>
+                        <div class="hidden px-1" id="delete{{$feed->id}}">
+                            <hr>
+                            <div class="modal-dialog ani ani_fadeIn mx-auto mb-1 mt-1" >
+                                <div class="modal-content">
+                                    <div class="modal-footer justify-content-center">
+                                        <div class="btn-group" >
+                                            <button type="button" class="btn btn-outline-danger " wire:click="deleteItem({{$feed->id}})"><i class="bi bi-trash mx-2"></i><small>حذف</small></button> 
+                                            <button type="button" class="btn btn-outline-dark " onclick="document.querySelector('#delete{{$feed->id}}').classList.toggle('hidden')"><i class="bi bi-x mx-2"></i><small>أغلاق</small></button>   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div> 
                     <div class="row">
                         <div class="col">
                             @if($feed->status ==1)
-                                <small class="card-subtitle text-muted mx-1 green_underline"><strong>تم التبديل</strong></small>
-                            @endif
-                            <small class="card-subtitle text-muted green_underline" title="نوع المنشور">
-                                <i class="mx-1 bi bi-distribute-horizontal"></i>
-                                <span>{{$feed->item_type == 1 ? 'مبادلة' : ($feed->item_type == 2 ? 'بيع' : 'تبرع')}}</span></small>
+                                <small class="card-subtitle text-muted mx-1 green_underline"><strong>تم {{$feed->item_type == 1 ? 'التبديل' : ($feed->item_type == 2 ? 'البيع' : 'التبرع')}}</strong></small>
+                            @else 
+                                <small class="card-subtitle text-muted green_underline" title="نوع المنشور">
+                                    <i class="mx-1 bi bi-distribute-horizontal"></i>
+                                    <span>{{$feed->item_type == 1 ? 'مبادلة' : ($feed->item_type == 2 ? 'بيع' : 'تبرع')}}</span>
+                                </small>
+                            @endif  
                             @if($feed->item_type == '1')
                                 <small class="card-subtitle text-muted " title="بديل الغرض"><i class="mx-1 bi bi-arrow-down-up"></i><span>{{substr($feed->swap_with,0,strlen($feed->swap_with) < 30? strlen($feed->swap_with) : strlen($feed->swap_with)/3)}}</span></small>
                             @endif
@@ -82,19 +97,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="hidden px-1" id="delete{{$feed->id}}">
-                    <hr>
-                    <div class="modal-dialog ani ani_fadeIn mx-auto mb-1 mt-1" >
-                        <div class="modal-content">
-                            <div class="modal-footer justify-content-center">
-                                <div class="btn-group" >
-                                    <button type="button" class="btn btn-outline-danger " wire:click="deleteItem({{$feed->id}})"><i class="bi bi-trash mx-2"></i><small>حذف</small></button> 
-                                    <button type="button" class="btn btn-outline-dark " onclick="document.querySelector('#delete{{$feed->id}}').classList.toggle('hidden')"><i class="bi bi-x mx-2"></i><small>أغلاق</small></button>   
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>           
+                           
             </div>
         </div>
     @empty

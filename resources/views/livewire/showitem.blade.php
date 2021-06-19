@@ -34,15 +34,30 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="hidden px-1" id="delete{{$feed->id}}">
+                            <hr>
+                            <div class="modal-dialog ani ani_fadeIn mx-auto mb-1 mt-1" >
+                                <div class="modal-content">
+                                    <div class="modal-footer justify-content-center">
+                                        <div class="btn-group" >
+                                            <button type="button" class="btn btn-outline-danger " wire:click="deleteItem({{$feed->id}})"><i class="bi bi-trash mx-2"></i><small>حذف</small></button> 
+                                            <button type="button" class="btn btn-outline-dark " onclick="document.querySelector('#delete{{$feed->id}}').classList.toggle('hidden')"><i class="bi bi-x mx-2"></i><small>أغلاق</small></button>   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div> 
                     <div class="row">
                         <div class="col">
                             @if($feed->status ==1)
-                                <small class="card-subtitle text-muted mx-1 green_underline"><strong>تم التبديل</strong></small>
-                            @endif
-                            <small class="card-subtitle text-muted green_underline" title="نوع المنشور">
-                                <i class="mx-1 bi bi-distribute-horizontal"></i>
-                                <span>{{$feed->item_type == 1 ? 'مبادلة' : ($feed->item_type == 2 ? 'بيع' : 'تبرع')}}</span></small>
+                                <small class="card-subtitle text-muted mx-1 green_underline"><strong>تم {{$feed->item_type == 1 ? 'التبديل' : ($feed->item_type == 2 ? 'البيع' : 'التبرع')}}</strong></small>
+                            @else 
+                                <small class="card-subtitle text-muted green_underline" title="نوع المنشور">
+                                    <i class="mx-1 bi bi-distribute-horizontal"></i>
+                                    <span>{{$feed->item_type == 1 ? 'مبادلة' : ($feed->item_type == 2 ? 'بيع' : 'تبرع')}}</span>
+                                </small>
+                            @endif                            
                             @if($feed->item_type == 1)
                                 <small class="card-subtitle text-muted " title="بديل الغرض"><i class="mx-1 bi bi-arrow-down-up"></i><span>{{substr($feed->swap_with,0,strlen($feed->swap_with) < 30? strlen($feed->swap_with) : strlen($feed->swap_with)/3)}}</span></small>
                             @endif
@@ -138,21 +153,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="hidden px-1" id="delete{{$feed->id}}">
-                        <hr>
-                        <div class="modal-dialog ani ani_fadeIn mx-auto mb-1 mt-1" >
-                            <div class="modal-content">
-                                <div class="modal-footer justify-content-center">
-                                    <div class="btn-group" >
-                                        <button type="button" class="btn btn-outline-danger " wire:click="deleteItem({{$feed->id}})"><i class="bi bi-trash mx-2"></i><small>حذف</small></button> 
-                                        <button type="button" class="btn btn-outline-dark " onclick="document.querySelector('#delete{{$feed->id}}').classList.toggle('hidden')"><i class="bi bi-x mx-2"></i><small>أغلاق</small></button>   
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div>        
 
                     <div id="report{{$feed->id}}" class="hidden w-95 mx-auto mt-0 z-100">
                         <hr>
@@ -304,7 +305,20 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-4 text-center">
-                                                                            <img src="{{asset('assets/items/'.$req->sender_item->directory.'/'.$req->sender_item->collection[0])}}" alt="" width="50%" class="glow">
+                                                                            <div class="cursor">                                
+                                                                                <div class="dark-border d-flex justify-content-evenly mt-1" style="max-height:5.2rem">
+                                                                                    @if( file_exists('assets/items/'.$req->sender_item->directory.'/'.$req->sender_item->collection[0]) )
+                                                                                        @php
+                                                                                            $temp = getimagesize( 'assets/items/'.$req->sender_item->directory.'/'.$req->sender_item->collection[0] );
+                                                                                            $height = $temp[1] > 720 ? '45%':'100%';
+                                                                                        @endphp
+                                                                                        <img src="{{asset('assets/items/'.$req->sender_item->directory.'/'.$req->sender_item->collection[0])}}" alt="{{$req->sender_item->item_title}}" width="{{$height}}}" height="64px">
+                                                                                    @else 
+                                                                                        <img class="glow" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$req->sender_item->item_title}}" width="100%" height="64px" >
+                                                                                    @endif
+                                                                                </div>
+                                                                            </div>
+                                                                            {{-- <img src="{{asset('assets/items/'.$req->sender_item->directory.'/'.$req->sender_item->collection[0])}}" alt="" width="50%" height="65px" class="glow"> --}}
                                                                         </div> 
                                                                         @break
                                                                     @case('2')
@@ -317,7 +331,19 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-4 text-center">
-                                                                                <img src="{{asset('assets/items/'.$req->sender_item->directory.'/'.$req->sender_item->collection[0])}}" alt="" width="50%" class="glow">
+                                                                                <div class="cursor">                                
+                                                                                    <div class="dark-border d-flex justify-content-evenly mt-1" style="max-height:5.2rem">
+                                                                                        @if( file_exists('assets/items/'.$req->sender_item->directory.'/'.$req->sender_item->collection[0]) )
+                                                                                            @php
+                                                                                                $temp = getimagesize( 'assets/items/'.$req->sender_item->directory.'/'.$req->sender_item->collection[0] );
+                                                                                                $height = $temp[1] > 720 ? '45%':'100%';
+                                                                                            @endphp
+                                                                                            <img src="{{asset('assets/items/'.$req->sender_item->directory.'/'.$req->sender_item->collection[0])}}" alt="{{$req->sender_item->item_title}}" width="{{$height}}}" height="64px">
+                                                                                        @else 
+                                                                                            <img class="glow" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$req->sender_item->item_title}}" width="100%" height="64px" >
+                                                                                        @endif
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>                                                        
                                                                         @else 
                                                                             <div class="col-12">
@@ -343,7 +369,7 @@
                                                                 </small>
                                                             </div>
                                                             @if(!$loop->last)
-                                                            <hr class="mb-1 mt-1">
+                                                                <hr class="mb-1 mt-1">
                                                             @endif
                                                     @endforeach
                                                 </div>
