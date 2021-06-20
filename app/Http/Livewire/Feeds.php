@@ -27,6 +27,7 @@ class Feeds extends Component
         ['تم حفظ المنشور','b','حسنا',],
         ['استلمنا بلاغك سوف نتابع الموضوع ,شكرا لتعاونك','b','حسنا',],
         ['لم يتم ارسال البلاغ,الرجاء ملئ الحقول','r','للاسف',],
+        ['المنشور محفوظ ','r','للاسف',],
     ];
 
     public function mount()
@@ -79,14 +80,18 @@ class Feeds extends Component
         });
     }
 
-    public function savePost($postId,$user_id)
+    public function savePost($post_id,$user_id)
     {
-        $res = Notifyer::store($this->user->id,$user_id,'تم حفظ المنشور ',$postId);
-        $sa = new Save();
-        $sa->user_id = $this->user->id;        ;
-        $sa->post_id = $postId;
-        $sa->save();
-        $this->emit('notifi', $this->notis[0]);
+        $check = Save::where([['user_id','=',$this->user->id],['post_id','=',$post_id]])->exists();
+        if($check == false){
+            $sa = new Save();
+            $sa->user_id = $this->user->id;
+            $sa->post_id = $post_id;
+            $sa->save();
+            Notifyer::store($this->user->id,$user_id,'تم حفظ المنشور ',$post_id);
+            return $this->emit('notifi', $this->notis[0]);
+        }
+        return $this->emit('notifi',$this->notis[3]);        
     }
 
     public function rateFeed($item_id)

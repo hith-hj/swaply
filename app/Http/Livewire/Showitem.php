@@ -38,7 +38,7 @@ class Showitem extends Component
         ['حدث خطا ما','r','للاسف',],
         ['لايمكن اتمام هذة العملية البيانات غير متوافقة','r','للاسف '],
         ['لايمكن اتمام هذة العملية تم تبديل غرض الطلب','r','للاسف '],
-        ['','',''],
+        ['المنشور محفوظ','r','عذرا'],
     ];
 
     public function mount($g_id)
@@ -288,16 +288,20 @@ class Showitem extends Component
         }
     }
 
-    public function savePost($postId)
+    public function savePost($post_id)
     {
-        try {
-            $sa = new Save();
-            $sa->user_id = Auth::id();
-            $sa->post_id = $postId;
-            $sa->save(); 
-            $this->emit('notifi',$this->notis[2]);
+        try { 
+            $check = Save::where([['user_id','=',Auth::id()],['post_id','=',$post_id]])->exists();
+            if($check == false){
+                $sa = new Save();
+                $sa->user_id = Auth::id();
+                $sa->post_id = $post_id;
+                $sa->save();
+                return $this->emit('notifi', $this->notis[2]);
+            }
+            return $this->emit('notifi',$this->notis[10]);
         } catch (\Throwable $th) {
-            $this->emit('notifi',$this->notis[7]);
+            return $this->emit('notifi',$this->notis[7]);
         }
         
     }

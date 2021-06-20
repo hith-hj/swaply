@@ -25,6 +25,17 @@ class Saves extends Component
         }
     }
 
+    public function deleteSave($save_id)
+    {
+        $sv = Save::find($save_id);
+        if(isset($sv)){
+            $sv->delete();
+            $noti = ['تم الحذف','r','حسنا'];
+            $this->emit('notifi',$noti);
+        }
+        $this->getSaves();
+    }
+
     public function render()
     {
         return view('livewire.saves');
