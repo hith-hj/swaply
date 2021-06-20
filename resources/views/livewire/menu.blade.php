@@ -404,10 +404,9 @@
     @endif
 
     <span id="cir-icon" class="cursor" >
-        <i class="bi bi-list" role="button" tabindex="0">
         @if(count($user->notification) > 0)
             <span class="bi bi-dot red-alert icon-15" ></span>
         @endif
-        </i>
+        <i class="bi bi-list" role="button" tabindex="0"></i>
     </span>
 </div>

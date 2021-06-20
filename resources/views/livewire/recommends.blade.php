@@ -50,7 +50,7 @@
             </div>
         </div>
     @empty
-        <div class="alert alert-light mt-5px ani ani_slideInUp" role="alert">
+        <div class="alert alert-light ani ani_slideInUp p-0 m-0 mt-1 mb-1" role="alert">
             <h3>عذرا عزيزي المشترك</h3>
             <p>لايوجد مقترحات للتبادل مع اغراضك في الوقت الحالي  </p>
         </div>

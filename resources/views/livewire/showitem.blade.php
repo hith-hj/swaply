@@ -34,19 +34,85 @@
                                 @endif
                             </div>
                         </div>
+
                         <div class="hidden px-1" id="delete{{$feed->id}}">
-                            <hr>
-                            <div class="modal-dialog ani ani_fadeIn mx-auto mb-1 mt-1" >
+                           <hr class="mt-2 mb-2">
+                            <div class="modal-dialog ani ani_fadeIn mx-auto mb-2 mt-1" >
                                 <div class="modal-content">
-                                    <div class="modal-footer justify-content-center">
-                                        <div class="btn-group" >
-                                            <button type="button" class="btn btn-outline-danger " wire:click="deleteItem({{$feed->id}})"><i class="bi bi-trash mx-2"></i><small>حذف</small></button> 
-                                            <button type="button" class="btn btn-outline-dark " onclick="document.querySelector('#delete{{$feed->id}}').classList.toggle('hidden')"><i class="bi bi-x mx-2"></i><small>أغلاق</small></button>   
-                                        </div>
+                                    <div class="modal-footer justify-content-center btn-group">
+                                        <button type="button" class="btn btn-outline-danger " wire:click="deleteItem({{$feed->id}})">
+                                            <i class="bi bi-trash mx-2"></i>
+                                            <small>حذف</small>
+                                        </button> 
+                                        <button type="button" class="btn btn-outline-dark " onclick="document.querySelector('#delete{{$feed->id}}').classList.toggle('hidden')">
+                                            <i class="bi bi-x mx-2"></i>
+                                            <small>أغلاق</small>
+                                        </button>   
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="hidden px-1" id="edit{{$feed->id}}">
+                           <hr class="mt-2 mb-2">
+                            <div class="modal-dialog ani ani_fadeIn mx-auto mb-2 mt-1">
+                                <div class="modal-content p-1">
+                                    <div class="form-group row">
+                                        <div class="col-6">
+                                            <label class="form-label">اسم الغرض</label>
+                                            <input wire:model.defer="editedFeed.item_title" class="form-control" type="text" placeholder="{{$feed->item_title}}">
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label">معلومات الغرض</label>
+                                            <input wire:model.defer="editedFeed.item_info" class="form-control" type="text" placeholder="{{$feed->item_info}}">
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label">مكان الغرض</label>
+                                            <input wire:model.defer="editedFeed.item_location" class="form-control" type="text" placeholder="{{$feed->item_location}}">
+                                        </div>
+                                        @if($feed->item_type == 1)
+                                            <div class="col-6">                                    
+                                                <label class="form-label">هتبدلو بايه</label>
+                                                <input wire:model.defer="editedFeed.swap_with" class="form-control" type="text" placeholder="{{$feed->swap_with}}">
+                                            </div>
+                                        @endif                         
+                                    </div>
+                                    <div class="modal-footer justify-content-center btn-group">                                        
+                                        <button type="button" class="btn btn-outline-success " wire:click="editItem({{$feed->id}})">
+                                            <i class="bi bi-cloud-upload mx-2"></i>
+                                            <small>تعديل</small>
+                                        </button> 
+                                        <button type="button" class="btn btn-outline-dark " onclick="document.querySelector('#edit{{$feed->id}}').classList.toggle('hidden')">
+                                            <i class="bi bi-x mx-2"></i>
+                                            <small>أغلاق</small>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                        <div id="report{{$feed->id}}" class="hidden px-1">
+                           <hr class="mt-2 mb-2">
+                            <div class="modal-content p-2">
+                                <label for="" class="form-label">نوع الاساءة</label>
+                                <input type="text" wire:model.defer="repo.type" list="reportsType" class="form-control">
+                                <datalist id="reportsType">
+                                        <option value="منشور وهمي">
+                                        <option value="منشور مسيء">
+                                        <option value="منشور غير مفهوم">
+                                </datalist>
+                                <label for="" class="form-label">وضح لنا الأساءة</label>
+                                <textarea class="form-control my-1" wrap="hard" wire:model.defer="repo.info" rows="2"></textarea>
+                                <div class="modal-footer justify-content-center btn-group">
+                                    <button type="button" class="btn btn-outline-danger " wire:click="report('{{$feed->id}}','{{$feed->user_id}}')">
+                                        <span>ارسال</span>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-dark " data-bs-dismiss="modal" wire:click="resetReport()">
+                                        <span>أغلاق</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
                     </div> 
                     <div class="row">
                         <div class="col">
@@ -118,59 +184,6 @@
                                     </small>
                                 @endif
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="hidden px-1" id="edit{{$feed->id}}">
-                        <hr>
-                        <div class="modal-dialog ani ani_fadeIn mx-auto mb-1 mt-1">
-                            <div class="modal-content p-1">
-                                <div class="form-group row">
-                                    <div class="col-6">
-                                        <label class="form-label">اسم الغرض</label>
-                                        <input wire:model.defer="editedFeed.item_title" class="form-control" type="text" placeholder="{{$feed->item_title}}">
-                                    </div>
-                                    <div class="col-6">
-                                        <label class="form-label">معلومات الغرض</label>
-                                        <input wire:model.defer="editedFeed.item_info" class="form-control" type="text" placeholder="{{$feed->item_info}}">
-                                    </div>
-                                    <div class="col-6">
-                                        <label class="form-label">مكان الغرض</label>
-                                        <input wire:model.defer="editedFeed.item_location" class="form-control" type="text" placeholder="{{$feed->item_location}}">
-                                    </div>
-                                    @if($feed->item_type == 1)
-                                        <div class="col-6">                                    
-                                            <label class="form-label">هتبدلو بايه</label>
-                                            <input wire:model.defer="editedFeed.swap_with" class="form-control" type="text" placeholder="{{$feed->swap_with}}">
-                                        </div>
-                                    @endif                         
-                                </div>
-                                <div class="modal-footer justify-content-center">
-                                    <div class="btn-group" >
-                                        <button type="button" class="btn btn-outline-success " wire:click="editItem({{$feed->id}})"><i class="bi bi-cloud-upload mx-2"></i><small>تعديل</small></button> 
-                                        <button type="button" class="btn btn-outline-dark " onclick="document.querySelector('#edit{{$feed->id}}').classList.toggle('hidden')"><i class="bi bi-x mx-2"></i><small>أغلاق</small></button>   
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>        
-
-                    <div id="report{{$feed->id}}" class="hidden w-95 mx-auto mt-0 z-100">
-                        <hr>
-                        <div class="modal-body">
-                            <label for="" class="form-label">نوع الاساءة</label>
-                            <input type="text" wire:model.defer="repo.type" list="reportsType" class="form-control">
-                            <datalist id="reportsType">
-                                    <option value="منشور وهمي">
-                                    <option value="منشور مسيء">
-                                    <option value="منشور غير مفهوم">
-                            </datalist>
-                            <label for="" class="form-label">وضح لنا الأساءة</label>
-                            <textarea class="form-control my-1" wrap="hard" wire:model.defer="repo.info" rows="2"></textarea>
-                        </div>
-                        <div class="modal-footer justify-content-center">
-                            <button type="button" class="sbtn sbtn-txt mx-1" wire:click="report('{{$feed->id}}','{{$feed->user_id}}')"><span>ارسال</span></button>
-                            <button type="button" class="sbtn sbtn-txt mx-3" data-bs-dismiss="modal" wire:click="resetReport()"><span>أغلاق</span></button>
                         </div>
                     </div>
 

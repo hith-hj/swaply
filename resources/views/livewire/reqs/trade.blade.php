@@ -24,17 +24,15 @@
                         @endif
                     </div>
                 </div>
-                <div class="modal-footer justify-content-center">
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-success " wire:click="sendOffer('{{$feed->id}}','{{$feed->user_id}}','{{$feed->item_type}}')">
-                            <i class="bi bi-cloud-upload mx-2"></i>
-                            <small>ارسال</small>
-                        </button> 
-                        <button type="button" class="btn btn-outline-dark " onclick="document.querySelector('#offer{{$feed->id}}').classList.toggle('hidden')">
-                            <i class="bi bi-x mx-2"></i>
-                            <small>أغلاق</small>
-                        </button>   
-                    </div>
+                <div class="modal-footer justify-content-center btn-group">
+                    <button type="button" class="btn btn-outline-success " wire:click="sendOffer('{{$feed->id}}','{{$feed->user_id}}','{{$feed->item_type}}')">
+                        <i class="bi bi-cloud-upload mx-2"></i>
+                        <small>ارسال</small>
+                    </button> 
+                    <button type="button" class="btn btn-outline-dark " onclick="document.querySelector('#offer{{$feed->id}}').classList.toggle('hidden')">
+                        <i class="bi bi-x mx-2"></i>
+                        <small>أغلاق</small>
+                    </button>
                 </div>
             </div>
         </div>                      
