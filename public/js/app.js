@@ -1,5 +1,5 @@
 window.addEventListener('offline', () => notify('لايوجد اتصال بالانترنت', 'r', 'عذرا'));
-window.addEventListener('online', () => notify('تم الأتصال', 'g', 'حسنا'));
+window.addEventListener('online', () => notify('تم الأتصال بالشبكة', 'g', 'حسنا'));
 
 if ("serviceWorker" in navigator) {
     window.addEventListener('load', () => {

@@ -15,7 +15,7 @@
 
                         <!-- Email Address -->
                         <div>
-                            <x-label for="name" :value="__('أسم المستخدم')" />
+                            <x-label for="name" :value="__('اسم المستخدم')" />
 
                             <x-input id="name" class="form-control-light w-50 m-auto" type="text" name="name" :value="old('name')" required autofocus autocomplete="name"/>
                         </div>
