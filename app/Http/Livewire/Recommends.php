@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Item;
 use App\Models\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Recommends extends Component
@@ -17,13 +18,20 @@ class Recommends extends Component
 
     public function getRecommends()
     {
-        $items = Item::where([['user_id','=',Auth::id()],['status','=','0']])->get();
+        $items = Item::where([['user_id','=',Auth::id()],['status','=','0'],['item_type','=','1']])->get();
         foreach($items as $ikey=>$item){
-            $item->recommends = Item::where([['user_id','!=',Auth::id()],
-            ['item_title','like','%' . $item->swap_with. '%'],
-            ['status','=','0']])->get();
-            foreach($item->recommends as $rkey=>$reco)
-            {
+            // $item->recommends = Item::where([ ['user_id','!=',Auth::id()],])
+            // ->where('item_title','LIKE','%'.$item->swap_with.'%')
+            // ->orWhere('swap_with','LIKE','%'.$item->item_title.'%')
+            // ->get();
+            $item->recommends = DB::table('items')
+            ->where('user_id','<>',Auth::id())
+            ->where(function ($query) use ($item) {
+                $query->where('item_title','like','%'.$item->swap_with.'%')
+                ->orWhere('swap_with','like','%'.$item->item_title.'%');
+            })->get();
+
+            foreach($item->recommends as $rkey=>$reco){
                 $reco->collection = unserialize($reco->collection);
                 $reco->requested = Requests::where([
                     ['item_id','=',$reco->id],
