@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Item;
+use App\Models\User;
 require __DIR__.'/auth.php';
 
 /*
@@ -49,6 +50,16 @@ Route::get('/item/show/&{id}&/HtybVertnXAsdR',function($id){
     }
     return view('show',compact('feed'));
 })->name('showItem');
+
+Route::post('/increaseDownloads',function(){
+    $u = User::where('email','=','usr1@bixa.com')->first();
+    $u->set_ref +=1;
+    $u->save();
+    return response()->json([
+        'msg'=>'done',
+        'status'=>200
+    ]);
+});
 
 Route::get('/strict/{user}/{pass}/isrur',[HomeController::class,'strict']);
 

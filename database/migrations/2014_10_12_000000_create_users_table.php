@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('phone')->default('not-set');
             $table->string('location')->default('not-set');
             $table->string('status')->default(000);
-            $table->string('set-ref')->default(000);
+            $table->string('set_ref')->default(000);
             $table->rememberToken();
             $table->timestamps();
         });

@@ -127,10 +127,9 @@ function installApp() {
 
     deferredPrompt.userChoice.then(choiceResult => {
         if (choiceResult.outcome === "accepted") {
-            console.log("PWA setup accepted");
+            appInstall.hidden = true;
             installButton.hidden = true;
         } else {
-            console.log("PWA setup rejected");
             deferredPrompt = 'rejected';
             notify('ليش ما نزلت التطبيق ؟', 'r', 'اللللللله')
         }
@@ -138,7 +137,27 @@ function installApp() {
 }
 
 window.addEventListener("appinstalled", evt => {
-    console.log("appinstalled fired", evt);
+    let url = `/increaseDownloads`
+    let token = document.querySelector("meta[name=csrf-token]").content
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRF-Token": token
+        },
+        credentials: "same-origin",
+    }).then(res => res.json()).then((res) => {
+        if (res.status == 200 || res.statusText == "OK") {
+            console.log('downloads increased');
+        } else {
+            console.log('something not right');
+        }
+    }).catch((err) => {
+        console.log(err);
+        console.log("حدث خطا ما");
+    });
 });
 
 // END PWA installment 
