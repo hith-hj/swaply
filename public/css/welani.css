@@ -240,3 +240,20 @@ body {
 .mb-2 {
     margin-bottom: .2rem;
 }
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    color: #fff;
+    text-align: center;
+    min-height: 5rem;
+    min-width: 100vw;
+    background-color: #2b462a;
+}
+
+footer a {
+    color: #81CB80;
+    text-decoration: none;
+}

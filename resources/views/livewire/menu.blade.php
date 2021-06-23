@@ -241,7 +241,9 @@
 
                 <input name="swap_with" type="text" id="swap_with" placeholder="هتبدل بأيه" class="form-control mb-1 ani ani_fadeIn" title="الاسم واضح"  autocomplete="off" required>
 
-                <input id="item_price" type="text" inputmode="numeric" name="amount" class="form-control  ani ani_fadeIn" title="اختياري" placeholder="فرق السعر (اختياري)"  autocomplete="off" 
+                <input id="item_price" type="text" inputmode="numeric" name="amount" class="form-control  ani ani_fadeIn" title="اختياري" placeholder="فرق السعر (اختياري)"  autocomplete="off" >
+                
+                {{-- <input id="item_price" type="text" inputmode="numeric" name="amount" class="form-control  ani ani_fadeIn" title="اختياري" placeholder="فرق السعر (اختياري)"  autocomplete="off" 
                 onchange="
                     setTimeout(()=>{
                         let item_type = document.querySelector('#item_type');
@@ -265,7 +267,7 @@
                         }
                     },300);
                 ">
-                <small id="swaply_percent" style="font-size: 10px" class=" ani ani_fadeIn" hidden> سوابلي سوف يضيف 5% على سعر الغرض</small>
+                <small id="swaply_percent" style="font-size: 10px" class=" ani ani_fadeIn" hidden> سوابلي سوف يضيف 5% على سعر الغرض</small> --}}
                 
                 {{-- <div class="location mb-1">
                     <button id="setLocation" type="button" class="btn text-muted cursor glow" tabindex="0" onclick="setItemLocation()">إضافة عنوان اخر</button>

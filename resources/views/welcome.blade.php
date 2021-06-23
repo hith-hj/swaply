@@ -70,7 +70,16 @@
                 @endguest
             </div>
         </div>
+
+       
         
     </div>
+    <footer class="container text-center mt-5">
+        <h6 class="email">
+            راسلنا على البريد الألكتروني <br>
+            <a href="mailto:swaply.co@gmail.com">swaply.co@gmail.com</a>
+        </h6>
+        <small>Swaply &copy; 2021 </small>
+    </footer>
 </body>
 </html>
