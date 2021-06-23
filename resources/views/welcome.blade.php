@@ -6,16 +6,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#9decae" />
-    <link rel="shortcut icon" href="imgs/new-logo.png" type="image/x-icon" />
-    <link rel="apple-touch-icon-precomposed" href="imgs/new-logo.png" />
-    <title>swaply</title>
     <meta property="og:url"           content="https://www.swap-ly.com/" />
     <meta property="og:type"          content="website" />
     <meta property="og:title"         content="Swaply" />
     <meta property="og:description"   content="swaply Emall" />
     <meta property="og:locale"   content="ar_EG" />
-    <meta property="og:image"         content="{{asset('imgs/new-logo.png')}}" />
-    <!-- Styles -->
+    <meta property="og:image"         content="{{asset('favicon.ico')}}" />
+    <link rel="shortcut icon" href="{{asset('favicon.ico')}}" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="{{asset('favicon.ico')}}" />
+    <title>swaply</title>
     <link href="css/welani.css" rel="stylesheet" />
 </head>
 

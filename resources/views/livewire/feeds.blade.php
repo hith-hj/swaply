@@ -50,11 +50,11 @@
                                                 <i class="bi bi-three-dots-vertical"></i>
                                             </span>
                                             <ul class="dropdown-menu "  aria-labelledby="options">
-                                                <li class="cursor dropdown-item" wire:click="savePost('{{$feed->id}}','{{$feed->user_id}}')"><i class="bi bi-save"></i> <span>حفظ</span></li>
-                                                <li class="cursor dropdown-item" wire:click="$emit('copyUrl',['{{$feed->id}}'])"><i class="bi bi-clipboard-plus"></i> <span>نسخ الرابط</span></li>
-                                                <li class="cursor dropdown-item mb-0" onclick="
-                                                document.querySelector(`#report_modal{{$feed->id}}`).classList.toggle('hidden');
-                                                "><i class="bi bi-flag cr"></i> <span>تبليغ المنشور</span></li>
+                                                <li class="cursor dropdown-item" wire:click="savePost('{{$feed->id}}','{{$feed->user_id}}')"><i class="bi bi-save"></i> <span>حفظ</span></li>                                                
+                                                <li class="cursor dropdown-item" onclick="sharePost('{{$feed->id}}','{{$feed->item_title}}')"><i class="bi bi-share"></i> مشاركة</li>
+                                                <li class="cursor dropdown-item mb-0" onclick="document.querySelector(`#report_modal{{$feed->id}}`).classList.toggle('hidden');">
+                                                    <i class="bi bi-flag cr"></i> <span>تبليغ المنشور</span>
+                                                </li>
                                             </ul>
                                         @endif
                                     </div>
@@ -105,6 +105,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div id="report_modal{{$feed->id}}" class="hidden w-95 mx-auto mt-0 z-100">
                     <hr>
                     <div class="modal-body">
@@ -118,13 +119,21 @@
                         <label for="" class="form-label">وضح لنا الأساءة</label>
                         <textarea class="form-control my-1" wrap="hard" wire:model.defer="repo.info" rows="2"></textarea>
                     </div>
-                    <div class="modal-footer justify-content-center">
-                        
-                        <button type="button" class="sbtn sbtn-txt mx-1" wire:click="report('{{$feed->id}}','{{$feed->user_id}}')"><span>ارسال</span></button>
-                        <button type="button" class="sbtn sbtn-txt mx-3" data-bs-dismiss="modal" wire:click="resetReport()"><span>أغلاق</span></button>
+                    <div class="modal-footer justify-content-center btn-group">                        
+                        <button type="button" class="btn btn-outline-danger mx-1" wire:click="report('{{$feed->id}}','{{$feed->user_id}}')"><span>ارسال</span></button>
+                        <button type="button" class="btn btn-outline-dark mx-3" data-bs-dismiss="modal" wire:click="resetReport()"><span>أغلاق</span></button>
                     </div>
                 </div>
                 
+                <div id="share{{$feed->id}}" class="hidden w-100">
+                    <div class="modal-body text-center">
+                        <small class="sbtn sbtn-txt" onclick="document.querySelector('#share{{$feed->id}}').classList.toggle('hidden')">إغلاق</small><br>                     
+                        <small class="cursor mx-2" wire:click="$emit('copyUrl',['{{$feed->id}}'])">
+                            <i class="bi bi-clipboard-plus"></i> <span>نسخ الرابط</span>
+                        </small>                       
+                    </div>
+                </div>
+
                 @if(Auth::user()->id != $feed->user_id)
                     @switch($feed->item_type)
                         @case('1')

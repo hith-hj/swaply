@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
     <head>
-        <link rel="manifest" href="{{asset('manifest.webmanifest')}}">
-        <meta charset="utf-8">
-        <meta name="theme-color" content="#9decae">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <meta name="viewport" content="width=device-width,initial-scale=1.0">
-        <meta name="description" content="a site for swaping items freely or almost"> 
+        <link rel="manifest" href="{{asset('manifest.webmanifest')}}"/>
+        <meta charset="utf-8"/>
+        <meta name="theme-color" content="#9decae"/>
+        <meta name="csrf-token" content="{{ csrf_token() }}"/>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+        <meta name="description" content="a site for items trading freely or almost"/> 
         <meta name="auther" content="bixa">
         <meta property="og:url"           content="https://www.swap-ly.com/" />
         <meta property="og:type"          content="website" />
@@ -36,8 +36,8 @@
             }           
         </script>
 
-        <link rel="shortcut icon" href="{{asset('imgs/new-logo.png')}}" type="image/x-icon" />
-        <link rel="apple-touch-icon" href="{{asset('imgs/new-logo.png')}}" />
+        <link rel="shortcut icon" href="{{asset('favicon.ico')}}" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="{{asset('favicon.ico')}}" />
         <title>swaply | home</title>        
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
         <link rel="stylesheet" href="{{asset('css/lib.css')}}"> 

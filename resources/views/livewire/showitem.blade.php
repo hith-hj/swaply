@@ -19,12 +19,11 @@
                                         <i class="bi bi-three-dots-vertical"></i>
                                     </span>
                                     <ul class="dropdown-menu" aria-labelledby="options">
+                                        <li class="cursor dropdown-item"onclick="sharePost('{{$feed->id}}','{{$feed->item_title}}')"><i class="bi bi-share"></i> <span> مشاركة</span></li>
                                         @if($feed->user_id != Auth::user()->id)
                                             <li class="cursor dropdown-item" wire:click="savePost('{{$feed->id}}')"><i class="bi bi-save"></i> <span>حفظ</span></li>
-                                            <li class="cursor dropdown-item" wire:click="$emit('copyUrl',['{{$feed->id}}'])"><i class="bi bi-clipboard-plus"></i> <span>نسخ الرابط</span></li>
-                                            <li class="cursor dropdown-item" onclick="document.querySelector('#report{{$feed->id}}').classList.toggle('hidden')"><i class="bi bi-flag cr"></i> <span>تبليغ إساءة</span></li>
+                                            <li class="cursor dropdown-item" onclick="document.querySelector('#report{{$feed->id}}').classList.toggle('hidden')"><i class="bi bi-flag cr"></i> <span>تبليغ المنشور</span></li>
                                         @else 
-                                            <li class="cursor dropdown-item" wire:click="$emit('copyUrl',['{{$feed->id}}'])"><i class="bi bi-clipboard-plus"></i> <span>نسخ الرابط</span></li>
                                             @if($feed->status == 0)
                                                 <li class="cursor dropdown-item" onclick="document.querySelector('#edit{{$feed->id}}').classList.toggle('hidden')" ><i class="bi bi-pencil-square"></i> <small> تعديل المنشور</small></li>
                                                 <li class="cursor dropdown-item" onclick="document.querySelector('#delete{{$feed->id}}').classList.toggle('hidden')" ><i class="bi bi-trash cr"></i> <small>حذف المنشور</small></li>
@@ -32,6 +31,15 @@
                                         @endif
                                     </ul>
                                 @endif
+                            </div>
+                        </div>
+
+                        <div id="share{{$feed->id}}" class="hidden w-100">
+                            <div class="modal-body text-center">
+                                <small class="sbtn sbtn-txt" onclick="document.querySelector('#share{{$feed->id}}').classList.toggle('hidden')">إغلاق</small><br>                     
+                                <small class="cursor mx-2" wire:click="$emit('copyUrl',['{{$feed->id}}'])">
+                                    <i class="bi bi-clipboard-plus"></i> <span>نسخ الرابط</span>
+                                </small>                       
                             </div>
                         </div>
 

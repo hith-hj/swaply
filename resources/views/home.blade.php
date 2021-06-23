@@ -56,7 +56,7 @@
                                                             $temp = getimagesize( 'assets/items/'.$feed->directory.'/'.$feed->collection[0] );
                                                             $height = $temp[1] > 720 ? '45%':'100%';
                                                         @endphp
-                                                        <img class="" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" width="{{$height}}" >
+                                                        <img class="" src="{{asset('assets/items/'.$feed->directory.'/'.$feed->collection[0])}}" alt="{{$feed->item_type}}" width="{{$height}}" height="65px" >
                                                     @else 
                                                         <img class="glow px-1" src="{{asset('assets/fto/dark-logo.png')}}" alt="{{$feed->item_type}}" width="100%" >
                                                     @endif
