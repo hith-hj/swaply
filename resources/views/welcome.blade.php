@@ -9,6 +9,12 @@
     <link rel="shortcut icon" href="imgs/new-logo.png" type="image/x-icon" />
     <link rel="apple-touch-icon-precomposed" href="imgs/new-logo.png" />
     <title>swaply</title>
+    <meta property="og:url"           content="https://www.swap-ly.com/" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="Swaply" />
+    <meta property="og:description"   content="swaply Emall" />
+    <meta property="og:locale"   content="ar_EG" />
+    <meta property="og:image"         content="{{asset('imgs/new-logo.png')}}" />
     <!-- Styles -->
     <link href="css/welani.css" rel="stylesheet" />
 </head>

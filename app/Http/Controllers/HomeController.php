@@ -59,8 +59,7 @@ class HomeController extends Controller
             "item_img" => "required|array",
             "item_img.*" => "max:5000000",
         ]);
-        if($vali->fails())
-        {
+        if($vali->fails()) {
             $ara =  'اما المعلومات المدخلة غير صحيحة او غير مناسبة';
             $msg = var_dump($vali->getMessageBag()) ?? $ara;
             dd($msg);
@@ -77,10 +76,9 @@ class HomeController extends Controller
             array_push($collection,$nameToStore);
         }
 
-        if($data['item_type'] == '2')
-        {
-            $data['amount'] += $data['amount'] *0.05;
-        }
+        // if($data['item_type'] == '2'){
+        //     $data['amount'] += $data['amount'] *0.05;
+        // }
 
         $item = new Item();
         $item->user_id = Auth::id();

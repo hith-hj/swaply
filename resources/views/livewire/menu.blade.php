@@ -143,13 +143,13 @@
                     <div class="dropdown-menu ani ani_fadeIn ani_faster px-1">
                         <div class="card">
                             <ul class="" style="list-style: none;padding:0;">
-                                {{-- <li class="cursor" wire:click="$emitTo('body','changeBody','recommends')">
+                                <li class="cursor" wire:click="$emitTo('body','changeBody','recommends')">
                                     <span class="dropdown-item" > 
                                         @if($user->recommends > 0)
                                             <span class="bi bi-dot red-alert icon-15"></span>
                                         @endif
                                         <i class="bi bi-bookmark-plus"></i> <span>تطابقات</span> </span>
-                                </li> --}}
+                                </li>
                                 <li class="cursor" wire:click="$emitTo('body','changeBody','swaps')">
                                     <span class="dropdown-item" > <i class="bi bi-arrow-down-up"></i> <span>مبادلات</span> </span>
                                 </li>

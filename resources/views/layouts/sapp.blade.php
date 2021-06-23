@@ -8,6 +8,13 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <meta name="description" content="a site for swaping items freely or almost"> 
         <meta name="auther" content="bixa">
+        <meta property="og:url"           content="https://www.swap-ly.com/" />
+        <meta property="og:type"          content="website" />
+        <meta property="og:title"         content="Swaply" />
+        <meta property="og:description"   content="swaply Emall" />
+        <meta property="og:locale"   content="ar_EG" />
+        <meta property="og:image"         content="{{asset('imgs/new-logo.png')}}" />
+
         @auth
             <meta name="logged" content="{{Auth::user()->name}}">
         @else
