@@ -1,7 +1,6 @@
 <div>
     <div class="alert alert-light ani ani_slideInDown p-0 m-0 mt-1 mb-1" role="alert">
         <h3>منشوراتي</h3>
-        <p> الأغراض التي قمت بنشرها </p>
     </div>
     @forelse ($feeds as $feed)
         <div class="col mt-5px ani ani_fadeIn ani_faster {{$feed->status == 1 ? 'br-success' : ''}}" >

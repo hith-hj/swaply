@@ -74,8 +74,8 @@
        
         
     </div>
-    <footer class="container text-center mt-5">
-        <h6 class="email">
+    <footer >
+        <h6>
             راسلنا على البريد الألكتروني <br>
             <a href="mailto:swaply.co@gmail.com">swaply.co@gmail.com</a>
         </h6>
