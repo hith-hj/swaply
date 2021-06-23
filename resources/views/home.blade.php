@@ -21,7 +21,7 @@
                             @if (Route::has('register'))
                                 <a class="btn btn-outline-success px-3" href="{{ route('register') }}">اشتراك</a>
                             @endif
-                        </div>                        
+                        </div>
                     </div>
                 </div>
                 <div id="feedsBody">
