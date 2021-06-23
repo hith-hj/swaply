@@ -75,7 +75,7 @@
                                 <ol style="list-style: arabic-indic;" class="px-4">
                                     <li class="py-2">قابل البايع في مكان عام  <strong> هام جدا </strong> </li>
                                     <li class="py-2">خد حد معاك وانت رايح تقابل اي حد</li>
-                                    <li class="py-2"> عاين المنتج كويس قبل ما تشتري وتأكد ان سعره مناسب</li>
+                                    <li class="py-2"> عاين الحاجة كويس قبل ما تشتري وتأكد منها</li>
                                 </ol>
                             </li>
                             {{-- <li></li> --}}
