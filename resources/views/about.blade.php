@@ -55,7 +55,7 @@
       <div class="mt-5">
 
         <div class="row col-10 m-auto  mb-5">
-          <div class="col-lg-6 col-md-12">
+          <div class="col-lg-8 col-md-12">
             <h2 class="">سوابلي <span class="text-muted"> جديد جديد بس من عنا </span></h2>
             <p class="lead">سوابلي هو موقع جديد حتى تبيع و تبدل وتشتري الأغراض المستعملة لكن يفرق عن باقي المواقع بعدد من الميزات الجديدة</p>
             <ol style="list-style: arabic-indic" class="mx-5 mt-2 mb-4 ">
@@ -73,7 +73,7 @@
               </li>
             </ol>
           </div>
-          <div class="col-lg-6 col-md-12 text-center">
+          <div class="col-lg-4 col-md-12 text-center">
             @include('comps.logo')
           </div>
         </div>
