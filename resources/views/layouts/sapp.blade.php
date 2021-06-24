@@ -11,9 +11,9 @@
         <meta property="og:url"           content="https://www.swap-ly.com/" />
         <meta property="og:type"          content="website" />
         <meta property="og:title"         content="Swaply" />
-        <meta property="og:description"   content="swaply Emall" />
+        <meta property="og:description"   content="swap sell buy donate simply" />
         <meta property="og:locale"   content="ar_EG" />
-        <meta property="og:image"         content="{{asset('imgs/new-logo.png')}}" />
+        <meta property="og:image"         content="{{asset('favicon.ico')}}" />
 
         @auth
             <meta name="logged" content="{{Auth::user()->name}}">

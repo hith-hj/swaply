@@ -580,13 +580,12 @@ function sharePost(id, text) {
     // document.querySelector(`#share${id}`).classList.toggle('hidden');
     if (navigator.share) {
         navigator.share({
-                title: 'انضم لسوابلي | خلي الكل يستفيد',
-                text: text,
-                url: '/item/show/&' + id + '&/HtybVertnXAsdR',
-            }).then(() => {
-                console.log('Thanks for sharing!');
-            })
-            .catch(console.error);
+            title: 'انضم لسوابلي | خلي الكل يستفيد',
+            // text: text,
+            url: '/item/show/&' + id + '&/HtybVertnXAsdR',
+        }).then(() => {
+            console.log('Thanks for sharing!');
+        }).catch(console.error);
     } else {
         document.querySelector(`#share${id}`).classList.toggle('hidden');
     }
