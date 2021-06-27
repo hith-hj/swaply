@@ -13,7 +13,7 @@
         <meta property="og:title"         content="Swaply" />
         <meta property="og:description"   content="swap sell buy donate simply" />
         <meta property="og:locale"   content="ar_EG" />
-        <meta property="og:image"         content="{{asset('favicon.ico')}}" />
+        <meta property="og:image"         content="{{asset('imgs/new-logo.png')}}" />
 
         @auth
             <meta name="logged" content="{{Auth::user()->name}}">

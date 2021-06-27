@@ -98,7 +98,7 @@
                                 <a class="link-text btn btn-outline-success" href="{{ route('register') }}">اشتراك</a>
                             @endif                                   
                         @else 
-                            <a class="link-text" href="{{ url('/home') }}">الرئيسية</a>              
+                            <a class="link-text btn btn-outline-success" href="{{ url('/home') }}">الرئيسية</a>              
                         @endguest
                         {{-- <a class="link-text btn btn-outline-success" href="{{ route('login') }}">تسجيل دخول</a> --}}
                     </div>
