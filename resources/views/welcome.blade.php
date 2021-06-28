@@ -62,12 +62,10 @@
     
                 @guest
                     <div class="row">
-                        <a class="link-text" href="{{ url('/peek') }}">إطلاع</a><br>
-                    
-                        <a class="link-text" href="{{ route('login') }}">تسجيل دخول</a>
-
+                        <a class="link-text" href="{{ route('login') }}">دخول</a>
+                        <a class="link-text" href="{{ url('/peek') }}">إطلاع</a>
                         @if (Route::has('register'))
-                            <a class="link-text" href="{{ route('register') }}">اشتراك</a>
+                            <a class="link-text" href="{{ route('register') }}">إشتراك</a>
                         @endif
                     </div>
                 @else 

@@ -576,7 +576,7 @@ textarea::selection {
 
 .notification {
     position: fixed;
-    z-index: 6;
+    z-index: 8;
     left: 1.8rem;
     background: #f5fdf6f8;
     border-radius: .25rem;
