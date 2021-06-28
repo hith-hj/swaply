@@ -62,6 +62,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'pekias' => [
+            'driver' => 'local',
+            'root' => public_path('assets/pekias'),
+            'url' => env('APP_URL').'/public/assets/pekias',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
