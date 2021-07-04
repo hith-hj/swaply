@@ -16,7 +16,7 @@
                                 <div class="col-8">
                                     <h5>{{$user->name}}</h5>
                                 </div>
-                                <div class="col-3 offset-1">
+                                <div class="col-4 text-left">
                                     {{-- <span class="cursor icon-1 link-dark" onclick="document.querySelector('#editMyInfoModal').classList.toggle('hidden')"><i class="bi bi-pencil-square"></i></span> --}}
                                     <span id="darkTheme" class="m-1 cursor icon-1 link-dark {{$theme == 'dark' ? 'hidden' : '' }}" onclick="
                                         document.querySelector('#darkTheme').classList.add('hidden');
@@ -33,20 +33,22 @@
                             </div>
                             <hr>
                             <div class="card-body">
-                                <div class="mb-0 text-muted row">
-                                    @if(strpos($user->email,"mail.com") != false)
-                                        <div class="col">
-                                            <small><i class="bi bi-envelope"></i> {{$user->email}}</small>
-                                            <small class="mx-1">
-                                                <i onclick="document.querySelector('#setEmailModal').classList.toggle('hidden')" class="bi bi-pencil-square"></i>
-                                            </small>
+                                <div class="text-muted row p-0">
+                                    @if(strpos($user->email,"@Swaply.com") != false)
+                                    <div class="row p-0">
+                                        <div class="col-10">
+                                            <i class="bi bi-envelope"></i> {{$user->email}}
                                         </div>
+                                        <div class="col-2 text-left">
+                                            <i onclick="document.querySelector('#setEmailModal').classList.toggle('hidden')" class="bi bi-pencil-square"></i>
+                                        </div>
+                                    </div>
                                     @else 
                                         <small><i class="bi bi-envelope"></i> {{$user->email}}</small>
                                     @endif                                    
                                 </div>                                
-                                <div class="mb-0 text-muted"><i class="bi bi-phone"></i> {{$user->phone}}</div>
-                                <div class="mb-0 text-muted"><i class="bi bi-geo-alt"></i> {{$user->location}}</div>  
+                                <div class="text-muted"><i class="bi bi-phone"></i> {{$user->phone}}</div>
+                                <div class="text-muted"><i class="bi bi-geo-alt"></i> {{$user->location}}</div>  
                                 <div class="row">
                                     {{--
                                         <div class="col">

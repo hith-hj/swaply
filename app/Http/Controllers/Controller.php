@@ -73,7 +73,7 @@ class Controller extends BaseController
             ]);
             $user = User::create([
                 'name' => $req->name,
-                'email'=> $req->name.'@mail.com',
+                'email'=> $req->name.'@Swaply.com',
                 'password' => Hash::make($req->password),
                 'status' => 'new',
             ]);
