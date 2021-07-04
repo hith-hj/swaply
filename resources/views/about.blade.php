@@ -2,7 +2,7 @@
 @section('content')
   <div>
     
-    <main class="w-100 ani ani_fadeIn" style="max-height:85vh;overflow: scroll !important;padding-bottom:1rem;background: #011e39;color:#fff">
+    <main class="w-100 ani ani_fadeIn" style="max-height:88vh;overflow: scroll !important;padding-bottom:1rem;background: #011e39;color:#fff">
       <div id="myCarousel" class="carousel slide " data-bs-ride="carousel">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -15,7 +15,7 @@
             <div class="container">
               <div style="color: black" class="carousel-caption text-start">
                 <h1>1 ارفع</h1>
-                <h5>طبعا بعد ما تحمل التطبيق <br> صور حاجتك و ارفع الصور عسوابلي</h5>
+                <h5>طبعا بعد ما تحمل التطبيق <br> صور غرضك و انشره عسوابلي</h5>
               </div>
             </div>
           </div>
@@ -24,7 +24,7 @@
             <div class="container">
               <div style="color: black" class="carousel-caption">
                 <h1>2 اطلب</h1>
-                <h5> ارسل طلبات عشان ما تستناش حد يطلب حاجتك</h5>
+                <h5> ارسل طلبات ليش تستنا حد يطلب غرضك</h5>
               </div>
             </div>
           </div>
@@ -33,7 +33,7 @@
             <div class="container">
               <div style="color: black" class="carousel-caption text-end">
                 <h1>3 كرر الخطوات</h1>
-                <h5>عشان تكسب معنا عروضات و خصومات </h5>
+                <h5>مشان تكسب معنا عروضات و خصومات </h5>
                 {{-- <p><a class="btn btn-lg btn-outline-success mt-2" href="#">سجل الأن</a></p> --}}
               </div>
             </div>
@@ -57,18 +57,17 @@
         <div class="row col-10 m-auto  mb-5">
           <div class="col-lg-8 col-md-12">
             <h2 class="">سوابلي <span class="text-muted"> جديد جديد بس من عنا </span></h2>
-            <p class="lead">سوابلي هو موقع جديد حتى تبيع و تبدل وتشتري الأغراض المستعملة لكن يفرق عن باقي المواقع بعدد من الميزات الجديدة</p>
+            <p class="lead">سوابلي هو موقع جديد حتى تبيع و تبدل وتشتري الأغراض المستعملة لكن يفرق عن باقي المواقع </p>
             <ol style="list-style: arabic-indic" class="mx-5 mt-2 mb-4 ">
               <li class="mt-2 mb-2 ">تسهيل العملية عبر تمكين المستخدم من ارسال و استلام الطلبات من خلال المنصة</li>
-              <li class="mt-2 mb-2 ">تمكين المستخدم من ترويج منشوراته عن طريق مشاركة رابط المنشور</li>
+              <li class="mt-2 mb-2 ">تمكين المستخدم من ترويج منشوراته عن طريق مشاركة المنشور</li>
               <li class="mt-2 mb-2 ">تبسيط عملية النشر بتقليل المعلومات المدخلة قدر الأمكان</li>
-              <li class="mt-2 mb-2 ">سوابلي يقدم مقترحات للمستخدم في حال كان تطابقات</li>
-              <li class="mt-2 mb-2 ">احد اهم الميزات هي  المحافظة على سرية المعلومات من خلال 
+              <li class="mt-2 mb-2 ">سوابلي يقدم مقترحات تطابق للمستخدم في حال وجدت</li>
+              <li class="mt-2 mb-2 ">احد اهم الميزات هي المحافظة على سرية المعلومات من خلال 
                 <ol class="px-3 mt-2" style="list-style: arabic-indic">
                   <li class="mt-2 mb-2">ابقاء معلومات المستخدم مخفية  طوال الوقت عن باقي المستخدمين </li>
                   <li class="mt-2 mb-2">لايمكن لأي مستخدم الإطلاع على ملفات المستخدمين الأخرين</li>
                   <li class="mt-2 mb-2">يتم كشف معلومات المستخدم فقط عند اتمام العملية </li>
-                  <li class="mt-2 mb-2">غير ذلك لايمكن للمستخدم من الإطلاع على معلومات مستخدم اخر</li>
                 </ol>
               </li>
             </ol>
@@ -171,17 +170,17 @@
       <div class="alert alert-light ani ani_slideInUp w-100 m-0" role="alert">
         <h5>اشترك او سجل دخول لتحصل على مطلق الصلاحية </h5>
         <div class="row">
-          @guest
-            <div class="col">                
-                <a class="btn btn-outline-success btn-lg" href="{{ route('login') }}">تسجيل دخول</a>
-                <a class="btn btn-outline-success btn-lg" href="{{ url('/peek') }}">إطلاع</a>
-                @if (Route::has('register'))
-                    <a class="btn btn-outline-success btn-lg px-4" href="{{ route('register') }}">اشتراك</a>
-                @endif
-            </div>
-          @else 
-              <a class="link-text" href="{{ url('/home') }}">الرئيسية</a>              
-          @endguest            
+          <div class="col"> 
+            @guest                           
+              <a class="btn btn-outline-success " href="{{ route('login') }}">تسجيل دخول</a>
+              <a class="btn btn-outline-success " href="{{ url('/peek') }}">إطلاع</a>
+              @if (Route::has('register'))
+                  <a class="btn btn-outline-success  px-4" href="{{ route('register') }}">اشتراك</a>
+              @endif              
+            @else 
+              <a class="btn btn-outline-success text-center w-50" href="{{ url('/home') }}">الرئيسية</a>              
+            @endguest 
+          </div>           
         </div>
       </div>
     </header>

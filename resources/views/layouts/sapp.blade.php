@@ -8,12 +8,12 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
         <meta name="description" content="a site for items trading freely or almost"/> 
         <meta name="auther" content="bixa">
-        <meta property="og:url"           content="https://www.swap-ly.com/" />
-        <meta property="og:type"          content="website" />
-        <meta property="og:title"         content="Swaply" />
-        <meta property="og:description"   content="swap sell buy donate simply" />
-        <meta property="og:locale"   content="ar_EG" />
-        <meta property="og:image"         content="{{asset('imgs/new-logo.png')}}" />
+        <meta property="og:url" content="https://www.swap-ly.com/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Swaply" />
+        <meta property="og:description" content="swap sell buy donate simply" />
+        <meta property="og:locale" content="ar_EG" />
+        <meta property="og:image" content="{{asset('imgs/new-logo.png')}}" />
 
         @auth
             <meta name="logged" content="{{Auth::user()->name}}">
@@ -38,7 +38,7 @@
 
         <link rel="shortcut icon" href="{{asset('favicon.ico')}}" type="image/x-icon" />
         <link rel="apple-touch-icon" href="{{asset('favicon.ico')}}" />
-        <title>swaply | home</title>        
+        <title>Swaply</title>        
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
         <link rel="stylesheet" href="{{asset('css/lib.css')}}"> 
         <link rel="stylesheet" href="{{asset('css/bs-icons.css')}}" >
@@ -47,14 +47,11 @@
         @livewireStyles
         
     </head>
-    <body >
-        
+    <body>
         <div id="canvas"></div>
         <main>
             @yield('content')
         </main>
-        <div id="notification" class="notification bottom hidden"></div>
-        
         <div id="app_install" class="notification top ani ani_slideInUp" hidden>            
             <div class="noti noti-bob my-1 ani ani_fadeIn cursor text-center" >
                 <div onclick="document.querySelector('#app_install').hidden = true">
@@ -66,8 +63,10 @@
                 </div>
             </div>
         </div>
-        
+        <div id="notification" class="notification bottom hidden"></div>
+        <div id="network_connection" class="network_connection ani ani_slideInUp hidden"></div>
     </body>
+    
     @livewireScripts
     <script src="{{asset('js/app.js')}}"></script>
     <script src="{{asset('js/popper.min.js')}}" defer></script> 

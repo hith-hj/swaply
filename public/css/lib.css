@@ -31,6 +31,10 @@ body {
     -webkit-tap-highlight-color: transparent;
 }
 
+select {
+    font-family: Cairo;
+}
+
 hr {
     margin: 0.2rem 0;
     color: inherit;
@@ -665,6 +669,7 @@ textarea {
     color: #212529;
     background-color: #fff;
     background-clip: padding-box;
+    -webkit-background-clip: border-box;
     border: 1px solid #ffffffd0;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -1144,6 +1149,7 @@ textarea.form-control-lg {
     list-style: none;
     background-color: #f4fbf0ed;
     background-clip: padding-box;
+    -webkit-background-clip: border-box;
     border: 0.0625rem solid #d3d5d1ed;
     border-radius: 0.25rem;
 }
@@ -1462,6 +1468,7 @@ textarea.form-control-lg {
     color: #212529;
     background-color: #fff;
     background-clip: padding-box;
+    -webkit-background-clip: border-box;
     border: 1px solid #d3d2d2d0;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -1480,6 +1487,7 @@ textarea.form-control-lg {
     color: #212529;
     background-color: #fff;
     background-clip: padding-box;
+    -webkit-background-clip: border-box;
     border: 1px solid #ffffffd0;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -2078,6 +2086,7 @@ textarea.form-control-lg {
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;
+    -webkit-background-clip: border-box;
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 2px;
 }
@@ -2853,6 +2862,10 @@ textarea.form-control-lg {
     text-align: right !important;
 }
 
+.text-left {
+    text-align: left !important;
+}
+
 .text-wrap {
     white-space: normal !important;
 }
@@ -3479,6 +3492,7 @@ textarea.form-control-lg {
     pointer-events: auto;
     background-color: #fff;
     background-clip: padding-box;
+    -webkit-background-clip: border-box;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 0.3rem;
     outline: 0;
@@ -3891,6 +3905,7 @@ textarea.form-control-lg {
     cursor: pointer;
     background-color: #fff;
     background-clip: padding-box;
+    -webkit-background-clip: border-box;
     border: 0;
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent;

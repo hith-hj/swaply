@@ -43,7 +43,7 @@
                                 <div class="col-10 ">
                                     <h5 class="card-title m-0"> <span>{{$feed->item_title}}</span> </h5>
                                 </div>
-                                <div class="col-1 mr-1">
+                                <div class="col-2 text-left">
                                     <div class="d-inline ">
                                         @if($feed->user_id != Auth::user()->id) 
                                             <span class="icon-1 link-dark cursor" id="options{{$loop->index}}" data-bs-toggle="dropdown" aria-expanded="false">
@@ -120,8 +120,8 @@
                         <textarea class="form-control my-1" wrap="hard" wire:model.defer="repo.info" rows="2"></textarea>
                     </div>
                     <div class="modal-footer justify-content-center btn-group">                        
-                        <button type="button" class="btn btn-outline-danger mx-1" wire:click="report('{{$feed->id}}','{{$feed->user_id}}')"><span>ارسال</span></button>
-                        <button type="button" class="btn btn-outline-dark mx-3" data-bs-dismiss="modal" wire:click="resetReport()"><span>أغلاق</span></button>
+                        <button type="button" class="btn btn-outline-danger " wire:click="report('{{$feed->id}}','{{$feed->user_id}}')"><span>ارسال</span></button>
+                        <button type="button" class="btn btn-outline-dark " data-bs-dismiss="modal" wire:click="resetReport()"><span>أغلاق</span></button>
                     </div>
                 </div>
                 

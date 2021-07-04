@@ -8,6 +8,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 
 class RegisteredUserController extends Controller
@@ -43,11 +44,14 @@ class RegisteredUserController extends Controller
             // 'email' => $request->email,
             'email'=> $request->name.'@mail.com',
             'password' => Hash::make($request->password),
+            'status' => 'new',
         ]));
+
+        $cookie = Cookie::forever('_RU', $user->id);
 
         // event(new Registered($user));
         // return redirect(RouteServiceProvider::Verify);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect(RouteServiceProvider::HOME)->withCookie($cookie);;
     }
 }

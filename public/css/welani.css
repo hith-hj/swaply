@@ -56,13 +56,13 @@ body {
 }
 
 #slogan {
-    font-size: 20px;
+    font-size: 18px;
     color: #81CB80;
     text-align: center;
 }
 
 #slogan-header {
-    font-size: 50px;
+    font-size: 35px;
     font-weight: 300;
     color: #81CB80;
     text-align: center;
@@ -93,14 +93,19 @@ body {
     animation: logo-anim 8s ease forwards 1s;
 }
 
-.mt20 {
-    margin-top: 20px;
+.mt-2 {
+    margin-top: .5rem;
 }
 
 .row {
     /* display: inline-flex; */
-    margin-top: 5px;
+    margin-top: .5rem;
     animation: opfill 12s ease-in-out;
+}
+
+.px-addBtn {
+    padding-left: 14% !important;
+    padding-right: 14%!important;
 }
 
 .link {
@@ -146,8 +151,8 @@ body {
     color: #81cb80;
     position: relative;
     text-decoration: none;
-    font-size: 2rem;
-    padding: 0 1rem;
+    font-size: 1.2rem;
+    padding: 0 .5rem;
     background: transparent;
     border: 2px solid #81CB80;
     border-radius: 5px;
@@ -241,7 +246,7 @@ body {
 }
 
 .mb-2 {
-    margin-bottom: .2rem;
+    margin-bottom: .5rem;
 }
 
 footer {

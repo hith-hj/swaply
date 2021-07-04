@@ -1,5 +1,28 @@
-window.addEventListener('offline', () => notify('لايوجد اتصال بالانترنت', 'r', 'عذرا'));
-window.addEventListener('online', () => notify('تم الأتصال بالشبكة', 'g', 'حسنا'));
+window.addEventListener('offline', network_offline);
+window.addEventListener('online', network_online);
+
+function network_offline() {
+    let net = document.querySelector("#network_connection");
+    net.classList.remove('network_green');
+    net.classList.remove('hidden');
+    net.classList.add('network_red');
+    net.innerHTML = '  No Internet Connection  <i class="bi bi-wifi-off" style="color:white !important" ></i>';
+}
+
+function network_online() {
+    let net = document.querySelector("#network_connection");
+    net.classList.remove('network_red');
+    net.classList.add('network_green');
+    net.innerHTML = '  Back Online  <i class="bi bi-wifi" style="color:white !important" ></i>';
+    setTimeout(() => {
+        net.classList.add('hidden');
+    }, 1500);
+}
+window.onload = () => {
+    if (navigator.onLine == false) {
+        network_offline();
+    }
+}
 
 if ("serviceWorker" in navigator) {
     window.addEventListener('load', () => {
@@ -22,7 +45,6 @@ window.addEventListener("DOMContentLoaded", (e) => {
 });
 
 if (location.pathname == '/login') {
-
     let atemps = parseInt(localStorage.getItem('logAte'));
     window.addEventListener('load', (e) => {
         if (localStorage.getItem('user') != null && localStorage.getItem('pass') != null) {
@@ -63,33 +85,9 @@ Livewire.on('resizer', (e) => {
 
 // listener
 
-document.querySelector(".fullPage").addEventListener('click', (e) => {
-    let sub = document.querySelector("#dataForm")
-    if (sub.classList.contains('show') === true) {
-        sub.parentNode.childNodes[1].classList.remove('show');
-        sub.classList.remove('show')
-        resetForm()
-    }
-    let nav = document.querySelector("#navMenu")
-    if (nav.classList.contains("cir-perant") && nav.firstElementChild.classList.contains("hidden") === false) {
-        nav.firstElementChild.classList.add("hidden")
-        let icon = document.querySelector("#cir-icon")
-        icon.classList.remove("rotate")
-    }
-})
-
-window.addEventListener('hide.bs.dropdown', function(e) {
-    // e.preventDefault() || e.target.parentNode.classList.contains('d-inline')
-    if (e.target.parentNode.classList.contains('dataForm')) {
-        e.preventDefault();
-    }
-})
-
-
 window.addEventListener("load", menuView);
 window.addEventListener("resize", menuView);
 let _clicks = 0;
-
 window.addEventListener("click", (e) => {
     _clicks++;
     if (_clicks == 50) {
@@ -173,7 +171,7 @@ function notify(msg, status, head) {
     let body = document.createElement("div");
     let span = document.createElement("span");
     let i = document.createElement("i");
-    i.classList.add('bi', 'bi-x', 'noti-close');
+    i.classList.add('bi', 'bi-x', 'noti-close', 'fs-2');
     i.setAttribute("onclick", 'removeNoti("' + id + '")')
     span.textContent = head;
     header.classList.add('noti-header', 'noti-h' + status);
@@ -200,137 +198,80 @@ function removeNoti(id) {
     }
 }
 
-if (window.location.pathname != "") {
-
-    let icon = document.querySelector("#cir-icon");
-    var supportsPassive = false;
-    try {
-        var opts = Object.defineProperty({}, 'passive', {
-            get: function() {
-                supportsPassive = true;
-            }
-        });
-        window.addEventListener("testPassive", null, opts);
-        window.removeEventListener("testPassive", null, opts);
-    } catch (e) {}
-    if (/Mobi/.test(navigator.userAgent)) {
-        icon.addEventListener("touchstart", toggleCirMenu, supportsPassive ? { passive: true } : false)
-    } else {
-        icon.addEventListener("click", toggleCirMenu, supportsPassive ? { passive: true } : false)
-    }
-
-    function toggleCirMenu() {
-        document.querySelector("#navList").classList.toggle("hidden");
-        icon.classList.toggle("rotate");
-    }
-
+function toggleCirMenu() {
+    document.querySelector("#navList").classList.toggle('hidden');
 }
 
 function menuView() {
     var x = window.innerWidth || window.screenX
-
     let menu = document.querySelector("#navMenu");
     let list = document.querySelector("#navList");
-    if (x < 720) {
-        menu.classList.remove('ver-menu');
-        menu.classList.add('cir-perant');
-        list.classList.remove('ver-list');
-        list.classList.add('cir-list', 'hidden');
-    } else {
-        menu.classList.add('ver-menu');
-        menu.classList.remove('cir-perant');
-        list.classList.add('ver-list');
-        list.classList.remove('cir-list', 'hidden');
-    }
-}
-
-function displayUploadedImages(ev) {
-    let gal = document.querySelector("#imgs_collection");
-    var itag = document.createElement('i');
-    gal.removeAttribute('hidden');
-    gal.classList.remove("hidden");
-    if (gal.hasChildNodes) {
-        while (gal.lastChild) {
-            gal.removeChild(gal.lastChild);
+    if (menu != null && list != null) {
+        if (x < 720) {
+            menu.classList.remove('ver-menu');
+            menu.classList.add('cir-perant');
+            list.classList.remove('ver-list');
+            list.classList.add('cir-list', 'hidden');
+        } else {
+            menu.classList.add('ver-menu');
+            menu.classList.remove('cir-perant');
+            list.classList.add('ver-list');
+            list.classList.remove('cir-list', 'hidden');
         }
-    };
-    let files = ev.target.files;
-    var count = files.length;
-    if (count > 5) {
-        files = [];
-        notify("max 5 images", 'r', 'hold');
-    } else {
-        for (let i = 0; i < files.length; i++) {
-            var div = document.createElement('div');
-            var img = document.createElement('img');
-            div.classList.add('d-inline-block', 'text-center', );
-            img.setAttribute('src', window.URL.createObjectURL(files[i]));
-            img.setAttribute('class', 'uploaded-img animation-fade mx-1');
-            img.setAttribute('width', '85');
-            img.setAttribute('height', '85');
-            img.setAttribute('id', 'img_' + files[i].size);
-            img.setAttribute('name', i);
-            div.appendChild(img);
-            gal.appendChild(div);
-        }
-        itag.setAttribute('class', 'bi bi-arrow-clockwise');
-        itag.setAttribute('onclick', 'clearFilesInput()');
-        gal.appendChild(itag);
-        gal.classList.add('mb-1', 'border-dashed', 'rounded', 'p-1');
-    }
-}
-
-function clearFilesInput() {
-    let imgs = document.querySelector("input[name='item_imgs[]']")
-    imgs.value = null;
-    imgs.files = null;
-    let gal = document.querySelector("#imgs_collection");
-    if (gal.hasChildNodes) {
-        while (gal.lastChild) {
-            gal.removeChild(gal.lastChild);
-        }
-    } else {
-        gal.classList.add('hidden')
-    };
-}
-
-function removeImageFromUploaded(id) {
-    var del = document.querySelector('#img_' + id);
-    var rem = document.querySelector('#rem_' + id);
-    let par = document.querySelector("#imgs_collection");
-
-    del.parentNode.removeChild(del);
-    rem.parentNode.removeChild(rem);
-    if (par.children.length <= 1) {
-        par.classList.add('hidden');
     }
 }
 
 {
-    let sbtn = document.getElementById("submit-form");
-    let spiner = document.getElementById("formLoading");
+    let sbtn;
+    let spiner;
+    let url;
+    let form;
 
-    function AddItem(event) {
+    function AddNew(event, type) {
         event.preventDefault();
+        if (type == 'item') {
+            sbtn = document.getElementById("submit-form");
+            spiner = document.getElementById("formLoading");
+            form = document.getElementById('add-item-form');
+            url = "/addNew/item";
+        } else if (type == 'pekia') {
+            sbtn = document.getElementById("submit-pekia-form");
+            spiner = document.getElementById("pekiaFormLoading");
+            form = document.getElementById('add-pekia-form');
+            // url = "/addPekia";
+            url = "/addNew/pekia";
+        } else {
+            return;
+        }
+
         sbtn.disabled = true;
         spiner.classList.toggle('hidden');
 
-        let form = document.getElementById('add-item-form');
         let data = getData(form);
         if (data == 'isEmpty') {
-            return notify('الرجاء ملئ الحقول المطلوبة ', 'danger');
+            sbtn.disabled = false;
+            spiner.classList.toggle('hidden');
+            return notify('الرجاء ملئ الحقول المطلوبة ', 'r', 'خطأ');
         }
-        let url = "/addItem";
         let method = 'POST';
 
         sendData(url, method, data);
-
     }
 
     function getData(form) {
         let data = new FormData();
         for (let i = 0; i < form.length; i++) {
-            if (form[i].name == 'submit_btn' || form[i].name == 'item_imgs[]') {
+            if (form[i].name == 'user_exact_location') {
+                if (form[i].value == 'null' || form[i].value == '') {
+                    notify('قم بأضافة الموقع', 'r', 'خطا');
+                    return data = 'isEmpty';
+                }
+            }
+            if ((form[i].name == 'item_imgs[]' && form[i].value == '') || (form[i].name == 'pekia_imgs[]' && form[i].value == '')) {
+                notify('قم بأضافة الصور', 'r', 'خطا');
+                return data = 'isEmpty';
+            }
+            if (form[i].name == 'submit_btn' || form[i].name == 'item_imgs[]' || form[i].name == 'pekia_imgs[]' || form[i].name == 'pekia_submit_btn') {
                 continue;
             }
             data.append(form[i].name, form[i].value);
@@ -345,22 +286,27 @@ function removeImageFromUploaded(id) {
             body: data
         }).then(res => res.json()).then((res) => {
             resetForm();
-            if (res.status == 200 || res.statusText == "OK") {
-                Livewire.emit('changeBody', 'items');
-                Livewire.emitTo('feeds', 'getFeeds');
-                sbtn.disabled = false;
-                spiner.classList.add('hidden');
-                return notify("تم اضافة غرضك بنجاح", 'g', 'حسنا');
+            resetPekiaForm();
+            if (res.status == 'done') {
+                if (res.msg == 'pekia') {
+                    Livewire.emitTo('feeds', 'getFeeds');
+                    Livewire.emit('changeBody', 'pekias');
+                    notify("تم ارسال طلب سوابيكيا", 'g', 'حسنا');
+                } else if (res.msg == 'item') {
+                    Livewire.emit('changeBody', 'items');
+                    Livewire.emitTo('feeds', 'getFeeds');
+                    notify("تم اضافة غرضك بنجاح", 'g', 'حسنا');
+                }
             } else {
-                notify(res.msg, 'r', ' حدث خطا ما');
-                sbtn.disabled = false;
-                spiner.classList.add('hidden');
+                notify(res.msg, 'r', 'خطأ');
             }
+            sbtn.disabled = false;
+            spiner.classList.add('hidden');
         }).catch((err) => {
             console.log(err);
             sbtn.disabled = false;
             spiner.classList.add('hidden');
-            return notify("حدث خطا ما . حاول لاحقا", 'r', 'للاسف');
+            notify(err.msg, 'r', 'حدث خطا ما');
         });
     }
 }
@@ -374,6 +320,24 @@ function resetForm() {
     }
     // resetItemLocation();
     let gal = document.querySelector("#imgs_collection");
+    if (gal.hasChildNodes) {
+        while (gal.lastChild) {
+            gal.removeChild(gal.lastChild);
+        }
+    };
+    gal.classList.add("hidden")
+}
+
+function resetPekiaForm() {
+    let pekiaForm = document.querySelector("#add-pekia-form");
+    pekiaForm.reset();
+    let map = pekiaForm.querySelector("#mapholder")
+    if (map.hasChildNodes) {
+        if (map.lastChild != null) {
+            map.removeChild(map.lastChild)
+        }
+    }
+    let gal = document.querySelector("#pekia_collection");
     if (gal.hasChildNodes) {
         while (gal.lastChild) {
             gal.removeChild(gal.lastChild);
@@ -439,29 +403,41 @@ function rememberMe() {
 {
     var max_width = 1200;
     var max_height = 800;
-    var preview = document.querySelector("#imgs_collection");
-    var form = document.getElementById('add-item-form');
+    var preview;
+    var form;
+    let formType = 'item';
 
-    function image_resizer(e) {
+    function image_resizer(e, type) {
         if (!(window.File && window.FileReader && window.FileList && window.Blob)) {
             alert('The File APIs are not fully supported in this browser.');
             return false;
         }
-
+        formType = type;
         readfiles(e.target.files);
     }
 
     function readfiles(files) {
 
-        var existinginputs = document.getElementsByName('item_img[]');
+        if (formType == 'item') {
+            preview = document.querySelector("#imgs_collection");
+            form = document.getElementById('add-item-form');
+            var existinginputs = document.getElementsByName('item_img[]');
+        } else {
+            preview = document.querySelector("#pekia_collection");
+            form = document.getElementById('add-pekia-form');
+            var existinginputs = document.getElementsByName('pekia_img[]');
+        }
+
+
         var existingcanvases = document.getElementsByTagName('canvas');
-        while (existinginputs.length > 0 && existingcanvases > 0) {
+
+        while (existinginputs.length > 0 && existingcanvases.length > 0) {
             form.removeChild(existinginputs[0]);
             preview.removeChild(existingcanvases[0]);
         }
 
         if (files.length > 5) {
-            return notify("max 5 images", 'r', 'hold');
+            return notify("upload 5 images only", 'r', 'Error');
         } else {
             for (var i = 0; i < files.length; i++) {
                 processfile(files[i]);
@@ -491,8 +467,12 @@ function rememberMe() {
                 var resized = resizeMe(image);
                 var newinput = document.createElement("input");
                 newinput.type = 'hidden';
-                newinput.name = 'item_img[]';
                 newinput.value = resized;
+                if (formType == 'item') {
+                    newinput.name = 'item_img[]';
+                } else {
+                    newinput.name = 'pekia_img[]';
+                }
                 form.appendChild(newinput);
             }
         };
@@ -577,7 +557,6 @@ function rateFeed(event, id) {
 }
 
 function sharePost(id, text) {
-    // document.querySelector(`#share${id}`).classList.toggle('hidden');
     if (navigator.share) {
         navigator.share({
             title: 'انضم لسوابلي | خلي الكل يستفيد',
@@ -591,9 +570,82 @@ function sharePost(id, text) {
     }
 }
 
+{
+    let geoInfo;
+
+    function getLocation() {
+        geoInfo = document.querySelector("#geoInfo");
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                showPosition,
+                showError,
+                // Options. See MDN for details.
+                {
+                    enableHighAccuracy: true,
+                    timeout: 5000,
+                    maximumAge: 0
+                });
+        } else {
+            geoInfo.textContent = "معلومات الموقع غير متاحة على هذا المتصفح";
+        }
+    }
+
+    function showPosition(position) {
+        geoInfo.textContent = "تم الحصول على الموقع";
+        let input = document.querySelector("#user_exact_location");
+        input.value = [position.coords.longitude, position.coords.latitude];
+
+        var latlon = position.coords.longitude + "," + position.coords.latitude;
+        var img_url = "https://static-maps.yandex.ru/1.x/?lang=en_US&l=map&pt=" + latlon + "&size=500,350&z=16";
+        document.getElementById("mapholder").innerHTML = "<iframe class='glow border px-1' src='" + img_url + "' width='100%' alt='yandex-Map' ></iframe>";
+    }
+
+    function showError(error) {
+        switch (error.code) {
+            case error.PERMISSION_DENIED:
+                geoInfo.textContent = "تم رفض صلاحية الوصول الي الموقع"
+                break;
+            case error.POSITION_UNAVAILABLE:
+                geoInfo.textContent = "لايمكن اتمام العملية, معلومات الموقع غير متاحة تأكد من اتصالك بالانترنت "
+                break;
+            case error.TIMEOUT:
+                geoInfo.textContent = "انتهاء مهلة الحصول على الموقع اعد المحاولة"
+                break;
+            case error.UNKNOWN_ERROR:
+                geoInfo.textContent = "حدث خطا ما اثناء العملية"
+                break;
+        }
+    }
+}
+
+function getLocationImage(location, pid) {
+    let show = document.querySelector("#showPekiaLocation" + pid);
+    let hide = document.querySelector("#hidePekiaLocation" + pid);
+    show.hidden = true;
+    hide.hidden = false;
+    var img_url = "https://static-maps.yandex.ru/1.x/?lang=en_US&l=map&pt=" + location + "&size=500,350&z=16";
+    document.getElementById("pekiaLocation" + pid).innerHTML = "<iframe class='border' src='" + img_url + "' width='100%' alt='yandex-Map' ></iframe>";
+}
+
+function removeLocationImage(pid) {
+    let show = document.querySelector("#showPekiaLocation" + pid);
+    let hide = document.querySelector("#hidePekiaLocation" + pid);
+    show.hidden = false;
+    hide.hidden = true;
+    document.getElementById("pekiaLocation" + pid).innerHTML = '';
+}
+
+
 // handel pull refresh btn
 
 if (location.pathname == '/home') {
+    document.querySelector("#pagesBody").addEventListener('click', (e) => {
+        let sub = document.querySelector("#navList");
+        if (sub.classList.contains('hidden') === false && sub.parentElement.classList.contains('cir-perant')) {
+            sub.classList.add('hidden');
+        }
+    });
+
     let _startY;
     const inbox = document.querySelector('#feedsBody');
 

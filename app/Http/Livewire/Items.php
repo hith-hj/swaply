@@ -29,6 +29,20 @@ class Items extends Component
         });
     }
 
+    public function completeItemInfo($item_id)
+    {
+        $notis= [['تم اكمال البيانات تم نشر غرضك','g','حسنا'],['اكمل بيانات الموقع الخاصة بك','r','خطأ']];
+        $item = Item::find($item_id);
+        if(!$item || Auth::user()->location == 'not-set'){
+            return $this->emit('notifi',$notis[1]);
+        }
+        $item->status = 0;
+        $item->item_location = Auth::user()->location;
+        $item->save();
+        $this->emit('notifi',$notis[0]);
+        return $this->getItems();
+    }
+
     public function deleteItem($item_id)
     {
         

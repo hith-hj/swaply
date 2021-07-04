@@ -55,13 +55,14 @@
                         </defs>
                     </svg>                     
                 </div> 
-                <div style="margin-top: -20px">
+                <div style="margin-top: -20px;margin-bottom:20px">
                     <h1 id="slogan-header">سوابلي</h1>
-                    <p id="slogan">الكل بيستفيد</p>
+                    <p id="slogan">موقعك حتى تبدل تبيع تشتري تتبرع بسهولة</p>
                 </div>    
     
                 @guest
-                    <div class="row">
+                    <a class="link-text mb-2 px-addBtn" href="{{ route('guestNew') }}">  أضف غرضك </a><br>
+                    <div class="row mt-2">                        
                         <a class="link-text" href="{{ route('login') }}">دخول</a>
                         <a class="link-text" href="{{ url('/peek') }}">إطلاع</a>
                         @if (Route::has('register'))
@@ -69,8 +70,10 @@
                         @endif
                     </div>
                 @else 
-                    <a class="link-text" href="{{ url('/home') }}">الرئيسية</a>              
+                    <a class="link-text" href="{{ route('home') }}">الرئيسية</a>              
                 @endguest
+                  
+                
             </div>
         </div>
 

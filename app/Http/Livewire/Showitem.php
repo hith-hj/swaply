@@ -219,7 +219,8 @@ class Showitem extends Component
         $this->emit('refresh');
     }
 
-    public function setPayment($item,$request, float $percent= 20){
+    public function setPayment($item,$request, float $percent= 20)
+    {
         $amount = $percent == '20' 
         ? $percent 
         : round($item->amount - $item->amount * 0.9525);
@@ -419,6 +420,20 @@ class Showitem extends Component
     {
         $this->report_type = '';
         $this->report_info = '';
+    }
+
+    public function completeItemInfo($item_id)
+    {
+        $notis= [['تم اكمال البيانات تم نشر غرضك','g','حسنا'],['اكمل بيانات الموقع الخاصة بك','r','خطأ']];
+        $item = Item::find($item_id);
+        if(!$item || Auth::user()->location == 'not-set'){
+            return $this->emit('notifi',$notis[1]);
+        }
+        $item->status = 0;
+        $item->item_location = Auth::user()->location;
+        $item->save();
+        $this->emit('notifi',$notis[0]);
+        return $this->getItem($this->item_id);
     }
 
     public function render()

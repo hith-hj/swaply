@@ -53,7 +53,14 @@
                         </div> 
                         <div class="row">
                             <div class="col">
-                                <small class="card-subtitle text-muted m-0" title="نوع المنشور"><i class="mx-1 bi bi-distribute-horizontal"></i><span>{{$feed->item_type == 1 ? 'مبادلة'  :'تبرع' }}</span></small>
+                                @if($feed->status ==1)
+                                    <small class="card-subtitle text-muted mx-1 green_underline"><strong>تم {{$feed->item_type == 1 ? 'التبديل' : ($feed->item_type == 2 ? 'البيع' : 'التبرع')}}</strong></small>
+                                @else 
+                                    <small class="card-subtitle text-muted green_underline" title="نوع المنشور">
+                                        <i class="mx-1 bi bi-distribute-horizontal"></i>
+                                        <span>{{$feed->item_type == 1 ? 'مبادلة' : ($feed->item_type == 2 ? 'بيع' : 'تبرع')}}</span>
+                                    </small>
+                                @endif 
                                 @if($feed->item_type == 1)
                                     <small class="card-subtitle text-muted m-0" title="بديل الغرض"><i class="mx-1 bi bi-arrow-down-up"></i><span>{{substr($feed->swap_with,0,strlen($feed->swap_with) < 30? strlen($feed->swap_with) : strlen($feed->swap_with)/3)}}</span></small>
                                 @endif
@@ -71,14 +78,16 @@
                                         </div>
                                     @endforeach
                                 </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                                <span aria-hidden="true"><i class="bi bi-chevron-right cb"></i></span>
-                                <span class="visually-hidden"></span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                                <span aria-hidden="true"><i class="bi bi-chevron-left cb"></i></span>
-                                <span class="visually-hidden"></span>
-                                </button>
+                                @if(is_countable($feed->collection) &&  count($feed->collection) > 1)
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                        <span aria-hidden="true"><i class="bi bi-chevron-right cb"></i></span>
+                                        <span class="visually-hidden"></span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                        <span aria-hidden="true"><i class="bi bi-chevron-left cb"></i></span>
+                                        <span class="visually-hidden"></span>
+                                    </button>
+                                @endif
                             </div>
                         </div>
                         <hr>

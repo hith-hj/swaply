@@ -11,7 +11,7 @@
                     <i data-bs-dismiss="modal" aria-label="Close" class="bi bi-x" 
                         onclick="document.querySelector('#offer{{$feed->id}}').classList.toggle('hidden')"></i>
                 </div>
-                @if(isset($feed->user_items) && count($feed->user_items) > 0)
+                @if(isset($feed->user_items) && is_countable($feed->user_items) && count($feed->user_items) > 0)
                     <div class="modal-body">                    
                         <label for="" class="form-label">اختر غرضك للتبديل</label>
                         <select class="form-select bg-gray" wire:model.defer="req_item">
@@ -33,7 +33,7 @@
                     </div>
                 @else 
                     <label for="" class="form-label">الرجاء اضافة غرض  قبل ارسال الطلب</label>
-                    <small onclick="document.querySelector('#newItemModal').classList.toggle('hidden')" class="w-50 m-auto py-1 mt-2 mb-2 btn btn-outline-success"> <span>اضغط للإضافة</span></small>
+                    <small wire:click="$emitTo('body','changeBody','create')" class="w-50 m-auto py-1 mt-2 mb-2 btn btn-outline-success"> <span>اضغط للإضافة</span></small>
                 @endif
             </div>
         </div>

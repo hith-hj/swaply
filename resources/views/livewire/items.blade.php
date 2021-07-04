@@ -7,14 +7,20 @@
             <div class="card shadow">
                 <div class="card-body" >
                     <div class="row">
-                        <div class="col-10 ">
+                        <div class="col-9 ">
                             <h5 class="card-title m-0"> <span>{{$feed->item_title}}</span> </h5>
                         </div>
-                        <div class="col-1">
-                            <div class="d-inline ">
-                                <span class="icon-1 link-dark cursor" id="options" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-three-dots-vertical"></i>
-                                </span>
+                        <div class="col-3 text-left">
+                            <div class="d-inline ">                                
+                                @if($feed->status == 'not-complete')
+                                    <span class="icon-1 link-dark cursor" id="complete" wire:click="completeItemInfo('{{$feed->id}}')">
+                                        <i class="bi bi-ui-checks-grid"style=" color: red !important;"></i> أكمل البيانات
+                                    </span>
+                                @else 
+                                    <span class="icon-1 link-dark cursor" id="options" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-three-dots-vertical"></i>
+                                    </span>
+                                @endif
                                 <ul class="dropdown-menu" aria-labelledby="options">
                                     <li class="cursor dropdown-item" wire:click="$emit('copyUrl',['{{$feed->id}}'])"><i class="bi bi-clipboard-plus"></i> <span>نسخ الرابط</span></li>
                                     @if($feed->status == 0)
@@ -27,11 +33,9 @@
                             <hr>
                             <div class="modal-dialog ani ani_fadeIn mx-auto mb-1 mt-1" >
                                 <div class="modal-content">
-                                    <div class="modal-footer justify-content-center">
-                                        <div class="btn-group" >
-                                            <button type="button" class="btn btn-outline-danger " wire:click="deleteItem({{$feed->id}})"><i class="bi bi-trash mx-2"></i><small>حذف</small></button> 
-                                            <button type="button" class="btn btn-outline-dark " onclick="document.querySelector('#delete{{$feed->id}}').classList.toggle('hidden')"><i class="bi bi-x mx-2"></i><small>أغلاق</small></button>   
-                                        </div>
+                                    <div class="modal-footer justify-content-center btn-group">
+                                        <button type="button" class="btn btn-outline-danger " wire:click="deleteItem({{$feed->id}})"><i class="bi bi-trash mx-2"></i><small>حذف</small></button> 
+                                        <button type="button" class="btn btn-outline-dark " onclick="document.querySelector('#delete{{$feed->id}}').classList.toggle('hidden')"><i class="bi bi-x mx-2"></i><small>أغلاق</small></button>   
                                     </div>
                                 </div>
                             </div>

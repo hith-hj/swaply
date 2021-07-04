@@ -13,11 +13,12 @@
     <div class="fullPage">
         <div id="center">
             <div class="body" style="min-height: 99vh">
-                <div class="alert alert-light ani ani_slideInUp w-100 m-0" role="alert">
+                <div class="card shadow text-center ani ani_slideInUp w-100 m-0" role="alert">
                     <h5>اشترك او سجل دخول لتحصل على مطلق الصلاحية </h5>
                     <div class="row">
-                        <div class="col">
+                        <div class="col-12 w-100">
                             <a class="btn btn-outline-success" href="{{ route('login') }}">تسجيل دخول</a>
+                            <a class="btn btn-outline-success px-3" href="{{ route('guestNew') }}">  أضف غرضك </a>
                             @if (Route::has('register'))
                                 <a class="btn btn-outline-success px-3" href="{{ route('register') }}">اشتراك</a>
                             @endif

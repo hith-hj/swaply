@@ -25,6 +25,7 @@ class Body extends Component
     }
 
     public function changeBody($to){
+        $this->emitTo('search','clearInput');
         $cid = 0;
         if(is_array($to)){
             $this->g_id = $to[1];
@@ -35,7 +36,6 @@ class Body extends Component
                 $to = $to[0];
             }
             $this->show = $to;
-            // $to = $to[0];
         }
         $last = [$to,$cid];
         array_push($this->visted,$last);     

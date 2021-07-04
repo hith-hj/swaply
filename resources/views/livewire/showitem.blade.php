@@ -9,10 +9,10 @@
             <div class="card shadow">
                 <div class="card-body" >
                     <div class="row">
-                        <div class="col-10 ">
+                        <div class="col-9 ">
                             <h5 class="card-title m-0"> <span>{{$feed->item_title}}</span> </h5>
                         </div>
-                        <div class="col-1 mr-1">
+                        <div class="col-3 text-left">
                             <div class="d-inline ">
                                 @if($feed->status == 0)
                                     <span class="icon-1 link-dark cursor" id="options" data-bs-toggle="dropdown" aria-expanded="false">
@@ -27,9 +27,13 @@
                                             @if($feed->status == 0)
                                                 <li class="cursor dropdown-item" onclick="document.querySelector('#edit{{$feed->id}}').classList.toggle('hidden')" ><i class="bi bi-pencil-square"></i> <small> تعديل المنشور</small></li>
                                                 <li class="cursor dropdown-item" onclick="document.querySelector('#delete{{$feed->id}}').classList.toggle('hidden')" ><i class="bi bi-trash cr"></i> <small>حذف المنشور</small></li>
-                                            @endif
+                                           @endif
                                         @endif
                                     </ul>
+                                @elseif($feed->status == 'not-complete')
+                                    <span class="icon-1 link-dark cursor" id="complete" wire:click="completeItemInfo('{{$feed->id}}')">
+                                        <i class="bi bi-ui-checks-grid cr" style=" color: red !important;"></i> أكمل البيانات
+                                    </span>
                                 @endif
                             </div>
                         </div>
