@@ -206,7 +206,7 @@
                                 <div class="carousel-inner ">
                                     @foreach ($feed->collection as $img)
                                         <div class="carousel-item {{ $loop->first ? "active" :''}} text-center" style="max-width:75vw; max-height:80vh">
-                                            @if($feed->collection[0] != 'dark-logo.png')
+                                            @if($feed->collection[0] != 'dark-logo.png' && file_exists('assets/items/'.$feed->directory.'/'.$feed->collection[0]) )
                                                 @php
                                                     $temp = getimagesize( 'assets/items/'.$feed->directory.'/'.$img );
                                                     $height = $temp[1] > 700 ? '65%':'90%';

@@ -21,7 +21,7 @@
             "name": "Swaps",
             "short_name": "swaps",
             "description": "View my swaps",
-            "url": "/pwa/swpas",
+            "url": "/pwa/swaps",
             "icons": [{ "src": "/imgs/shortcut.png", "sizes": "96x96" }]
         }
     ],

@@ -1,8 +1,8 @@
 <footer class="footer mt-0 py-1 bg-light float text-center ani ani_slideInUp ani_faster">
     <div class="row w-100">
-        <div class="col-1">
-            <span class="glow" wire:click="$emitTo('body','changeBody','create')">                        
-                <i class="bi bi-plus-square-dotted fs-2 px-1"></i>
+        <div class="col-1 cursor" wire:click="$emitTo('body','changeBody','create')">
+            <span class="glow" >                        
+                <i class="bi bi-plus-square-dotted fs-2 px-3"></i>
             </span>
         </div>
         <div class="col-10">
